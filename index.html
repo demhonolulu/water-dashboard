@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Oahu Water Dashboard</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+</head>
+<body>
+  <div id="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+  <div id="app">
+    <h1>
+        DEM Oahu Water Dashboard
+        <button id="displayButton" onclick="changeDisplayMode()" style="margin-left: 15px; font-weight: bold;">1</button>
+        <span id="timer" style="margin-left: 15px; color: #ffffff;"></span>
+    </h1>
+
+    <section id="sectionTable">
+      <div id="allGaugesTable" style="display: flex; gap: 5px" class="hideable"></div>
+    </section>
+    
+    <section id="sectionButtons">
+      <div class="button-toolbar hideable">
+        <p>Time scale: </p>
+        <button onclick="setRange('hour')">24h</button>
+        <button onclick="setRange('day')">7d</button>
+        <button onclick="reloadData()">Reload</button>
+      </div>
+    </section>
+
+    <section id="sectionGraphs">
+      <table id="allGraphs">
+      </table>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
