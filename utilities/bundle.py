@@ -1,16 +1,16 @@
 import os
 import sys
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
+script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 files = {
     'html':      'index.html',
     'js':        'app.js',
     'css':       'style.css',
-    'locations': 'locations.json',
-    'veoci':     'veoci-export.json',
-    'area':      'area.json',
-    'config':    'config.json',
+    'locations': 'json/locations.json',
+    'veoci':     'json/veoci-export.json',
+    'area':      'json/area.json',
+    'config':    'json/config.json',
 }
 
 print("Reading files...")

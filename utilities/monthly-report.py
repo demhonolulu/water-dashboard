@@ -317,7 +317,7 @@ def main():
             log_print(f"    Max: {stat['max']} at {stat['max_timestamp']}")
             log_print(f"    Records: {stat['count']} (outliers removed: {stat.get('outliers_removed', 0)})")
         
-        update_historic_data('historic-data.json', monitoring_id, monthly_stats)
+        update_historic_data('../json/historic-data.json', monitoring_id, monthly_stats)
         log_print(f"\n✅ Done processing {monitoring_id}!")
         
         if monitoring_id != monitoring_ids[-1]:
