@@ -1,2928 +1,1398 @@
 {
-   "USGS-16279200": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16279200",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16279200",
-        "monitoring_location_name": "Heeia Stream at Haiku Plantations Dr., Oahu, HI",
-        "name_short": "Heeia Stre",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": "91800",
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000205",
-        "basin_code": null,
-        "altitude": 130,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "N",
-        "altitude_method_name": "Interpolated from Digital Elevation Model",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "H",
-        "horizontal_positional_accuracy": "Accurate to + or - .01 sec (Differentially-Corrected GPS).",
-        "horizontal_position_method_code": "N",
-        "horizontal_position_method_name": "Interpolated from digital map",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 1.84,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": null,
-        "revision_created": null,
-        "revision_modified": null,
-        "thresholds": {
-            "base": 2.8,
-            "minor": null,
-            "major": null,
-            "action": null,
-            "notes": "2000"
-        },
-        "grouping": ""
-      },
+  "USGS-16279200": {
+    "type": "Feature",
+    "properties": {
       "id": "USGS-16279200",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.8163941783397,
-          21.41741255720035
-        ]
+      "monitoring_location_number": "16279200",
+      "monitoring_location_name": "Heeia Stream at Haiku Plantations Dr., Oahu, HI",
+      "name_short": "Heeia Stre",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000205",
+      "drainage_area": 1.84,
+      "revision_note": null,
+      "revision_created": null,
+      "revision_modified": null,
+      "thresholds": {
+        "base": 2.8,
+        "minor": null,
+        "major": null,
+        "action": null,
+        "notes": "2000"
       }
     },
-    "USGS-16275000": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16275000",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16275000",
-        "monitoring_location_name": "Heeia Stream at Haiku Valley nr Kaneohe, Oahu, HI",
-        "name_short": "Heeia Stre",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000205",
-        "basin_code": null,
-        "altitude": 271.9,
-        "altitude_accuracy": 0.1,
-        "altitude_method_code": "L",
-        "altitude_method_name": "Level or other surveyed method.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "N",
-        "horizontal_position_method_name": "Interpolated from Digital MAP.",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 0.96,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WSP 935: 1940. WSP 1319: 1916-19(M). WSP 1569: Drainage Area. WSP 1719: 1942-43, 1946(M), 1947, 1949, 1951, 1954(M), 1955, 1957-59. WSP 1937: 1940-45(M), 1947(M), 1948-50(P), 1951, 1952(P), 1953(M), 1955-57(P), 1958-59, 1960(M). WDR HI-10-1: Drainage Area. WDR HI-13-1: Drainage Area.&nbsp; Discharge data revised on March 31, April 1, 5, 6 and 7, 2022 on September 28th, 2023.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2023-09-29T16:42:32.863000+00:00",
-        "thresholds": {
-            "base": 1.1,
-            "minor": 5.0,
-            "major": 7.8,
-            "action": 14.0,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16275000",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.82323584621255,
-          21.409204221604625
-        ]
-      }
-    },
-    "USGS-213308158035601": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-213308158035601",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "213308158035601",
-        "monitoring_location_name": "Helemano 6 Reservoir, Oahu, HI",
-        "name_short": "Helemano 6",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "LK",
-        "site_type": "Lake, Reservoir, Impoundment",
-        "hydrologic_unit_code": "200600000102",
-        "basin_code": null,
-        "altitude": null,
-        "altitude_accuracy": null,
-        "altitude_method_code": null,
-        "altitude_method_name": null,
-        "vertical_datum": null,
-        "vertical_datum_name": null,
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "N",
-        "horizontal_position_method_name": "Interpolated from Digital MAP.",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": null,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": null,
-        "revision_created": null,
-        "revision_modified": null,
-        "thresholds": {
-            "base": 19.5,
-            "minor": null,
-            "major": null,
-            "action": 43,
-            "notes": "2001"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-213308158035601",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -158.0655886823447,
-          21.55235702734568
-        ]
-      }
-    },
-    "USGS-16212490": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16212490",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16212490",
-        "monitoring_location_name": "Honouliuli Str at H-1 Freeway nr Waipahu, Oahu, HI",
-        "name_short": "Honouliuli Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": "90270",
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000404",
-        "basin_code": null,
-        "altitude": 145,
-        "altitude_accuracy": 5,
-        "altitude_method_code": "N",
-        "altitude_method_name": "Interpolated from Digital Elevation Model",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "1",
-        "horizontal_positional_accuracy": "Accurate to + or - .1 sec (Differentially-Corrected GPS).",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 10.6,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "Discharge values from April 12, 2017 to May 21, 2018 were revised on October 22, 2018.&nbsp; Discharge values from May 21, 2018 to July 13, 2018 were revised on June 12, 2019. Suspended Sediment Concentrations were revised from May 3 to May 4, 2016, March 23, 2017, June 15, 2017, and June 6, 2019 on September 16, 2020.",
-        "revision_created": "2018-10-22T23:02:01.997000+00:00",
-        "revision_modified": "2020-09-25T22:08:18.133000+00:00",
-        "thresholds": {
-            "base": 5.1,
-            "minor": null,
-            "major": null,
-            "action": 18.1,
-            "notes": "2001"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16212490",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -158.04478311587846,
-          21.378134762399956
-        ]
-      }
-    },
-    "USGS-16283200": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16283200",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16283200",
-        "monitoring_location_name": "Kahaluu Str nr Ahuimanu, Oahu, HI",
-        "name_short": "Kahaluu Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000204",
-        "basin_code": null,
-        "altitude": 150,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "5",
-        "horizontal_positional_accuracy": "Accurate to + or - .5 sec (PLGR/PPS GPS).",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 0.83,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR HI-01-1: Drainage Area. WDR HI-08-1: 1984-2007 (P). WDR HI-10-1: 2005 (P), Drainage Area.",
-        "revision_created": "2019-10-22T21:05:04.873000+00:00",
-        "revision_modified": "2019-10-22T21:05:04.873000+00:00",
-        "thresholds": {
-            "base": 1.3,
-            "minor": 6.0,
-            "major": 7.9,
-            "action": 7.9,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16283200",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.8438664073581,
-          21.438718117199492
-        ]
-      }
-    },
-    "USGS-16296500": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16296500",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16296500",
-        "monitoring_location_name": "Kahana Str at alt 30 ft nr Kahana, Oahu, HI",
-        "name_short": "Kahana Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000203",
-        "basin_code": null,
-        "altitude": 30,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 3.73,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WSP 1937: 1959-60. WDR HI-10-1: Drainage Area.",
-        "revision_created": "2018-02-02T22:27:37.703000+00:00",
-        "revision_modified": "2019-09-26T20:31:22.770000+00:00",
-        "thresholds": {
-            "base": 4.2,
-            "minor": 10.0,
-            "major": 14.2,
-            "action": 32.2,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16296500",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.8825608639862,
-          21.54060703026554
-        ]
-      }
-    },
-    "USGS-16229000": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16229000",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16229000",
-        "monitoring_location_name": "Kalihi Str nr Honolulu, Oahu, HI",
-        "name_short": "Kalihi Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000304",
-        "basin_code": null,
-        "altitude": 464.4,
-        "altitude_accuracy": 0.1,
-        "altitude_method_code": "L",
-        "altitude_method_name": "Level or other surveyed method.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "N",
-        "horizontal_position_method_name": "Interpolated from Digital MAP.",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 2.56,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WSP 1569: Drainage area. WSP 1719: 1921-22(M), 1923-24, 1925-26(M), 1927-28, 1929-32(M), 1935, 1937,\n1938-39(M), 1943(M), 1948-52(P), 1955-56, 1957-58(M), 1959. WDR HI-10-1: Drainage Area.&nbsp; Discharge data revised January 8 (1405-1805), January 13 (0745-1745), and January 15 (0835-1635), 2023 on April 1, 2024.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2024-04-06T16:56:41.143000+00:00",
-        "thresholds": {
-            "base": 2.5,
-            "minor": 10.0,
-            "major": 13.8,
-            "action": 21.0,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16229000",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.84444973810542,
-          21.363356987285556
-        ]
-      }
-    },
-    "USGS-16304200": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16304200",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16304200",
-        "monitoring_location_name": "Kaluanui Stream nr Punaluu, Oahu, HI",
-        "name_short": "Kaluanui Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000202",
-        "basin_code": null,
-        "altitude": 110,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 1.09,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR HI-10-1: Drainage Area. WDR HI-11-1: 2002-2010 (P). WDR HI-13-1: 2012.&nbsp; Peak data for July 24, August 8, and October 2, 2020 was revised on June 8, 2021.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2021-06-09T23:06:29.683000+00:00",
-        "thresholds": {
-            "base": 3.6,
-            "minor": 11.0,
-            "major": 13.1,
-            "action": 13.1,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16304200",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.90806087124173,
-          21.586107040799657
-        ]
-      }
-    },
-    "USGS-16330000": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16330000",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16330000",
-        "monitoring_location_name": "Kamananui Str at Maunawai, Oahu, HI",
-        "name_short": "Kamananui Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000105",
-        "basin_code": null,
-        "altitude": 20,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "5",
-        "horizontal_positional_accuracy": "Accurate to + or - .5 sec (PLGR/PPS GPS).",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 12.35,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WSP 1937: 1958-60. WRD Hawaii 1974: 1971(P), 1972-73(M). WDR HI-81-1: Drainage Area. WDR HI-10-1: Drainage Area.&nbsp; Discharge data was revised from Dec. 29, 2018 to Jan. 2, 2019 on Sept. 20, 2019.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2019-09-20T23:06:24.567000+00:00",
-        "thresholds": {
-            "base": 2.5,
-            "minor": 10.6,
-            "major": 15.8,
-            "action": 18.5,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16330000",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -158.05458868298575,
-          21.635468159520492
-        ]
-      }
-    },
-    "USGS-16325000": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16325000",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16325000",
-        "monitoring_location_name": "Kamananui Str at Pupukea Mil Rd, Oahu, HI",
-        "name_short": "Kamananui Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000105",
-        "basin_code": null,
-        "altitude": 590,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "N",
-        "horizontal_position_method_name": "Interpolated from Digital MAP.",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 3.15,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR HI-14-1: Drainage Area.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": null,
-        "thresholds": {
-            "base": 1.3,
-            "minor": null,
-            "major": null,
-            "action": 13.5,
-            "notes": "2001"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16325000",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -158.0150053404195,
-          21.6205514904083
-        ]
-      }
-    },
-    "USGS-16274100": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16274100",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16274100",
-        "monitoring_location_name": "Kaneohe Str blw Kamehameha Hwy, Oahu, HI",
-        "name_short": "Kaneohe Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": "91800",
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000205",
-        "basin_code": null,
-        "altitude": 34,
-        "altitude_accuracy": 10,
-        "altitude_method_code": "N",
-        "altitude_method_name": "Interpolated from Digital Elevation Model",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "5",
-        "horizontal_positional_accuracy": "Accurate to + or - .5 sec (PLGR/PPS GPS).",
-        "horizontal_position_method_code": "N",
-        "horizontal_position_method_name": "Interpolated from Digital MAP.",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 5.22,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "Turbidity data was revised from February 28 to May 16, 2019 on May 5, 2020; and March 9, 2021 (1015-1300) and December 6, 2021 (2045-2055) on March 3, 2023.&nbsp; Sediment sample collected on April 26, 2018 (1715) was rejected and removed from the public webpage on March 28, 2025.<br />\nGage height and discharge for the period Apr. 24, 2024, to Oct. 3, 2024, were revised on Jul 17, 2025, based on changes to the gage datum.",
-        "revision_created": "2020-05-06T19:57:24.437000+00:00",
-        "revision_modified": "2025-12-23T17:35:04.590000+00:00",
-        "thresholds": {
-            "base": 16.1,
-            "minor": 24.0,
-            "major": null,
-            "action": 31.0,
-            "notes": "2101"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16274100",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.79811639634883,
-          21.411801445266953
-        ]
-      }
-    },
-    "USGS-16210500": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16210500",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16210500",
-        "monitoring_location_name": "Kaukonahua Str at Waialua, Oahu, HI",
-        "name_short": "Kaukonahua",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000102",
-        "basin_code": null,
-        "altitude": 15,
-        "altitude_accuracy": 5,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 39.26,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR HI-10-1: Drainage Area.  Turbidity data revised from January 13-18, 2021 on April 1, 2022.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2022-04-14T20:11:45.503000+00:00",
-        "thresholds": {
-            "base": 18.7,
-            "minor": 28.0,
-            "major": 29.0,
-            "action": 33.0,
-            "notes": "2121"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16210500",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -158.1203664726055,
-          21.565301473254692
-        ]
-      }
-    },
-    "USGS-16210200": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16210200",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16210200",
-        "monitoring_location_name": "Kaukonahua Stream blw Wahiawa Reservoir, Oahu, HI",
-        "name_short": "Kaukonahua",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000102",
-        "basin_code": null,
-        "altitude": 760,
-        "altitude_accuracy": 10,
-        "altitude_method_code": "N",
-        "altitude_method_name": "Interpolated from Digital Elevation Model",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "1",
-        "horizontal_positional_accuracy": "Accurate to + or - .1 sec (Differentially-Corrected GPS).",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 16.7,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "<p>Turbidity (DTS-12) data was revised from May 18, 2016 to March 29, 2017 on June 26, 2018.&nbsp; </p>\n<p>Discharge data was revised from June 19, 2018 to January 30, 2019 on June 3, 2019.</p>\n<p>Sediment concentrations and loads were revised from August 10, 2020 to September 30, 2020 on March 24, 2022.</p>",
-        "revision_created": "2018-06-26T17:20:01.537000+00:00",
-        "revision_modified": "2022-03-26T02:20:59.807000+00:00",
-        "thresholds": {
-            "base": 6.9,
-            "minor": null,
-            "major": null,
-            "action": 22.2,
-            "notes": "2001"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16210200",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -158.0510886772592,
-          21.500245903717786
-        ]
-      }
-    },
-    "USGS-16211800": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16211800",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16211800",
-        "monitoring_location_name": "Kaupuni Str at alt 374 ft nr Waianae, Oahu, HI",
-        "name_short": "Kaupuni Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": "93600",
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000504",
-        "basin_code": null,
-        "altitude": 374,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "M",
-        "horizontal_position_method_name": "Interpolated from map",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 3.61,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": null,
-        "revision_created": null,
-        "revision_modified": null,
-        "thresholds": {
-            "base": 3.3,
-            "minor": null,
-            "major": null,
-            "action": null,
-            "notes": "2000"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16211800",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -158.15447480987945,
-          21.469065337086263
-        ]
-      }
-    },
-    "USGS-16265000": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16265000",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16265000",
-        "monitoring_location_name": "Kawa Str at Kaneohe, Oahu, HI",
-        "name_short": "Kawa Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": "91800",
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000205",
-        "basin_code": null,
-        "altitude": 50,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "N",
-        "altitude_method_name": "Interpolated from Digital Elevation Model",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "5",
-        "horizontal_positional_accuracy": "Accurate to + or - .5 sec (PLGR/PPS GPS).",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 1.13,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR HI-12-1: Drainage Area.&nbsp; Sediment samples for the following dates were rejected and removed from the public webpage on March 24, 2025:&nbsp; December 6, 2019 (0519), December 13, 2019 (0155, 0645), March 2, 2020 (1900), March 4, 2020 (2035), July 23, 2020 (1157, 1158), and September 16, 2022 (1450).",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2025-03-28T21:01:55.580000+00:00",
-        "thresholds": {
-            "base": 3.7,
-            "minor": 9.5,
-            "major": 17.9,
-            "action": 18.2,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16265000",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.79050528334975,
-          21.405745888441423
-        ]
-      }
-    },
-    "USGS-16264600": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16264600",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16264600",
-        "monitoring_location_name": "Kawainui Marsh nr levee sta 15+00, Oahu, HI",
-        "name_short": "Kawainui Marsh",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000206",
-        "basin_code": null,
-        "altitude": 9.34,
-        "altitude_accuracy": 0.01,
-        "altitude_method_code": "L",
-        "altitude_method_name": "Level or other surveyed method.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 11,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR-HI-03-1: 2002(M).&nbsp;  Gage Height data for the period Dec. 27, 2016 to Apr. 26, 2017 were revised on Jan, 17, 2018.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2018-07-09T21:36:29.957000+00:00",
-        "thresholds": {
-            "base": 5.8,
-            "minor": 7.0,
-            "major": 15.0,
-            "action": 17.2,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16264600",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.7493663850154,
-          21.39416255351478
-        ]
-      }
-    },
-    "USGS-213320158061401": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-213320158061401",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "213320158061401",
-        "monitoring_location_name": "Kemoo 5 Reservoir, Oahu, HI",
-        "name_short": "Kemoo 5 Res",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": "93510",
-        "site_type_code": "LK",
-        "site_type": "Lake, Reservoir, Impoundment",
-        "hydrologic_unit_code": "200600000102",
-        "basin_code": null,
-        "altitude": 285,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "N",
-        "altitude_method_name": "Interpolated from Digital Elevation Model",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": null,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": null,
-        "revision_created": null,
-        "revision_modified": null,
-        "thresholds": {
-            "base": 12.5,
-            "minor": null,
-            "major": null,
-            "action": null,
-            "notes": "2000"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-213320158061401",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -158.10392202419592,
-          21.555468138000858
-        ]
-      }
-    },
-    "USGS-16206600": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16206600",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16206600",
-        "monitoring_location_name": "Koolau Reservoir near Wahiawa, Oahu, HI",
-        "name_short": "Koolau Res",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": "93420",
-        "site_type_code": "LK",
-        "site_type": "Lake, Reservoir, Impoundment",
-        "hydrologic_unit_code": "200600000102",
-        "basin_code": null,
-        "altitude": 1032,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "N",
-        "altitude_method_name": "Interpolated from Digital Elevation Model",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Global positioning system (GPS), Standard Positioning Service (SPS) or Precise Positioning Service (PPS)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": null,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": null,
-        "revision_created": null,
-        "revision_modified": null,
-        "thresholds": {
-            "base": 7.8,
-            "minor": null,
-            "major": null,
-            "action": null,
-            "notes": "2000"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16206600",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.9701997703375,
-          21.4920514598147
-        ]
-      }
-    },
-    "USGS-16208400": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16208400",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16208400",
-        "monitoring_location_name": "Ku Tree Reservoir near Wahiawa, Oahu, HI",
-        "name_short": "Ku Tree Res",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "LK",
-        "site_type": "Lake, Reservoir, Impoundment",
-        "hydrologic_unit_code": "200600000102",
-        "basin_code": null,
-        "altitude": null,
-        "altitude_accuracy": null,
-        "altitude_method_code": null,
-        "altitude_method_name": null,
-        "vertical_datum": null,
-        "vertical_datum_name": null,
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 0.83,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": null,
-        "revision_created": null,
-        "revision_modified": null,
-        "thresholds": {
-            "base": 17.0,
-            "minor": null,
-            "major": null,
-            "action": 86.44,
-            "notes": "2001"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16208400",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.9807275506169,
-          21.497357016356652
-        ]
-      }
-    },
-    "USGS-16211600": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16211600",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16211600",
-        "monitoring_location_name": "Makaha Str nr Makaha, Oahu, HI",
-        "name_short": "Makaha Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000505",
-        "basin_code": null,
-        "altitude": 938.64,
-        "altitude_accuracy": 0.01,
-        "altitude_method_code": "L",
-        "altitude_method_name": "Level or other surveyed method.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "5",
-        "horizontal_positional_accuracy": "Accurate to + or - .5 sec (PLGR/PPS GPS).",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 2.117,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WSP 1937: Drainage Area. WDR HI-10-1: Drainage Area. WDR HI-13-1: Drainage Area. Discharge data was revised from January 31 to April 3, 2019 on November 1, 2019.&nbsp; Estimated discharge value on October 10, 2019 (1730) was removed on August 24, 2020.&nbsp; Gage height and discharge values were revised for April 29, 2019 (1520), October 6, 2019 (1820), January 11, 2020 (2057), February 6, 2020 (1137), and March 16, 2020 (1745) on October 6, 2020.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2020-10-08T22:42:58.943000+00:00",
-        "thresholds": {
-            "base": 0.9,
-            "minor": 5.0,
-            "major": 9.5,
-            "action": 14.8,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16211600",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -158.18017203892168,
-          21.50157923324258
-        ]
-      }
-    },
-    "USGS-16254000": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16254000",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16254000",
-        "monitoring_location_name": "Makawao Str nr Kailua, Oahu, HI",
-        "name_short": "Makawao Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000206",
-        "basin_code": null,
-        "altitude": 100,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 2.03,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WSP 1937: Drainage Area. WDR HI-10-1: Drainage Area.&nbsp; Disharge data revised from September 13, 2018 to October 8, 2020 on June 10, 2024.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2024-06-10T21:45:44.470000+00:00",
-        "thresholds": {
-            "base": 7.1,
-            "minor": 14.3,
-            "major": 17.8,
-            "action": 18.2,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16254000",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.76217194214,
-          21.359495877801358
-        ]
-      }
-    },
-    "USGS-16238000": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16238000",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16238000",
-        "monitoring_location_name": "Makiki Stream at King St. bridge, Oahu, HI",
-        "name_short": "Makiki Stream",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000303",
-        "basin_code": null,
-        "altitude": 10,
-        "altitude_accuracy": 2,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 2.47,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR HI-12-1: 2011 (M), Drainage Area. WDR-12-01: Daily suspended-sediment concentration and discharge for May 2, 2011. Turbidity data revised on August 31, 2019 (0200-0500) and August 25, 2019 (0745) to August 26, 2019 (0845) on March 30, 2020. Turbidity data on November 4, 2018 was revised on May 10, 2022.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2022-05-16T19:43:43.887000+00:00",
-        "thresholds": {
-            "base": 3.1,
-            "minor": 8.0,
-            "major": 9.0,
-            "action": 14.8,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16238000",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.836755289582,
-          21.29663474867988
-        ]
-      }
-    },
-    "USGS-16241600": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16241600",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16241600",
-        "monitoring_location_name": "Manoa Stream at Woodlawn Drive, Oahu, HI",
-        "name_short": "Manoa Stream",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000303",
-        "basin_code": null,
-        "altitude": 130,
-        "altitude_accuracy": 0.01,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "1",
-        "horizontal_positional_accuracy": "Accurate to + or - .1 sec (Differentially-Corrected GPS).",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 4.28,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": null,
-        "revision_created": null,
-        "revision_modified": null,
-        "thresholds": {
-            "base": 3.1,
-            "minor": 8.0,
-            "major": 12.9,
-            "action": 25.0,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16241600",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.80950528402946,
-          21.308440308032985
-        ]
-      }
-    },
-    "USGS-16247100": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16247100",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16247100",
-        "monitoring_location_name": "Manoa-Palolo Drainage Canal at Moiliili, Oahu, HI",
-        "name_short": "Manoa-Palolo",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST-CA",
-        "site_type": "Canal",
-        "hydrologic_unit_code": "200600000303",
-        "basin_code": null,
-        "altitude": 5,
-        "altitude_accuracy": 5,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 10.2,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR HI-07-1; 2005(P).&nbsp; Various instantaneous gage height and discharges revised from October 7, 2018 to February 26, 2019 on August 19, 2019.&nbsp; Sediment data was revised for February 18, April 13-14, and September 12-13, 2018 on May 7, 2020.&nbsp; Instantaneous peak gage height and discharges were revised for August 15, October 15, 2019, and January 16, 2020 on September 23, 2020.&nbsp; &nbsp;Instantaneous discharge data was revised from September 12, 2019 to June 24, 2020 on February 8, 2021 and from June 25 to October 16, 2020 on June 24, 2021.&nbsp;&nbsp;Turbidity data revised from July 25 to Sept 28, 2023 on July 15, 2025.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2025-08-07T17:00:16.683000+00:00",
-        "thresholds": {
-            "base": 0.9,
-            "minor": 3.86,
-            "major": null,
-            "action": 14.65,
-            "notes": "2101"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16247100",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.8185608407876,
-          21.286523635621002
-        ]
-      }
-    },
-    "USGS-16227500": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16227500",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16227500",
-        "monitoring_location_name": "Moanalua Stream nr Kaneohe, Oahu, HI",
-        "name_short": "Moanalua Stream",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000305",
-        "basin_code": null,
-        "altitude": 690,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "N",
-        "altitude_method_name": "Interpolated from Digital Elevation Model",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "N",
-        "horizontal_position_method_name": "Interpolated from Digital MAP.",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 0.92,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "June 26, 2013 to December 10, 2013 (Discharges less than 2.0 ft3/s).",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": null,
-        "thresholds": {
-            "base": 2.5,
-            "minor": 9.0,
-            "major": 11.2,
-            "action": 14.9,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16227500",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.8486164065743,
-          21.388051437753067
-        ]
-      }
-    },
-    "USGS-16226200": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16226200",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16226200",
-        "monitoring_location_name": "N. Halawa Str nr Honolulu, Oahu, HI",
-        "name_short": "N. Halawa",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000401",
-        "basin_code": null,
-        "altitude": 160,
-        "altitude_accuracy": 10,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 4.02,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR HI-05-1: 2004(M). WDR HI-10-1: Drainage Area.  WDR HI-14-01: (M).&nbsp; Suspended sediment concentrations were revised for October 4, 2014, October 30-31, 2014, and May 18, 2019 and suspended sediment discharge for October 4, 2015 on September 25, 2020.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2020-09-30T23:42:56.063000+00:00",
-        "thresholds": {
-            "base": 7.0,
-            "minor": 12.5,
-            "major": 14.5,
-            "action": 33.0,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16226200",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.90333864057854,
-          21.3819958789593
-        ]
-      }
-    },
-    "USGS-16226400": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16226400",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16226400",
-        "monitoring_location_name": "N. Halawa Str nr Quar. Stn. at Halawa, Oahu, HI",
-        "name_short": "N. Halawa Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000401",
-        "basin_code": null,
-        "altitude": 60,
-        "altitude_accuracy": 10,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 4.6,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "<p>WDR-07-01: 2007 (Daily and monthly discharges, November 1, 2006 to June 6, 2007, November 4, 2007 to October 4, 2009), WDR-10-01: 2008-2009 (Discharge, Sediment loads and concentrations), WDR-12-1: Drainage Area. WDR-HI-10-1: 2008, 2009. </p>\n<p>Discharge data for January 31, 2019 was revised on June 19, 2019.</p>\n<p>Discharge data for January 9, 2019 was revised on August 24, 2020.</p>\n<p>Sediment load and concentration data from October 1, 2016 to September 30, 2017 was revised on December 15, 2020.</p>\n<p>Discharge data for November 22, 2019 was revised on January 22, 2021.</p>",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2021-01-23T01:52:46.320000+00:00",
-        "thresholds": {
-            "base": 3.3,
-            "minor": 10.0,
-            "major": 12.3,
-            "action": 22.5,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16226400",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.91272753116135,
-          21.37188476503216
-        ]
-      }
-    },
-    "USGS-16200000": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16200000",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16200000",
-        "monitoring_location_name": "NF Kaukonahua Str abv RB, nr Wahiawa, Oahu, HI",
-        "name_short": "Kaukonahua",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000102",
-        "basin_code": null,
-        "altitude": 1150,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "5",
-        "horizontal_positional_accuracy": "Accurate to + or - .5 sec (PLGR/PPS GPS).",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 1.38,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WSP 1219: 1931-33(M), 1935(M), 1937-38(M). WSP 1319: 1914, 1917-18(M), 1920-23(M), 1925(M), 1927-30(M). WSP 1719: Drainage Area. WDR HI-04-1: 1939-43(P), 1945-53(P), 1961-2002(P).",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": null,
-        "thresholds": {
-            "base": 1.8,
-            "minor": 10.0,
-            "major": 14.1,
-            "action": 15.5,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16200000",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.94531087687142,
-          21.516273688866985
-        ]
-      }
-    },
-    "USGS-16345000": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16345000",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16345000",
-        "monitoring_location_name": "Opaeula Str nr Wahiawa, Oahu, HI",
-        "name_short": "Opaeula Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000103",
-        "basin_code": null,
-        "altitude": 1120,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "5",
-        "horizontal_positional_accuracy": "Accurate to + or - .5 sec (PLGR/PPS GPS).",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 3,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR HI-10-1: Drainage Area.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": null,
-        "thresholds": {
-            "base": 1.8,
-            "minor": 12.2,
-            "major": 15.9,
-            "action": 15.5,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16345000",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -158.00025533504927,
-          21.562329254146523
-        ]
-      }
-    },
-    "USGS-16244000": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16244000",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16244000",
-        "monitoring_location_name": "Pukele Stream near Honolulu, Oahu, HI",
-        "name_short": "Pukele Stream",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000303",
-        "basin_code": null,
-        "altitude": 344.78,
-        "altitude_accuracy": 0.01,
-        "altitude_method_code": "L",
-        "altitude_method_name": "Level or other surveyed method.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "M",
-        "horizontal_position_method_name": "Interpolated from MAP.",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 1.15,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WSP 835: 1930(M). WSP 1569: Drainage area. WSP 1639: 1927-29(M), 1931(M), 1932(M), 1933-34(M). WSP 1719: 1935(M), 1937-40(M), 1942(M), 1948-59(P). WDR HI-10-1: Drainage Area.&nbsp; Turbidity data on June 30, 2023 was revised on October 25, 2023.&nbsp;&nbsp;Discharge data was revised from August 2 (1104) to November 7 (1100), 2024 on June 3, 2024.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2024-07-31T23:10:58.933000+00:00",
-        "thresholds": {
-            "base": 1.1,
-            "minor": 5.0,
-            "major": 7.8,
-            "action": 14.8,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16244000",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.78833861265696,
-          21.30666253047666
-        ]
-      }
-    },
-    "USGS-16301050": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16301050",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16301050",
-        "monitoring_location_name": "Punaluu Str abv Punaluu Ditch Intake, Oahu, HI",
-        "name_short": "Punaluu Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000202",
-        "basin_code": null,
-        "altitude": 212,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 2.77,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR HI-11-1: Base discharge for 2009 and 2010 water years. WDR HI-12-1: Drainage Area.  Discharge for May 8, 2020 was revised on Jan. 20, 2021.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2021-01-20T19:54:19.197000+00:00",
-        "thresholds": {
-            "base": 3.9,
-            "minor": 10.0,
-            "major": 14.7,
-            "action": 52.0,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16301050",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.8988942014788,
-          21.556384811457686
-        ]
-      }
-    },
-    "USGS-16208000": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16208000",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16208000",
-        "monitoring_location_name": "SF Kaukonahua Str at E pump, nr Wahiawa, Oahu, HI",
-        "name_short": "Kaukonahua",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": "93420",
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000102",
-        "basin_code": null,
-        "altitude": 860.35,
-        "altitude_accuracy": 0.01,
-        "altitude_method_code": "L",
-        "altitude_method_name": "Level or other surveyed method.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Global positioning system (GPS), Standard Positioning Service (SPS) or Precise Positioning Service (PPS)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 4.1,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR HI-10-1: Drainage Area.&nbsp; On May 28, 2019, instantaneous discharge values were revised from March 28, 2018 to June 29, 2018, September 25, 2018, and October 30, 2018.&nbsp; On May 1, 2020, instantaneous discharge values below 2.12 ft3/s were revised from January 6-16, 2020.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2020-05-04T22:33:09.803000+00:00",
-        "thresholds": {
-            "base": 1.6,
-            "minor": 8.0,
-            "major": 12.4,
-            "action": 15.44,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16208000",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.99606088700156,
-          21.488801458180287
-        ]
-      }
-    },
-    "USGS-16226700": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16226700",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16226700",
-        "monitoring_location_name": "South Halawa Stream nr H-3 Freeway, Oahu, HI",
-        "name_short": "South Halawa Stream",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": "90270",
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000401",
-        "basin_code": null,
-        "altitude": 85,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "N",
-        "altitude_method_name": "Interpolated from Digital Elevation Model",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "H",
-        "horizontal_positional_accuracy": "Accurate to + or - .01 sec (Differentially-Corrected GPS).",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Global positioning system (GPS), Standard Positioning Service (SPS) or Precise Positioning Service (PPS)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": null,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "Discharge and gage-height data were revised from October 6, 2022 to January 18, 2024, March 26 to March 31, 2025 and July 2 to August 18, 2025, on May 6, 2025.  Discharge data from March 2 to June 1, 2023 was revised on December 30, 2025.",
-        "revision_created": "2026-02-03T20:12:13.693000+00:00",
-        "revision_modified": "2026-02-03T20:12:13.693000+00:00",
-        "thresholds": {
-            "base": null,
-            "minor": null,
-            "major": null,
-            "action": null,
-            "notes": "0000"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16226700",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.91002753052604,
-          21.370673653704703
-        ]
-      }
-    },
-    "USGS-213133158014201": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-213133158014201",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "213133158014201",
-        "monitoring_location_name": "Upper Helemano Reservoir near Wahiawa, Oahu, HI",
-        "name_short": "Upper Helemano Res",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "LK",
-        "site_type": "Lake, Reservoir, Impoundment",
-        "hydrologic_unit_code": "200600000102",
-        "basin_code": null,
-        "altitude": null,
-        "altitude_accuracy": null,
-        "altitude_method_code": null,
-        "altitude_method_name": null,
-        "vertical_datum": null,
-        "vertical_datum_name": null,
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": null,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": null,
-        "revision_created": null,
-        "revision_modified": null,
-        "thresholds": {
-            "base": 43.0,
-            "minor": null,
-            "major": null,
-            "action": 58.8,
-            "notes": "2001"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-213133158014201",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -158.02842200656195,
-          21.525912577503725
-        ]
-      }
-    },
-    "USGS-16210100": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16210100",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16210100",
-        "monitoring_location_name": "Wahiawa Ditch at Wahiawa, Oahu, HI",
-        "name_short": "Wahiawa Ditch",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST-DCH",
-        "site_type": "Ditch",
-        "hydrologic_unit_code": "200600000102",
-        "basin_code": null,
-        "altitude": 786,
-        "altitude_accuracy": 10,
-        "altitude_method_code": "N",
-        "altitude_method_name": "Interpolated from Digital Elevation Model",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "1",
-        "horizontal_positional_accuracy": "Accurate to + or - .1 sec (Differentially-Corrected GPS).",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": null,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": null,
-        "revision_created": null,
-        "revision_modified": null,
-        "thresholds": {
-            "base": 7.1,
-            "minor": null,
-            "major": null,
-            "action": 10.4,
-            "notes": "2001"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16210100",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -158.0510331217032,
-          21.50055145935127
-        ]
-      }
-    },
-    "USGS-16210000": {
-      "type": "Feature",
-      "time_series_id": "26e3b29b90d34a3baf13ebe7c297197a",
-      "properties": {
-        "id": "USGS-16210000",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16210000",
-        "monitoring_location_name": "Wahiawa Reservoir at Spillway at Wahiawa, Oahu, HI",
-        "name_short": "Wahiawa Res Spillway",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": "93420",
-        "site_type_code": "LK",
-        "site_type": "Lake, Reservoir, Impoundment",
-        "hydrologic_unit_code": "200600000102",
-        "basin_code": null,
-        "altitude": 762.42,
-        "altitude_accuracy": 0.01,
-        "altitude_method_code": "L",
-        "altitude_method_name": "Level or other surveyed method.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "H",
-        "horizontal_positional_accuracy": "Accurate to + or - .01 sec (Differentially-Corrected GPS).",
-        "horizontal_position_method_code": "N",
-        "horizontal_position_method_name": "Interpolated from Digital MAP.",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": null,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": null,
-        "revision_created": null,
-        "revision_modified": null,
-        "thresholds": {
-            "base": 73.0,
-            "minor": 84.0,
-            "major": null,
-            "action": 93.0,
-            "notes": "2101"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16210000",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -158.04978312128006,
-          21.496468125040746
-        ]
-      }
-    },
-    "USGS-16294100": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16294100",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16294100",
-        "monitoring_location_name": "Waiahole Stream above Kamehameha Hwy, Oahu, HI",
-        "name_short": "Waiahole",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": "91800",
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000204",
-        "basin_code": null,
-        "altitude": 14,
-        "altitude_accuracy": 0.1,
-        "altitude_method_code": "L",
-        "altitude_method_name": "Level or other surveyed method.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 3.81,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR HI-12-1: Drainage Area. WDR-HI-13-1: 2002-2011 (P).&nbsp;Gage height and discharge unit value on April 21, 2023 (0622) was revised on July 22, 2024.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2024-07-25T00:54:04.050000+00:00",
-        "thresholds": {
-            "base": 9.4,
-            "minor": 12.0,
-            "major": 16.4,
-            "action": 16.4,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16294100",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.8458941871459,
-          21.48202368348824
-        ]
-      }
-    },
-    "USGS-16240500": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16240500",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16240500",
-        "monitoring_location_name": "Waiakeakua Str at Honolulu, Oahu, HI",
-        "name_short": "Waiakeakua",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000303",
-        "basin_code": null,
-        "altitude": 294.5,
-        "altitude_accuracy": 0.01,
-        "altitude_method_code": "L",
-        "altitude_method_name": "Level or other surveyed method.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 1.05,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WSP 1319: 1919(M), 1930-33(M). WSP 1569: Drainage area. WSP 1937: 1949(M), 1960(M). WDR HI-04-1: 1961-72(P), 1974-2000(P). WDR HI-10-1: Drainage Area.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": null,
-        "thresholds": {
-            "base": 0.45,
-            "minor": 4.0,
-            "major": 6.1,
-            "action": 14.3,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16240500",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.79961639367932,
-          21.328218091050303
-        ]
-      }
-    },
-    "USGS-16284200": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16284200",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16284200",
-        "monitoring_location_name": "Waihee Str nr Kahaluu, Oahu, HI",
-        "name_short": "Waihee Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000204",
-        "basin_code": null,
-        "altitude": 170,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "R",
-        "horizontal_positional_accuracy": "Accurate to + or - 3 sec (SPS GPS).",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 0.97,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR-HI-11-1: 2008-2010",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": null,
-        "thresholds": {
-            "base": 2.8,
-            "minor": 7.5,
-            "major": 9.2,
-            "action": 35.4,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16284200",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.85661641049677,
-          21.448162563595005
-        ]
-      }
-    },
-    "USGS-16238500": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16238500",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16238500",
-        "monitoring_location_name": "Waihi Stream at Honolulu, Oahu, HI",
-        "name_short": "Waihi Stream",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": "90810",
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000303",
-        "basin_code": null,
-        "altitude": 290.77,
-        "altitude_accuracy": 0.01,
-        "altitude_method_code": "L",
-        "altitude_method_name": "Level or other surveyed method.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Global positioning system (GPS), Standard Positioning Service (SPS) or Precise Positioning Service (PPS)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 1.12,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR HI-10-1: Drainage Area.&nbsp; Turbidity data on November 7, 2019 (0305-0430) was revised on April 20, 2020.&nbsp; Peak gage height and discharge for January 25, 2021 were revised on October 5, 2021. Qualifier was removed from turbidity unit values from May 1 (2140) to May 2 (0205), 2022 and May 2 (1200-2205), 2022 on June 27, 2023.&nbsp;&nbsp;&nbsp;Suspended sediment concentrations and loads were revised from October 9, 2017 to September 30, 2019 on March 28, 2025.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2025-03-28T22:50:41.460000+00:00",
-        "thresholds": {
-            "base": 1.8,
-            "minor": 6.5,
-            "major": 10.4,
-            "action": 15,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16238500",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.80086639395844,
-          21.32835697993455
-        ]
-      }
-    },
-    "USGS-16294900": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16294900",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16294900",
-        "monitoring_location_name": "Waikane Str at alt 75 ft at Waikane, Oahu, HI",
-        "name_short": "Waikane Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000204",
-        "basin_code": null,
-        "altitude": 75,
-        "altitude_accuracy": 20,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 2.24,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WSP 1937: Drainage Area, WDR HI-94-1: 1993 (M). WDR HI-10-1: Drainage Area.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": null,
-        "thresholds": {
-            "base": 2.9,
-            "minor": 7.0,
-            "major": 10.8,
-            "action": 17.6,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16294900",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.86297752477364,
-          21.497079242256017
-        ]
-      }
-    },
-    "USGS-16213000": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16213000",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16213000",
-        "monitoring_location_name": "Waikele Str at Waipahu, Oahu, HI",
-        "name_short": "Waikele Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000403",
-        "basin_code": null,
-        "altitude": 1.37,
-        "altitude_accuracy": 0.01,
-        "altitude_method_code": "L",
-        "altitude_method_name": "Level or other surveyed method.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "5",
-        "horizontal_positional_accuracy": "Accurate to + or - .5 sec (PLGR/PPS GPS).",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 45.14,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WSP 1639: 1955(M). WSP 1937: Drainage Area. WSP 2137: 1965. WDR HI-06-01, 2000-2005 (P).WDR HI-10-1: Drainage Area.\r\n",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": null,
-        "thresholds": {
-            "base": 3.6,
-            "minor": 12.0,
-            "major": 18.9,
-            "action": 22.5,
-            "notes": "2111"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16213000",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -158.01092199754387,
-          21.383468098137627
-        ]
-      }
-    },
-    "USGS-16212601": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16212601",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16212601",
-        "monitoring_location_name": "Waikele Str at Wheeler Field, Oahu, HI",
-        "name_short": "Waikele Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": "93420",
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000403",
-        "basin_code": null,
-        "altitude": 710,
-        "altitude_accuracy": 5,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "5",
-        "horizontal_positional_accuracy": "Accurate to + or - .5 sec (PLGR/PPS GPS).",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 6.72,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR HI-05-1: 1974-2003(M). WDR HI-09-1: 2008 (drainage area).",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": null,
-        "thresholds": {
-            "base": 4.8,
-            "minor": null,
-            "major": null,
-            "action": 25.0,
-            "notes": "2001"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16212601",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -158.04447756367952,
-          21.47230145252445
-        ]
-      }
-    },
-    "USGS-16249000": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16249000",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16249000",
-        "monitoring_location_name": "Waimanalo Str at Waimanalo, Oahu, HI",
-        "name_short": "Waimanalo Str",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000207",
-        "basin_code": null,
-        "altitude": 20,
-        "altitude_accuracy": 10,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 2.13,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": "WDR HI-03-1: 1994(P). WDR HI-09: 2008(P). WDR HI-10-1: Drainage Area.&nbsp;&nbsp;Gage height and discharge for the period April 15 to August 22, 2020 were revised on November 9, 2021.",
-        "revision_created": "2017-11-13T06:00:00+00:00",
-        "revision_modified": "2021-11-29T17:49:31.020000+00:00",
-        "thresholds": {
-            "base": 7.1,
-            "minor": 12.0,
-            "major": null,
-            "action": 19.2,
-            "notes": "2101"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16249000",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.72892193450215,
-          21.349968098691477
-        ]
-      }
-    },
-    "USGS-16247150": {
-      "type": "Feature",
-      "properties": {
-        "id": "USGS-16247150",
-        "agency_code": "USGS",
-        "agency_name": "U.S. Geological Survey",
-        "monitoring_location_number": "16247150",
-        "monitoring_location_name": "Makiki Stream at Archie Baker Park",
-        "name_short": "Makiki Stream",
-        "district_code": "15",
-        "country_code": "US",
-        "country_name": "United States of America",
-        "state_code": "15",
-        "state_name": "Hawaii",
-        "county_code": "003",
-        "county_name": "Honolulu County",
-        "minor_civil_division_code": null,
-        "site_type_code": "ST",
-        "site_type": "Stream",
-        "hydrologic_unit_code": "200600000207",
-        "basin_code": null,
-        "altitude": 20,
-        "altitude_accuracy": 10,
-        "altitude_method_code": "M",
-        "altitude_method_name": "Interpolated from topographic map.",
-        "vertical_datum": "LMSL",
-        "vertical_datum_name": "Local Mean Sea Level",
-        "horizontal_positional_accuracy_code": "S",
-        "horizontal_positional_accuracy": "Accurate to + or - 1 sec.",
-        "horizontal_position_method_code": "G",
-        "horizontal_position_method_name": "Mapping grade GPS unit (handheld accuracy range 12 to 40 ft)",
-        "original_horizontal_datum": "NAD83",
-        "original_horizontal_datum_name": "North American Datum of 1983",
-        "drainage_area": 2.13,
-        "contributing_drainage_area": null,
-        "time_zone_abbreviation": "HST",
-        "uses_daylight_savings": "N",
-        "construction_date": null,
-        "aquifer_code": null,
-        "national_aquifer_code": null,
-        "aquifer_type_code": null,
-        "well_constructed_depth": null,
-        "hole_constructed_depth": null,
-        "depth_source_code": null,
-        "revision_note": null,
-        "revision_created": null,
-        "revision_modified": null,
-        "thresholds": {
-            "base": null,
-            "minor": null,
-            "major": null,
-            "action": null,
-            "notes": "0000"
-        },
-        "grouping": ""
-      },
-      "id": "USGS-16247150",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -157.72892193450215,
-          21.349968098691477
-        ]
-      }
+    "id": "USGS-16279200",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.8163941783397,
+        21.41741255720035
+      ]
     }
+  },
+  "USGS-16275000": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16275000",
+      "monitoring_location_number": "16275000",
+      "monitoring_location_name": "Heeia Stream at Haiku Valley nr Kaneohe, Oahu, HI",
+      "name_short": "Heeia Stre",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000205",
+      "drainage_area": 0.96,
+      "revision_note": "WSP 935: 1940. WSP 1319: 1916-19(M). WSP 1569: Drainage Area. WSP 1719: 1942-43, 1946(M), 1947, 1949, 1951, 1954(M), 1955, 1957-59. WSP 1937: 1940-45(M), 1947(M), 1948-50(P), 1951, 1952(P), 1953(M), 1955-57(P), 1958-59, 1960(M). WDR HI-10-1: Drainage Area. WDR HI-13-1: Drainage Area.&nbsp; Discharge data revised on March 31, April 1, 5, 6 and 7, 2022 on September 28th, 2023.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2023-09-29T16:42:32.863000+00:00",
+      "thresholds": {
+        "base": 1.1,
+        "minor": 5.0,
+        "major": 7.8,
+        "action": 14.0,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16275000",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.82323584621255,
+        21.409204221604625
+      ]
+    }
+  },
+  "USGS-213308158035601": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-213308158035601",
+      "monitoring_location_number": "213308158035601",
+      "monitoring_location_name": "Helemano 6 Reservoir, Oahu, HI",
+      "name_short": "Helemano 6",
+      "site_type_code": "LK",
+      "site_type": "Lake, Reservoir, Impoundment",
+      "hydrologic_unit_code": "200600000102",
+      "drainage_area": null,
+      "revision_note": null,
+      "revision_created": null,
+      "revision_modified": null,
+      "thresholds": {
+        "base": 19.5,
+        "minor": null,
+        "major": null,
+        "action": 43,
+        "notes": "2001"
+      }
+    },
+    "id": "USGS-213308158035601",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -158.0655886823447,
+        21.55235702734568
+      ]
+    }
+  },
+  "USGS-16212490": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16212490",
+      "monitoring_location_number": "16212490",
+      "monitoring_location_name": "Honouliuli Str at H-1 Freeway nr Waipahu, Oahu, HI",
+      "name_short": "Honouliuli Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000404",
+      "drainage_area": 10.6,
+      "revision_note": "Discharge values from April 12, 2017 to May 21, 2018 were revised on October 22, 2018.&nbsp; Discharge values from May 21, 2018 to July 13, 2018 were revised on June 12, 2019. Suspended Sediment Concentrations were revised from May 3 to May 4, 2016, March 23, 2017, June 15, 2017, and June 6, 2019 on September 16, 2020.",
+      "revision_created": "2018-10-22T23:02:01.997000+00:00",
+      "revision_modified": "2020-09-25T22:08:18.133000+00:00",
+      "thresholds": {
+        "base": 5.1,
+        "minor": null,
+        "major": null,
+        "action": 18.1,
+        "notes": "2001"
+      }
+    },
+    "id": "USGS-16212490",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -158.04478311587846,
+        21.378134762399956
+      ]
+    }
+  },
+  "USGS-16283200": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16283200",
+      "monitoring_location_number": "16283200",
+      "monitoring_location_name": "Kahaluu Str nr Ahuimanu, Oahu, HI",
+      "name_short": "Kahaluu Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000204",
+      "drainage_area": 0.83,
+      "revision_note": "WDR HI-01-1: Drainage Area. WDR HI-08-1: 1984-2007 (P). WDR HI-10-1: 2005 (P), Drainage Area.",
+      "revision_created": "2019-10-22T21:05:04.873000+00:00",
+      "revision_modified": "2019-10-22T21:05:04.873000+00:00",
+      "thresholds": {
+        "base": 1.3,
+        "minor": 6.0,
+        "major": 7.9,
+        "action": 7.9,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16283200",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.8438664073581,
+        21.438718117199492
+      ]
+    }
+  },
+  "USGS-16296500": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16296500",
+      "monitoring_location_number": "16296500",
+      "monitoring_location_name": "Kahana Str at alt 30 ft nr Kahana, Oahu, HI",
+      "name_short": "Kahana Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000203",
+      "drainage_area": 3.73,
+      "revision_note": "WSP 1937: 1959-60. WDR HI-10-1: Drainage Area.",
+      "revision_created": "2018-02-02T22:27:37.703000+00:00",
+      "revision_modified": "2019-09-26T20:31:22.770000+00:00",
+      "thresholds": {
+        "base": 4.2,
+        "minor": 10.0,
+        "major": 14.2,
+        "action": 32.2,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16296500",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.8825608639862,
+        21.54060703026554
+      ]
+    }
+  },
+  "USGS-16229000": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16229000",
+      "monitoring_location_number": "16229000",
+      "monitoring_location_name": "Kalihi Str nr Honolulu, Oahu, HI",
+      "name_short": "Kalihi Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000304",
+      "drainage_area": 2.56,
+      "revision_note": "WSP 1569: Drainage area. WSP 1719: 1921-22(M), 1923-24, 1925-26(M), 1927-28, 1929-32(M), 1935, 1937,\n1938-39(M), 1943(M), 1948-52(P), 1955-56, 1957-58(M), 1959. WDR HI-10-1: Drainage Area.&nbsp; Discharge data revised January 8 (1405-1805), January 13 (0745-1745), and January 15 (0835-1635), 2023 on April 1, 2024.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2024-04-06T16:56:41.143000+00:00",
+      "thresholds": {
+        "base": 2.5,
+        "minor": 10.0,
+        "major": 13.8,
+        "action": 21.0,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16229000",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.84444973810542,
+        21.363356987285556
+      ]
+    }
+  },
+  "USGS-16304200": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16304200",
+      "monitoring_location_number": "16304200",
+      "monitoring_location_name": "Kaluanui Stream nr Punaluu, Oahu, HI",
+      "name_short": "Kaluanui Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000202",
+      "drainage_area": 1.09,
+      "revision_note": "WDR HI-10-1: Drainage Area. WDR HI-11-1: 2002-2010 (P). WDR HI-13-1: 2012.&nbsp; Peak data for July 24, August 8, and October 2, 2020 was revised on June 8, 2021.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2021-06-09T23:06:29.683000+00:00",
+      "thresholds": {
+        "base": 3.6,
+        "minor": 11.0,
+        "major": 13.1,
+        "action": 13.1,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16304200",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.90806087124173,
+        21.586107040799657
+      ]
+    }
+  },
+  "USGS-16330000": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16330000",
+      "monitoring_location_number": "16330000",
+      "monitoring_location_name": "Kamananui Str at Maunawai, Oahu, HI",
+      "name_short": "Kamananui Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000105",
+      "drainage_area": 12.35,
+      "revision_note": "WSP 1937: 1958-60. WRD Hawaii 1974: 1971(P), 1972-73(M). WDR HI-81-1: Drainage Area. WDR HI-10-1: Drainage Area.&nbsp; Discharge data was revised from Dec. 29, 2018 to Jan. 2, 2019 on Sept. 20, 2019.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2019-09-20T23:06:24.567000+00:00",
+      "thresholds": {
+        "base": 2.5,
+        "minor": 10.6,
+        "major": 15.8,
+        "action": 18.5,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16330000",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -158.05458868298575,
+        21.635468159520492
+      ]
+    }
+  },
+  "USGS-16325000": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16325000",
+      "monitoring_location_number": "16325000",
+      "monitoring_location_name": "Kamananui Str at Pupukea Mil Rd, Oahu, HI",
+      "name_short": "Kamananui Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000105",
+      "drainage_area": 3.15,
+      "revision_note": "WDR HI-14-1: Drainage Area.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": null,
+      "thresholds": {
+        "base": 1.3,
+        "minor": null,
+        "major": null,
+        "action": 13.5,
+        "notes": "2001"
+      }
+    },
+    "id": "USGS-16325000",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -158.0150053404195,
+        21.6205514904083
+      ]
+    }
+  },
+  "USGS-16274100": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16274100",
+      "monitoring_location_number": "16274100",
+      "monitoring_location_name": "Kaneohe Str blw Kamehameha Hwy, Oahu, HI",
+      "name_short": "Kaneohe Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000205",
+      "drainage_area": 5.22,
+      "revision_note": "Turbidity data was revised from February 28 to May 16, 2019 on May 5, 2020; and March 9, 2021 (1015-1300) and December 6, 2021 (2045-2055) on March 3, 2023.&nbsp; Sediment sample collected on April 26, 2018 (1715) was rejected and removed from the public webpage on March 28, 2025.<br />\nGage height and discharge for the period Apr. 24, 2024, to Oct. 3, 2024, were revised on Jul 17, 2025, based on changes to the gage datum.",
+      "revision_created": "2020-05-06T19:57:24.437000+00:00",
+      "revision_modified": "2025-12-23T17:35:04.590000+00:00",
+      "thresholds": {
+        "base": 16.1,
+        "minor": 24.0,
+        "major": null,
+        "action": 31.0,
+        "notes": "2101"
+      }
+    },
+    "id": "USGS-16274100",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.79811639634883,
+        21.411801445266953
+      ]
+    }
+  },
+  "USGS-16210500": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16210500",
+      "monitoring_location_number": "16210500",
+      "monitoring_location_name": "Kaukonahua Str at Waialua, Oahu, HI",
+      "name_short": "Kaukonahua",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000102",
+      "drainage_area": 39.26,
+      "revision_note": "WDR HI-10-1: Drainage Area.  Turbidity data revised from January 13-18, 2021 on April 1, 2022.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2022-04-14T20:11:45.503000+00:00",
+      "thresholds": {
+        "base": 18.7,
+        "minor": 28.0,
+        "major": 29.0,
+        "action": 33.0,
+        "notes": "2121"
+      }
+    },
+    "id": "USGS-16210500",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -158.1203664726055,
+        21.565301473254692
+      ]
+    }
+  },
+  "USGS-16210200": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16210200",
+      "monitoring_location_number": "16210200",
+      "monitoring_location_name": "Kaukonahua Stream blw Wahiawa Reservoir, Oahu, HI",
+      "name_short": "Kaukonahua",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000102",
+      "drainage_area": 16.7,
+      "revision_note": "<p>Turbidity (DTS-12) data was revised from May 18, 2016 to March 29, 2017 on June 26, 2018.&nbsp; </p>\n<p>Discharge data was revised from June 19, 2018 to January 30, 2019 on June 3, 2019.</p>\n<p>Sediment concentrations and loads were revised from August 10, 2020 to September 30, 2020 on March 24, 2022.</p>",
+      "revision_created": "2018-06-26T17:20:01.537000+00:00",
+      "revision_modified": "2022-03-26T02:20:59.807000+00:00",
+      "thresholds": {
+        "base": 6.9,
+        "minor": null,
+        "major": null,
+        "action": 22.2,
+        "notes": "2001"
+      }
+    },
+    "id": "USGS-16210200",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -158.0510886772592,
+        21.500245903717786
+      ]
+    }
+  },
+  "USGS-16211800": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16211800",
+      "monitoring_location_number": "16211800",
+      "monitoring_location_name": "Kaupuni Str at alt 374 ft nr Waianae, Oahu, HI",
+      "name_short": "Kaupuni Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000504",
+      "drainage_area": 3.61,
+      "revision_note": null,
+      "revision_created": null,
+      "revision_modified": null,
+      "thresholds": {
+        "base": 3.3,
+        "minor": null,
+        "major": null,
+        "action": null,
+        "notes": "2000"
+      }
+    },
+    "id": "USGS-16211800",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -158.15447480987945,
+        21.469065337086263
+      ]
+    }
+  },
+  "USGS-16265000": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16265000",
+      "monitoring_location_number": "16265000",
+      "monitoring_location_name": "Kawa Str at Kaneohe, Oahu, HI",
+      "name_short": "Kawa Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000205",
+      "drainage_area": 1.13,
+      "revision_note": "WDR HI-12-1: Drainage Area.&nbsp; Sediment samples for the following dates were rejected and removed from the public webpage on March 24, 2025:&nbsp; December 6, 2019 (0519), December 13, 2019 (0155, 0645), March 2, 2020 (1900), March 4, 2020 (2035), July 23, 2020 (1157, 1158), and September 16, 2022 (1450).",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2025-03-28T21:01:55.580000+00:00",
+      "thresholds": {
+        "base": 3.7,
+        "minor": 9.5,
+        "major": 17.9,
+        "action": 18.2,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16265000",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.79050528334975,
+        21.405745888441423
+      ]
+    }
+  },
+  "USGS-16264600": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16264600",
+      "monitoring_location_number": "16264600",
+      "monitoring_location_name": "Kawainui Marsh nr levee sta 15+00, Oahu, HI",
+      "name_short": "Kawainui Marsh",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000206",
+      "drainage_area": 11,
+      "revision_note": "WDR-HI-03-1: 2002(M).&nbsp;  Gage Height data for the period Dec. 27, 2016 to Apr. 26, 2017 were revised on Jan, 17, 2018.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2018-07-09T21:36:29.957000+00:00",
+      "thresholds": {
+        "base": 5.8,
+        "minor": 7.0,
+        "major": 15.0,
+        "action": 17.2,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16264600",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.7493663850154,
+        21.39416255351478
+      ]
+    }
+  },
+  "USGS-213320158061401": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-213320158061401",
+      "monitoring_location_number": "213320158061401",
+      "monitoring_location_name": "Kemoo 5 Reservoir, Oahu, HI",
+      "name_short": "Kemoo 5 Res",
+      "site_type_code": "LK",
+      "site_type": "Lake, Reservoir, Impoundment",
+      "hydrologic_unit_code": "200600000102",
+      "drainage_area": null,
+      "revision_note": null,
+      "revision_created": null,
+      "revision_modified": null,
+      "thresholds": {
+        "base": 12.5,
+        "minor": null,
+        "major": null,
+        "action": null,
+        "notes": "2000"
+      }
+    },
+    "id": "USGS-213320158061401",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -158.10392202419592,
+        21.555468138000858
+      ]
+    }
+  },
+  "USGS-16206600": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16206600",
+      "monitoring_location_number": "16206600",
+      "monitoring_location_name": "Koolau Reservoir near Wahiawa, Oahu, HI",
+      "name_short": "Koolau Res",
+      "site_type_code": "LK",
+      "site_type": "Lake, Reservoir, Impoundment",
+      "hydrologic_unit_code": "200600000102",
+      "drainage_area": null,
+      "revision_note": null,
+      "revision_created": null,
+      "revision_modified": null,
+      "thresholds": {
+        "base": 7.8,
+        "minor": null,
+        "major": null,
+        "action": null,
+        "notes": "2000"
+      }
+    },
+    "id": "USGS-16206600",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.9701997703375,
+        21.4920514598147
+      ]
+    }
+  },
+  "USGS-16208400": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16208400",
+      "monitoring_location_number": "16208400",
+      "monitoring_location_name": "Ku Tree Reservoir near Wahiawa, Oahu, HI",
+      "name_short": "Ku Tree Res",
+      "site_type_code": "LK",
+      "site_type": "Lake, Reservoir, Impoundment",
+      "hydrologic_unit_code": "200600000102",
+      "drainage_area": 0.83,
+      "revision_note": null,
+      "revision_created": null,
+      "revision_modified": null,
+      "thresholds": {
+        "base": 17.0,
+        "minor": null,
+        "major": null,
+        "action": 86.44,
+        "notes": "2001"
+      }
+    },
+    "id": "USGS-16208400",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.9807275506169,
+        21.497357016356652
+      ]
+    }
+  },
+  "USGS-16211600": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16211600",
+      "monitoring_location_number": "16211600",
+      "monitoring_location_name": "Makaha Str nr Makaha, Oahu, HI",
+      "name_short": "Makaha Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000505",
+      "drainage_area": 2.117,
+      "revision_note": "WSP 1937: Drainage Area. WDR HI-10-1: Drainage Area. WDR HI-13-1: Drainage Area. Discharge data was revised from January 31 to April 3, 2019 on November 1, 2019.&nbsp; Estimated discharge value on October 10, 2019 (1730) was removed on August 24, 2020.&nbsp; Gage height and discharge values were revised for April 29, 2019 (1520), October 6, 2019 (1820), January 11, 2020 (2057), February 6, 2020 (1137), and March 16, 2020 (1745) on October 6, 2020.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2020-10-08T22:42:58.943000+00:00",
+      "thresholds": {
+        "base": 0.9,
+        "minor": 5.0,
+        "major": 9.5,
+        "action": 14.8,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16211600",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -158.18017203892168,
+        21.50157923324258
+      ]
+    }
+  },
+  "USGS-16254000": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16254000",
+      "monitoring_location_number": "16254000",
+      "monitoring_location_name": "Makawao Str nr Kailua, Oahu, HI",
+      "name_short": "Makawao Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000206",
+      "drainage_area": 2.03,
+      "revision_note": "WSP 1937: Drainage Area. WDR HI-10-1: Drainage Area.&nbsp; Disharge data revised from September 13, 2018 to October 8, 2020 on June 10, 2024.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2024-06-10T21:45:44.470000+00:00",
+      "thresholds": {
+        "base": 7.1,
+        "minor": 14.3,
+        "major": 17.8,
+        "action": 18.2,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16254000",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.76217194214,
+        21.359495877801358
+      ]
+    }
+  },
+  "USGS-16238000": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16238000",
+      "monitoring_location_number": "16238000",
+      "monitoring_location_name": "Makiki Stream at King St. bridge, Oahu, HI",
+      "name_short": "Makiki Stream",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000303",
+      "drainage_area": 2.47,
+      "revision_note": "WDR HI-12-1: 2011 (M), Drainage Area. WDR-12-01: Daily suspended-sediment concentration and discharge for May 2, 2011. Turbidity data revised on August 31, 2019 (0200-0500) and August 25, 2019 (0745) to August 26, 2019 (0845) on March 30, 2020. Turbidity data on November 4, 2018 was revised on May 10, 2022.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2022-05-16T19:43:43.887000+00:00",
+      "thresholds": {
+        "base": 3.1,
+        "minor": 8.0,
+        "major": 9.0,
+        "action": 14.8,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16238000",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.836755289582,
+        21.29663474867988
+      ]
+    }
+  },
+  "USGS-16241600": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16241600",
+      "monitoring_location_number": "16241600",
+      "monitoring_location_name": "Manoa Stream at Woodlawn Drive, Oahu, HI",
+      "name_short": "Manoa Stream",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000303",
+      "drainage_area": 4.28,
+      "revision_note": null,
+      "revision_created": null,
+      "revision_modified": null,
+      "thresholds": {
+        "base": 3.1,
+        "minor": 8.0,
+        "major": 12.9,
+        "action": 25.0,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16241600",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.80950528402946,
+        21.308440308032985
+      ]
+    }
+  },
+  "USGS-16247100": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16247100",
+      "monitoring_location_number": "16247100",
+      "monitoring_location_name": "Manoa-Palolo Drainage Canal at Moiliili, Oahu, HI",
+      "name_short": "Manoa-Palolo",
+      "site_type_code": "ST-CA",
+      "site_type": "Canal",
+      "hydrologic_unit_code": "200600000303",
+      "drainage_area": 10.2,
+      "revision_note": "WDR HI-07-1; 2005(P).&nbsp; Various instantaneous gage height and discharges revised from October 7, 2018 to February 26, 2019 on August 19, 2019.&nbsp; Sediment data was revised for February 18, April 13-14, and September 12-13, 2018 on May 7, 2020.&nbsp; Instantaneous peak gage height and discharges were revised for August 15, October 15, 2019, and January 16, 2020 on September 23, 2020.&nbsp; &nbsp;Instantaneous discharge data was revised from September 12, 2019 to June 24, 2020 on February 8, 2021 and from June 25 to October 16, 2020 on June 24, 2021.&nbsp;&nbsp;Turbidity data revised from July 25 to Sept 28, 2023 on July 15, 2025.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2025-08-07T17:00:16.683000+00:00",
+      "thresholds": {
+        "base": 0.9,
+        "minor": 3.86,
+        "major": null,
+        "action": 14.65,
+        "notes": "2101"
+      }
+    },
+    "id": "USGS-16247100",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.8185608407876,
+        21.286523635621002
+      ]
+    }
+  },
+  "USGS-16227500": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16227500",
+      "monitoring_location_number": "16227500",
+      "monitoring_location_name": "Moanalua Stream nr Kaneohe, Oahu, HI",
+      "name_short": "Moanalua Stream",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000305",
+      "drainage_area": 0.92,
+      "revision_note": "June 26, 2013 to December 10, 2013 (Discharges less than 2.0 ft3/s).",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": null,
+      "thresholds": {
+        "base": 2.5,
+        "minor": 9.0,
+        "major": 11.2,
+        "action": 14.9,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16227500",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.8486164065743,
+        21.388051437753067
+      ]
+    }
+  },
+  "USGS-16226200": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16226200",
+      "monitoring_location_number": "16226200",
+      "monitoring_location_name": "N. Halawa Str nr Honolulu, Oahu, HI",
+      "name_short": "N. Halawa",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000401",
+      "drainage_area": 4.02,
+      "revision_note": "WDR HI-05-1: 2004(M). WDR HI-10-1: Drainage Area.  WDR HI-14-01: (M).&nbsp; Suspended sediment concentrations were revised for October 4, 2014, October 30-31, 2014, and May 18, 2019 and suspended sediment discharge for October 4, 2015 on September 25, 2020.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2020-09-30T23:42:56.063000+00:00",
+      "thresholds": {
+        "base": 7.0,
+        "minor": 12.5,
+        "major": 14.5,
+        "action": 33.0,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16226200",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.90333864057854,
+        21.3819958789593
+      ]
+    }
+  },
+  "USGS-16226400": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16226400",
+      "monitoring_location_number": "16226400",
+      "monitoring_location_name": "N. Halawa Str nr Quar. Stn. at Halawa, Oahu, HI",
+      "name_short": "N. Halawa Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000401",
+      "drainage_area": 4.6,
+      "revision_note": "<p>WDR-07-01: 2007 (Daily and monthly discharges, November 1, 2006 to June 6, 2007, November 4, 2007 to October 4, 2009), WDR-10-01: 2008-2009 (Discharge, Sediment loads and concentrations), WDR-12-1: Drainage Area. WDR-HI-10-1: 2008, 2009. </p>\n<p>Discharge data for January 31, 2019 was revised on June 19, 2019.</p>\n<p>Discharge data for January 9, 2019 was revised on August 24, 2020.</p>\n<p>Sediment load and concentration data from October 1, 2016 to September 30, 2017 was revised on December 15, 2020.</p>\n<p>Discharge data for November 22, 2019 was revised on January 22, 2021.</p>",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2021-01-23T01:52:46.320000+00:00",
+      "thresholds": {
+        "base": 3.3,
+        "minor": 10.0,
+        "major": 12.3,
+        "action": 22.5,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16226400",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.91272753116135,
+        21.37188476503216
+      ]
+    }
+  },
+  "USGS-16200000": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16200000",
+      "monitoring_location_number": "16200000",
+      "monitoring_location_name": "NF Kaukonahua Str abv RB, nr Wahiawa, Oahu, HI",
+      "name_short": "Kaukonahua",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000102",
+      "drainage_area": 1.38,
+      "revision_note": "WSP 1219: 1931-33(M), 1935(M), 1937-38(M). WSP 1319: 1914, 1917-18(M), 1920-23(M), 1925(M), 1927-30(M). WSP 1719: Drainage Area. WDR HI-04-1: 1939-43(P), 1945-53(P), 1961-2002(P).",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": null,
+      "thresholds": {
+        "base": 1.8,
+        "minor": 10.0,
+        "major": 14.1,
+        "action": 15.5,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16200000",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.94531087687142,
+        21.516273688866985
+      ]
+    }
+  },
+  "USGS-16345000": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16345000",
+      "monitoring_location_number": "16345000",
+      "monitoring_location_name": "Opaeula Str nr Wahiawa, Oahu, HI",
+      "name_short": "Opaeula Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000103",
+      "drainage_area": 3,
+      "revision_note": "WDR HI-10-1: Drainage Area.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": null,
+      "thresholds": {
+        "base": 1.8,
+        "minor": 12.2,
+        "major": 15.9,
+        "action": 15.5,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16345000",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -158.00025533504927,
+        21.562329254146523
+      ]
+    }
+  },
+  "USGS-16244000": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16244000",
+      "monitoring_location_number": "16244000",
+      "monitoring_location_name": "Pukele Stream near Honolulu, Oahu, HI",
+      "name_short": "Pukele Stream",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000303",
+      "drainage_area": 1.15,
+      "revision_note": "WSP 835: 1930(M). WSP 1569: Drainage area. WSP 1639: 1927-29(M), 1931(M), 1932(M), 1933-34(M). WSP 1719: 1935(M), 1937-40(M), 1942(M), 1948-59(P). WDR HI-10-1: Drainage Area.&nbsp; Turbidity data on June 30, 2023 was revised on October 25, 2023.&nbsp;&nbsp;Discharge data was revised from August 2 (1104) to November 7 (1100), 2024 on June 3, 2024.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2024-07-31T23:10:58.933000+00:00",
+      "thresholds": {
+        "base": 1.1,
+        "minor": 5.0,
+        "major": 7.8,
+        "action": 14.8,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16244000",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.78833861265696,
+        21.30666253047666
+      ]
+    }
+  },
+  "USGS-16301050": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16301050",
+      "monitoring_location_number": "16301050",
+      "monitoring_location_name": "Punaluu Str abv Punaluu Ditch Intake, Oahu, HI",
+      "name_short": "Punaluu Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000202",
+      "drainage_area": 2.77,
+      "revision_note": "WDR HI-11-1: Base discharge for 2009 and 2010 water years. WDR HI-12-1: Drainage Area.  Discharge for May 8, 2020 was revised on Jan. 20, 2021.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2021-01-20T19:54:19.197000+00:00",
+      "thresholds": {
+        "base": 3.9,
+        "minor": 10.0,
+        "major": 14.7,
+        "action": 52.0,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16301050",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.8988942014788,
+        21.556384811457686
+      ]
+    }
+  },
+  "USGS-16208000": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16208000",
+      "monitoring_location_number": "16208000",
+      "monitoring_location_name": "SF Kaukonahua Str at E pump, nr Wahiawa, Oahu, HI",
+      "name_short": "Kaukonahua",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000102",
+      "drainage_area": 4.1,
+      "revision_note": "WDR HI-10-1: Drainage Area.&nbsp; On May 28, 2019, instantaneous discharge values were revised from March 28, 2018 to June 29, 2018, September 25, 2018, and October 30, 2018.&nbsp; On May 1, 2020, instantaneous discharge values below 2.12 ft3/s were revised from January 6-16, 2020.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2020-05-04T22:33:09.803000+00:00",
+      "thresholds": {
+        "base": 1.6,
+        "minor": 8.0,
+        "major": 12.4,
+        "action": 15.44,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16208000",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.99606088700156,
+        21.488801458180287
+      ]
+    }
+  },
+  "USGS-16226700": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16226700",
+      "monitoring_location_number": "16226700",
+      "monitoring_location_name": "South Halawa Stream nr H-3 Freeway, Oahu, HI",
+      "name_short": "South Halawa Stream",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000401",
+      "drainage_area": null,
+      "revision_note": "Discharge and gage-height data were revised from October 6, 2022 to January 18, 2024, March 26 to March 31, 2025 and July 2 to August 18, 2025, on May 6, 2025.  Discharge data from March 2 to June 1, 2023 was revised on December 30, 2025.",
+      "revision_created": "2026-02-03T20:12:13.693000+00:00",
+      "revision_modified": "2026-02-03T20:12:13.693000+00:00",
+      "thresholds": {
+        "base": null,
+        "minor": null,
+        "major": null,
+        "action": null,
+        "notes": "0000"
+      }
+    },
+    "id": "USGS-16226700",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.91002753052604,
+        21.370673653704703
+      ]
+    }
+  },
+  "USGS-213133158014201": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-213133158014201",
+      "monitoring_location_number": "213133158014201",
+      "monitoring_location_name": "Upper Helemano Reservoir near Wahiawa, Oahu, HI",
+      "name_short": "Upper Helemano Res",
+      "site_type_code": "LK",
+      "site_type": "Lake, Reservoir, Impoundment",
+      "hydrologic_unit_code": "200600000102",
+      "drainage_area": null,
+      "revision_note": null,
+      "revision_created": null,
+      "revision_modified": null,
+      "thresholds": {
+        "base": 43.0,
+        "minor": null,
+        "major": null,
+        "action": 58.8,
+        "notes": "2001"
+      }
+    },
+    "id": "USGS-213133158014201",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -158.02842200656195,
+        21.525912577503725
+      ]
+    }
+  },
+  "USGS-16210100": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16210100",
+      "monitoring_location_number": "16210100",
+      "monitoring_location_name": "Wahiawa Ditch at Wahiawa, Oahu, HI",
+      "name_short": "Wahiawa Ditch",
+      "site_type_code": "ST-DCH",
+      "site_type": "Ditch",
+      "hydrologic_unit_code": "200600000102",
+      "drainage_area": null,
+      "revision_note": null,
+      "revision_created": null,
+      "revision_modified": null,
+      "thresholds": {
+        "base": 7.1,
+        "minor": null,
+        "major": null,
+        "action": 10.4,
+        "notes": "2001"
+      }
+    },
+    "id": "USGS-16210100",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -158.0510331217032,
+        21.50055145935127
+      ]
+    }
+  },
+  "USGS-16210000": {
+    "type": "Feature",
+    "time_series_id": "26e3b29b90d34a3baf13ebe7c297197a",
+    "properties": {
+      "id": "USGS-16210000",
+      "monitoring_location_number": "16210000",
+      "monitoring_location_name": "Wahiawa Reservoir at Spillway at Wahiawa, Oahu, HI",
+      "name_short": "Wahiawa Res Spillway",
+      "site_type_code": "LK",
+      "site_type": "Lake, Reservoir, Impoundment",
+      "hydrologic_unit_code": "200600000102",
+      "drainage_area": null,
+      "revision_note": null,
+      "revision_created": null,
+      "revision_modified": null,
+      "thresholds": {
+        "base": 73.0,
+        "minor": 84.0,
+        "major": null,
+        "action": 93.0,
+        "notes": "2101"
+      }
+    },
+    "id": "USGS-16210000",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -158.04978312128006,
+        21.496468125040746
+      ]
+    }
+  },
+  "USGS-16294100": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16294100",
+      "monitoring_location_number": "16294100",
+      "monitoring_location_name": "Waiahole Stream above Kamehameha Hwy, Oahu, HI",
+      "name_short": "Waiahole",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000204",
+      "drainage_area": 3.81,
+      "revision_note": "WDR HI-12-1: Drainage Area. WDR-HI-13-1: 2002-2011 (P).&nbsp;Gage height and discharge unit value on April 21, 2023 (0622) was revised on July 22, 2024.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2024-07-25T00:54:04.050000+00:00",
+      "thresholds": {
+        "base": 9.4,
+        "minor": 12.0,
+        "major": 16.4,
+        "action": 16.4,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16294100",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.8458941871459,
+        21.48202368348824
+      ]
+    }
+  },
+  "USGS-16240500": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16240500",
+      "monitoring_location_number": "16240500",
+      "monitoring_location_name": "Waiakeakua Str at Honolulu, Oahu, HI",
+      "name_short": "Waiakeakua",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000303",
+      "drainage_area": 1.05,
+      "revision_note": "WSP 1319: 1919(M), 1930-33(M). WSP 1569: Drainage area. WSP 1937: 1949(M), 1960(M). WDR HI-04-1: 1961-72(P), 1974-2000(P). WDR HI-10-1: Drainage Area.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": null,
+      "thresholds": {
+        "base": 0.45,
+        "minor": 4.0,
+        "major": 6.1,
+        "action": 14.3,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16240500",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.79961639367932,
+        21.328218091050303
+      ]
+    }
+  },
+  "USGS-16284200": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16284200",
+      "monitoring_location_number": "16284200",
+      "monitoring_location_name": "Waihee Str nr Kahaluu, Oahu, HI",
+      "name_short": "Waihee Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000204",
+      "drainage_area": 0.97,
+      "revision_note": "WDR-HI-11-1: 2008-2010",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": null,
+      "thresholds": {
+        "base": 2.8,
+        "minor": 7.5,
+        "major": 9.2,
+        "action": 35.4,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16284200",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.85661641049677,
+        21.448162563595005
+      ]
+    }
+  },
+  "USGS-16238500": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16238500",
+      "monitoring_location_number": "16238500",
+      "monitoring_location_name": "Waihi Stream at Honolulu, Oahu, HI",
+      "name_short": "Waihi Stream",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000303",
+      "drainage_area": 1.12,
+      "revision_note": "WDR HI-10-1: Drainage Area.&nbsp; Turbidity data on November 7, 2019 (0305-0430) was revised on April 20, 2020.&nbsp; Peak gage height and discharge for January 25, 2021 were revised on October 5, 2021. Qualifier was removed from turbidity unit values from May 1 (2140) to May 2 (0205), 2022 and May 2 (1200-2205), 2022 on June 27, 2023.&nbsp;&nbsp;&nbsp;Suspended sediment concentrations and loads were revised from October 9, 2017 to September 30, 2019 on March 28, 2025.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2025-03-28T22:50:41.460000+00:00",
+      "thresholds": {
+        "base": 1.8,
+        "minor": 6.5,
+        "major": 10.4,
+        "action": 15,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16238500",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.80086639395844,
+        21.32835697993455
+      ]
+    }
+  },
+  "USGS-16294900": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16294900",
+      "monitoring_location_number": "16294900",
+      "monitoring_location_name": "Waikane Str at alt 75 ft at Waikane, Oahu, HI",
+      "name_short": "Waikane Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000204",
+      "drainage_area": 2.24,
+      "revision_note": "WSP 1937: Drainage Area, WDR HI-94-1: 1993 (M). WDR HI-10-1: Drainage Area.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": null,
+      "thresholds": {
+        "base": 2.9,
+        "minor": 7.0,
+        "major": 10.8,
+        "action": 17.6,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16294900",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.86297752477364,
+        21.497079242256017
+      ]
+    }
+  },
+  "USGS-16213000": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16213000",
+      "monitoring_location_number": "16213000",
+      "monitoring_location_name": "Waikele Str at Waipahu, Oahu, HI",
+      "name_short": "Waikele Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000403",
+      "drainage_area": 45.14,
+      "revision_note": "WSP 1639: 1955(M). WSP 1937: Drainage Area. WSP 2137: 1965. WDR HI-06-01, 2000-2005 (P).WDR HI-10-1: Drainage Area.\r\n",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": null,
+      "thresholds": {
+        "base": 3.6,
+        "minor": 12.0,
+        "major": 18.9,
+        "action": 22.5,
+        "notes": "2111"
+      }
+    },
+    "id": "USGS-16213000",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -158.01092199754387,
+        21.383468098137627
+      ]
+    }
+  },
+  "USGS-16212601": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16212601",
+      "monitoring_location_number": "16212601",
+      "monitoring_location_name": "Waikele Str at Wheeler Field, Oahu, HI",
+      "name_short": "Waikele Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000403",
+      "drainage_area": 6.72,
+      "revision_note": "WDR HI-05-1: 1974-2003(M). WDR HI-09-1: 2008 (drainage area).",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": null,
+      "thresholds": {
+        "base": 4.8,
+        "minor": null,
+        "major": null,
+        "action": 25.0,
+        "notes": "2001"
+      }
+    },
+    "id": "USGS-16212601",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -158.04447756367952,
+        21.47230145252445
+      ]
+    }
+  },
+  "USGS-16249000": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16249000",
+      "monitoring_location_number": "16249000",
+      "monitoring_location_name": "Waimanalo Str at Waimanalo, Oahu, HI",
+      "name_short": "Waimanalo Str",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000207",
+      "drainage_area": 2.13,
+      "revision_note": "WDR HI-03-1: 1994(P). WDR HI-09: 2008(P). WDR HI-10-1: Drainage Area.&nbsp;&nbsp;Gage height and discharge for the period April 15 to August 22, 2020 were revised on November 9, 2021.",
+      "revision_created": "2017-11-13T06:00:00+00:00",
+      "revision_modified": "2021-11-29T17:49:31.020000+00:00",
+      "thresholds": {
+        "base": 7.1,
+        "minor": 12.0,
+        "major": null,
+        "action": 19.2,
+        "notes": "2101"
+      }
+    },
+    "id": "USGS-16249000",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.72892193450215,
+        21.349968098691477
+      ]
+    }
+  },
+  "USGS-16247150": {
+    "type": "Feature",
+    "properties": {
+      "id": "USGS-16247150",
+      "monitoring_location_number": "16247150",
+      "monitoring_location_name": "Makiki Stream at Archie Baker Park",
+      "name_short": "Makiki Stream",
+      "site_type_code": "ST",
+      "site_type": "Stream",
+      "hydrologic_unit_code": "200600000207",
+      "drainage_area": 2.13,
+      "revision_note": null,
+      "revision_created": null,
+      "revision_modified": null,
+      "thresholds": {
+        "base": null,
+        "minor": null,
+        "major": null,
+        "action": null,
+        "notes": "0000"
+      }
+    },
+    "id": "USGS-16247150",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.72892193450215,
+        21.349968098691477
+      ]
+    }
+  }
 }
