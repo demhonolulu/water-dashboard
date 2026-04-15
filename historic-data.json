@@ -1,0 +1,4842 @@
+{
+  "USGS-16279200": [
+    {
+      "month": "2025-01",
+      "max": 5.54,
+      "max_timestamp": "2025-01-31T03:20:00+00:00",
+      "min": 3.15,
+      "min_timestamp": "2025-01-23T23:25:00+00:00",
+      "average": 3.23,
+      "baseline_average": 3.18
+    },
+    {
+      "month": "2025-02",
+      "max": 3.56,
+      "max_timestamp": "2025-02-01T00:20:00+00:00",
+      "min": 3.21,
+      "min_timestamp": "2025-02-15T00:45:00+00:00",
+      "average": 3.28,
+      "baseline_average": 3.27
+    },
+    {
+      "month": "2025-03",
+      "max": 5.53,
+      "max_timestamp": "2025-03-17T06:40:00+00:00",
+      "min": 3.15,
+      "min_timestamp": "2025-03-29T23:00:00+00:00",
+      "average": 3.25,
+      "baseline_average": 3.24
+    },
+    {
+      "month": "2025-04",
+      "max": 5.01,
+      "max_timestamp": "2025-04-19T01:45:00+00:00",
+      "min": 3.15,
+      "min_timestamp": "2025-04-01T00:05:00+00:00",
+      "average": 3.23,
+      "baseline_average": 3.2
+    },
+    {
+      "month": "2025-05",
+      "max": 3.38,
+      "max_timestamp": "2025-05-22T22:05:00+00:00",
+      "min": 3.2,
+      "min_timestamp": "2025-05-03T01:15:00+00:00",
+      "average": 3.23,
+      "baseline_average": 3.22
+    },
+    {
+      "month": "2025-06",
+      "max": 3.34,
+      "max_timestamp": "2025-06-25T19:15:00+00:00",
+      "min": 3.19,
+      "min_timestamp": "2025-06-18T22:55:00+00:00",
+      "average": 3.21,
+      "baseline_average": 3.21
+    },
+    {
+      "month": "2025-07",
+      "max": 3.36,
+      "max_timestamp": "2025-07-28T18:45:00+00:00",
+      "min": 3.19,
+      "min_timestamp": "2025-07-24T22:45:00+00:00",
+      "average": 3.22,
+      "baseline_average": 3.22
+    },
+    {
+      "month": "2025-08",
+      "max": 3.22,
+      "max_timestamp": "2025-08-01T19:50:00+00:00",
+      "min": 3.13,
+      "min_timestamp": "2025-08-25T22:35:00+00:00",
+      "average": 3.17,
+      "baseline_average": 3.17
+    },
+    {
+      "month": "2025-09",
+      "max": 3.29,
+      "max_timestamp": "2025-09-01T04:40:00+00:00",
+      "min": 3.11,
+      "min_timestamp": "2025-09-23T23:05:00+00:00",
+      "average": 3.14,
+      "baseline_average": 3.14
+    },
+    {
+      "month": "2025-10",
+      "max": 3.19,
+      "max_timestamp": "2025-10-01T20:10:00+00:00",
+      "min": 3.1,
+      "min_timestamp": "2025-10-15T23:15:00+00:00",
+      "average": 3.12,
+      "baseline_average": 3.12
+    },
+    {
+      "month": "2025-11",
+      "max": 3.43,
+      "max_timestamp": "2025-11-09T18:25:00+00:00",
+      "min": 3.09,
+      "min_timestamp": "2025-11-30T23:50:00+00:00",
+      "average": 3.13,
+      "baseline_average": 3.12
+    },
+    {
+      "month": "2025-12",
+      "max": 4.52,
+      "max_timestamp": "2025-12-21T11:00:00+00:00",
+      "min": 3.09,
+      "min_timestamp": "2025-12-01T00:10:00+00:00",
+      "average": 3.2,
+      "baseline_average": 3.18
+    }
+  ],
+  "USGS-213320158061401": [
+    {
+      "month": "2025-01",
+      "max": 17.15,
+      "max_timestamp": "2025-01-31T21:20:00+00:00",
+      "min": 15.92,
+      "min_timestamp": "2025-01-01T00:10:00+00:00",
+      "average": 16.68,
+      "baseline_average": 16.69
+    },
+    {
+      "month": "2025-02",
+      "max": 17.61,
+      "max_timestamp": "2025-02-18T04:00:00+00:00",
+      "min": 15.6,
+      "min_timestamp": "2025-02-28T18:05:00+00:00",
+      "average": 17.0,
+      "baseline_average": 17.21
+    },
+    {
+      "month": "2025-03",
+      "max": 15.64,
+      "max_timestamp": "2025-03-01T00:10:00+00:00",
+      "min": 15.55,
+      "min_timestamp": "2025-03-01T16:10:00+00:00",
+      "average": 15.6,
+      "baseline_average": 15.6
+    },
+    {
+      "month": "2025-04",
+      "max": 15.69,
+      "max_timestamp": "2025-04-29T04:55:00+00:00",
+      "min": 15.56,
+      "min_timestamp": "2025-04-28T15:50:00+00:00",
+      "average": 15.61,
+      "baseline_average": 15.61
+    },
+    {
+      "month": "2025-05",
+      "max": 15.64,
+      "max_timestamp": "2025-05-11T21:15:00+00:00",
+      "min": 15.56,
+      "min_timestamp": "2025-05-11T11:00:00+00:00",
+      "average": 15.6,
+      "baseline_average": 15.6
+    },
+    {
+      "month": "2025-06",
+      "max": 15.63,
+      "max_timestamp": "2025-06-04T22:10:00+00:00",
+      "min": 15.58,
+      "min_timestamp": "2025-06-09T22:15:00+00:00",
+      "average": 15.6,
+      "baseline_average": 15.6
+    },
+    {
+      "month": "2025-07",
+      "max": 15.63,
+      "max_timestamp": "2025-07-03T00:55:00+00:00",
+      "min": 15.59,
+      "min_timestamp": "2025-07-01T09:25:00+00:00",
+      "average": 15.6,
+      "baseline_average": 15.6
+    },
+    {
+      "month": "2025-08",
+      "max": 15.77,
+      "max_timestamp": "2025-08-11T23:40:00+00:00",
+      "min": 15.59,
+      "min_timestamp": "2025-08-01T13:40:00+00:00",
+      "average": 15.61,
+      "baseline_average": 15.61
+    },
+    {
+      "month": "2025-09",
+      "max": 15.8,
+      "max_timestamp": "2025-09-06T20:15:00+00:00",
+      "min": 12.59,
+      "min_timestamp": "2025-09-29T22:25:00+00:00",
+      "average": 14.26,
+      "baseline_average": 14.26
+    },
+    {
+      "month": "2025-10",
+      "max": 13.39,
+      "max_timestamp": "2025-10-31T20:20:00+00:00",
+      "min": 12.56,
+      "min_timestamp": "2025-10-01T01:35:00+00:00",
+      "average": 12.66,
+      "baseline_average": 12.57
+    },
+    {
+      "month": "2025-11",
+      "max": 13.86,
+      "max_timestamp": "2025-11-07T01:15:00+00:00",
+      "min": 12.56,
+      "min_timestamp": "2025-11-19T13:15:00+00:00",
+      "average": 13.06,
+      "baseline_average": 13.06
+    },
+    {
+      "month": "2025-12",
+      "max": 12.6,
+      "max_timestamp": "2025-12-01T00:00:00+00:00",
+      "min": 12.55,
+      "min_timestamp": "2025-12-19T19:40:00+00:00",
+      "average": 12.57,
+      "baseline_average": 12.57
+    }
+  ],
+  "USGS-213308158035601": [
+    {
+      "month": "2025-01",
+      "max": 23.72,
+      "max_timestamp": "2025-01-27T15:00:00+00:00",
+      "min": 21.64,
+      "min_timestamp": "2025-01-01T06:35:00+00:00",
+      "average": 22.52,
+      "baseline_average": 22.52
+    },
+    {
+      "month": "2025-02",
+      "max": 23.22,
+      "max_timestamp": "2025-02-22T21:00:00+00:00",
+      "min": 21.49,
+      "min_timestamp": "2025-02-10T20:30:00+00:00",
+      "average": 22.47,
+      "baseline_average": 22.49
+    },
+    {
+      "month": "2025-03",
+      "max": 23.28,
+      "max_timestamp": "2025-03-23T17:40:00+00:00",
+      "min": 21.67,
+      "min_timestamp": "2025-03-17T01:25:00+00:00",
+      "average": 22.3,
+      "baseline_average": 22.3
+    },
+    {
+      "month": "2025-04",
+      "max": 23.41,
+      "max_timestamp": "2025-04-16T17:50:00+00:00",
+      "min": 21.78,
+      "min_timestamp": "2025-04-23T01:35:00+00:00",
+      "average": 22.58,
+      "baseline_average": 22.58
+    },
+    {
+      "month": "2025-05",
+      "max": 23.56,
+      "max_timestamp": "2025-05-23T18:15:00+00:00",
+      "min": 21.84,
+      "min_timestamp": "2025-05-09T23:30:00+00:00",
+      "average": 22.38,
+      "baseline_average": 22.34
+    },
+    {
+      "month": "2025-06",
+      "max": 23.67,
+      "max_timestamp": "2025-06-23T16:25:00+00:00",
+      "min": 21.89,
+      "min_timestamp": "2025-06-03T07:30:00+00:00",
+      "average": 22.44,
+      "baseline_average": 22.4
+    },
+    {
+      "month": "2025-07",
+      "max": 24.35,
+      "max_timestamp": "2025-07-21T16:05:00+00:00",
+      "min": 21.98,
+      "min_timestamp": "2025-07-26T23:35:00+00:00",
+      "average": 22.71,
+      "baseline_average": 22.66
+    },
+    {
+      "month": "2025-08",
+      "max": 25.09,
+      "max_timestamp": "2025-08-11T15:50:00+00:00",
+      "min": 22.02,
+      "min_timestamp": "2025-08-27T08:30:00+00:00",
+      "average": 23.18,
+      "baseline_average": 23.1
+    },
+    {
+      "month": "2025-09",
+      "max": 25.44,
+      "max_timestamp": "2025-09-12T16:20:00+00:00",
+      "min": 21.96,
+      "min_timestamp": "2025-09-27T08:55:00+00:00",
+      "average": 23.54,
+      "baseline_average": 23.54
+    },
+    {
+      "month": "2025-10",
+      "max": 24.64,
+      "max_timestamp": "2025-10-17T20:30:00+00:00",
+      "min": 21.98,
+      "min_timestamp": "2025-10-09T19:40:00+00:00",
+      "average": 23.25,
+      "baseline_average": 23.25
+    },
+    {
+      "month": "2025-11",
+      "max": 24.95,
+      "max_timestamp": "2025-11-13T15:55:00+00:00",
+      "min": 22.03,
+      "min_timestamp": "2025-11-18T12:05:00+00:00",
+      "average": 23.39,
+      "baseline_average": 23.38
+    },
+    {
+      "month": "2025-12",
+      "max": 25.92,
+      "max_timestamp": "2025-12-19T01:45:00+00:00",
+      "min": 22.65,
+      "min_timestamp": "2025-12-30T02:45:00+00:00",
+      "average": 23.84,
+      "baseline_average": 23.78
+    }
+  ],
+  "USGS-213133158014201": [
+    {
+      "month": "2025-01",
+      "max": 35.92,
+      "max_timestamp": "2025-01-31T06:55:00+00:00",
+      "min": 35.88,
+      "min_timestamp": "2025-01-18T18:25:00+00:00",
+      "average": 35.9,
+      "baseline_average": 35.9
+    },
+    {
+      "month": "2025-02",
+      "max": 35.92,
+      "max_timestamp": "2025-02-02T03:05:00+00:00",
+      "min": 35.88,
+      "min_timestamp": "2025-02-06T18:00:00+00:00",
+      "average": 35.9,
+      "baseline_average": 35.9
+    },
+    {
+      "month": "2025-03",
+      "max": 36.76,
+      "max_timestamp": "2025-03-24T13:20:00+00:00",
+      "min": 35.88,
+      "min_timestamp": "2025-03-02T17:55:00+00:00",
+      "average": 36.11,
+      "baseline_average": 36.11
+    },
+    {
+      "month": "2025-04",
+      "max": 41.48,
+      "max_timestamp": "2025-04-28T15:45:00+00:00",
+      "min": 35.89,
+      "min_timestamp": "2025-04-01T00:30:00+00:00",
+      "average": 38.03,
+      "baseline_average": 38.03
+    },
+    {
+      "month": "2025-05",
+      "max": 43.57,
+      "max_timestamp": "2025-05-26T20:00:00+00:00",
+      "min": 40.49,
+      "min_timestamp": "2025-05-15T23:50:00+00:00",
+      "average": 41.82,
+      "baseline_average": 41.82
+    },
+    {
+      "month": "2025-06",
+      "max": 43.58,
+      "max_timestamp": "2025-06-03T22:25:00+00:00",
+      "min": 41.19,
+      "min_timestamp": "2025-06-29T21:50:00+00:00",
+      "average": 42.63,
+      "baseline_average": 42.63
+    },
+    {
+      "month": "2025-07",
+      "max": 41.5,
+      "max_timestamp": "2025-07-24T16:10:00+00:00",
+      "min": 38.79,
+      "min_timestamp": "2025-07-11T02:20:00+00:00",
+      "average": 40.17,
+      "baseline_average": 40.17
+    },
+    {
+      "month": "2025-08",
+      "max": 41.16,
+      "max_timestamp": "2025-08-01T00:45:00+00:00",
+      "min": 35.85,
+      "min_timestamp": "2025-08-25T00:15:00+00:00",
+      "average": 38.1,
+      "baseline_average": 38.1
+    },
+    {
+      "month": "2025-09",
+      "max": 35.96,
+      "max_timestamp": "2025-09-25T14:10:00+00:00",
+      "min": 35.83,
+      "min_timestamp": "2025-09-14T00:10:00+00:00",
+      "average": 35.9,
+      "baseline_average": 35.9
+    },
+    {
+      "month": "2025-10",
+      "max": 35.97,
+      "max_timestamp": "2025-10-06T06:15:00+00:00",
+      "min": 35.83,
+      "min_timestamp": "2025-10-05T00:40:00+00:00",
+      "average": 35.9,
+      "baseline_average": 35.9
+    },
+    {
+      "month": "2025-11",
+      "max": 35.96,
+      "max_timestamp": "2025-11-19T03:30:00+00:00",
+      "min": 32.48,
+      "min_timestamp": "2025-11-21T01:15:00+00:00",
+      "average": 35.0,
+      "baseline_average": 35.0
+    },
+    {
+      "month": "2025-12",
+      "max": 41.2,
+      "max_timestamp": "2025-12-29T12:40:00+00:00",
+      "min": 33.1,
+      "min_timestamp": "2025-12-14T11:20:00+00:00",
+      "average": 36.41,
+      "baseline_average": 36.41
+    }
+  ],
+  "USGS-16345000": [
+    {
+      "month": "2025-01",
+      "max": 7.57,
+      "max_timestamp": "2025-01-27T03:15:00+00:00",
+      "min": 1.16,
+      "min_timestamp": "2025-01-25T23:55:00+00:00",
+      "average": 1.6,
+      "baseline_average": 1.48
+    },
+    {
+      "month": "2025-02",
+      "max": 2.34,
+      "max_timestamp": "2025-02-01T00:00:00+00:00",
+      "min": 1.16,
+      "min_timestamp": "2025-02-28T18:15:00+00:00",
+      "average": 1.49,
+      "baseline_average": 1.47
+    },
+    {
+      "month": "2025-03",
+      "max": 4.57,
+      "max_timestamp": "2025-03-17T19:00:00+00:00",
+      "min": 1.09,
+      "min_timestamp": "2025-03-04T21:00:00+00:00",
+      "average": 1.6,
+      "baseline_average": 1.51
+    },
+    {
+      "month": "2025-04",
+      "max": 4.85,
+      "max_timestamp": "2025-04-18T02:35:00+00:00",
+      "min": 1.24,
+      "min_timestamp": "2025-04-09T05:40:00+00:00",
+      "average": 1.77,
+      "baseline_average": 1.73
+    },
+    {
+      "month": "2025-05",
+      "max": 2.93,
+      "max_timestamp": "2025-05-17T05:10:00+00:00",
+      "min": 1.56,
+      "min_timestamp": "2025-05-04T08:50:00+00:00",
+      "average": 1.84,
+      "baseline_average": 1.82
+    },
+    {
+      "month": "2025-06",
+      "max": 2.33,
+      "max_timestamp": "2025-06-03T00:35:00+00:00",
+      "min": 1.47,
+      "min_timestamp": "2025-06-24T02:35:00+00:00",
+      "average": 1.69,
+      "baseline_average": 1.66
+    },
+    {
+      "month": "2025-07",
+      "max": 3.83,
+      "max_timestamp": "2025-07-19T18:40:00+00:00",
+      "min": 1.42,
+      "min_timestamp": "2025-07-10T08:50:00+00:00",
+      "average": 1.77,
+      "baseline_average": 1.74
+    },
+    {
+      "month": "2025-08",
+      "max": 1.87,
+      "max_timestamp": "2025-08-07T19:20:00+00:00",
+      "min": 1.12,
+      "min_timestamp": "2025-08-31T20:20:00+00:00",
+      "average": 1.42,
+      "baseline_average": 1.42
+    },
+    {
+      "month": "2025-09",
+      "max": 1.89,
+      "max_timestamp": "2025-09-22T04:10:00+00:00",
+      "min": 0.95,
+      "min_timestamp": "2025-09-14T21:05:00+00:00",
+      "average": 1.2,
+      "baseline_average": 1.19
+    },
+    {
+      "month": "2025-10",
+      "max": 2.47,
+      "max_timestamp": "2025-10-08T15:45:00+00:00",
+      "min": 1.12,
+      "min_timestamp": "2025-10-18T01:05:00+00:00",
+      "average": 1.44,
+      "baseline_average": 1.42
+    },
+    {
+      "month": "2025-11",
+      "max": 4.79,
+      "max_timestamp": "2025-11-09T11:45:00+00:00",
+      "min": 1.31,
+      "min_timestamp": "2025-11-08T02:15:00+00:00",
+      "average": 1.82,
+      "baseline_average": 1.74
+    },
+    {
+      "month": "2025-12",
+      "max": 4.46,
+      "max_timestamp": "2025-12-18T15:50:00+00:00",
+      "min": 1.38,
+      "min_timestamp": "2025-12-04T21:50:00+00:00",
+      "average": 1.86,
+      "baseline_average": 1.81
+    }
+  ],
+  "USGS-16330000": [
+    {
+      "month": "2025-01",
+      "max": 7.2,
+      "max_timestamp": "2025-01-27T03:02:00+00:00",
+      "min": 1.05,
+      "min_timestamp": "2025-01-26T11:15:00+00:00",
+      "average": 1.63,
+      "baseline_average": 1.4
+    },
+    {
+      "month": "2025-02",
+      "max": 3.01,
+      "max_timestamp": "2025-02-01T00:00:00+00:00",
+      "min": 1.24,
+      "min_timestamp": "2025-02-28T22:30:00+00:00",
+      "average": 1.58,
+      "baseline_average": 1.54
+    },
+    {
+      "month": "2025-03",
+      "max": 3.91,
+      "max_timestamp": "2025-03-17T21:15:00+00:00",
+      "min": 1.17,
+      "min_timestamp": "2025-03-04T03:00:00+00:00",
+      "average": 1.62,
+      "baseline_average": 1.52
+    },
+    {
+      "month": "2025-04",
+      "max": 3.47,
+      "max_timestamp": "2025-04-10T16:00:00+00:00",
+      "min": 1.21,
+      "min_timestamp": "2025-04-10T02:00:00+00:00",
+      "average": 1.64,
+      "baseline_average": 1.59
+    },
+    {
+      "month": "2025-05",
+      "max": 2.78,
+      "max_timestamp": "2025-05-17T10:45:00+00:00",
+      "min": 1.45,
+      "min_timestamp": "2025-05-05T01:00:00+00:00",
+      "average": 1.71,
+      "baseline_average": 1.7
+    },
+    {
+      "month": "2025-06",
+      "max": 1.89,
+      "max_timestamp": "2025-06-18T14:45:00+00:00",
+      "min": 1.32,
+      "min_timestamp": "2025-06-25T03:30:00+00:00",
+      "average": 1.52,
+      "baseline_average": 1.5
+    },
+    {
+      "month": "2025-07",
+      "max": 3.4,
+      "max_timestamp": "2025-07-20T00:30:00+00:00",
+      "min": 1.18,
+      "min_timestamp": "2025-07-04T12:00:00+00:00",
+      "average": 1.63,
+      "baseline_average": 1.61
+    },
+    {
+      "month": "2025-08",
+      "max": 1.72,
+      "max_timestamp": "2025-08-01T00:30:00+00:00",
+      "min": 0.89,
+      "min_timestamp": "2025-08-31T01:30:00+00:00",
+      "average": 1.2,
+      "baseline_average": 1.2
+    },
+    {
+      "month": "2025-09",
+      "max": 1.45,
+      "max_timestamp": "2025-09-28T05:45:00+00:00",
+      "min": 0.69,
+      "min_timestamp": "2025-09-09T22:15:00+00:00",
+      "average": 0.9,
+      "baseline_average": 0.87
+    },
+    {
+      "month": "2025-10",
+      "max": 1.68,
+      "max_timestamp": "2025-10-22T14:15:00+00:00",
+      "min": 0.69,
+      "min_timestamp": "2025-10-16T16:30:00+00:00",
+      "average": 1.04,
+      "baseline_average": 1.01
+    },
+    {
+      "month": "2025-11",
+      "max": 5.38,
+      "max_timestamp": "2025-11-10T00:15:00+00:00",
+      "min": 0.99,
+      "min_timestamp": "2025-11-02T02:15:00+00:00",
+      "average": 1.71,
+      "baseline_average": 1.58
+    },
+    {
+      "month": "2025-12",
+      "max": 4.78,
+      "max_timestamp": "2025-12-18T15:45:00+00:00",
+      "min": 1.3,
+      "min_timestamp": "2025-12-04T02:00:00+00:00",
+      "average": 1.89,
+      "baseline_average": 1.78
+    }
+  ],
+  "USGS-16325000": [
+    {
+      "month": "2025-01",
+      "max": 7.24,
+      "max_timestamp": "2025-01-27T02:10:00+00:00",
+      "min": 0.18,
+      "min_timestamp": "2025-01-19T23:55:00+00:00",
+      "average": 0.55,
+      "baseline_average": 0.34
+    },
+    {
+      "month": "2025-02",
+      "max": 1.35,
+      "max_timestamp": "2025-02-01T00:00:00+00:00",
+      "min": 0.34,
+      "min_timestamp": "2025-02-27T02:15:00+00:00",
+      "average": 0.52,
+      "baseline_average": 0.5
+    },
+    {
+      "month": "2025-03",
+      "max": 4.28,
+      "max_timestamp": "2025-03-17T19:25:00+00:00",
+      "min": 0.31,
+      "min_timestamp": "2025-03-04T07:25:00+00:00",
+      "average": 0.62,
+      "baseline_average": 0.52
+    },
+    {
+      "month": "2025-04",
+      "max": 2.0,
+      "max_timestamp": "2025-04-10T14:20:00+00:00",
+      "min": 0.27,
+      "min_timestamp": "2025-04-09T06:55:00+00:00",
+      "average": 0.56,
+      "baseline_average": 0.52
+    },
+    {
+      "month": "2025-05",
+      "max": 1.61,
+      "max_timestamp": "2025-05-17T05:20:00+00:00",
+      "min": 0.38,
+      "min_timestamp": "2025-05-12T08:55:00+00:00",
+      "average": 0.6,
+      "baseline_average": 0.58
+    },
+    {
+      "month": "2025-06",
+      "max": 0.79,
+      "max_timestamp": "2025-06-18T02:40:00+00:00",
+      "min": 0.33,
+      "min_timestamp": "2025-06-29T20:15:00+00:00",
+      "average": 0.49,
+      "baseline_average": 0.48
+    },
+    {
+      "month": "2025-07",
+      "max": 1.96,
+      "max_timestamp": "2025-07-19T22:40:00+00:00",
+      "min": 0.28,
+      "min_timestamp": "2025-07-10T10:25:00+00:00",
+      "average": 0.54,
+      "baseline_average": 0.52
+    },
+    {
+      "month": "2025-08",
+      "max": 0.55,
+      "max_timestamp": "2025-08-01T11:10:00+00:00",
+      "min": 0.14,
+      "min_timestamp": "2025-08-31T12:35:00+00:00",
+      "average": 0.27,
+      "baseline_average": 0.27
+    },
+    {
+      "month": "2025-09",
+      "max": 0.67,
+      "max_timestamp": "2025-09-27T08:25:00+00:00",
+      "min": 0.12,
+      "min_timestamp": "2025-09-18T19:45:00+00:00",
+      "average": 0.22,
+      "baseline_average": 0.2
+    },
+    {
+      "month": "2025-10",
+      "max": 0.78,
+      "max_timestamp": "2025-10-21T06:45:00+00:00",
+      "min": 0.13,
+      "min_timestamp": "2025-10-05T09:05:00+00:00",
+      "average": 0.25,
+      "baseline_average": 0.22
+    },
+    {
+      "month": "2025-11",
+      "max": 5.64,
+      "max_timestamp": "2025-11-09T23:10:00+00:00",
+      "min": 0.16,
+      "min_timestamp": "2025-11-02T03:10:00+00:00",
+      "average": 0.71,
+      "baseline_average": 0.57
+    },
+    {
+      "month": "2025-12",
+      "max": 4.86,
+      "max_timestamp": "2025-12-18T14:30:00+00:00",
+      "min": 0.45,
+      "min_timestamp": "2025-12-02T23:25:00+00:00",
+      "average": 0.81,
+      "baseline_average": 0.73
+    }
+  ],
+  "USGS-16210500": [
+    {
+      "month": "2025-01",
+      "max": 20.37,
+      "max_timestamp": "2025-01-31T04:15:00+00:00",
+      "min": 15.87,
+      "min_timestamp": "2025-01-26T05:30:00+00:00",
+      "average": 16.72,
+      "baseline_average": 16.47
+    },
+    {
+      "month": "2025-02",
+      "max": 18.75,
+      "max_timestamp": "2025-02-01T00:00:00+00:00",
+      "min": 16.01,
+      "min_timestamp": "2025-02-27T05:35:00+00:00",
+      "average": 16.66,
+      "baseline_average": 16.46
+    },
+    {
+      "month": "2025-03",
+      "max": 19.94,
+      "max_timestamp": "2025-03-18T05:20:00+00:00",
+      "min": 16.01,
+      "min_timestamp": "2025-03-07T00:45:00+00:00",
+      "average": 17.04,
+      "baseline_average": 17.04
+    },
+    {
+      "month": "2025-04",
+      "max": 18.87,
+      "max_timestamp": "2025-04-19T09:45:00+00:00",
+      "min": 16.3,
+      "min_timestamp": "2025-04-11T04:05:00+00:00",
+      "average": 17.52,
+      "baseline_average": 17.52
+    },
+    {
+      "month": "2025-05",
+      "max": 18.58,
+      "max_timestamp": "2025-05-01T03:55:00+00:00",
+      "min": 16.43,
+      "min_timestamp": "2025-05-08T02:15:00+00:00",
+      "average": 17.31,
+      "baseline_average": 17.31
+    },
+    {
+      "month": "2025-06",
+      "max": 17.52,
+      "max_timestamp": "2025-06-24T00:25:00+00:00",
+      "min": 16.58,
+      "min_timestamp": "2025-06-27T11:10:00+00:00",
+      "average": 16.88,
+      "baseline_average": 16.88
+    },
+    {
+      "month": "2025-07",
+      "max": 19.03,
+      "max_timestamp": "2025-07-23T00:45:00+00:00",
+      "min": 16.46,
+      "min_timestamp": "2025-07-09T06:05:00+00:00",
+      "average": 17.23,
+      "baseline_average": 17.23
+    },
+    {
+      "month": "2025-08",
+      "max": 18.48,
+      "max_timestamp": "2025-08-03T23:10:00+00:00",
+      "min": 16.16,
+      "min_timestamp": "2025-08-28T08:40:00+00:00",
+      "average": 16.79,
+      "baseline_average": 16.63
+    },
+    {
+      "month": "2025-09",
+      "max": 17.62,
+      "max_timestamp": "2025-09-16T22:15:00+00:00",
+      "min": 16.08,
+      "min_timestamp": "2025-09-29T07:25:00+00:00",
+      "average": 16.63,
+      "baseline_average": 16.63
+    },
+    {
+      "month": "2025-10",
+      "max": 17.68,
+      "max_timestamp": "2025-10-13T20:35:00+00:00",
+      "min": 16.09,
+      "min_timestamp": "2025-10-01T06:45:00+00:00",
+      "average": 16.65,
+      "baseline_average": 16.65
+    },
+    {
+      "month": "2025-11",
+      "max": 19.86,
+      "max_timestamp": "2025-11-18T12:45:00+00:00",
+      "min": 16.26,
+      "min_timestamp": "2025-11-09T09:45:00+00:00",
+      "average": 17.16,
+      "baseline_average": 16.92
+    },
+    {
+      "month": "2025-12",
+      "max": 23.43,
+      "max_timestamp": "2025-12-18T23:25:00+00:00",
+      "min": 16.57,
+      "min_timestamp": "2025-12-13T03:30:00+00:00",
+      "average": 17.9,
+      "baseline_average": 17.83
+    }
+  ],
+  "USGS-16304200": [
+    {
+      "month": "2025-01",
+      "max": 8.9,
+      "max_timestamp": "2025-01-27T01:25:00+00:00",
+      "min": 3.37,
+      "min_timestamp": "2025-01-07T23:20:00+00:00",
+      "average": 3.79,
+      "baseline_average": 3.71
+    },
+    {
+      "month": "2025-02",
+      "max": 4.55,
+      "max_timestamp": "2025-02-05T15:50:00+00:00",
+      "min": 3.62,
+      "min_timestamp": "2025-02-28T20:30:00+00:00",
+      "average": 3.89,
+      "baseline_average": 3.88
+    },
+    {
+      "month": "2025-03",
+      "max": 5.84,
+      "max_timestamp": "2025-03-17T08:10:00+00:00",
+      "min": 3.27,
+      "min_timestamp": "2025-03-05T19:00:00+00:00",
+      "average": 3.9,
+      "baseline_average": 3.88
+    },
+    {
+      "month": "2025-04",
+      "max": 6.79,
+      "max_timestamp": "2025-04-18T08:35:00+00:00",
+      "min": 3.66,
+      "min_timestamp": "2025-04-09T16:10:00+00:00",
+      "average": 4.04,
+      "baseline_average": 3.96
+    },
+    {
+      "month": "2025-05",
+      "max": 4.79,
+      "max_timestamp": "2025-05-17T00:10:00+00:00",
+      "min": 3.86,
+      "min_timestamp": "2025-05-31T09:35:00+00:00",
+      "average": 4.05,
+      "baseline_average": 4.03
+    },
+    {
+      "month": "2025-06",
+      "max": 4.41,
+      "max_timestamp": "2025-06-25T22:20:00+00:00",
+      "min": 3.81,
+      "min_timestamp": "2025-06-24T03:10:00+00:00",
+      "average": 3.94,
+      "baseline_average": 3.92
+    },
+    {
+      "month": "2025-07",
+      "max": 5.69,
+      "max_timestamp": "2025-07-28T05:35:00+00:00",
+      "min": 3.78,
+      "min_timestamp": "2025-07-09T17:45:00+00:00",
+      "average": 4.01,
+      "baseline_average": 3.97
+    },
+    {
+      "month": "2025-08",
+      "max": 4.26,
+      "max_timestamp": "2025-08-07T00:25:00+00:00",
+      "min": 3.54,
+      "min_timestamp": "2025-08-31T23:35:00+00:00",
+      "average": 3.82,
+      "baseline_average": 3.82
+    },
+    {
+      "month": "2025-09",
+      "max": 4.31,
+      "max_timestamp": "2025-09-12T19:15:00+00:00",
+      "min": 2.62,
+      "min_timestamp": "2025-09-06T13:20:00+00:00",
+      "average": 3.41,
+      "baseline_average": 3.41
+    },
+    {
+      "month": "2025-10",
+      "max": 4.85,
+      "max_timestamp": "2025-10-08T07:30:00+00:00",
+      "min": 3.57,
+      "min_timestamp": "2025-10-01T00:00:00+00:00",
+      "average": 3.91,
+      "baseline_average": 3.88
+    },
+    {
+      "month": "2025-11",
+      "max": 5.93,
+      "max_timestamp": "2025-11-09T09:40:00+00:00",
+      "min": 3.84,
+      "min_timestamp": "2025-11-07T02:30:00+00:00",
+      "average": 4.05,
+      "baseline_average": 4.0
+    },
+    {
+      "month": "2025-12",
+      "max": 6.74,
+      "max_timestamp": "2025-12-18T10:20:00+00:00",
+      "min": 3.78,
+      "min_timestamp": "2025-12-03T23:55:00+00:00",
+      "average": 4.06,
+      "baseline_average": 4.02
+    }
+  ],
+  "USGS-16301050": [
+    {
+      "month": "2025-01",
+      "max": 7.61,
+      "max_timestamp": "2025-01-27T01:53:00+00:00",
+      "min": 3.78,
+      "min_timestamp": "2025-01-19T00:40:00+00:00",
+      "average": 3.85,
+      "baseline_average": 3.79
+    },
+    {
+      "month": "2025-02",
+      "max": 4.04,
+      "max_timestamp": "2025-02-01T00:00:00+00:00",
+      "min": 3.79,
+      "min_timestamp": "2025-02-27T20:55:00+00:00",
+      "average": 3.83,
+      "baseline_average": 3.83
+    },
+    {
+      "month": "2025-03",
+      "max": 6.67,
+      "max_timestamp": "2025-03-17T06:35:00+00:00",
+      "min": 3.78,
+      "min_timestamp": "2025-03-13T21:30:00+00:00",
+      "average": 3.91,
+      "baseline_average": 3.84
+    },
+    {
+      "month": "2025-04",
+      "max": 6.61,
+      "max_timestamp": "2025-04-17T05:15:00+00:00",
+      "min": 3.81,
+      "min_timestamp": "2025-04-07T00:20:00+00:00",
+      "average": 3.96,
+      "baseline_average": 3.89
+    },
+    {
+      "month": "2025-05",
+      "max": 4.53,
+      "max_timestamp": "2025-05-18T06:20:00+00:00",
+      "min": 3.84,
+      "min_timestamp": "2025-05-15T10:20:00+00:00",
+      "average": 3.88,
+      "baseline_average": 3.87
+    },
+    {
+      "month": "2025-06",
+      "max": 4.04,
+      "max_timestamp": "2025-06-01T12:10:00+00:00",
+      "min": 3.8,
+      "min_timestamp": "2025-06-28T22:40:00+00:00",
+      "average": 3.84,
+      "baseline_average": 3.83
+    },
+    {
+      "month": "2025-07",
+      "max": 5.09,
+      "max_timestamp": "2025-07-19T15:40:00+00:00",
+      "min": 3.79,
+      "min_timestamp": "2025-07-06T23:50:00+00:00",
+      "average": 3.84,
+      "baseline_average": 3.82
+    },
+    {
+      "month": "2025-08",
+      "max": 3.87,
+      "max_timestamp": "2025-08-06T20:15:00+00:00",
+      "min": 3.77,
+      "min_timestamp": "2025-08-25T23:20:00+00:00",
+      "average": 3.79,
+      "baseline_average": 3.79
+    },
+    {
+      "month": "2025-09",
+      "max": 4.13,
+      "max_timestamp": "2025-09-10T23:40:00+00:00",
+      "min": 3.76,
+      "min_timestamp": "2025-09-03T23:45:00+00:00",
+      "average": 3.77,
+      "baseline_average": 3.77
+    },
+    {
+      "month": "2025-10",
+      "max": 3.9,
+      "max_timestamp": "2025-10-08T06:50:00+00:00",
+      "min": 3.75,
+      "min_timestamp": "2025-10-19T21:30:00+00:00",
+      "average": 3.76,
+      "baseline_average": 3.76
+    },
+    {
+      "month": "2025-11",
+      "max": 4.53,
+      "max_timestamp": "2025-11-09T15:40:00+00:00",
+      "min": 3.75,
+      "min_timestamp": "2025-11-01T00:00:00+00:00",
+      "average": 3.81,
+      "baseline_average": 3.79
+    },
+    {
+      "month": "2025-12",
+      "max": 4.88,
+      "max_timestamp": "2025-12-14T14:30:00+00:00",
+      "min": 3.75,
+      "min_timestamp": "2025-12-13T23:10:00+00:00",
+      "average": 3.85,
+      "baseline_average": 3.83
+    }
+  ],
+  "USGS-16296500": [
+    {
+      "month": "2025-01",
+      "max": 8.68,
+      "max_timestamp": "2025-01-27T03:20:00+00:00",
+      "min": 3.11,
+      "min_timestamp": "2025-01-06T03:25:00+00:00",
+      "average": 3.33,
+      "baseline_average": 3.18
+    },
+    {
+      "month": "2025-02",
+      "max": 3.92,
+      "max_timestamp": "2025-02-01T00:00:00+00:00",
+      "min": 2.94,
+      "min_timestamp": "2025-02-28T03:00:00+00:00",
+      "average": 3.16,
+      "baseline_average": 3.14
+    },
+    {
+      "month": "2025-03",
+      "max": 10.43,
+      "max_timestamp": "2025-03-17T06:45:00+00:00",
+      "min": 2.92,
+      "min_timestamp": "2025-03-03T02:10:00+00:00",
+      "average": 3.42,
+      "baseline_average": 3.32
+    },
+    {
+      "month": "2025-04",
+      "max": 7.07,
+      "max_timestamp": "2025-04-19T00:05:00+00:00",
+      "min": 3.41,
+      "min_timestamp": "2025-04-07T23:40:00+00:00",
+      "average": 3.66,
+      "baseline_average": 3.55
+    },
+    {
+      "month": "2025-05",
+      "max": 4.81,
+      "max_timestamp": "2025-05-22T21:30:00+00:00",
+      "min": 3.43,
+      "min_timestamp": "2025-05-13T23:25:00+00:00",
+      "average": 3.53,
+      "baseline_average": 3.5
+    },
+    {
+      "month": "2025-06",
+      "max": 4.61,
+      "max_timestamp": "2025-06-25T19:00:00+00:00",
+      "min": 3.37,
+      "min_timestamp": "2025-06-29T02:00:00+00:00",
+      "average": 3.45,
+      "baseline_average": 3.43
+    },
+    {
+      "month": "2025-07",
+      "max": 5.71,
+      "max_timestamp": "2025-07-19T15:50:00+00:00",
+      "min": 3.36,
+      "min_timestamp": "2025-07-08T19:20:00+00:00",
+      "average": 3.49,
+      "baseline_average": 3.44
+    },
+    {
+      "month": "2025-08",
+      "max": 3.6,
+      "max_timestamp": "2025-08-08T15:30:00+00:00",
+      "min": 3.33,
+      "min_timestamp": "2025-08-29T00:45:00+00:00",
+      "average": 3.38,
+      "baseline_average": 3.38
+    },
+    {
+      "month": "2025-09",
+      "max": 3.98,
+      "max_timestamp": "2025-09-11T00:15:00+00:00",
+      "min": 3.33,
+      "min_timestamp": "2025-09-03T03:20:00+00:00",
+      "average": 3.36,
+      "baseline_average": 3.35
+    },
+    {
+      "month": "2025-10",
+      "max": 4.76,
+      "max_timestamp": "2025-10-08T07:15:00+00:00",
+      "min": 3.33,
+      "min_timestamp": "2025-10-15T17:30:00+00:00",
+      "average": 3.41,
+      "baseline_average": 3.38
+    },
+    {
+      "month": "2025-11",
+      "max": 5.67,
+      "max_timestamp": "2025-11-09T17:05:00+00:00",
+      "min": 3.39,
+      "min_timestamp": "2025-11-01T23:20:00+00:00",
+      "average": 3.58,
+      "baseline_average": 3.51
+    },
+    {
+      "month": "2025-12",
+      "max": 5.65,
+      "max_timestamp": "2025-12-23T13:05:00+00:00",
+      "min": 3.38,
+      "min_timestamp": "2025-12-04T00:40:00+00:00",
+      "average": 3.63,
+      "baseline_average": 3.57
+    }
+  ],
+  "USGS-16294900": [
+    {
+      "month": "2025-01",
+      "max": 5.94,
+      "max_timestamp": "2025-01-31T03:15:00+00:00",
+      "min": 2.93,
+      "min_timestamp": "2025-01-06T02:05:00+00:00",
+      "average": 3.06,
+      "baseline_average": 2.99
+    },
+    {
+      "month": "2025-02",
+      "max": 3.39,
+      "max_timestamp": "2025-02-07T02:35:00+00:00",
+      "min": 3.07,
+      "min_timestamp": "2025-02-28T02:50:00+00:00",
+      "average": 3.12,
+      "baseline_average": 3.11
+    },
+    {
+      "month": "2025-03",
+      "max": 8.06,
+      "max_timestamp": "2025-03-17T06:37:00+00:00",
+      "min": 3.05,
+      "min_timestamp": "2025-03-10T03:30:00+00:00",
+      "average": 3.13,
+      "baseline_average": 3.11
+    },
+    {
+      "month": "2025-04",
+      "max": 6.25,
+      "max_timestamp": "2025-04-18T23:50:00+00:00",
+      "min": 3.1,
+      "min_timestamp": "2025-04-07T00:05:00+00:00",
+      "average": 3.19,
+      "baseline_average": 3.14
+    },
+    {
+      "month": "2025-05",
+      "max": 3.35,
+      "max_timestamp": "2025-05-01T00:40:00+00:00",
+      "min": 3.05,
+      "min_timestamp": "2025-05-11T03:25:00+00:00",
+      "average": 3.09,
+      "baseline_average": 3.08
+    },
+    {
+      "month": "2025-06",
+      "max": 3.25,
+      "max_timestamp": "2025-06-25T18:55:00+00:00",
+      "min": 3.07,
+      "min_timestamp": "2025-06-01T00:25:00+00:00",
+      "average": 3.11,
+      "baseline_average": 3.11
+    },
+    {
+      "month": "2025-07",
+      "max": 4.02,
+      "max_timestamp": "2025-07-28T05:05:00+00:00",
+      "min": 3.02,
+      "min_timestamp": "2025-07-23T14:45:00+00:00",
+      "average": 3.09,
+      "baseline_average": 3.08
+    },
+    {
+      "month": "2025-08",
+      "max": 3.27,
+      "max_timestamp": "2025-08-31T22:15:00+00:00",
+      "min": 3.03,
+      "min_timestamp": "2025-08-01T02:45:00+00:00",
+      "average": 3.06,
+      "baseline_average": 3.06
+    },
+    {
+      "month": "2025-09",
+      "max": 3.13,
+      "max_timestamp": "2025-09-01T00:00:00+00:00",
+      "min": 3.03,
+      "min_timestamp": "2025-09-02T18:30:00+00:00",
+      "average": 3.05,
+      "baseline_average": 3.05
+    },
+    {
+      "month": "2025-10",
+      "max": 3.24,
+      "max_timestamp": "2025-10-08T01:10:00+00:00",
+      "min": 3.03,
+      "min_timestamp": "2025-10-10T23:25:00+00:00",
+      "average": 3.06,
+      "baseline_average": 3.06
+    },
+    {
+      "month": "2025-11",
+      "max": 4.33,
+      "max_timestamp": "2025-11-09T16:45:00+00:00",
+      "min": 3.02,
+      "min_timestamp": "2025-11-04T23:15:00+00:00",
+      "average": 3.09,
+      "baseline_average": 3.06
+    },
+    {
+      "month": "2025-12",
+      "max": 3.62,
+      "max_timestamp": "2025-12-18T22:50:00+00:00",
+      "min": 3.02,
+      "min_timestamp": "2025-12-06T08:05:00+00:00",
+      "average": 3.08,
+      "baseline_average": 3.06
+    }
+  ],
+  "USGS-16294100": [
+    {
+      "month": "2025-01",
+      "max": 13.0,
+      "max_timestamp": "2025-01-31T03:47:00+00:00",
+      "min": 8.64,
+      "min_timestamp": "2025-01-15T22:55:00+00:00",
+      "average": 8.81,
+      "baseline_average": 8.73
+    },
+    {
+      "month": "2025-02",
+      "max": 9.34,
+      "max_timestamp": "2025-02-07T05:10:00+00:00",
+      "min": 8.76,
+      "min_timestamp": "2025-02-28T21:40:00+00:00",
+      "average": 8.86,
+      "baseline_average": 8.86
+    },
+    {
+      "month": "2025-03",
+      "max": 14.23,
+      "max_timestamp": "2025-03-17T07:07:00+00:00",
+      "min": 8.61,
+      "min_timestamp": "2025-03-14T21:10:00+00:00",
+      "average": 8.8,
+      "baseline_average": 8.77
+    },
+    {
+      "month": "2025-04",
+      "max": 12.36,
+      "max_timestamp": "2025-04-19T00:23:00+00:00",
+      "min": 8.74,
+      "min_timestamp": "2025-04-15T12:30:00+00:00",
+      "average": 8.85,
+      "baseline_average": 8.81
+    },
+    {
+      "month": "2025-05",
+      "max": 9.16,
+      "max_timestamp": "2025-05-22T21:00:00+00:00",
+      "min": 8.73,
+      "min_timestamp": "2025-05-02T12:35:00+00:00",
+      "average": 8.8,
+      "baseline_average": 8.8
+    },
+    {
+      "month": "2025-06",
+      "max": 8.77,
+      "max_timestamp": "2025-06-01T05:20:00+00:00",
+      "min": 8.62,
+      "min_timestamp": "2025-06-29T20:20:00+00:00",
+      "average": 8.69,
+      "baseline_average": 8.69
+    },
+    {
+      "month": "2025-07",
+      "max": 9.7,
+      "max_timestamp": "2025-07-19T17:30:00+00:00",
+      "min": 8.6,
+      "min_timestamp": "2025-07-31T01:20:00+00:00",
+      "average": 8.67,
+      "baseline_average": 8.66
+    },
+    {
+      "month": "2025-08",
+      "max": 8.68,
+      "max_timestamp": "2025-08-31T22:35:00+00:00",
+      "min": 8.58,
+      "min_timestamp": "2025-08-19T20:05:00+00:00",
+      "average": 8.62,
+      "baseline_average": 8.62
+    },
+    {
+      "month": "2025-09",
+      "max": 8.68,
+      "max_timestamp": "2025-09-09T13:15:00+00:00",
+      "min": 8.58,
+      "min_timestamp": "2025-09-17T03:30:00+00:00",
+      "average": 8.61,
+      "baseline_average": 8.61
+    },
+    {
+      "month": "2025-10",
+      "max": 8.76,
+      "max_timestamp": "2025-10-08T05:40:00+00:00",
+      "min": 8.58,
+      "min_timestamp": "2025-10-02T22:20:00+00:00",
+      "average": 8.62,
+      "baseline_average": 8.62
+    },
+    {
+      "month": "2025-11",
+      "max": 9.93,
+      "max_timestamp": "2025-11-09T17:30:00+00:00",
+      "min": 8.58,
+      "min_timestamp": "2025-11-29T23:20:00+00:00",
+      "average": 8.7,
+      "baseline_average": 8.67
+    },
+    {
+      "month": "2025-12",
+      "max": 9.74,
+      "max_timestamp": "2025-12-20T08:15:00+00:00",
+      "min": 8.57,
+      "min_timestamp": "2025-12-02T23:40:00+00:00",
+      "average": 8.71,
+      "baseline_average": 8.69
+    }
+  ],
+  "USGS-16284200": [
+    {
+      "month": "2025-01",
+      "max": 5.57,
+      "max_timestamp": "2025-01-27T04:40:00+00:00",
+      "min": 2.75,
+      "min_timestamp": "2025-01-18T19:05:00+00:00",
+      "average": 2.82,
+      "baseline_average": 2.77
+    },
+    {
+      "month": "2025-02",
+      "max": 3.1,
+      "max_timestamp": "2025-02-07T03:10:00+00:00",
+      "min": 2.75,
+      "min_timestamp": "2025-02-28T03:45:00+00:00",
+      "average": 2.8,
+      "baseline_average": 2.79
+    },
+    {
+      "month": "2025-03",
+      "max": 4.18,
+      "max_timestamp": "2025-03-17T07:35:00+00:00",
+      "min": 2.75,
+      "min_timestamp": "2025-03-13T08:10:00+00:00",
+      "average": 2.79,
+      "baseline_average": 2.77
+    },
+    {
+      "month": "2025-04",
+      "max": 3.98,
+      "max_timestamp": "2025-04-18T09:00:00+00:00",
+      "min": 2.76,
+      "min_timestamp": "2025-04-01T01:15:00+00:00",
+      "average": 2.8,
+      "baseline_average": 2.78
+    },
+    {
+      "month": "2025-05",
+      "max": 2.93,
+      "max_timestamp": "2025-05-17T05:45:00+00:00",
+      "min": 2.76,
+      "min_timestamp": "2025-05-28T08:10:00+00:00",
+      "average": 2.78,
+      "baseline_average": 2.78
+    },
+    {
+      "month": "2025-06",
+      "max": 2.81,
+      "max_timestamp": "2025-06-29T19:40:00+00:00",
+      "min": 2.75,
+      "min_timestamp": "2025-06-15T03:50:00+00:00",
+      "average": 2.76,
+      "baseline_average": 2.76
+    },
+    {
+      "month": "2025-07",
+      "max": 3.14,
+      "max_timestamp": "2025-07-28T18:10:00+00:00",
+      "min": 2.73,
+      "min_timestamp": "2025-07-09T01:30:00+00:00",
+      "average": 2.75,
+      "baseline_average": 2.75
+    },
+    {
+      "month": "2025-08",
+      "max": 2.8,
+      "max_timestamp": "2025-08-31T21:30:00+00:00",
+      "min": 2.71,
+      "min_timestamp": "2025-08-25T21:50:00+00:00",
+      "average": 2.73,
+      "baseline_average": 2.73
+    },
+    {
+      "month": "2025-09",
+      "max": 2.77,
+      "max_timestamp": "2025-09-01T03:55:00+00:00",
+      "min": 2.71,
+      "min_timestamp": "2025-09-02T00:40:00+00:00",
+      "average": 2.72,
+      "baseline_average": 2.72
+    },
+    {
+      "month": "2025-10",
+      "max": 2.79,
+      "max_timestamp": "2025-10-07T23:55:00+00:00",
+      "min": 2.71,
+      "min_timestamp": "2025-10-01T00:00:00+00:00",
+      "average": 2.72,
+      "baseline_average": 2.72
+    },
+    {
+      "month": "2025-11",
+      "max": 3.35,
+      "max_timestamp": "2025-11-09T17:10:00+00:00",
+      "min": 2.71,
+      "min_timestamp": "2025-11-04T05:05:00+00:00",
+      "average": 2.74,
+      "baseline_average": 2.73
+    },
+    {
+      "month": "2025-12",
+      "max": 4.45,
+      "max_timestamp": "2025-12-20T06:40:00+00:00",
+      "min": 2.7,
+      "min_timestamp": "2025-12-12T22:05:00+00:00",
+      "average": 2.78,
+      "baseline_average": 2.76
+    }
+  ],
+  "USGS-16283200": [
+    {
+      "month": "2025-01",
+      "max": 3.88,
+      "max_timestamp": "2025-01-27T04:42:00+00:00",
+      "min": 1.22,
+      "min_timestamp": "2025-01-13T07:00:00+00:00",
+      "average": 1.3,
+      "baseline_average": 1.26
+    },
+    {
+      "month": "2025-02",
+      "max": 1.48,
+      "max_timestamp": "2025-02-07T03:45:00+00:00",
+      "min": 1.27,
+      "min_timestamp": "2025-02-09T22:05:00+00:00",
+      "average": 1.3,
+      "baseline_average": 1.29
+    },
+    {
+      "month": "2025-03",
+      "max": 2.83,
+      "max_timestamp": "2025-03-17T06:50:00+00:00",
+      "min": 1.26,
+      "min_timestamp": "2025-03-24T21:35:00+00:00",
+      "average": 1.3,
+      "baseline_average": 1.28
+    },
+    {
+      "month": "2025-04",
+      "max": 2.63,
+      "max_timestamp": "2025-04-18T08:45:00+00:00",
+      "min": 1.25,
+      "min_timestamp": "2025-04-07T07:35:00+00:00",
+      "average": 1.31,
+      "baseline_average": 1.29
+    },
+    {
+      "month": "2025-05",
+      "max": 1.44,
+      "max_timestamp": "2025-05-22T21:35:00+00:00",
+      "min": 1.27,
+      "min_timestamp": "2025-05-09T21:30:00+00:00",
+      "average": 1.3,
+      "baseline_average": 1.29
+    },
+    {
+      "month": "2025-06",
+      "max": 1.33,
+      "max_timestamp": "2025-06-25T16:25:00+00:00",
+      "min": 1.25,
+      "min_timestamp": "2025-06-09T00:50:00+00:00",
+      "average": 1.27,
+      "baseline_average": 1.27
+    },
+    {
+      "month": "2025-07",
+      "max": 1.62,
+      "max_timestamp": "2025-07-19T15:15:00+00:00",
+      "min": 1.23,
+      "min_timestamp": "2025-07-25T02:35:00+00:00",
+      "average": 1.26,
+      "baseline_average": 1.26
+    },
+    {
+      "month": "2025-08",
+      "max": 1.3,
+      "max_timestamp": "2025-08-31T22:00:00+00:00",
+      "min": 1.17,
+      "min_timestamp": "2025-08-22T03:55:00+00:00",
+      "average": 1.21,
+      "baseline_average": 1.21
+    },
+    {
+      "month": "2025-09",
+      "max": 1.29,
+      "max_timestamp": "2025-09-25T02:00:00+00:00",
+      "min": 1.16,
+      "min_timestamp": "2025-09-22T02:10:00+00:00",
+      "average": 1.2,
+      "baseline_average": 1.2
+    },
+    {
+      "month": "2025-10",
+      "max": 1.28,
+      "max_timestamp": "2025-10-07T01:50:00+00:00",
+      "min": 1.16,
+      "min_timestamp": "2025-10-01T00:00:00+00:00",
+      "average": 1.22,
+      "baseline_average": 1.22
+    },
+    {
+      "month": "2025-11",
+      "max": 2.01,
+      "max_timestamp": "2025-11-09T19:15:00+00:00",
+      "min": 1.17,
+      "min_timestamp": "2025-11-30T19:45:00+00:00",
+      "average": 1.23,
+      "baseline_average": 1.21
+    },
+    {
+      "month": "2025-12",
+      "max": 1.98,
+      "max_timestamp": "2025-12-20T07:10:00+00:00",
+      "min": 1.16,
+      "min_timestamp": "2025-12-01T00:35:00+00:00",
+      "average": 1.24,
+      "baseline_average": 1.22
+    }
+  ],
+  "USGS-16275000": [
+    {
+      "month": "2025-01",
+      "max": 2.97,
+      "max_timestamp": "2025-01-31T03:08:00+00:00",
+      "min": 1.1,
+      "min_timestamp": "2025-01-06T22:10:00+00:00",
+      "average": 1.18,
+      "baseline_average": 1.11
+    },
+    {
+      "month": "2025-02",
+      "max": 1.55,
+      "max_timestamp": "2025-02-17T17:00:00+00:00",
+      "min": 1.11,
+      "min_timestamp": "2025-02-09T23:55:00+00:00",
+      "average": 1.22,
+      "baseline_average": 1.22
+    },
+    {
+      "month": "2025-03",
+      "max": 3.0,
+      "max_timestamp": "2025-03-17T06:22:00+00:00",
+      "min": 1.11,
+      "min_timestamp": "2025-03-02T03:55:00+00:00",
+      "average": 1.15,
+      "baseline_average": 1.13
+    },
+    {
+      "month": "2025-04",
+      "max": 2.42,
+      "max_timestamp": "2025-04-19T01:30:00+00:00",
+      "min": 1.11,
+      "min_timestamp": "2025-04-01T00:05:00+00:00",
+      "average": 1.21,
+      "baseline_average": 1.18
+    },
+    {
+      "month": "2025-05",
+      "max": 1.46,
+      "max_timestamp": "2025-05-16T18:00:00+00:00",
+      "min": 1.11,
+      "min_timestamp": "2025-05-11T00:05:00+00:00",
+      "average": 1.16,
+      "baseline_average": 1.14
+    },
+    {
+      "month": "2025-06",
+      "max": 1.19,
+      "max_timestamp": "2025-06-03T01:15:00+00:00",
+      "min": 1.09,
+      "min_timestamp": "2025-06-28T22:05:00+00:00",
+      "average": 1.12,
+      "baseline_average": 1.12
+    },
+    {
+      "month": "2025-07",
+      "max": 1.51,
+      "max_timestamp": "2025-07-14T18:05:00+00:00",
+      "min": 1.09,
+      "min_timestamp": "2025-07-06T22:15:00+00:00",
+      "average": 1.16,
+      "baseline_average": 1.11
+    },
+    {
+      "month": "2025-08",
+      "max": 1.38,
+      "max_timestamp": "2025-08-02T04:45:00+00:00",
+      "min": 1.07,
+      "min_timestamp": "2025-08-23T23:20:00+00:00",
+      "average": 1.1,
+      "baseline_average": 1.1
+    },
+    {
+      "month": "2025-09",
+      "max": 1.5,
+      "max_timestamp": "2025-09-03T02:40:00+00:00",
+      "min": 1.06,
+      "min_timestamp": "2025-09-05T23:15:00+00:00",
+      "average": 1.11,
+      "baseline_average": 1.08
+    },
+    {
+      "month": "2025-10",
+      "max": 1.45,
+      "max_timestamp": "2025-10-06T18:10:00+00:00",
+      "min": 1.06,
+      "min_timestamp": "2025-10-01T00:55:00+00:00",
+      "average": 1.1,
+      "baseline_average": 1.07
+    },
+    {
+      "month": "2025-11",
+      "max": 1.43,
+      "max_timestamp": "2025-11-09T17:15:00+00:00",
+      "min": 1.07,
+      "min_timestamp": "2025-11-28T01:45:00+00:00",
+      "average": 1.12,
+      "baseline_average": 1.09
+    },
+    {
+      "month": "2025-12",
+      "max": 2.19,
+      "max_timestamp": "2025-12-21T10:35:00+00:00",
+      "min": 1.07,
+      "min_timestamp": "2025-12-02T07:05:00+00:00",
+      "average": 1.14,
+      "baseline_average": 1.11
+    }
+  ],
+  "USGS-16274100": [
+    {
+      "month": "2025-01",
+      "max": 19.62,
+      "max_timestamp": "2025-01-31T03:07:00+00:00",
+      "min": 16.07,
+      "min_timestamp": "2025-01-22T13:30:00+00:00",
+      "average": 16.17,
+      "baseline_average": 16.11
+    },
+    {
+      "month": "2025-02",
+      "max": 16.71,
+      "max_timestamp": "2025-02-18T01:30:00+00:00",
+      "min": 16.05,
+      "min_timestamp": "2025-02-28T02:20:00+00:00",
+      "average": 16.12,
+      "baseline_average": 16.11
+    },
+    {
+      "month": "2025-03",
+      "max": 17.08,
+      "max_timestamp": "2025-03-17T08:20:00+00:00",
+      "min": 16.04,
+      "min_timestamp": "2025-03-03T23:30:00+00:00",
+      "average": 16.1,
+      "baseline_average": 16.08
+    },
+    {
+      "month": "2025-04",
+      "max": 17.58,
+      "max_timestamp": "2025-04-19T01:15:00+00:00",
+      "min": 16.05,
+      "min_timestamp": "2025-04-01T00:00:00+00:00",
+      "average": 16.13,
+      "baseline_average": 16.08
+    },
+    {
+      "month": "2025-05",
+      "max": 16.52,
+      "max_timestamp": "2025-05-17T04:35:00+00:00",
+      "min": 16.06,
+      "min_timestamp": "2025-05-27T02:40:00+00:00",
+      "average": 16.1,
+      "baseline_average": 16.1
+    },
+    {
+      "month": "2025-06",
+      "max": 16.57,
+      "max_timestamp": "2025-06-25T16:25:00+00:00",
+      "min": 16.03,
+      "min_timestamp": "2025-06-28T02:15:00+00:00",
+      "average": 16.08,
+      "baseline_average": 16.07
+    },
+    {
+      "month": "2025-07",
+      "max": 16.43,
+      "max_timestamp": "2025-07-28T17:00:00+00:00",
+      "min": 16.01,
+      "min_timestamp": "2025-07-23T12:30:00+00:00",
+      "average": 16.05,
+      "baseline_average": 16.04
+    },
+    {
+      "month": "2025-08",
+      "max": 16.36,
+      "max_timestamp": "2025-08-31T23:30:00+00:00",
+      "min": 15.99,
+      "min_timestamp": "2025-08-26T13:15:00+00:00",
+      "average": 16.03,
+      "baseline_average": 16.03
+    },
+    {
+      "month": "2025-09",
+      "max": 16.49,
+      "max_timestamp": "2025-09-01T04:45:00+00:00",
+      "min": 15.94,
+      "min_timestamp": "2025-09-06T05:40:00+00:00",
+      "average": 15.99,
+      "baseline_average": 15.99
+    },
+    {
+      "month": "2025-10",
+      "max": 16.51,
+      "max_timestamp": "2025-10-20T14:45:00+00:00",
+      "min": 15.94,
+      "min_timestamp": "2025-10-11T05:45:00+00:00",
+      "average": 15.99,
+      "baseline_average": 15.98
+    },
+    {
+      "month": "2025-11",
+      "max": 16.3,
+      "max_timestamp": "2025-11-14T08:40:00+00:00",
+      "min": 15.97,
+      "min_timestamp": "2025-11-08T13:05:00+00:00",
+      "average": 16.02,
+      "baseline_average": 16.02
+    },
+    {
+      "month": "2025-12",
+      "max": 18.49,
+      "max_timestamp": "2025-12-21T10:15:00+00:00",
+      "min": 15.98,
+      "min_timestamp": "2025-12-02T00:35:00+00:00",
+      "average": 16.07,
+      "baseline_average": 16.03
+    }
+  ],
+  "USGS-16265000": [
+    {
+      "month": "2025-01",
+      "max": 9.0,
+      "max_timestamp": "2025-01-31T03:03:00+00:00",
+      "min": 3.45,
+      "min_timestamp": "2025-01-20T01:50:00+00:00",
+      "average": 3.55,
+      "baseline_average": 3.48
+    },
+    {
+      "month": "2025-02",
+      "max": 5.01,
+      "max_timestamp": "2025-02-05T21:00:00+00:00",
+      "min": 3.51,
+      "min_timestamp": "2025-02-28T00:05:00+00:00",
+      "average": 3.58,
+      "baseline_average": 3.56
+    },
+    {
+      "month": "2025-03",
+      "max": 5.0,
+      "max_timestamp": "2025-03-17T06:55:00+00:00",
+      "min": 3.49,
+      "min_timestamp": "2025-03-12T22:00:00+00:00",
+      "average": 3.54,
+      "baseline_average": 3.51
+    },
+    {
+      "month": "2025-04",
+      "max": 6.17,
+      "max_timestamp": "2025-04-29T20:22:00+00:00",
+      "min": 3.48,
+      "min_timestamp": "2025-04-28T14:30:00+00:00",
+      "average": 3.55,
+      "baseline_average": 3.51
+    },
+    {
+      "month": "2025-05",
+      "max": 4.45,
+      "max_timestamp": "2025-05-17T04:35:00+00:00",
+      "min": 3.44,
+      "min_timestamp": "2025-05-10T20:45:00+00:00",
+      "average": 3.53,
+      "baseline_average": 3.52
+    },
+    {
+      "month": "2025-06",
+      "max": 4.55,
+      "max_timestamp": "2025-06-25T16:40:00+00:00",
+      "min": 3.48,
+      "min_timestamp": "2025-06-03T09:15:00+00:00",
+      "average": 3.51,
+      "baseline_average": 3.5
+    },
+    {
+      "month": "2025-07",
+      "max": 4.34,
+      "max_timestamp": "2025-07-12T12:45:00+00:00",
+      "min": 3.47,
+      "min_timestamp": "2025-07-03T12:50:00+00:00",
+      "average": 3.52,
+      "baseline_average": 3.5
+    },
+    {
+      "month": "2025-08",
+      "max": 4.02,
+      "max_timestamp": "2025-08-26T03:20:00+00:00",
+      "min": 3.43,
+      "min_timestamp": "2025-08-26T17:15:00+00:00",
+      "average": 3.52,
+      "baseline_average": 3.51
+    },
+    {
+      "month": "2025-09",
+      "max": 5.1,
+      "max_timestamp": "2025-09-01T04:45:00+00:00",
+      "min": 3.44,
+      "min_timestamp": "2025-09-07T15:45:00+00:00",
+      "average": 3.49,
+      "baseline_average": 3.47
+    },
+    {
+      "month": "2025-10",
+      "max": 4.2,
+      "max_timestamp": "2025-10-20T04:50:00+00:00",
+      "min": 3.43,
+      "min_timestamp": "2025-10-07T16:05:00+00:00",
+      "average": 3.5,
+      "baseline_average": 3.48
+    },
+    {
+      "month": "2025-11",
+      "max": 4.29,
+      "max_timestamp": "2025-11-02T16:00:00+00:00",
+      "min": 3.43,
+      "min_timestamp": "2025-11-03T04:05:00+00:00",
+      "average": 3.51,
+      "baseline_average": 3.48
+    },
+    {
+      "month": "2025-12",
+      "max": 7.26,
+      "max_timestamp": "2025-12-21T10:05:00+00:00",
+      "min": 3.43,
+      "min_timestamp": "2025-12-04T01:00:00+00:00",
+      "average": 3.6,
+      "baseline_average": 3.55
+    }
+  ],
+  "USGS-16264600": [
+    {
+      "month": "2025-01",
+      "max": 7.17,
+      "max_timestamp": "2025-01-31T08:10:00+00:00",
+      "min": 5.02,
+      "min_timestamp": "2025-01-25T23:05:00+00:00",
+      "average": 5.24,
+      "baseline_average": 5.07
+    },
+    {
+      "month": "2025-02",
+      "max": 6.69,
+      "max_timestamp": "2025-02-01T00:00:00+00:00",
+      "min": 5.45,
+      "min_timestamp": "2025-02-28T22:15:00+00:00",
+      "average": 5.73,
+      "baseline_average": 5.71
+    },
+    {
+      "month": "2025-03",
+      "max": 5.69,
+      "max_timestamp": "2025-03-18T16:10:00+00:00",
+      "min": 5.3,
+      "min_timestamp": "2025-03-14T22:35:00+00:00",
+      "average": 5.44,
+      "baseline_average": 5.44
+    },
+    {
+      "month": "2025-04",
+      "max": 5.91,
+      "max_timestamp": "2025-04-30T13:00:00+00:00",
+      "min": 5.2,
+      "min_timestamp": "2025-04-17T00:05:00+00:00",
+      "average": 5.45,
+      "baseline_average": 5.45
+    },
+    {
+      "month": "2025-05",
+      "max": 5.89,
+      "max_timestamp": "2025-05-01T00:00:00+00:00",
+      "min": 5.31,
+      "min_timestamp": "2025-05-30T05:30:00+00:00",
+      "average": 5.49,
+      "baseline_average": 5.47
+    },
+    {
+      "month": "2025-06",
+      "max": 5.31,
+      "max_timestamp": "2025-06-01T00:00:00+00:00",
+      "min": 5.0,
+      "min_timestamp": "2025-06-29T22:50:00+00:00",
+      "average": 5.14,
+      "baseline_average": 5.14
+    },
+    {
+      "month": "2025-07",
+      "max": 5.0,
+      "max_timestamp": "2025-07-01T00:00:00+00:00",
+      "min": 4.81,
+      "min_timestamp": "2025-07-29T01:25:00+00:00",
+      "average": 4.91,
+      "baseline_average": 4.91
+    },
+    {
+      "month": "2025-08",
+      "max": 4.87,
+      "max_timestamp": "2025-08-01T00:00:00+00:00",
+      "min": 4.57,
+      "min_timestamp": "2025-08-31T02:15:00+00:00",
+      "average": 4.73,
+      "baseline_average": 4.73
+    },
+    {
+      "month": "2025-09",
+      "max": 4.6,
+      "max_timestamp": "2025-09-02T12:00:00+00:00",
+      "min": 4.43,
+      "min_timestamp": "2025-09-24T00:20:00+00:00",
+      "average": 4.52,
+      "baseline_average": 4.52
+    },
+    {
+      "month": "2025-10",
+      "max": 4.5,
+      "max_timestamp": "2025-10-10T01:45:00+00:00",
+      "min": 4.34,
+      "min_timestamp": "2025-10-31T19:50:00+00:00",
+      "average": 4.43,
+      "baseline_average": 4.43
+    },
+    {
+      "month": "2025-11",
+      "max": 4.58,
+      "max_timestamp": "2025-11-21T12:25:00+00:00",
+      "min": 4.33,
+      "min_timestamp": "2025-11-01T21:25:00+00:00",
+      "average": 4.49,
+      "baseline_average": 4.49
+    },
+    {
+      "month": "2025-12",
+      "max": 5.95,
+      "max_timestamp": "2025-12-21T22:15:00+00:00",
+      "min": 4.52,
+      "min_timestamp": "2025-12-09T03:55:00+00:00",
+      "average": 5.13,
+      "baseline_average": 5.13
+    }
+  ],
+  "USGS-16254000": [
+    {
+      "month": "2025-01",
+      "max": 12.53,
+      "max_timestamp": "2025-01-27T06:03:00+00:00",
+      "min": 6.58,
+      "min_timestamp": "2025-01-19T00:40:00+00:00",
+      "average": 6.73,
+      "baseline_average": 6.6
+    },
+    {
+      "month": "2025-02",
+      "max": 7.51,
+      "max_timestamp": "2025-02-06T00:10:00+00:00",
+      "min": 6.79,
+      "min_timestamp": "2025-02-25T07:20:00+00:00",
+      "average": 6.85,
+      "baseline_average": 6.83
+    },
+    {
+      "month": "2025-03",
+      "max": 8.46,
+      "max_timestamp": "2025-03-17T15:00:00+00:00",
+      "min": 6.74,
+      "min_timestamp": "2025-03-27T22:40:00+00:00",
+      "average": 6.79,
+      "baseline_average": 6.78
+    },
+    {
+      "month": "2025-04",
+      "max": 8.21,
+      "max_timestamp": "2025-04-29T01:40:00+00:00",
+      "min": 6.71,
+      "min_timestamp": "2025-04-08T03:10:00+00:00",
+      "average": 6.79,
+      "baseline_average": 6.76
+    },
+    {
+      "month": "2025-05",
+      "max": 6.99,
+      "max_timestamp": "2025-05-17T02:10:00+00:00",
+      "min": 6.74,
+      "min_timestamp": "2025-05-25T06:05:00+00:00",
+      "average": 6.78,
+      "baseline_average": 6.78
+    },
+    {
+      "month": "2025-06",
+      "max": 6.84,
+      "max_timestamp": "2025-06-25T19:45:00+00:00",
+      "min": 6.71,
+      "min_timestamp": "2025-06-10T22:40:00+00:00",
+      "average": 6.75,
+      "baseline_average": 6.75
+    },
+    {
+      "month": "2025-07",
+      "max": 6.92,
+      "max_timestamp": "2025-07-28T17:05:00+00:00",
+      "min": 6.66,
+      "min_timestamp": "2025-07-25T04:55:00+00:00",
+      "average": 6.72,
+      "baseline_average": 6.72
+    },
+    {
+      "month": "2025-08",
+      "max": 6.83,
+      "max_timestamp": "2025-08-31T11:35:00+00:00",
+      "min": 6.66,
+      "min_timestamp": "2025-08-01T06:20:00+00:00",
+      "average": 6.72,
+      "baseline_average": 6.72
+    },
+    {
+      "month": "2025-09",
+      "max": 6.87,
+      "max_timestamp": "2025-09-01T06:20:00+00:00",
+      "min": 6.67,
+      "min_timestamp": "2025-09-07T00:30:00+00:00",
+      "average": 6.73,
+      "baseline_average": 6.73
+    },
+    {
+      "month": "2025-10",
+      "max": 6.97,
+      "max_timestamp": "2025-10-08T00:00:00+00:00",
+      "min": 6.61,
+      "min_timestamp": "2025-10-16T01:05:00+00:00",
+      "average": 6.68,
+      "baseline_average": 6.67
+    },
+    {
+      "month": "2025-11",
+      "max": 6.96,
+      "max_timestamp": "2025-11-09T16:35:00+00:00",
+      "min": 6.61,
+      "min_timestamp": "2025-11-01T03:45:00+00:00",
+      "average": 6.71,
+      "baseline_average": 6.7
+    },
+    {
+      "month": "2025-12",
+      "max": 7.84,
+      "max_timestamp": "2025-12-15T01:15:00+00:00",
+      "min": 6.63,
+      "min_timestamp": "2025-12-07T03:40:00+00:00",
+      "average": 6.79,
+      "baseline_average": 6.77
+    }
+  ],
+  "USGS-16249000": [
+    {
+      "month": "2025-01",
+      "max": 10.26,
+      "max_timestamp": "2025-01-27T06:15:00+00:00",
+      "min": 7.06,
+      "min_timestamp": "2025-01-01T00:00:00+00:00",
+      "average": 7.13,
+      "baseline_average": 7.08
+    },
+    {
+      "month": "2025-02",
+      "max": 7.29,
+      "max_timestamp": "2025-02-01T00:00:00+00:00",
+      "min": 7.1,
+      "min_timestamp": "2025-02-13T01:05:00+00:00",
+      "average": 7.13,
+      "baseline_average": 7.12
+    },
+    {
+      "month": "2025-03",
+      "max": 7.61,
+      "max_timestamp": "2025-03-17T15:00:00+00:00",
+      "min": 7.08,
+      "min_timestamp": "2025-03-13T03:05:00+00:00",
+      "average": 7.1,
+      "baseline_average": 7.09
+    },
+    {
+      "month": "2025-04",
+      "max": 7.62,
+      "max_timestamp": "2025-04-29T22:55:00+00:00",
+      "min": 7.08,
+      "min_timestamp": "2025-04-15T07:10:00+00:00",
+      "average": 7.1,
+      "baseline_average": 7.1
+    },
+    {
+      "month": "2025-05",
+      "max": 7.14,
+      "max_timestamp": "2025-05-20T13:45:00+00:00",
+      "min": 7.07,
+      "min_timestamp": "2025-05-29T05:05:00+00:00",
+      "average": 7.09,
+      "baseline_average": 7.09
+    },
+    {
+      "month": "2025-06",
+      "max": 7.13,
+      "max_timestamp": "2025-06-25T20:35:00+00:00",
+      "min": 7.07,
+      "min_timestamp": "2025-06-01T00:40:00+00:00",
+      "average": 7.09,
+      "baseline_average": 7.09
+    },
+    {
+      "month": "2025-07",
+      "max": 7.25,
+      "max_timestamp": "2025-07-28T17:25:00+00:00",
+      "min": 7.08,
+      "min_timestamp": "2025-07-25T01:15:00+00:00",
+      "average": 7.1,
+      "baseline_average": 7.1
+    },
+    {
+      "month": "2025-08",
+      "max": 7.13,
+      "max_timestamp": "2025-08-11T06:30:00+00:00",
+      "min": 7.07,
+      "min_timestamp": "2025-08-22T01:20:00+00:00",
+      "average": 7.09,
+      "baseline_average": 7.09
+    },
+    {
+      "month": "2025-09",
+      "max": 7.1,
+      "max_timestamp": "2025-09-01T09:00:00+00:00",
+      "min": 7.05,
+      "min_timestamp": "2025-09-24T03:55:00+00:00",
+      "average": 7.07,
+      "baseline_average": 7.07
+    },
+    {
+      "month": "2025-10",
+      "max": 7.24,
+      "max_timestamp": "2025-10-08T00:25:00+00:00",
+      "min": 7.05,
+      "min_timestamp": "2025-10-16T06:25:00+00:00",
+      "average": 7.06,
+      "baseline_average": 7.06
+    },
+    {
+      "month": "2025-11",
+      "max": 7.16,
+      "max_timestamp": "2025-11-09T16:15:00+00:00",
+      "min": 7.05,
+      "min_timestamp": "2025-11-01T22:55:00+00:00",
+      "average": 7.07,
+      "baseline_average": 7.07
+    },
+    {
+      "month": "2025-12",
+      "max": 7.7,
+      "max_timestamp": "2025-12-15T01:05:00+00:00",
+      "min": 7.06,
+      "min_timestamp": "2025-12-01T01:15:00+00:00",
+      "average": 7.13,
+      "baseline_average": 7.12
+    }
+  ],
+  "USGS-16247100": [
+    {
+      "month": "2025-01",
+      "max": 8.07,
+      "max_timestamp": "2025-01-27T06:03:00+00:00",
+      "min": 0.62,
+      "min_timestamp": "2025-01-01T00:00:00+00:00",
+      "average": 1.09,
+      "baseline_average": 1.0
+    },
+    {
+      "month": "2025-02",
+      "max": 2.21,
+      "max_timestamp": "2025-02-11T13:30:00+00:00",
+      "min": 0.62,
+      "min_timestamp": "2025-02-25T01:55:00+00:00",
+      "average": 0.94,
+      "baseline_average": 0.89
+    },
+    {
+      "month": "2025-03",
+      "max": 2.44,
+      "max_timestamp": "2025-03-17T08:45:00+00:00",
+      "min": 0.62,
+      "min_timestamp": "2025-03-01T00:00:00+00:00",
+      "average": 0.91,
+      "baseline_average": 0.89
+    },
+    {
+      "month": "2025-04",
+      "max": 5.82,
+      "max_timestamp": "2025-04-30T01:50:00+00:00",
+      "min": 0.61,
+      "min_timestamp": "2025-04-02T19:20:00+00:00",
+      "average": 0.99,
+      "baseline_average": 0.94
+    },
+    {
+      "month": "2025-05",
+      "max": 2.36,
+      "max_timestamp": "2025-05-27T02:15:00+00:00",
+      "min": 0.7,
+      "min_timestamp": "2025-05-13T13:00:00+00:00",
+      "average": 0.99,
+      "baseline_average": 0.94
+    },
+    {
+      "month": "2025-06",
+      "max": 2.38,
+      "max_timestamp": "2025-06-25T02:15:00+00:00",
+      "min": 0.66,
+      "min_timestamp": "2025-06-29T23:50:00+00:00",
+      "average": 0.94,
+      "baseline_average": 0.85
+    },
+    {
+      "month": "2025-07",
+      "max": 2.28,
+      "max_timestamp": "2025-07-25T02:35:00+00:00",
+      "min": 0.62,
+      "min_timestamp": "2025-07-07T05:55:00+00:00",
+      "average": 0.94,
+      "baseline_average": 0.86
+    },
+    {
+      "month": "2025-08",
+      "max": 2.76,
+      "max_timestamp": "2025-08-10T01:35:00+00:00",
+      "min": 0.55,
+      "min_timestamp": "2025-08-28T10:00:00+00:00",
+      "average": 1.0,
+      "baseline_average": 0.98
+    },
+    {
+      "month": "2025-09",
+      "max": 2.54,
+      "max_timestamp": "2025-09-06T00:55:00+00:00",
+      "min": 0.52,
+      "min_timestamp": "2025-09-19T06:25:00+00:00",
+      "average": 1.07,
+      "baseline_average": 1.07
+    },
+    {
+      "month": "2025-10",
+      "max": 2.72,
+      "max_timestamp": "2025-10-08T15:00:00+00:00",
+      "min": 0.5,
+      "min_timestamp": "2025-10-07T07:55:00+00:00",
+      "average": 1.03,
+      "baseline_average": 1.03
+    },
+    {
+      "month": "2025-11",
+      "max": 2.73,
+      "max_timestamp": "2025-11-07T15:25:00+00:00",
+      "min": 0.54,
+      "min_timestamp": "2025-11-02T05:50:00+00:00",
+      "average": 1.08,
+      "baseline_average": 1.04
+    },
+    {
+      "month": "2025-12",
+      "max": 4.47,
+      "max_timestamp": "2025-12-15T00:17:00+00:00",
+      "min": 0.57,
+      "min_timestamp": "2025-12-14T01:10:00+00:00",
+      "average": 1.11,
+      "baseline_average": 1.08
+    }
+  ],
+  "USGS-16244000": [
+    {
+      "month": "2025-01",
+      "max": 3.96,
+      "max_timestamp": "2025-01-27T05:35:00+00:00",
+      "min": 0.78,
+      "min_timestamp": "2025-01-08T06:35:00+00:00",
+      "average": 0.93,
+      "baseline_average": 0.85
+    },
+    {
+      "month": "2025-02",
+      "max": 1.33,
+      "max_timestamp": "2025-02-01T00:00:00+00:00",
+      "min": 0.88,
+      "min_timestamp": "2025-02-26T16:55:00+00:00",
+      "average": 0.95,
+      "baseline_average": 0.94
+    },
+    {
+      "month": "2025-03",
+      "max": 1.39,
+      "max_timestamp": "2025-03-17T16:10:00+00:00",
+      "min": 0.87,
+      "min_timestamp": "2025-03-03T23:25:00+00:00",
+      "average": 0.89,
+      "baseline_average": 0.88
+    },
+    {
+      "month": "2025-04",
+      "max": 2.2,
+      "max_timestamp": "2025-04-17T20:10:00+00:00",
+      "min": 0.87,
+      "min_timestamp": "2025-04-03T11:55:00+00:00",
+      "average": 0.93,
+      "baseline_average": 0.89
+    },
+    {
+      "month": "2025-05",
+      "max": 1.82,
+      "max_timestamp": "2025-05-17T03:10:00+00:00",
+      "min": 0.92,
+      "min_timestamp": "2025-05-12T22:55:00+00:00",
+      "average": 0.97,
+      "baseline_average": 0.96
+    },
+    {
+      "month": "2025-06",
+      "max": 1.3,
+      "max_timestamp": "2025-06-12T19:45:00+00:00",
+      "min": 0.9,
+      "min_timestamp": "2025-06-28T13:45:00+00:00",
+      "average": 0.93,
+      "baseline_average": 0.93
+    },
+    {
+      "month": "2025-07",
+      "max": 1.13,
+      "max_timestamp": "2025-07-29T17:35:00+00:00",
+      "min": 0.87,
+      "min_timestamp": "2025-07-16T10:50:00+00:00",
+      "average": 0.89,
+      "baseline_average": 0.89
+    },
+    {
+      "month": "2025-08",
+      "max": 0.9,
+      "max_timestamp": "2025-08-01T00:00:00+00:00",
+      "min": 0.86,
+      "min_timestamp": "2025-08-23T09:05:00+00:00",
+      "average": 0.88,
+      "baseline_average": 0.88
+    },
+    {
+      "month": "2025-09",
+      "max": 0.86,
+      "max_timestamp": "2025-09-01T00:00:00+00:00",
+      "min": 0.84,
+      "min_timestamp": "2025-09-09T07:25:00+00:00",
+      "average": 0.85,
+      "baseline_average": 0.85
+    },
+    {
+      "month": "2025-10",
+      "max": 0.89,
+      "max_timestamp": "2025-10-13T04:05:00+00:00",
+      "min": 0.84,
+      "min_timestamp": "2025-10-01T00:00:00+00:00",
+      "average": 0.85,
+      "baseline_average": 0.85
+    },
+    {
+      "month": "2025-11",
+      "max": 1.94,
+      "max_timestamp": "2025-11-09T09:55:00+00:00",
+      "min": 0.83,
+      "min_timestamp": "2025-11-02T08:55:00+00:00",
+      "average": 0.92,
+      "baseline_average": 0.89
+    },
+    {
+      "month": "2025-12",
+      "max": 2.16,
+      "max_timestamp": "2025-12-15T01:00:00+00:00",
+      "min": 0.88,
+      "min_timestamp": "2025-12-03T20:35:00+00:00",
+      "average": 1.01,
+      "baseline_average": 0.97
+    }
+  ],
+  "USGS-16241600": [
+    {
+      "month": "2025-01",
+      "max": 10.12,
+      "max_timestamp": "2025-01-27T05:03:00+00:00",
+      "min": 2.75,
+      "min_timestamp": "2025-01-07T01:50:00+00:00",
+      "average": 3.0,
+      "baseline_average": 2.85
+    },
+    {
+      "month": "2025-02",
+      "max": 3.63,
+      "max_timestamp": "2025-02-14T14:55:00+00:00",
+      "min": 2.68,
+      "min_timestamp": "2025-02-23T21:25:00+00:00",
+      "average": 2.86,
+      "baseline_average": 2.84
+    },
+    {
+      "month": "2025-03",
+      "max": 5.1,
+      "max_timestamp": "2025-03-17T08:15:00+00:00",
+      "min": 2.67,
+      "min_timestamp": "2025-03-30T01:30:00+00:00",
+      "average": 2.82,
+      "baseline_average": 2.77
+    },
+    {
+      "month": "2025-04",
+      "max": 5.59,
+      "max_timestamp": "2025-04-17T23:15:00+00:00",
+      "min": 2.62,
+      "min_timestamp": "2025-04-09T00:50:00+00:00",
+      "average": 2.9,
+      "baseline_average": 2.84
+    },
+    {
+      "month": "2025-05",
+      "max": 4.4,
+      "max_timestamp": "2025-05-17T02:30:00+00:00",
+      "min": 2.77,
+      "min_timestamp": "2025-05-14T00:40:00+00:00",
+      "average": 2.96,
+      "baseline_average": 2.93
+    },
+    {
+      "month": "2025-06",
+      "max": 3.98,
+      "max_timestamp": "2025-06-02T00:05:00+00:00",
+      "min": 2.74,
+      "min_timestamp": "2025-06-29T22:55:00+00:00",
+      "average": 2.89,
+      "baseline_average": 2.85
+    },
+    {
+      "month": "2025-07",
+      "max": 4.14,
+      "max_timestamp": "2025-07-29T14:20:00+00:00",
+      "min": 2.69,
+      "min_timestamp": "2025-07-07T22:25:00+00:00",
+      "average": 2.86,
+      "baseline_average": 2.83
+    },
+    {
+      "month": "2025-08",
+      "max": 3.01,
+      "max_timestamp": "2025-08-20T21:00:00+00:00",
+      "min": 2.6,
+      "min_timestamp": "2025-08-31T02:20:00+00:00",
+      "average": 2.7,
+      "baseline_average": 2.7
+    },
+    {
+      "month": "2025-09",
+      "max": 3.63,
+      "max_timestamp": "2025-09-08T10:05:00+00:00",
+      "min": 2.58,
+      "min_timestamp": "2025-09-05T02:40:00+00:00",
+      "average": 2.63,
+      "baseline_average": 2.62
+    },
+    {
+      "month": "2025-10",
+      "max": 3.72,
+      "max_timestamp": "2025-10-24T11:10:00+00:00",
+      "min": 2.56,
+      "min_timestamp": "2025-10-12T03:35:00+00:00",
+      "average": 2.64,
+      "baseline_average": 2.61
+    },
+    {
+      "month": "2025-11",
+      "max": 4.47,
+      "max_timestamp": "2025-11-09T10:35:00+00:00",
+      "min": 2.57,
+      "min_timestamp": "2025-11-07T00:35:00+00:00",
+      "average": 2.89,
+      "baseline_average": 2.83
+    },
+    {
+      "month": "2025-12",
+      "max": 5.48,
+      "max_timestamp": "2025-12-15T00:15:00+00:00",
+      "min": 2.6,
+      "min_timestamp": "2025-12-13T22:00:00+00:00",
+      "average": 2.94,
+      "baseline_average": 2.89
+    }
+  ],
+  "USGS-16240500": [
+    {
+      "month": "2025-01",
+      "max": 3.78,
+      "max_timestamp": "2025-01-27T05:28:00+00:00",
+      "min": 0.21,
+      "min_timestamp": "2025-01-29T13:15:00+00:00",
+      "average": 0.31,
+      "baseline_average": 0.26
+    },
+    {
+      "month": "2025-02",
+      "max": 0.42,
+      "max_timestamp": "2025-02-05T14:55:00+00:00",
+      "min": 0.2,
+      "min_timestamp": "2025-02-22T16:15:00+00:00",
+      "average": 0.25,
+      "baseline_average": 0.25
+    },
+    {
+      "month": "2025-03",
+      "max": 2.01,
+      "max_timestamp": "2025-03-17T07:55:00+00:00",
+      "min": 0.19,
+      "min_timestamp": "2025-03-04T07:25:00+00:00",
+      "average": 0.25,
+      "baseline_average": 0.22
+    },
+    {
+      "month": "2025-04",
+      "max": 2.51,
+      "max_timestamp": "2025-04-18T21:00:00+00:00",
+      "min": 0.19,
+      "min_timestamp": "2025-04-08T21:00:00+00:00",
+      "average": 0.28,
+      "baseline_average": 0.25
+    },
+    {
+      "month": "2025-05",
+      "max": 1.21,
+      "max_timestamp": "2025-05-17T02:50:00+00:00",
+      "min": 0.23,
+      "min_timestamp": "2025-05-04T09:35:00+00:00",
+      "average": 0.29,
+      "baseline_average": 0.27
+    },
+    {
+      "month": "2025-06",
+      "max": 0.73,
+      "max_timestamp": "2025-06-05T17:10:00+00:00",
+      "min": 0.22,
+      "min_timestamp": "2025-06-25T00:05:00+00:00",
+      "average": 0.28,
+      "baseline_average": 0.26
+    },
+    {
+      "month": "2025-07",
+      "max": 1.06,
+      "max_timestamp": "2025-07-29T13:45:00+00:00",
+      "min": 0.21,
+      "min_timestamp": "2025-07-06T22:40:00+00:00",
+      "average": 0.28,
+      "baseline_average": 0.27
+    },
+    {
+      "month": "2025-08",
+      "max": 0.31,
+      "max_timestamp": "2025-08-08T14:35:00+00:00",
+      "min": 0.2,
+      "min_timestamp": "2025-08-26T16:55:00+00:00",
+      "average": 0.23,
+      "baseline_average": 0.23
+    },
+    {
+      "month": "2025-09",
+      "max": 0.28,
+      "max_timestamp": "2025-09-09T16:20:00+00:00",
+      "min": 0.18,
+      "min_timestamp": "2025-09-20T00:40:00+00:00",
+      "average": 0.2,
+      "baseline_average": 0.2
+    },
+    {
+      "month": "2025-10",
+      "max": 0.37,
+      "max_timestamp": "2025-10-17T10:35:00+00:00",
+      "min": 0.16,
+      "min_timestamp": "2025-10-31T02:35:00+00:00",
+      "average": 0.19,
+      "baseline_average": 0.19
+    },
+    {
+      "month": "2025-11",
+      "max": 1.63,
+      "max_timestamp": "2025-11-03T01:15:00+00:00",
+      "min": 0.18,
+      "min_timestamp": "2025-11-01T07:20:00+00:00",
+      "average": 0.35,
+      "baseline_average": 0.31
+    },
+    {
+      "month": "2025-12",
+      "max": 2.44,
+      "max_timestamp": "2025-12-14T23:07:00+00:00",
+      "min": 0.16,
+      "min_timestamp": "2025-12-14T01:00:00+00:00",
+      "average": 0.38,
+      "baseline_average": 0.34
+    }
+  ],
+  "USGS-16238500": [
+    {
+      "month": "2025-01",
+      "max": 4.53,
+      "max_timestamp": "2025-01-27T05:30:00+00:00",
+      "min": 1.51,
+      "min_timestamp": "2025-01-19T02:45:00+00:00",
+      "average": 1.69,
+      "baseline_average": 1.62
+    },
+    {
+      "month": "2025-02",
+      "max": 2.08,
+      "max_timestamp": "2025-02-01T00:00:00+00:00",
+      "min": 1.55,
+      "min_timestamp": "2025-02-28T07:00:00+00:00",
+      "average": 1.7,
+      "baseline_average": 1.69
+    },
+    {
+      "month": "2025-03",
+      "max": 3.64,
+      "max_timestamp": "2025-03-17T07:35:00+00:00",
+      "min": 1.54,
+      "min_timestamp": "2025-03-02T00:45:00+00:00",
+      "average": 1.68,
+      "baseline_average": 1.65
+    },
+    {
+      "month": "2025-04",
+      "max": 3.56,
+      "max_timestamp": "2025-04-18T21:03:00+00:00",
+      "min": 1.53,
+      "min_timestamp": "2025-04-08T00:00:00+00:00",
+      "average": 1.7,
+      "baseline_average": 1.68
+    },
+    {
+      "month": "2025-05",
+      "max": 2.65,
+      "max_timestamp": "2025-05-20T12:00:00+00:00",
+      "min": 1.66,
+      "min_timestamp": "2025-05-05T03:20:00+00:00",
+      "average": 1.8,
+      "baseline_average": 1.79
+    },
+    {
+      "month": "2025-06",
+      "max": 2.16,
+      "max_timestamp": "2025-06-12T17:40:00+00:00",
+      "min": 1.67,
+      "min_timestamp": "2025-06-25T03:30:00+00:00",
+      "average": 1.78,
+      "baseline_average": 1.76
+    },
+    {
+      "month": "2025-07",
+      "max": 2.54,
+      "max_timestamp": "2025-07-28T16:45:00+00:00",
+      "min": 1.61,
+      "min_timestamp": "2025-07-09T06:25:00+00:00",
+      "average": 1.75,
+      "baseline_average": 1.74
+    },
+    {
+      "month": "2025-08",
+      "max": 1.79,
+      "max_timestamp": "2025-08-01T04:20:00+00:00",
+      "min": 1.52,
+      "min_timestamp": "2025-08-30T02:50:00+00:00",
+      "average": 1.61,
+      "baseline_average": 1.61
+    },
+    {
+      "month": "2025-09",
+      "max": 1.64,
+      "max_timestamp": "2025-09-12T20:15:00+00:00",
+      "min": 1.45,
+      "min_timestamp": "2025-09-06T11:45:00+00:00",
+      "average": 1.5,
+      "baseline_average": 1.5
+    },
+    {
+      "month": "2025-10",
+      "max": 1.72,
+      "max_timestamp": "2025-10-21T02:30:00+00:00",
+      "min": 1.34,
+      "min_timestamp": "2025-10-15T01:50:00+00:00",
+      "average": 1.49,
+      "baseline_average": 1.49
+    },
+    {
+      "month": "2025-11",
+      "max": 2.46,
+      "max_timestamp": "2025-11-09T18:10:00+00:00",
+      "min": 1.5,
+      "min_timestamp": "2025-11-01T16:05:00+00:00",
+      "average": 1.74,
+      "baseline_average": 1.73
+    },
+    {
+      "month": "2025-12",
+      "max": 3.43,
+      "max_timestamp": "2025-12-14T23:05:00+00:00",
+      "min": 1.56,
+      "min_timestamp": "2025-12-04T01:50:00+00:00",
+      "average": 1.79,
+      "baseline_average": 1.78
+    }
+  ],
+  "USGS-16238000": [
+    {
+      "month": "2025-01",
+      "max": 7.02,
+      "max_timestamp": "2025-01-31T03:00:00+00:00",
+      "min": 2.96,
+      "min_timestamp": "2025-01-26T09:35:00+00:00",
+      "average": 3.04,
+      "baseline_average": 2.99
+    },
+    {
+      "month": "2025-02",
+      "max": 3.7,
+      "max_timestamp": "2025-02-14T14:20:00+00:00",
+      "min": 2.99,
+      "min_timestamp": "2025-02-06T12:55:00+00:00",
+      "average": 3.02,
+      "baseline_average": 3.01
+    },
+    {
+      "month": "2025-03",
+      "max": 3.82,
+      "max_timestamp": "2025-03-18T01:00:00+00:00",
+      "min": 2.99,
+      "min_timestamp": "2025-03-02T04:00:00+00:00",
+      "average": 3.02,
+      "baseline_average": 3.01
+    },
+    {
+      "month": "2025-04",
+      "max": 5.23,
+      "max_timestamp": "2025-04-30T01:42:00+00:00",
+      "min": 2.99,
+      "min_timestamp": "2025-04-15T09:35:00+00:00",
+      "average": 3.03,
+      "baseline_average": 3.01
+    },
+    {
+      "month": "2025-05",
+      "max": 3.38,
+      "max_timestamp": "2025-05-20T13:25:00+00:00",
+      "min": 2.97,
+      "min_timestamp": "2025-05-06T03:30:00+00:00",
+      "average": 3.03,
+      "baseline_average": 3.02
+    },
+    {
+      "month": "2025-06",
+      "max": 3.47,
+      "max_timestamp": "2025-06-02T00:10:00+00:00",
+      "min": 2.99,
+      "min_timestamp": "2025-06-02T13:50:00+00:00",
+      "average": 3.03,
+      "baseline_average": 3.02
+    },
+    {
+      "month": "2025-07",
+      "max": 3.31,
+      "max_timestamp": "2025-07-07T14:35:00+00:00",
+      "min": 3.0,
+      "min_timestamp": "2025-07-01T22:05:00+00:00",
+      "average": 3.05,
+      "baseline_average": 3.04
+    },
+    {
+      "month": "2025-08",
+      "max": 3.28,
+      "max_timestamp": "2025-08-11T03:35:00+00:00",
+      "min": 3.01,
+      "min_timestamp": "2025-08-11T11:00:00+00:00",
+      "average": 3.03,
+      "baseline_average": 3.03
+    },
+    {
+      "month": "2025-09",
+      "max": 3.74,
+      "max_timestamp": "2025-09-08T09:55:00+00:00",
+      "min": 2.97,
+      "min_timestamp": "2025-09-18T01:35:00+00:00",
+      "average": 3.0,
+      "baseline_average": 2.99
+    },
+    {
+      "month": "2025-10",
+      "max": 3.76,
+      "max_timestamp": "2025-10-07T00:45:00+00:00",
+      "min": 2.95,
+      "min_timestamp": "2025-10-20T03:20:00+00:00",
+      "average": 2.99,
+      "baseline_average": 2.98
+    },
+    {
+      "month": "2025-11",
+      "max": 3.39,
+      "max_timestamp": "2025-11-22T23:15:00+00:00",
+      "min": 2.96,
+      "min_timestamp": "2025-11-26T06:35:00+00:00",
+      "average": 3.0,
+      "baseline_average": 2.99
+    },
+    {
+      "month": "2025-12",
+      "max": 6.25,
+      "max_timestamp": "2025-12-14T22:40:00+00:00",
+      "min": 2.97,
+      "min_timestamp": "2025-12-01T03:30:00+00:00",
+      "average": 3.04,
+      "baseline_average": 3.0
+    }
+  ],
+  "USGS-16229000": [
+    {
+      "month": "2025-01",
+      "max": 7.35,
+      "max_timestamp": "2025-01-27T05:40:00+00:00",
+      "min": 2.05,
+      "min_timestamp": "2025-01-22T06:05:00+00:00",
+      "average": 2.25,
+      "baseline_average": 2.1
+    },
+    {
+      "month": "2025-02",
+      "max": 2.65,
+      "max_timestamp": "2025-02-01T00:00:00+00:00",
+      "min": 2.13,
+      "min_timestamp": "2025-02-24T00:15:00+00:00",
+      "average": 2.26,
+      "baseline_average": 2.25
+    },
+    {
+      "month": "2025-03",
+      "max": 5.54,
+      "max_timestamp": "2025-03-16T06:50:00+00:00",
+      "min": 2.11,
+      "min_timestamp": "2025-03-29T22:25:00+00:00",
+      "average": 2.22,
+      "baseline_average": 2.19
+    },
+    {
+      "month": "2025-04",
+      "max": 7.74,
+      "max_timestamp": "2025-04-17T23:55:00+00:00",
+      "min": 2.08,
+      "min_timestamp": "2025-04-08T02:35:00+00:00",
+      "average": 2.31,
+      "baseline_average": 2.24
+    },
+    {
+      "month": "2025-05",
+      "max": 3.8,
+      "max_timestamp": "2025-05-17T03:25:00+00:00",
+      "min": 2.21,
+      "min_timestamp": "2025-05-13T06:55:00+00:00",
+      "average": 2.33,
+      "baseline_average": 2.31
+    },
+    {
+      "month": "2025-06",
+      "max": 2.57,
+      "max_timestamp": "2025-06-02T16:20:00+00:00",
+      "min": 2.14,
+      "min_timestamp": "2025-06-29T06:20:00+00:00",
+      "average": 2.21,
+      "baseline_average": 2.2
+    },
+    {
+      "month": "2025-07",
+      "max": 5.53,
+      "max_timestamp": "2025-07-28T16:30:00+00:00",
+      "min": 2.12,
+      "min_timestamp": "2025-07-09T01:45:00+00:00",
+      "average": 2.24,
+      "baseline_average": 2.2
+    },
+    {
+      "month": "2025-08",
+      "max": 2.34,
+      "max_timestamp": "2025-08-07T17:15:00+00:00",
+      "min": 2.08,
+      "min_timestamp": "2025-08-31T00:40:00+00:00",
+      "average": 2.16,
+      "baseline_average": 2.16
+    },
+    {
+      "month": "2025-09",
+      "max": 2.53,
+      "max_timestamp": "2025-09-12T16:35:00+00:00",
+      "min": 2.05,
+      "min_timestamp": "2025-09-29T02:05:00+00:00",
+      "average": 2.1,
+      "baseline_average": 2.1
+    },
+    {
+      "month": "2025-10",
+      "max": 2.2,
+      "max_timestamp": "2025-10-20T18:25:00+00:00",
+      "min": 2.03,
+      "min_timestamp": "2025-10-11T02:10:00+00:00",
+      "average": 2.08,
+      "baseline_average": 2.07
+    },
+    {
+      "month": "2025-11",
+      "max": 2.88,
+      "max_timestamp": "2025-11-09T19:20:00+00:00",
+      "min": 2.04,
+      "min_timestamp": "2025-11-02T04:10:00+00:00",
+      "average": 2.19,
+      "baseline_average": 2.17
+    },
+    {
+      "month": "2025-12",
+      "max": 6.3,
+      "max_timestamp": "2025-12-15T00:30:00+00:00",
+      "min": 2.08,
+      "min_timestamp": "2025-12-05T07:20:00+00:00",
+      "average": 2.28,
+      "baseline_average": 2.25
+    }
+  ],
+  "USGS-16227500": [
+    {
+      "month": "2025-01",
+      "max": 4.99,
+      "max_timestamp": "2025-01-27T05:20:00+00:00",
+      "min": 2.0,
+      "min_timestamp": "2025-01-01T00:00:00+00:00",
+      "average": 2.14,
+      "baseline_average": 2.0
+    },
+    {
+      "month": "2025-02",
+      "max": 2.93,
+      "max_timestamp": "2025-02-01T00:00:00+00:00",
+      "min": 2.0,
+      "min_timestamp": "2025-02-12T19:35:00+00:00",
+      "average": 2.17,
+      "baseline_average": 2.15
+    },
+    {
+      "month": "2025-03",
+      "max": 3.67,
+      "max_timestamp": "2025-03-17T07:05:00+00:00",
+      "min": 2.0,
+      "min_timestamp": "2025-03-01T00:00:00+00:00",
+      "average": 2.1,
+      "baseline_average": 2.0
+    },
+    {
+      "month": "2025-04",
+      "max": 3.93,
+      "max_timestamp": "2025-04-18T00:23:00+00:00",
+      "min": 2.0,
+      "min_timestamp": "2025-04-01T00:00:00+00:00",
+      "average": 2.2,
+      "baseline_average": 2.12
+    },
+    {
+      "month": "2025-05",
+      "max": 3.05,
+      "max_timestamp": "2025-05-17T06:10:00+00:00",
+      "min": 2.0,
+      "min_timestamp": "2025-05-06T16:20:00+00:00",
+      "average": 2.2,
+      "baseline_average": 2.2
+    },
+    {
+      "month": "2025-06",
+      "max": 2.03,
+      "max_timestamp": "2025-06-01T08:40:00+00:00",
+      "min": 2.0,
+      "min_timestamp": "2025-06-01T00:00:00+00:00",
+      "average": 2.0,
+      "baseline_average": 2.0
+    },
+    {
+      "month": "2025-07",
+      "max": 3.33,
+      "max_timestamp": "2025-07-28T18:15:00+00:00",
+      "min": 2.0,
+      "min_timestamp": "2025-07-01T00:00:00+00:00",
+      "average": 2.1,
+      "baseline_average": 2.0
+    },
+    {
+      "month": "2025-08",
+      "max": 2.34,
+      "max_timestamp": "2025-08-01T00:00:00+00:00",
+      "min": 2.0,
+      "min_timestamp": "2025-08-04T12:55:00+00:00",
+      "average": 2.02,
+      "baseline_average": 2.0
+    },
+    {
+      "month": "2025-09",
+      "max": 2.03,
+      "max_timestamp": "2025-09-09T15:05:00+00:00",
+      "min": 2.0,
+      "min_timestamp": "2025-09-01T00:00:00+00:00",
+      "average": 2.0,
+      "baseline_average": 2.0
+    },
+    {
+      "month": "2025-10",
+      "max": 2.0,
+      "max_timestamp": "2025-10-01T00:00:00+00:00",
+      "min": 2.0,
+      "min_timestamp": "2025-10-01T00:00:00+00:00",
+      "average": 2.0,
+      "baseline_average": 2.0
+    },
+    {
+      "month": "2025-11",
+      "max": 3.27,
+      "max_timestamp": "2025-11-09T17:00:00+00:00",
+      "min": 2.0,
+      "min_timestamp": "2025-11-01T00:00:00+00:00",
+      "average": 2.1,
+      "baseline_average": 2.07
+    },
+    {
+      "month": "2025-12",
+      "max": 3.84,
+      "max_timestamp": "2025-12-15T00:42:00+00:00",
+      "min": 2.0,
+      "min_timestamp": "2025-12-01T00:00:00+00:00",
+      "average": 2.28,
+      "baseline_average": 2.27
+    }
+  ],
+  "USGS-16226700": [
+    {
+      "month": "2025-01",
+      "max": 11.36,
+      "max_timestamp": "2025-01-31T03:30:00+00:00",
+      "min": 9.23,
+      "min_timestamp": "2025-01-01T00:00:00+00:00",
+      "average": 9.44,
+      "baseline_average": 9.41
+    },
+    {
+      "month": "2025-02",
+      "max": 10.19,
+      "max_timestamp": "2025-02-14T14:30:00+00:00",
+      "min": 9.25,
+      "min_timestamp": "2025-02-25T23:45:00+00:00",
+      "average": 9.52,
+      "baseline_average": 9.57
+    },
+    {
+      "month": "2025-03",
+      "max": 10.48,
+      "max_timestamp": "2025-03-29T01:00:00+00:00",
+      "min": 9.25,
+      "min_timestamp": "2025-03-26T02:30:00+00:00",
+      "average": 9.58,
+      "baseline_average": 9.58
+    },
+    {
+      "month": "2025-04",
+      "max": 11.3,
+      "max_timestamp": "2025-04-30T00:30:00+00:00",
+      "min": 9.25,
+      "min_timestamp": "2025-04-05T06:45:00+00:00",
+      "average": 9.59,
+      "baseline_average": 9.58
+    },
+    {
+      "month": "2025-05",
+      "max": 9.9,
+      "max_timestamp": "2025-05-06T05:30:00+00:00",
+      "min": 9.24,
+      "min_timestamp": "2025-05-15T01:00:00+00:00",
+      "average": 9.43,
+      "baseline_average": 9.43
+    },
+    {
+      "month": "2025-06",
+      "max": 9.76,
+      "max_timestamp": "2025-06-17T11:45:00+00:00",
+      "min": 9.2,
+      "min_timestamp": "2025-06-29T04:30:00+00:00",
+      "average": 9.39,
+      "baseline_average": 9.39
+    },
+    {
+      "month": "2025-07",
+      "max": 10.36,
+      "max_timestamp": "2025-07-19T09:15:00+00:00",
+      "min": 9.18,
+      "min_timestamp": "2025-07-07T06:00:00+00:00",
+      "average": 9.4,
+      "baseline_average": 9.4
+    },
+    {
+      "month": "2025-08",
+      "max": 9.64,
+      "max_timestamp": "2025-08-05T04:45:00+00:00",
+      "min": 9.01,
+      "min_timestamp": "2025-08-29T18:15:00+00:00",
+      "average": 9.39,
+      "baseline_average": 9.39
+    },
+    {
+      "month": "2025-09",
+      "max": 10.03,
+      "max_timestamp": "2025-09-12T15:15:00+00:00",
+      "min": 9.14,
+      "min_timestamp": "2025-09-05T07:45:00+00:00",
+      "average": 9.38,
+      "baseline_average": 9.38
+    },
+    {
+      "month": "2025-10",
+      "max": 9.89,
+      "max_timestamp": "2025-10-11T02:45:00+00:00",
+      "min": 9.24,
+      "min_timestamp": "2025-10-13T03:00:00+00:00",
+      "average": 9.4,
+      "baseline_average": 9.4
+    },
+    {
+      "month": "2025-11",
+      "max": 9.96,
+      "max_timestamp": "2025-11-17T12:15:00+00:00",
+      "min": 9.26,
+      "min_timestamp": "2025-11-26T20:15:00+00:00",
+      "average": 9.43,
+      "baseline_average": 9.43
+    },
+    {
+      "month": "2025-12",
+      "max": 10.69,
+      "max_timestamp": "2025-12-14T19:45:00+00:00",
+      "min": 9.25,
+      "min_timestamp": "2025-12-11T09:30:00+00:00",
+      "average": 9.47,
+      "baseline_average": 9.47
+    }
+  ],
+  "USGS-16226400": [
+    {
+      "month": "2025-01",
+      "max": 7.83,
+      "max_timestamp": "2025-01-27T05:30:00+00:00",
+      "min": 2.35,
+      "min_timestamp": "2025-01-01T00:00:00+00:00",
+      "average": 2.86,
+      "baseline_average": 2.71
+    },
+    {
+      "month": "2025-02",
+      "max": 3.9,
+      "max_timestamp": "2025-02-01T00:05:00+00:00",
+      "min": 2.39,
+      "min_timestamp": "2025-02-13T03:15:00+00:00",
+      "average": 2.86,
+      "baseline_average": 2.81
+    },
+    {
+      "month": "2025-03",
+      "max": 4.26,
+      "max_timestamp": "2025-03-16T08:25:00+00:00",
+      "min": 2.31,
+      "min_timestamp": "2025-03-04T03:25:00+00:00",
+      "average": 2.81,
+      "baseline_average": 2.73
+    },
+    {
+      "month": "2025-04",
+      "max": 5.96,
+      "max_timestamp": "2025-04-30T01:10:00+00:00",
+      "min": 2.31,
+      "min_timestamp": "2025-04-08T00:20:00+00:00",
+      "average": 2.87,
+      "baseline_average": 2.77
+    },
+    {
+      "month": "2025-05",
+      "max": 3.84,
+      "max_timestamp": "2025-05-17T06:15:00+00:00",
+      "min": 2.8,
+      "min_timestamp": "2025-05-13T21:35:00+00:00",
+      "average": 3.03,
+      "baseline_average": 3.02
+    },
+    {
+      "month": "2025-06",
+      "max": 2.99,
+      "max_timestamp": "2025-06-17T12:05:00+00:00",
+      "min": 2.3,
+      "min_timestamp": "2025-06-25T09:10:00+00:00",
+      "average": 2.76,
+      "baseline_average": 2.77
+    },
+    {
+      "month": "2025-07",
+      "max": 3.66,
+      "max_timestamp": "2025-07-19T19:00:00+00:00",
+      "min": 2.3,
+      "min_timestamp": "2025-07-04T04:05:00+00:00",
+      "average": 2.85,
+      "baseline_average": 2.85
+    },
+    {
+      "month": "2025-08",
+      "max": 2.85,
+      "max_timestamp": "2025-08-01T00:05:00+00:00",
+      "min": 2.28,
+      "min_timestamp": "2025-08-11T10:25:00+00:00",
+      "average": 2.41,
+      "baseline_average": 2.31
+    },
+    {
+      "month": "2025-09",
+      "max": 2.31,
+      "max_timestamp": "2025-09-01T00:00:00+00:00",
+      "min": 2.3,
+      "min_timestamp": "2025-09-01T00:30:00+00:00",
+      "average": 2.31,
+      "baseline_average": 2.31
+    },
+    {
+      "month": "2025-10",
+      "max": 2.31,
+      "max_timestamp": "2025-10-01T00:00:00+00:00",
+      "min": 2.3,
+      "min_timestamp": "2025-10-01T14:10:00+00:00",
+      "average": 2.31,
+      "baseline_average": 2.31
+    },
+    {
+      "month": "2025-11",
+      "max": 4.81,
+      "max_timestamp": "2025-11-09T20:05:00+00:00",
+      "min": 2.3,
+      "min_timestamp": "2025-11-01T15:40:00+00:00",
+      "average": 2.65,
+      "baseline_average": 2.62
+    },
+    {
+      "month": "2025-12",
+      "max": 4.46,
+      "max_timestamp": "2025-12-14T22:35:00+00:00",
+      "min": 2.3,
+      "min_timestamp": "2025-12-01T19:50:00+00:00",
+      "average": 2.86,
+      "baseline_average": 2.86
+    }
+  ],
+  "USGS-16226200": [
+    {
+      "month": "2025-01",
+      "max": 11.15,
+      "max_timestamp": "2025-01-27T05:23:00+00:00",
+      "min": 5.31,
+      "min_timestamp": "2025-01-01T00:00:00+00:00",
+      "average": 6.01,
+      "baseline_average": 5.85
+    },
+    {
+      "month": "2025-02",
+      "max": 7.28,
+      "max_timestamp": "2025-02-01T00:00:00+00:00",
+      "min": 5.91,
+      "min_timestamp": "2025-02-28T22:30:00+00:00",
+      "average": 6.19,
+      "baseline_average": 6.16
+    },
+    {
+      "month": "2025-03",
+      "max": 8.1,
+      "max_timestamp": "2025-03-16T08:00:00+00:00",
+      "min": 5.3,
+      "min_timestamp": "2025-03-05T03:00:00+00:00",
+      "average": 6.07,
+      "baseline_average": 6.06
+    },
+    {
+      "month": "2025-04",
+      "max": 9.59,
+      "max_timestamp": "2025-04-30T01:00:00+00:00",
+      "min": 5.3,
+      "min_timestamp": "2025-04-07T07:50:00+00:00",
+      "average": 6.16,
+      "baseline_average": 6.1
+    },
+    {
+      "month": "2025-05",
+      "max": 7.59,
+      "max_timestamp": "2025-05-17T05:35:00+00:00",
+      "min": 6.11,
+      "min_timestamp": "2025-05-14T03:25:00+00:00",
+      "average": 6.52,
+      "baseline_average": 6.52
+    },
+    {
+      "month": "2025-06",
+      "max": 6.36,
+      "max_timestamp": "2025-06-01T15:00:00+00:00",
+      "min": 5.9,
+      "min_timestamp": "2025-06-17T02:45:00+00:00",
+      "average": 6.02,
+      "baseline_average": 5.99
+    },
+    {
+      "month": "2025-07",
+      "max": 7.41,
+      "max_timestamp": "2025-07-19T18:10:00+00:00",
+      "min": 5.2,
+      "min_timestamp": "2025-07-06T01:50:00+00:00",
+      "average": 6.08,
+      "baseline_average": 6.21
+    },
+    {
+      "month": "2025-08",
+      "max": 6.28,
+      "max_timestamp": "2025-08-01T00:00:00+00:00",
+      "min": 5.2,
+      "min_timestamp": "2025-08-15T11:10:00+00:00",
+      "average": 5.54,
+      "baseline_average": 5.54
+    },
+    {
+      "month": "2025-09",
+      "max": 5.22,
+      "max_timestamp": "2025-09-12T14:40:00+00:00",
+      "min": 5.2,
+      "min_timestamp": "2025-09-01T00:00:00+00:00",
+      "average": 5.2,
+      "baseline_average": 5.2
+    },
+    {
+      "month": "2025-10",
+      "max": 6.08,
+      "max_timestamp": "2025-10-25T14:40:00+00:00",
+      "min": 5.2,
+      "min_timestamp": "2025-10-01T00:00:00+00:00",
+      "average": 5.32,
+      "baseline_average": 5.2
+    },
+    {
+      "month": "2025-11",
+      "max": 8.62,
+      "max_timestamp": "2025-11-09T19:47:00+00:00",
+      "min": 5.2,
+      "min_timestamp": "2025-11-01T00:00:00+00:00",
+      "average": 6.33,
+      "baseline_average": 6.28
+    },
+    {
+      "month": "2025-12",
+      "max": 8.29,
+      "max_timestamp": "2025-12-14T22:10:00+00:00",
+      "min": 5.3,
+      "min_timestamp": "2025-12-14T13:10:00+00:00",
+      "average": 6.35,
+      "baseline_average": 6.34
+    }
+  ],
+  "USGS-16213000": [
+    {
+      "month": "2025-01",
+      "max": 4.11,
+      "max_timestamp": "2025-01-31T03:20:00+00:00",
+      "min": 1.81,
+      "min_timestamp": "2025-01-22T01:45:00+00:00",
+      "average": 1.99,
+      "baseline_average": 1.87
+    },
+    {
+      "month": "2025-02",
+      "max": 2.69,
+      "max_timestamp": "2025-02-01T00:00:00+00:00",
+      "min": 1.87,
+      "min_timestamp": "2025-02-06T15:15:00+00:00",
+      "average": 1.93,
+      "baseline_average": 1.89
+    },
+    {
+      "month": "2025-03",
+      "max": 3.62,
+      "max_timestamp": "2025-03-17T12:35:00+00:00",
+      "min": 1.87,
+      "min_timestamp": "2025-03-03T12:35:00+00:00",
+      "average": 1.98,
+      "baseline_average": 1.9
+    },
+    {
+      "month": "2025-04",
+      "max": 3.89,
+      "max_timestamp": "2025-04-18T14:05:00+00:00",
+      "min": 1.82,
+      "min_timestamp": "2025-04-09T04:55:00+00:00",
+      "average": 2.13,
+      "baseline_average": 2.05
+    },
+    {
+      "month": "2025-05",
+      "max": 2.55,
+      "max_timestamp": "2025-05-23T02:45:00+00:00",
+      "min": 1.87,
+      "min_timestamp": "2025-05-06T20:15:00+00:00",
+      "average": 2.06,
+      "baseline_average": 2.06
+    },
+    {
+      "month": "2025-06",
+      "max": 2.13,
+      "max_timestamp": "2025-06-26T14:40:00+00:00",
+      "min": 1.82,
+      "min_timestamp": "2025-06-16T19:50:00+00:00",
+      "average": 1.91,
+      "baseline_average": 1.9
+    },
+    {
+      "month": "2025-07",
+      "max": 3.24,
+      "max_timestamp": "2025-07-19T20:55:00+00:00",
+      "min": 1.8,
+      "min_timestamp": "2025-07-29T00:50:00+00:00",
+      "average": 1.99,
+      "baseline_average": 1.94
+    },
+    {
+      "month": "2025-08",
+      "max": 1.92,
+      "max_timestamp": "2025-08-01T16:20:00+00:00",
+      "min": 1.76,
+      "min_timestamp": "2025-08-20T00:00:00+00:00",
+      "average": 1.82,
+      "baseline_average": 1.82
+    },
+    {
+      "month": "2025-09",
+      "max": 1.9,
+      "max_timestamp": "2025-09-06T03:40:00+00:00",
+      "min": 1.75,
+      "min_timestamp": "2025-09-04T18:55:00+00:00",
+      "average": 1.82,
+      "baseline_average": 1.82
+    },
+    {
+      "month": "2025-10",
+      "max": 3.43,
+      "max_timestamp": "2025-10-11T05:15:00+00:00",
+      "min": 1.74,
+      "min_timestamp": "2025-10-22T23:45:00+00:00",
+      "average": 1.85,
+      "baseline_average": 1.83
+    },
+    {
+      "month": "2025-11",
+      "max": 3.09,
+      "max_timestamp": "2025-11-10T05:15:00+00:00",
+      "min": 1.75,
+      "min_timestamp": "2025-11-22T22:30:00+00:00",
+      "average": 1.99,
+      "baseline_average": 1.93
+    },
+    {
+      "month": "2025-12",
+      "max": 4.0,
+      "max_timestamp": "2025-12-18T15:10:00+00:00",
+      "min": 1.77,
+      "min_timestamp": "2025-12-03T05:30:00+00:00",
+      "average": 2.12,
+      "baseline_average": 2.08
+    }
+  ],
+  "USGS-16212601": [
+    {
+      "month": "2025-01",
+      "max": 7.34,
+      "max_timestamp": "2025-01-31T01:45:00+00:00",
+      "min": 4.6,
+      "min_timestamp": "2025-01-23T01:55:00+00:00",
+      "average": 4.67,
+      "baseline_average": 4.64
+    },
+    {
+      "month": "2025-02",
+      "max": 5.73,
+      "max_timestamp": "2025-02-18T03:55:00+00:00",
+      "min": 4.6,
+      "min_timestamp": "2025-02-18T10:25:00+00:00",
+      "average": 4.65,
+      "baseline_average": 4.64
+    },
+    {
+      "month": "2025-03",
+      "max": 8.41,
+      "max_timestamp": "2025-03-18T01:55:00+00:00",
+      "min": 4.6,
+      "min_timestamp": "2025-03-18T09:45:00+00:00",
+      "average": 4.65,
+      "baseline_average": 4.64
+    },
+    {
+      "month": "2025-04",
+      "max": 7.11,
+      "max_timestamp": "2025-04-27T23:20:00+00:00",
+      "min": 4.6,
+      "min_timestamp": "2025-04-23T20:30:00+00:00",
+      "average": 4.65,
+      "baseline_average": 4.64
+    },
+    {
+      "month": "2025-05",
+      "max": 5.1,
+      "max_timestamp": "2025-05-20T12:00:00+00:00",
+      "min": 4.6,
+      "min_timestamp": "2025-05-20T17:45:00+00:00",
+      "average": 4.64,
+      "baseline_average": 4.64
+    },
+    {
+      "month": "2025-06",
+      "max": 4.67,
+      "max_timestamp": "2025-06-04T00:20:00+00:00",
+      "min": 4.62,
+      "min_timestamp": "2025-06-24T12:35:00+00:00",
+      "average": 4.64,
+      "baseline_average": 4.64
+    },
+    {
+      "month": "2025-07",
+      "max": 5.65,
+      "max_timestamp": "2025-07-19T11:35:00+00:00",
+      "min": 4.6,
+      "min_timestamp": "2025-07-11T21:45:00+00:00",
+      "average": 4.64,
+      "baseline_average": 4.63
+    },
+    {
+      "month": "2025-08",
+      "max": 4.65,
+      "max_timestamp": "2025-08-15T22:50:00+00:00",
+      "min": 4.61,
+      "min_timestamp": "2025-08-29T15:40:00+00:00",
+      "average": 4.63,
+      "baseline_average": 4.63
+    },
+    {
+      "month": "2025-09",
+      "max": 5.1,
+      "max_timestamp": "2025-09-26T14:25:00+00:00",
+      "min": 4.58,
+      "min_timestamp": "2025-09-26T18:15:00+00:00",
+      "average": 4.63,
+      "baseline_average": 4.63
+    },
+    {
+      "month": "2025-10",
+      "max": 4.64,
+      "max_timestamp": "2025-10-01T00:00:00+00:00",
+      "min": 4.62,
+      "min_timestamp": "2025-10-01T12:20:00+00:00",
+      "average": 4.63,
+      "baseline_average": 4.63
+    },
+    {
+      "month": "2025-11",
+      "max": 5.47,
+      "max_timestamp": "2025-11-03T01:35:00+00:00",
+      "min": 4.59,
+      "min_timestamp": "2025-11-03T06:00:00+00:00",
+      "average": 4.63,
+      "baseline_average": 4.63
+    },
+    {
+      "month": "2025-12",
+      "max": 8.05,
+      "max_timestamp": "2025-12-14T13:33:00+00:00",
+      "min": 4.61,
+      "min_timestamp": "2025-12-17T06:00:00+00:00",
+      "average": 4.75,
+      "baseline_average": 4.65
+    }
+  ],
+  "USGS-16210200": [
+    {
+      "month": "2025-01",
+      "max": 6.72,
+      "max_timestamp": "2025-01-31T15:40:00+00:00",
+      "min": 4.74,
+      "min_timestamp": "2025-01-24T19:05:00+00:00",
+      "average": 5.14,
+      "baseline_average": 4.91
+    },
+    {
+      "month": "2025-02",
+      "max": 6.61,
+      "max_timestamp": "2025-02-01T02:40:00+00:00",
+      "min": 4.84,
+      "min_timestamp": "2025-02-28T17:20:00+00:00",
+      "average": 5.3,
+      "baseline_average": 5.17
+    },
+    {
+      "month": "2025-03",
+      "max": 6.78,
+      "max_timestamp": "2025-03-18T02:00:00+00:00",
+      "min": 4.72,
+      "min_timestamp": "2025-03-14T15:10:00+00:00",
+      "average": 5.45,
+      "baseline_average": 5.45
+    },
+    {
+      "month": "2025-04",
+      "max": 6.72,
+      "max_timestamp": "2025-04-20T20:35:00+00:00",
+      "min": 4.86,
+      "min_timestamp": "2025-04-08T09:35:00+00:00",
+      "average": 5.93,
+      "baseline_average": 5.93
+    },
+    {
+      "month": "2025-05",
+      "max": 6.63,
+      "max_timestamp": "2025-05-01T00:10:00+00:00",
+      "min": 5.13,
+      "min_timestamp": "2025-05-05T18:10:00+00:00",
+      "average": 6.0,
+      "baseline_average": 6.0
+    },
+    {
+      "month": "2025-06",
+      "max": 6.09,
+      "max_timestamp": "2025-06-13T17:20:00+00:00",
+      "min": 5.55,
+      "min_timestamp": "2025-06-27T07:50:00+00:00",
+      "average": 5.83,
+      "baseline_average": 5.83
+    },
+    {
+      "month": "2025-07",
+      "max": 6.67,
+      "max_timestamp": "2025-07-21T17:00:00+00:00",
+      "min": 5.3,
+      "min_timestamp": "2025-07-08T09:45:00+00:00",
+      "average": 5.84,
+      "baseline_average": 5.84
+    },
+    {
+      "month": "2025-08",
+      "max": 6.44,
+      "max_timestamp": "2025-08-02T05:40:00+00:00",
+      "min": 4.82,
+      "min_timestamp": "2025-08-29T17:00:00+00:00",
+      "average": 5.31,
+      "baseline_average": 5.19
+    },
+    {
+      "month": "2025-09",
+      "max": 5.57,
+      "max_timestamp": "2025-09-16T19:45:00+00:00",
+      "min": 4.51,
+      "min_timestamp": "2025-09-16T20:55:00+00:00",
+      "average": 4.97,
+      "baseline_average": 4.97
+    },
+    {
+      "month": "2025-10",
+      "max": 5.29,
+      "max_timestamp": "2025-10-13T17:05:00+00:00",
+      "min": 4.79,
+      "min_timestamp": "2025-10-31T22:25:00+00:00",
+      "average": 5.0,
+      "baseline_average": 5.0
+    },
+    {
+      "month": "2025-11",
+      "max": 6.88,
+      "max_timestamp": "2025-11-17T23:15:00+00:00",
+      "min": 4.87,
+      "min_timestamp": "2025-11-08T07:10:00+00:00",
+      "average": 5.47,
+      "baseline_average": 5.47
+    },
+    {
+      "month": "2025-12",
+      "max": 6.97,
+      "max_timestamp": "2025-12-18T21:20:00+00:00",
+      "min": 5.5,
+      "min_timestamp": "2025-12-10T17:55:00+00:00",
+      "average": 6.14,
+      "baseline_average": 6.14
+    }
+  ],
+  "USGS-16210100": [
+    {
+      "month": "2025-01",
+      "max": 7.63,
+      "max_timestamp": "2025-01-20T18:10:00+00:00",
+      "min": 7.09,
+      "min_timestamp": "2025-01-30T02:55:00+00:00",
+      "average": 7.41,
+      "baseline_average": 7.42
+    },
+    {
+      "month": "2025-02",
+      "max": 7.61,
+      "max_timestamp": "2025-02-11T08:25:00+00:00",
+      "min": 7.22,
+      "min_timestamp": "2025-02-07T20:00:00+00:00",
+      "average": 7.43,
+      "baseline_average": 7.43
+    },
+    {
+      "month": "2025-03",
+      "max": 7.6,
+      "max_timestamp": "2025-03-17T17:15:00+00:00",
+      "min": 7.08,
+      "min_timestamp": "2025-03-29T05:15:00+00:00",
+      "average": 7.35,
+      "baseline_average": 7.35
+    },
+    {
+      "month": "2025-04",
+      "max": 7.84,
+      "max_timestamp": "2025-04-11T17:00:00+00:00",
+      "min": 7.2,
+      "min_timestamp": "2025-04-21T09:25:00+00:00",
+      "average": 7.39,
+      "baseline_average": 7.38
+    },
+    {
+      "month": "2025-05",
+      "max": 7.61,
+      "max_timestamp": "2025-05-10T18:30:00+00:00",
+      "min": 7.2,
+      "min_timestamp": "2025-05-05T17:25:00+00:00",
+      "average": 7.38,
+      "baseline_average": 7.38
+    },
+    {
+      "month": "2025-06",
+      "max": 7.65,
+      "max_timestamp": "2025-06-27T05:20:00+00:00",
+      "min": 7.2,
+      "min_timestamp": "2025-06-13T17:25:00+00:00",
+      "average": 7.4,
+      "baseline_average": 7.4
+    },
+    {
+      "month": "2025-07",
+      "max": 8.33,
+      "max_timestamp": "2025-07-11T23:10:00+00:00",
+      "min": 7.08,
+      "min_timestamp": "2025-07-12T00:05:00+00:00",
+      "average": 7.58,
+      "baseline_average": 7.58
+    },
+    {
+      "month": "2025-08",
+      "max": 7.69,
+      "max_timestamp": "2025-08-01T17:10:00+00:00",
+      "min": 7.32,
+      "min_timestamp": "2025-08-15T18:00:00+00:00",
+      "average": 7.46,
+      "baseline_average": 7.46
+    },
+    {
+      "month": "2025-09",
+      "max": 8.49,
+      "max_timestamp": "2025-09-16T19:40:00+00:00",
+      "min": 7.18,
+      "min_timestamp": "2025-09-16T20:25:00+00:00",
+      "average": 7.43,
+      "baseline_average": 7.43
+    },
+    {
+      "month": "2025-10",
+      "max": 7.63,
+      "max_timestamp": "2025-10-17T05:05:00+00:00",
+      "min": 7.26,
+      "min_timestamp": "2025-10-06T12:25:00+00:00",
+      "average": 7.42,
+      "baseline_average": 7.42
+    },
+    {
+      "month": "2025-11",
+      "max": 7.64,
+      "max_timestamp": "2025-11-03T17:05:00+00:00",
+      "min": 7.21,
+      "min_timestamp": "2025-11-17T22:40:00+00:00",
+      "average": 7.39,
+      "baseline_average": 7.39
+    },
+    {
+      "month": "2025-12",
+      "max": 7.8,
+      "max_timestamp": "2025-12-22T17:45:00+00:00",
+      "min": 7.18,
+      "min_timestamp": "2025-12-21T10:10:00+00:00",
+      "average": 7.41,
+      "baseline_average": 7.41
+    }
+  ],
+  "USGS-16210000": [
+    {
+      "month": "2025-01",
+      "max": 68.74,
+      "max_timestamp": "2025-01-28T07:30:00+00:00",
+      "min": 61.66,
+      "min_timestamp": "2025-01-09T19:20:00+00:00",
+      "average": 63.69,
+      "baseline_average": 62.91
+    },
+    {
+      "month": "2025-02",
+      "max": 68.28,
+      "max_timestamp": "2025-02-01T00:10:00+00:00",
+      "min": 63.12,
+      "min_timestamp": "2025-02-28T21:00:00+00:00",
+      "average": 64.76,
+      "baseline_average": 64.64
+    },
+    {
+      "month": "2025-03",
+      "max": 72.28,
+      "max_timestamp": "2025-03-18T03:25:00+00:00",
+      "min": 62.51,
+      "min_timestamp": "2025-03-07T12:55:00+00:00",
+      "average": 65.74,
+      "baseline_average": 65.74
+    },
+    {
+      "month": "2025-04",
+      "max": 72.03,
+      "max_timestamp": "2025-04-20T04:20:00+00:00",
+      "min": 64.39,
+      "min_timestamp": "2025-04-10T00:45:00+00:00",
+      "average": 67.01,
+      "baseline_average": 67.01
+    },
+    {
+      "month": "2025-05",
+      "max": 70.02,
+      "max_timestamp": "2025-05-23T12:00:00+00:00",
+      "min": 64.32,
+      "min_timestamp": "2025-05-05T20:05:00+00:00",
+      "average": 67.0,
+      "baseline_average": 67.0
+    },
+    {
+      "month": "2025-06",
+      "max": 67.44,
+      "max_timestamp": "2025-06-26T13:55:00+00:00",
+      "min": 65.52,
+      "min_timestamp": "2025-06-09T21:25:00+00:00",
+      "average": 66.49,
+      "baseline_average": 66.49
+    },
+    {
+      "month": "2025-07",
+      "max": 71.67,
+      "max_timestamp": "2025-07-21T04:35:00+00:00",
+      "min": 65.68,
+      "min_timestamp": "2025-07-10T17:15:00+00:00",
+      "average": 67.83,
+      "baseline_average": 67.38
+    },
+    {
+      "month": "2025-08",
+      "max": 67.55,
+      "max_timestamp": "2025-08-01T00:10:00+00:00",
+      "min": 62.3,
+      "min_timestamp": "2025-08-31T23:30:00+00:00",
+      "average": 64.09,
+      "baseline_average": 63.92
+    },
+    {
+      "month": "2025-09",
+      "max": 62.34,
+      "max_timestamp": "2025-09-01T00:05:00+00:00",
+      "min": 60.01,
+      "min_timestamp": "2025-09-21T00:35:00+00:00",
+      "average": 60.92,
+      "baseline_average": 60.92
+    },
+    {
+      "month": "2025-10",
+      "max": 60.23,
+      "max_timestamp": "2025-10-23T03:00:00+00:00",
+      "min": 58.48,
+      "min_timestamp": "2025-10-17T22:00:00+00:00",
+      "average": 59.71,
+      "baseline_average": 59.75
+    },
+    {
+      "month": "2025-11",
+      "max": 66.58,
+      "max_timestamp": "2025-11-22T21:25:00+00:00",
+      "min": 59.05,
+      "min_timestamp": "2025-11-08T22:30:00+00:00",
+      "average": 63.65,
+      "baseline_average": 63.65
+    },
+    {
+      "month": "2025-12",
+      "max": 66.55,
+      "max_timestamp": "2025-12-19T08:35:00+00:00",
+      "min": 64.1,
+      "min_timestamp": "2025-12-18T09:10:00+00:00",
+      "average": 65.47,
+      "baseline_average": 65.47
+    }
+  ],
+  "USGS-16208400": [
+    {
+      "month": "2025-01",
+      "max": 17.22,
+      "max_timestamp": "2025-01-27T03:25:00+00:00",
+      "min": 17.19,
+      "min_timestamp": "2025-01-01T00:00:00+00:00",
+      "average": 17.19,
+      "baseline_average": 17.19
+    },
+    {
+      "month": "2025-02",
+      "max": 17.22,
+      "max_timestamp": "2025-02-17T23:15:00+00:00",
+      "min": 17.19,
+      "min_timestamp": "2025-02-01T00:00:00+00:00",
+      "average": 17.19,
+      "baseline_average": 17.19
+    },
+    {
+      "month": "2025-03",
+      "max": 17.22,
+      "max_timestamp": "2025-03-05T09:00:00+00:00",
+      "min": 17.19,
+      "min_timestamp": "2025-03-01T00:00:00+00:00",
+      "average": 17.19,
+      "baseline_average": 17.19
+    },
+    {
+      "month": "2025-04",
+      "max": 17.22,
+      "max_timestamp": "2025-04-10T09:20:00+00:00",
+      "min": 17.19,
+      "min_timestamp": "2025-04-01T00:00:00+00:00",
+      "average": 17.19,
+      "baseline_average": 17.19
+    },
+    {
+      "month": "2025-05",
+      "max": 17.22,
+      "max_timestamp": "2025-05-05T08:20:00+00:00",
+      "min": 17.19,
+      "min_timestamp": "2025-05-01T00:00:00+00:00",
+      "average": 17.19,
+      "baseline_average": 17.19
+    },
+    {
+      "month": "2025-06",
+      "max": 17.22,
+      "max_timestamp": "2025-06-05T15:20:00+00:00",
+      "min": 17.19,
+      "min_timestamp": "2025-06-01T00:00:00+00:00",
+      "average": 17.19,
+      "baseline_average": 17.19
+    },
+    {
+      "month": "2025-07",
+      "max": 19.65,
+      "max_timestamp": "2025-07-19T14:15:00+00:00",
+      "min": 17.19,
+      "min_timestamp": "2025-07-01T00:00:00+00:00",
+      "average": 17.2,
+      "baseline_average": 17.19
+    },
+    {
+      "month": "2025-08",
+      "max": 17.2,
+      "max_timestamp": "2025-08-03T03:35:00+00:00",
+      "min": 17.18,
+      "min_timestamp": "2025-08-03T06:10:00+00:00",
+      "average": 17.19,
+      "baseline_average": 17.19
+    },
+    {
+      "month": "2025-09",
+      "max": 17.21,
+      "max_timestamp": "2025-09-19T10:55:00+00:00",
+      "min": 17.19,
+      "min_timestamp": "2025-09-01T00:00:00+00:00",
+      "average": 17.19,
+      "baseline_average": 17.19
+    },
+    {
+      "month": "2025-10",
+      "max": 17.21,
+      "max_timestamp": "2025-10-08T04:30:00+00:00",
+      "min": 17.19,
+      "min_timestamp": "2025-10-01T00:00:00+00:00",
+      "average": 17.19,
+      "baseline_average": 17.19
+    },
+    {
+      "month": "2025-11",
+      "max": 17.22,
+      "max_timestamp": "2025-11-21T11:35:00+00:00",
+      "min": 17.19,
+      "min_timestamp": "2025-11-01T00:00:00+00:00",
+      "average": 17.19,
+      "baseline_average": 17.19
+    },
+    {
+      "month": "2025-12",
+      "max": 17.28,
+      "max_timestamp": "2025-12-09T23:25:00+00:00",
+      "min": 17.19,
+      "min_timestamp": "2025-12-01T00:00:00+00:00",
+      "average": 17.19,
+      "baseline_average": 17.19
+    }
+  ],
+  "USGS-16208000": [
+    {
+      "month": "2025-01",
+      "max": 4.52,
+      "max_timestamp": "2025-01-27T05:50:00+00:00",
+      "min": 1.21,
+      "min_timestamp": "2025-01-07T06:05:00+00:00",
+      "average": 1.48,
+      "baseline_average": 1.37
+    },
+    {
+      "month": "2025-02",
+      "max": 1.97,
+      "max_timestamp": "2025-02-01T00:00:00+00:00",
+      "min": 1.16,
+      "min_timestamp": "2025-02-28T11:40:00+00:00",
+      "average": 1.31,
+      "baseline_average": 1.3
+    },
+    {
+      "month": "2025-03",
+      "max": 4.32,
+      "max_timestamp": "2025-03-17T08:45:00+00:00",
+      "min": 1.13,
+      "min_timestamp": "2025-03-03T12:05:00+00:00",
+      "average": 1.48,
+      "baseline_average": 1.4
+    },
+    {
+      "month": "2025-04",
+      "max": 4.82,
+      "max_timestamp": "2025-04-18T10:45:00+00:00",
+      "min": 1.26,
+      "min_timestamp": "2025-04-03T16:20:00+00:00",
+      "average": 1.66,
+      "baseline_average": 1.59
+    },
+    {
+      "month": "2025-05",
+      "max": 2.88,
+      "max_timestamp": "2025-05-20T14:15:00+00:00",
+      "min": 1.54,
+      "min_timestamp": "2025-05-04T20:10:00+00:00",
+      "average": 1.85,
+      "baseline_average": 1.84
+    },
+    {
+      "month": "2025-06",
+      "max": 2.89,
+      "max_timestamp": "2025-06-17T12:05:00+00:00",
+      "min": 1.53,
+      "min_timestamp": "2025-06-29T15:55:00+00:00",
+      "average": 1.74,
+      "baseline_average": 1.71
+    },
+    {
+      "month": "2025-07",
+      "max": 4.16,
+      "max_timestamp": "2025-07-19T18:15:00+00:00",
+      "min": 1.46,
+      "min_timestamp": "2025-07-09T07:35:00+00:00",
+      "average": 1.76,
+      "baseline_average": 1.69
+    },
+    {
+      "month": "2025-08",
+      "max": 1.68,
+      "max_timestamp": "2025-08-09T07:10:00+00:00",
+      "min": 1.2,
+      "min_timestamp": "2025-08-29T22:10:00+00:00",
+      "average": 1.4,
+      "baseline_average": 1.4
+    },
+    {
+      "month": "2025-09",
+      "max": 1.81,
+      "max_timestamp": "2025-09-22T08:45:00+00:00",
+      "min": 1.13,
+      "min_timestamp": "2025-09-18T21:50:00+00:00",
+      "average": 1.24,
+      "baseline_average": 1.2
+    },
+    {
+      "month": "2025-10",
+      "max": 2.57,
+      "max_timestamp": "2025-10-08T10:20:00+00:00",
+      "min": 1.1,
+      "min_timestamp": "2025-10-15T15:00:00+00:00",
+      "average": 1.27,
+      "baseline_average": 1.23
+    },
+    {
+      "month": "2025-11",
+      "max": 3.01,
+      "max_timestamp": "2025-11-10T00:00:00+00:00",
+      "min": 1.14,
+      "min_timestamp": "2025-11-07T22:50:00+00:00",
+      "average": 1.56,
+      "baseline_average": 1.51
+    },
+    {
+      "month": "2025-12",
+      "max": 2.89,
+      "max_timestamp": "2025-12-14T17:25:00+00:00",
+      "min": 1.29,
+      "min_timestamp": "2025-12-04T13:35:00+00:00",
+      "average": 1.66,
+      "baseline_average": 1.63
+    }
+  ],
+  "USGS-16206600": [
+    {
+      "month": "2025-01",
+      "max": 5.9,
+      "max_timestamp": "2025-01-01T02:00:00+00:00",
+      "min": 5.86,
+      "min_timestamp": "2025-01-01T21:35:00+00:00",
+      "average": 5.89,
+      "baseline_average": 5.89
+    },
+    {
+      "month": "2025-02",
+      "max": 5.93,
+      "max_timestamp": "2025-02-21T01:00:00+00:00",
+      "min": 5.86,
+      "min_timestamp": "2025-02-01T21:00:00+00:00",
+      "average": 5.9,
+      "baseline_average": 5.9
+    },
+    {
+      "month": "2025-03",
+      "max": 5.93,
+      "max_timestamp": "2025-03-01T22:35:00+00:00",
+      "min": 5.87,
+      "min_timestamp": "2025-03-01T22:10:00+00:00",
+      "average": 5.91,
+      "baseline_average": 5.91
+    },
+    {
+      "month": "2025-04",
+      "max": 5.93,
+      "max_timestamp": "2025-04-01T08:25:00+00:00",
+      "min": 5.86,
+      "min_timestamp": "2025-04-23T20:35:00+00:00",
+      "average": 5.91,
+      "baseline_average": 5.91
+    },
+    {
+      "month": "2025-05",
+      "max": 5.91,
+      "max_timestamp": "2025-05-01T01:05:00+00:00",
+      "min": 5.86,
+      "min_timestamp": "2025-05-01T20:10:00+00:00",
+      "average": 5.89,
+      "baseline_average": 5.89
+    },
+    {
+      "month": "2025-06",
+      "max": 5.91,
+      "max_timestamp": "2025-06-01T00:25:00+00:00",
+      "min": 5.86,
+      "min_timestamp": "2025-06-01T21:50:00+00:00",
+      "average": 5.9,
+      "baseline_average": 5.9
+    },
+    {
+      "month": "2025-07",
+      "max": 5.91,
+      "max_timestamp": "2025-07-01T00:40:00+00:00",
+      "min": 5.86,
+      "min_timestamp": "2025-07-01T20:25:00+00:00",
+      "average": 5.9,
+      "baseline_average": 5.9
+    },
+    {
+      "month": "2025-08",
+      "max": 5.91,
+      "max_timestamp": "2025-08-01T01:10:00+00:00",
+      "min": 5.85,
+      "min_timestamp": "2025-08-19T20:25:00+00:00",
+      "average": 5.89,
+      "baseline_average": 5.89
+    },
+    {
+      "month": "2025-09",
+      "max": 5.9,
+      "max_timestamp": "2025-09-04T01:05:00+00:00",
+      "min": 5.85,
+      "min_timestamp": "2025-09-02T20:50:00+00:00",
+      "average": 5.88,
+      "baseline_average": 5.88
+    },
+    {
+      "month": "2025-10",
+      "max": 5.9,
+      "max_timestamp": "2025-10-01T21:50:00+00:00",
+      "min": 5.85,
+      "min_timestamp": "2025-10-13T21:15:00+00:00",
+      "average": 5.88,
+      "baseline_average": 5.88
+    },
+    {
+      "month": "2025-11",
+      "max": 5.9,
+      "max_timestamp": "2025-11-02T21:55:00+00:00",
+      "min": 5.85,
+      "min_timestamp": "2025-11-15T21:20:00+00:00",
+      "average": 5.88,
+      "baseline_average": 5.88
+    },
+    {
+      "month": "2025-12",
+      "max": 5.89,
+      "max_timestamp": "2025-12-03T00:45:00+00:00",
+      "min": 5.86,
+      "min_timestamp": "2025-12-01T21:25:00+00:00",
+      "average": 5.88,
+      "baseline_average": 5.88
+    }
+  ],
+  "USGS-16200000": [
+    {
+      "month": "2025-01",
+      "max": 7.91,
+      "max_timestamp": "2025-01-27T01:55:00+00:00",
+      "min": 1.31,
+      "min_timestamp": "2025-01-24T19:00:00+00:00",
+      "average": 1.72,
+      "baseline_average": 1.61
+    },
+    {
+      "month": "2025-02",
+      "max": 2.02,
+      "max_timestamp": "2025-02-01T00:00:00+00:00",
+      "min": 1.32,
+      "min_timestamp": "2025-02-28T02:40:00+00:00",
+      "average": 1.55,
+      "baseline_average": 1.55
+    },
+    {
+      "month": "2025-03",
+      "max": 5.6,
+      "max_timestamp": "2025-03-17T07:40:00+00:00",
+      "min": 1.27,
+      "min_timestamp": "2025-03-04T12:00:00+00:00",
+      "average": 1.82,
+      "baseline_average": 1.72
+    },
+    {
+      "month": "2025-04",
+      "max": 6.61,
+      "max_timestamp": "2025-04-18T09:10:00+00:00",
+      "min": 1.44,
+      "min_timestamp": "2025-04-09T05:40:00+00:00",
+      "average": 1.98,
+      "baseline_average": 1.89
+    },
+    {
+      "month": "2025-05",
+      "max": 3.42,
+      "max_timestamp": "2025-05-22T21:35:00+00:00",
+      "min": 1.72,
+      "min_timestamp": "2025-05-13T23:35:00+00:00",
+      "average": 1.99,
+      "baseline_average": 1.93
+    },
+    {
+      "month": "2025-06",
+      "max": 3.88,
+      "max_timestamp": "2025-06-25T18:40:00+00:00",
+      "min": 1.74,
+      "min_timestamp": "2025-06-29T08:15:00+00:00",
+      "average": 1.99,
+      "baseline_average": 1.92
+    },
+    {
+      "month": "2025-07",
+      "max": 5.14,
+      "max_timestamp": "2025-07-19T16:15:00+00:00",
+      "min": 1.63,
+      "min_timestamp": "2025-07-10T09:10:00+00:00",
+      "average": 1.95,
+      "baseline_average": 1.86
+    },
+    {
+      "month": "2025-08",
+      "max": 2.51,
+      "max_timestamp": "2025-08-08T15:15:00+00:00",
+      "min": 1.37,
+      "min_timestamp": "2025-08-31T22:30:00+00:00",
+      "average": 1.62,
+      "baseline_average": 1.61
+    },
+    {
+      "month": "2025-09",
+      "max": 3.29,
+      "max_timestamp": "2025-09-21T05:35:00+00:00",
+      "min": 1.23,
+      "min_timestamp": "2025-09-18T11:35:00+00:00",
+      "average": 1.45,
+      "baseline_average": 1.37
+    },
+    {
+      "month": "2025-10",
+      "max": 3.24,
+      "max_timestamp": "2025-10-08T06:30:00+00:00",
+      "min": 1.21,
+      "min_timestamp": "2025-10-16T00:50:00+00:00",
+      "average": 1.6,
+      "baseline_average": 1.55
+    },
+    {
+      "month": "2025-11",
+      "max": 3.81,
+      "max_timestamp": "2025-11-21T11:40:00+00:00",
+      "min": 1.44,
+      "min_timestamp": "2025-11-05T14:30:00+00:00",
+      "average": 1.92,
+      "baseline_average": 1.82
+    },
+    {
+      "month": "2025-12",
+      "max": 4.22,
+      "max_timestamp": "2025-12-23T13:05:00+00:00",
+      "min": 1.62,
+      "min_timestamp": "2025-12-05T01:50:00+00:00",
+      "average": 1.99,
+      "baseline_average": 1.9
+    }
+  ],
+  "USGS-16212490": [
+    {
+      "month": "2025-01",
+      "max": 6.14,
+      "max_timestamp": "2025-01-27T17:40:00+00:00",
+      "min": 5.02,
+      "min_timestamp": "2025-01-10T23:30:00+00:00",
+      "average": 5.13,
+      "baseline_average": 5.09
+    },
+    {
+      "month": "2025-02",
+      "max": 6.57,
+      "max_timestamp": "2025-02-03T20:32:00+00:00",
+      "min": 5.06,
+      "min_timestamp": "2025-02-06T12:30:00+00:00",
+      "average": 5.13,
+      "baseline_average": 5.09
+    },
+    {
+      "month": "2025-03",
+      "max": 5.51,
+      "max_timestamp": "2025-03-18T02:20:00+00:00",
+      "min": 5.08,
+      "min_timestamp": "2025-03-04T12:00:00+00:00",
+      "average": 5.23,
+      "baseline_average": 5.23
+    },
+    {
+      "month": "2025-04",
+      "max": 5.41,
+      "max_timestamp": "2025-04-19T15:10:00+00:00",
+      "min": 5.02,
+      "min_timestamp": "2025-04-11T17:55:00+00:00",
+      "average": 5.1,
+      "baseline_average": 5.09
+    },
+    {
+      "month": "2025-05",
+      "max": 5.27,
+      "max_timestamp": "2025-05-05T01:15:00+00:00",
+      "min": 5.01,
+      "min_timestamp": "2025-05-26T23:30:00+00:00",
+      "average": 5.1,
+      "baseline_average": 5.09
+    },
+    {
+      "month": "2025-06",
+      "max": 5.34,
+      "max_timestamp": "2025-06-01T10:15:00+00:00",
+      "min": 5.01,
+      "min_timestamp": "2025-06-02T02:20:00+00:00",
+      "average": 5.13,
+      "baseline_average": 5.12
+    },
+    {
+      "month": "2025-07",
+      "max": 5.35,
+      "max_timestamp": "2025-07-07T23:05:00+00:00",
+      "min": 5.03,
+      "min_timestamp": "2025-07-04T15:45:00+00:00",
+      "average": 5.13,
+      "baseline_average": 5.11
+    },
+    {
+      "month": "2025-08",
+      "max": 5.27,
+      "max_timestamp": "2025-08-11T19:30:00+00:00",
+      "min": 5.01,
+      "min_timestamp": "2025-08-02T14:05:00+00:00",
+      "average": 5.09,
+      "baseline_average": 5.09
+    },
+    {
+      "month": "2025-09",
+      "max": 5.35,
+      "max_timestamp": "2025-09-28T22:10:00+00:00",
+      "min": 5.09,
+      "min_timestamp": "2025-09-20T19:05:00+00:00",
+      "average": 5.17,
+      "baseline_average": 5.14
+    },
+    {
+      "month": "2025-10",
+      "max": 5.51,
+      "max_timestamp": "2025-10-22T08:55:00+00:00",
+      "min": 5.12,
+      "min_timestamp": "2025-10-02T04:40:00+00:00",
+      "average": 5.24,
+      "baseline_average": 5.24
+    },
+    {
+      "month": "2025-11",
+      "max": 5.6,
+      "max_timestamp": "2025-11-10T14:00:00+00:00",
+      "min": 5.06,
+      "min_timestamp": "2025-11-28T11:05:00+00:00",
+      "average": 5.15,
+      "baseline_average": 5.13
+    },
+    {
+      "month": "2025-12",
+      "max": 5.87,
+      "max_timestamp": "2025-12-19T21:50:00+00:00",
+      "min": 5.1,
+      "min_timestamp": "2025-12-01T06:20:00+00:00",
+      "average": 5.26,
+      "baseline_average": 5.26
+    }
+  ],
+  "USGS-16211800": [
+    {
+      "month": "2025-01",
+      "max": 3.44,
+      "max_timestamp": "2025-01-27T03:05:00+00:00",
+      "min": 3.0,
+      "min_timestamp": "2025-01-29T21:30:00+00:00",
+      "average": 3.12,
+      "baseline_average": 3.12
+    },
+    {
+      "month": "2025-02",
+      "max": 3.21,
+      "max_timestamp": "2025-02-18T03:35:00+00:00",
+      "min": 3.04,
+      "min_timestamp": "2025-02-13T21:10:00+00:00",
+      "average": 3.08,
+      "baseline_average": 3.07
+    },
+    {
+      "month": "2025-03",
+      "max": 3.22,
+      "max_timestamp": "2025-03-07T18:45:00+00:00",
+      "min": 3.01,
+      "min_timestamp": "2025-03-26T04:25:00+00:00",
+      "average": 3.07,
+      "baseline_average": 3.07
+    },
+    {
+      "month": "2025-04",
+      "max": 3.28,
+      "max_timestamp": "2025-04-28T00:30:00+00:00",
+      "min": 3.0,
+      "min_timestamp": "2025-04-14T01:55:00+00:00",
+      "average": 3.04,
+      "baseline_average": 3.03
+    },
+    {
+      "month": "2025-05",
+      "max": 3.28,
+      "max_timestamp": "2025-05-18T03:00:00+00:00",
+      "min": 3.0,
+      "min_timestamp": "2025-05-19T21:00:00+00:00",
+      "average": 3.04,
+      "baseline_average": 3.03
+    },
+    {
+      "month": "2025-06",
+      "max": 3.17,
+      "max_timestamp": "2025-06-26T12:40:00+00:00",
+      "min": 2.99,
+      "min_timestamp": "2025-06-04T04:45:00+00:00",
+      "average": 3.06,
+      "baseline_average": 3.06
+    },
+    {
+      "month": "2025-07",
+      "max": 3.25,
+      "max_timestamp": "2025-07-02T18:40:00+00:00",
+      "min": 2.99,
+      "min_timestamp": "2025-07-26T03:25:00+00:00",
+      "average": 3.1,
+      "baseline_average": 3.1
+    },
+    {
+      "month": "2025-08",
+      "max": 3.13,
+      "max_timestamp": "2025-08-21T20:55:00+00:00",
+      "min": 2.98,
+      "min_timestamp": "2025-08-08T03:55:00+00:00",
+      "average": 3.04,
+      "baseline_average": 3.04
+    },
+    {
+      "month": "2025-09",
+      "max": 3.27,
+      "max_timestamp": "2025-09-05T21:00:00+00:00",
+      "min": 2.98,
+      "min_timestamp": "2025-09-25T05:15:00+00:00",
+      "average": 3.1,
+      "baseline_average": 3.1
+    },
+    {
+      "month": "2025-10",
+      "max": 3.36,
+      "max_timestamp": "2025-10-11T02:25:00+00:00",
+      "min": 2.97,
+      "min_timestamp": "2025-10-16T05:50:00+00:00",
+      "average": 3.0,
+      "baseline_average": 3.0
+    },
+    {
+      "month": "2025-11",
+      "max": 3.08,
+      "max_timestamp": "2025-11-10T19:15:00+00:00",
+      "min": 2.95,
+      "min_timestamp": "2025-11-15T04:45:00+00:00",
+      "average": 3.0,
+      "baseline_average": 3.0
+    },
+    {
+      "month": "2025-12",
+      "max": 4.39,
+      "max_timestamp": "2025-12-18T21:15:00+00:00",
+      "min": 2.93,
+      "min_timestamp": "2025-12-30T02:10:00+00:00",
+      "average": 2.99,
+      "baseline_average": 2.97
+    }
+  ],
+  "USGS-16211600": [
+    {
+      "month": "2025-01",
+      "max": 2.59,
+      "max_timestamp": "2025-01-27T15:18:00+00:00",
+      "min": 0.71,
+      "min_timestamp": "2025-01-01T00:00:00+00:00",
+      "average": 0.83,
+      "baseline_average": 0.73
+    },
+    {
+      "month": "2025-02",
+      "max": 1.41,
+      "max_timestamp": "2025-02-18T05:15:00+00:00",
+      "min": 0.71,
+      "min_timestamp": "2025-02-16T03:15:00+00:00",
+      "average": 1.01,
+      "baseline_average": 1.03
+    },
+    {
+      "month": "2025-03",
+      "max": 1.16,
+      "max_timestamp": "2025-03-04T22:30:00+00:00",
+      "min": 0.71,
+      "min_timestamp": "2025-03-06T01:00:00+00:00",
+      "average": 0.83,
+      "baseline_average": 0.83
+    },
+    {
+      "month": "2025-04",
+      "max": 1.06,
+      "max_timestamp": "2025-04-27T04:10:00+00:00",
+      "min": 0.71,
+      "min_timestamp": "2025-04-01T00:00:00+00:00",
+      "average": 0.77,
+      "baseline_average": 0.77
+    },
+    {
+      "month": "2025-05",
+      "max": 1.18,
+      "max_timestamp": "2025-05-05T21:25:00+00:00",
+      "min": 0.71,
+      "min_timestamp": "2025-05-01T00:00:00+00:00",
+      "average": 0.79,
+      "baseline_average": 0.79
+    },
+    {
+      "month": "2025-06",
+      "max": 0.71,
+      "max_timestamp": "2025-06-01T00:00:00+00:00",
+      "min": 0.71,
+      "min_timestamp": "2025-06-01T00:00:00+00:00",
+      "average": 0.71,
+      "baseline_average": 0.71
+    },
+    {
+      "month": "2025-07",
+      "max": 0.71,
+      "max_timestamp": "2025-07-01T00:00:00+00:00",
+      "min": 0.71,
+      "min_timestamp": "2025-07-01T00:00:00+00:00",
+      "average": 0.71,
+      "baseline_average": 0.71
+    },
+    {
+      "month": "2025-08",
+      "max": 0.71,
+      "max_timestamp": "2025-08-01T00:00:00+00:00",
+      "min": 0.71,
+      "min_timestamp": "2025-08-01T00:00:00+00:00",
+      "average": 0.71,
+      "baseline_average": 0.71
+    },
+    {
+      "month": "2025-09",
+      "max": 0.71,
+      "max_timestamp": "2025-09-01T00:00:00+00:00",
+      "min": 0.71,
+      "min_timestamp": "2025-09-01T00:00:00+00:00",
+      "average": 0.71,
+      "baseline_average": 0.71
+    },
+    {
+      "month": "2025-10",
+      "max": 0.71,
+      "max_timestamp": "2025-10-01T00:00:00+00:00",
+      "min": 0.71,
+      "min_timestamp": "2025-10-01T00:00:00+00:00",
+      "average": 0.71,
+      "baseline_average": 0.71
+    },
+    {
+      "month": "2025-11",
+      "max": 0.71,
+      "max_timestamp": "2025-11-01T00:00:00+00:00",
+      "min": 0.71,
+      "min_timestamp": "2025-11-01T00:00:00+00:00",
+      "average": 0.71,
+      "baseline_average": 0.71
+    },
+    {
+      "month": "2025-12",
+      "max": 3.35,
+      "max_timestamp": "2025-12-18T21:02:00+00:00",
+      "min": 0.71,
+      "min_timestamp": "2025-12-01T00:00:00+00:00",
+      "average": 0.98,
+      "baseline_average": 0.95
+    }
+  ]
+}

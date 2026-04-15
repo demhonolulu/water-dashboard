@@ -199,7 +199,69 @@ def main():
     # Your API key
     API_KEY = "bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1"
     YEAR = 2025
-    ID = "USGS-16279200"
+    
+    # Create log file with timestamp
+    log_filename = f"water_data_log_{YEAR}_{datetime.now().strftime('%m-%d_%H%M%S')}.txt"
+    log_file = open(log_filename, 'w', encoding='utf-8')
+    
+    def log_print(*args, **kwargs):
+        """Print to both console and log file"""
+        print(*args, **kwargs)
+        print(*args, **kwargs, file=log_file)
+        log_file.flush()
+    
+    log_print(f"Log file: {log_filename}")
+    log_print(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    log_print(f"{'='*60}")
+    
+    # Array of monitoring location IDs
+    monitoring_ids = [
+        "USGS-213320158061401",
+        "USGS-213308158035601",
+        "USGS-213133158014201",
+        "USGS-16345000",
+        "USGS-16330000",
+        "USGS-16325000",
+        "USGS-16210500",
+        "USGS-16304200",
+        "USGS-16301050",
+        "USGS-16296500",
+        "USGS-16294900",
+        "USGS-16294100",
+        "USGS-16284200",
+        "USGS-16283200",
+        "USGS-16279200",
+        "USGS-16275000",
+        "USGS-16274100",
+        "USGS-16265000",
+        "USGS-16264600",
+        "USGS-16254000",
+        "USGS-16249000",
+        "USGS-16247100",
+        "USGS-16244000",
+        "USGS-16241600",
+        "USGS-16240500",
+        "USGS-16238500",
+        "USGS-16238000",
+        "USGS-16229000",
+        "USGS-16227500",
+        "USGS-16226700",
+        "USGS-16226400",
+        "USGS-16226200",
+        "USGS-16247150",
+        "USGS-16213000",
+        "USGS-16212601",
+        "USGS-16210200",
+        "USGS-16210100",
+        "USGS-16210000",
+        "USGS-16208400",
+        "USGS-16208000",
+        "USGS-16206600",
+        "USGS-16200000",
+        "USGS-16212490",
+        "USGS-16211800",
+        "USGS-16211600"
+    ]
     
     # Split year into 4 quarters
     date_ranges = [
@@ -209,46 +271,71 @@ def main():
         (f"{YEAR}-10-01", f"{YEAR}-12-31")   # Q4: Oct-Dec
     ]
     
-    all_features = []
+    total_features_all_ids = 0
+    successful_ids = 0
     
-    print(f"Fetching data for {YEAR} in 4 quarters...")
+    # Loop through each monitoring ID
+    for idx, monitoring_id in enumerate(monitoring_ids, 1):
+        log_print(f"\n{'#'*60}")
+        log_print(f"# Processing monitoring location {idx}/{len(monitoring_ids)}: {monitoring_id}")
+        log_print(f"{'#'*60}")
+        
+        all_features = []
+        
+        log_print(f"Fetching data for {YEAR} in 4 quarters...")
+        
+        for i, (start, end) in enumerate(date_ranges, 1):
+            log_print(f"\n{'='*50}")
+            log_print(f"Quarter {i}: {start} to {end}")
+            log_print(f"{'='*50}")
+            features = fetch_usgs_data(monitoring_id, API_KEY, start, end)
+            all_features.extend(features)
+            log_print(f"  Quarter {i} total: {len(features)} features")
+            time.sleep(1)
+        
+        log_print(f"\n{'='*50}")
+        log_print(f"Total features fetched for {monitoring_id}: {len(all_features)}")
+        log_print(f"{'='*50}")
+        
+        if not all_features:
+            log_print(f"No data retrieved for {monitoring_id}, skipping...")
+            continue
+        
+        successful_ids += 1
+        total_features_all_ids += len(all_features)
+        
+        log_print("\nProcessing monthly statistics...")
+        monthly_data = process_features_to_monthly_stats(all_features)
+        monthly_stats = calculate_monthly_stats(monthly_data)
+        
+        log_print(f"\nCalculated stats for {len(monthly_stats)} months:")
+        for stat in monthly_stats:
+            log_print(f"\n  {stat['month']}:")
+            log_print(f"    Real average (including outliers): {stat['average']}")
+            log_print(f"    Baseline average (outlier-adjusted): {stat['baseline_average']}")
+            log_print(f"    Min: {stat['min']} at {stat['min_timestamp']}")
+            log_print(f"    Max: {stat['max']} at {stat['max_timestamp']}")
+            log_print(f"    Records: {stat['count']} (outliers removed: {stat.get('outliers_removed', 0)})")
+        
+        update_historic_data('historic-data.json', monitoring_id, monthly_stats)
+        log_print(f"\n✅ Done processing {monitoring_id}!")
+        
+        if monitoring_id != monitoring_ids[-1]:
+            log_print("\nSleeping 10s")
+            time.sleep(10)
     
-    for i, (start, end) in enumerate(date_ranges, 1):
-        print(f"\n{'='*50}")
-        print(f"Quarter {i}: {start} to {end}")
-        print(f"{'='*50}")
-        features = fetch_usgs_data(ID, API_KEY, start, end)
-        all_features.extend(features)
-        print(f"  Quarter {i} total: {len(features)} features")
-        time.sleep(1)  # Be nice to the API between quarters
+    # Print summary
+    log_print(f"\n{'#'*60}")
+    log_print(f"# PROCESSING COMPLETE")
+    log_print(f"{'#'*60}")
+    log_print(f"Total monitoring IDs processed: {len(monitoring_ids)}")
+    log_print(f"Successful IDs: {successful_ids}")
+    log_print(f"Total features fetched across all IDs: {total_features_all_ids}")
+    log_print(f"Finished at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    log_print(f"Log file saved as: {log_filename}")
+    log_print(f"{'#'*60}")
     
-    print(f"\n{'='*50}")
-    print(f"Total features fetched across all quarters: {len(all_features)}")
-    print(f"{'='*50}")
-    
-    if not all_features:
-        print("No data retrieved!")
-        return
-    
-    # Process into monthly stats
-    print("\nProcessing monthly statistics...")
-    monthly_data = process_features_to_monthly_stats(all_features)
-    monthly_stats = calculate_monthly_stats(monthly_data)
-    
-    print(f"\nCalculated stats for {len(monthly_stats)} months:")
-    for stat in monthly_stats:
-        print(f"\n  {stat['month']}:")
-        print(f"    Real average (including outliers): {stat['average']}")
-        print(f"    Baseline average (outlier-adjusted): {stat['baseline_average']}")
-        print(f"    Min: {stat['min']} at {stat['min_timestamp']}")
-        print(f"    Max: {stat['max']} at {stat['max_timestamp']}")
-        print(f"    Records: {stat['count']} (outliers removed: {stat.get('outliers_removed', 0)})")
-    
-    # Update historic file
-    monitoring_id = "USGS-16279200"
-    update_historic_data('historic-data.json', monitoring_id, monthly_stats)
-    
-    print("\n✅ Done! Check historic-data.json for results.")
+    log_file.close()
 
 if __name__ == "__main__":
     main()
