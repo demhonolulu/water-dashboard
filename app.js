@@ -94,7 +94,9 @@ async function init() {
             fetchAndWait('config.json')
         ]);
         CONFIG_VALUES = configResult;
-        LoadPreset()
+        loadPreset()
+
+        loadParams();
 
         LOCATIONS = locationsResult;
         LOCATION_IDS = Object.keys(LOCATIONS).join(',');
@@ -131,7 +133,33 @@ async function init() {
 init();
 
 // ── SETUP ─────────────────────────────────────────────────
-function LoadPreset() {
+function loadParams() {
+    const paramMappings = {
+        'title': 'title',
+        'display-mode': 'display-mode',
+        'reload-time': 'reload-time',
+        'table-columns': ['gauge-table', 'columns'],
+        'graph-columns': ['gauge-graphs', 'columns'],
+        'graph-sites': ['gauge-graphs', 'sites']
+    };
+    
+    for (const [paramKey, pathArray] of Object.entries(paramMappings)) {
+        const value = params.get(paramKey);
+        if (value !== null) {
+            if (Array.isArray(pathArray)) {
+                let target = CONFIG_VALUES;
+                for (let i = 0; i < pathArray.length - 1; i++) {
+                    target = target[pathArray[i]] = target[pathArray[i]] || {};
+                }
+                target[pathArray[pathArray.length - 1]] = value;
+            } else {
+                CONFIG_VALUES[pathArray] = value;
+            }
+        }
+    }
+}
+
+function loadPreset() {
     if (preset == null || isNaN(preset))
         return;
 
