@@ -4,13 +4,14 @@ import sys
 script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 files = {
-    'html':      'index.html',
-    'js':        'app.js',
-    'css':       'style.css',
-    'locations': 'json/locations.json',
-    'veoci':     'json/veoci-export.json',
-    'area':      'json/area.json',
-    'config':    'json/config.json',
+    'html':         'index.html',
+    'js':           'app.js',
+    'css':          'style.css',
+    'locations':    'json/locations.json',
+    'veoci':        'json/veoci-export.json',
+    'area':         'json/area.json',
+    'config':       'json/config.json',
+    'historic':     'json/historic-data.json'
 }
 
 print("Reading files...")
@@ -47,10 +48,11 @@ else:
 # Build the fetch interceptor script block
 fetch_interceptor = f"""<script>
 const __BUNDLED_DATA__ = {{
-  'locations.json':    {contents['locations']},
-  'veoci-export.json': {contents['veoci']},
-  'area.json':         {contents['area']},
-  'config.json':       {contents['config']}
+  'locations.json':     {contents['locations']},
+  'veoci-export.json':  {contents['veoci']},
+  'area.json':          {contents['area']},
+  'config.json':        {contents['config']},
+  'historic-data.json': {contents['historic']}
 }};
 const __real_fetch__ = window.fetch.bind(window);
 window.fetch = function(url, options) {{

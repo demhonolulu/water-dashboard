@@ -10,6 +10,7 @@ let LOCATIONS = {};
 let LOCATION_IDS;
 let VEOCI_NOTES = {};
 let AREAS = [];
+let HISTORIC = [];
 
 // dont look
 let API_KEY = 'bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1';
@@ -87,11 +88,12 @@ async function init() {
     showLoading();
     try {
         // fetch json files
-        const [locationsResult, veociResult, areaResult, configResult] = await Promise.all([
+        const [locationsResult, veociResult, areaResult, configResult, historicResult] = await Promise.all([
             fetchAndWait('locations.json'),
             fetchAndWait('veoci-export.json'),
             fetchAndWait('area.json'),
-            fetchAndWait('config.json')
+            fetchAndWait('config.json'),
+            fetchAndWait('historic-data.json')
         ]);
         CONFIG_VALUES = configResult;
         loadPreset()
@@ -101,7 +103,8 @@ async function init() {
         LOCATIONS = locationsResult;
         LOCATION_IDS = Object.keys(LOCATIONS).join(',');
         VEOCI_NOTES = veociResult.Sheet0;
-        AREAS = areaResult.sort((a, b) => a.Order - b.Order);;
+        AREAS = areaResult.sort((a, b) => a.Order - b.Order);
+        HISTORIC = getCurrentMonthHistoric(historicResult);
 
         buildURLLinks();
 
@@ -187,6 +190,21 @@ function buildURLLinks() {
         '&unit_of_measure=ft' + 
         '&time=PT2H' +
         '&properties=monitoring_location_id,time_series_id,value,unit_of_measure,time';
+}
+
+function getCurrentMonthHistoric(json) {
+    const now = new Date();
+    const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
+
+    const filtered = {};
+    for (const [locationId, data] of Object.entries(json)) {
+        const match = data.monthly.find(m => m.month.split('-')[1] === currentMonth);
+        filtered[locationId] = {
+            currentMonth: match || null,
+            yearly: data.yearly_summaries[0] || null
+        };
+    }
+    return filtered;
 }
 
 function buildNewGaugeTable() {

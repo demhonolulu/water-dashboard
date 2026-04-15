@@ -1,0 +1,33 @@
+# Bundle files
+dashboard-bundle.html
+
+# Log files
+utilities/water_data_log_*.txt
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Environment files
+.env
+venv/
+env/
+ENV/
+
+# Node modules (if any)
+node_modules/

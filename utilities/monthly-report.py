@@ -9,13 +9,17 @@ import time
 import statistics
 
 def fetch_usgs_data(id: str, api_key: str, start_date: str, end_date: str, offset: int = 0, limit: int = 50000):
+    def get_time():
+        timestamp = datetime.now().strftime('%H:%M:%S')
+        return f"[{timestamp}]"
+
     """Fetch data from USGS API for a specific date range - single call only"""
     base_url = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items"
     
     # Single URL, no pagination
     url = f"{base_url}?f=json&lang=en-US&limit={limit}&properties=time,value,unit_of_measure&skipGeometry=true&sortby=%2Btime&offset={offset}&datetime={start_date}/{end_date}&monitoring_location_id={id}&api_key={api_key}&unit_of_measure=ft"
     
-    print(f"  Fetching data for {start_date} to {end_date}...")
+    print(f"{get_time()}  Fetching data for {start_date} to {end_date}...")
     
     try:
         # Create request with headers
@@ -26,16 +30,16 @@ def fetch_usgs_data(id: str, api_key: str, start_date: str, end_date: str, offse
             data = json.loads(response.read().decode('utf-8'))
         
         features = data.get('features', [])
-        print(f"    Got {len(features)} features")
+        print(f"{get_time()}    Got {len(features)} features")
         
         return features
         
     except urllib.error.URLError as e:
-        print(f"    Error fetching data: {e}")
-        print(f"    URL attempted: {url[:200]}...")
+        print(f"{get_time()}    Error fetching data: {e}")
+        print(f"{get_time()}    URL attempted: {url[:200]}...")
         return []
     except json.JSONDecodeError as e:
-        print(f"    Error parsing JSON: {e}")
+        print(f"{get_time()}    Error parsing JSON: {e}")
         return []
 
 def calculate_outlier_adjusted_average(values: List[float]) -> float:
@@ -78,14 +82,18 @@ def calculate_outlier_adjusted_average(values: List[float]) -> float:
     return round(sum(filtered_values) / len(filtered_values), 2)
 
 def process_features_to_monthly_stats(features: List[Dict]) -> Dict[str, List[Tuple[float, str]]]:
+    def get_time():
+        timestamp = datetime.now().strftime('%H:%M:%S')
+        return f"[{timestamp}]"
+
     """Process features into monthly data structure"""
     monthly_data: Dict[str, List[Tuple[float, str]]] = defaultdict(list)
     
-    print(f"  Processing {len(features)} features...")
+    print(f"{get_time()}  Processing {len(features)} features...")
     
     for idx, feature in enumerate(features):
         if idx % 10000 == 0 and idx > 0:
-            print(f"    Processed {idx}/{len(features)} features...")
+            print(f"{get_time()}    Processed {idx}/{len(features)} features...")
             
         properties = feature.get('properties', {})
         time_str = properties.get('time')
@@ -101,7 +109,7 @@ def process_features_to_monthly_stats(features: List[Dict]) -> Dict[str, List[Tu
                 value = float(value_str)
                 monthly_data[month_key].append((value, time_str))
             except (ValueError, TypeError) as e:
-                print(f"  Error parsing feature {idx}: time={time_str}, value={value_str}, error={e}")
+                print(f"{get_time()}  Error parsing feature {idx}: time={time_str}, value={value_str}, error={e}")
                 continue
     
     return monthly_data
@@ -151,8 +159,51 @@ def calculate_monthly_stats(monthly_data: Dict[str, List[Tuple[float, str]]]) ->
     
     return monthly_stats
 
-def update_historic_data(historic_file: str, monitoring_id: str, new_stats: List[Dict]):
-    """Update historic-data.json with new statistics"""
+def calculate_yearly_summary(monthly_stats: List[Dict], year: int, monitoring_id: str) -> Dict:
+    """Calculate yearly summary from monthly statistics"""
+    if not monthly_stats:
+        return {}
+    
+    # Extract all values from monthly stats
+    max_values = [stat['max'] for stat in monthly_stats]
+    min_values = [stat['min'] for stat in monthly_stats]
+    avg_values = [stat['average'] for stat in monthly_stats]
+    baseline_values = [stat['baseline_average'] for stat in monthly_stats]
+    
+    # Find overall max and min with their months
+    overall_max = max(max_values)
+    overall_max_month = monthly_stats[max_values.index(overall_max)]['month']
+    
+    overall_min = min(min_values)
+    overall_min_month = monthly_stats[min_values.index(overall_min)]['month']
+    
+    # Calculate yearly averages
+    yearly_avg = round(sum(avg_values) / len(avg_values), 2)
+    yearly_baseline = round(sum(baseline_values) / len(baseline_values), 2)
+    
+    # Find month with highest and lowest average
+    highest_avg_month = monthly_stats[avg_values.index(max(avg_values))]['month']
+    lowest_avg_month = monthly_stats[avg_values.index(min(avg_values))]['month']
+    
+    return {
+        'year': year,
+        'monitoring_id': monitoring_id,
+        'total_months': len(monthly_stats),
+        'overall_max': overall_max,
+        'overall_max_month': overall_max_month,
+        'overall_min': overall_min,
+        'overall_min_month': overall_min_month,
+        'yearly_average': yearly_avg,
+        'yearly_baseline_average': yearly_baseline,
+        'highest_avg_month': highest_avg_month,
+        'highest_avg_value': max(avg_values),
+        'lowest_avg_month': lowest_avg_month,
+        'lowest_avg_value': min(avg_values),
+        'monthly_data': monthly_stats  # Keep full monthly data for reference
+    }
+
+def update_historic_data(historic_file: str, monitoring_id: str, new_stats: List[Dict], yearly_summary: Dict = None):
+    """Update historic-data.json with new statistics and yearly summary"""
     # Read existing data
     historic_data = {}
     if os.path.exists(historic_file):
@@ -164,36 +215,76 @@ def update_historic_data(historic_file: str, monitoring_id: str, new_stats: List
         except (json.JSONDecodeError, FileNotFoundError):
             historic_data = {}
     
-    # Merge data
+    # Handle old data structure (if monitoring_id directly contains an array instead of a dict)
     if monitoring_id in historic_data:
-        existing_stats = {stat['month']: stat for stat in historic_data[monitoring_id]}
-        for stat in new_stats:
-            if stat['month'] in existing_stats:
-                # Safely get count with default value if field doesn't exist
-                existing_count = existing_stats[stat['month']].get('count', 0)
-                print(f"  Merging {stat['month']}: existing {existing_count} records, new {stat['count']} records")
-                # Keep the one with more data points
-                if stat['count'] > existing_count:
-                    existing_stats[stat['month']] = stat
-            else:
-                existing_stats[stat['month']] = stat
+        # Check if it's the old format (list) or new format (dict)
+        if isinstance(historic_data[monitoring_id], list):
+            # Convert old format to new format
+            old_monthly_data = historic_data[monitoring_id]
+            historic_data[monitoring_id] = {
+                'monthly': old_monthly_data,
+                'yearly_summaries': []
+            }
+            print(f"  Converted old data format for {monitoring_id}")
+    
+    # Initialize monitoring location data if it doesn't exist
+    if monitoring_id not in historic_data:
+        historic_data[monitoring_id] = {
+            'monthly': [],
+            'yearly_summaries': []
+        }
+    
+    # Ensure the monitoring location has required keys
+    if 'monthly' not in historic_data[monitoring_id]:
+        historic_data[monitoring_id]['monthly'] = []
+    if 'yearly_summaries' not in historic_data[monitoring_id]:
+        historic_data[monitoring_id]['yearly_summaries'] = []
+    
+    # Merge monthly data
+    existing_stats = {stat['month']: stat for stat in historic_data[monitoring_id]['monthly']}
+    for stat in new_stats:
+        if stat['month'] in existing_stats:
+            # Keep the one with more data points if count exists
+            existing_count = existing_stats[stat['month']].get('count', 0)
+            new_count = stat.get('count', 0)
+            if new_count > existing_count:
+                # Remove count and outliers_removed before storing
+                stat_to_store = {k: v for k, v in stat.items() if k not in ['count', 'outliers_removed']}
+                existing_stats[stat['month']] = stat_to_store
+        else:
+            # Remove count and outliers_removed before storing
+            stat_to_store = {k: v for k, v in stat.items() if k not in ['count', 'outliers_removed']}
+            existing_stats[stat['month']] = stat_to_store
+    
+    historic_data[monitoring_id]['monthly'] = sorted(existing_stats.values(), key=lambda x: x['month'])
+    
+    # Update or add yearly summary
+    if yearly_summary:
+        # Remove monthly_data from yearly_summary before storing (to avoid duplication)
+        yearly_summary_to_store = {k: v for k, v in yearly_summary.items() if k != 'monthly_data'}
         
-        # Remove 'count' and 'outliers_removed' before saving
-        final_stats = []
-        for stat in sorted(existing_stats.values(), key=lambda x: x['month']):
-            stat_copy = {k: v for k, v in stat.items() if k not in ['count', 'outliers_removed']}
-            final_stats.append(stat_copy)
-        historic_data[monitoring_id] = final_stats
-    else:
-        # Remove 'count' and 'outliers_removed' from stored data
-        stats_to_store = [{k: v for k, v in stat.items() if k not in ['count', 'outliers_removed']} for stat in new_stats]
-        historic_data[monitoring_id] = stats_to_store
+        # Check if this year already exists, update if so
+        year_exists = False
+        for i, summary in enumerate(historic_data[monitoring_id]['yearly_summaries']):
+            if summary.get('year') == yearly_summary_to_store.get('year'):
+                historic_data[monitoring_id]['yearly_summaries'][i] = yearly_summary_to_store
+                year_exists = True
+                break
+        
+        if not year_exists:
+            historic_data[monitoring_id]['yearly_summaries'].append(yearly_summary_to_store)
+        
+        # Sort yearly summaries by year
+        historic_data[monitoring_id]['yearly_summaries'] = sorted(
+            historic_data[monitoring_id]['yearly_summaries'], 
+            key=lambda x: x['year']
+        )
     
     # Write back
     with open(historic_file, 'w', encoding='utf-8') as f:
         json.dump(historic_data, f, indent=2)
     
-    print(f"\nUpdated {historic_file}")
+    print(f"  Updated {historic_file}")
 
 def main():
     # Your API key
@@ -205,13 +296,22 @@ def main():
     log_file = open(log_filename, 'w', encoding='utf-8')
     
     def log_print(*args, **kwargs):
-        """Print to both console and log file"""
-        print(*args, **kwargs)
-        print(*args, **kwargs, file=log_file)
+        """Print to both console and log file with timestamp"""
+        # Get current time in HH:MM:SS format
+        timestamp = datetime.now().strftime('%H:%M:%S')
+    
+        # Add timestamp to the beginning of the message
+        # Convert args to a list so we can modify them
+        args_with_timestamp = (f"[{timestamp}]",) + args
+    
+        print(*args_with_timestamp, **kwargs)
+        print(*args_with_timestamp, **kwargs, file=log_file)
+    
+        # Ensure it writes immediately
         log_file.flush()
     
     log_print(f"Log file: {log_filename}")
-    log_print(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    log_print(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
     log_print(f"{'='*60}")
     
     # Array of monitoring location IDs
@@ -262,7 +362,7 @@ def main():
         "USGS-16211800",
         "USGS-16211600"
     ]
-    
+
     # Split year into 4 quarters
     date_ranges = [
         (f"{YEAR}-01-01", f"{YEAR}-03-31"),  # Q1: Jan-Mar
@@ -276,26 +376,26 @@ def main():
     
     # Loop through each monitoring ID
     for idx, monitoring_id in enumerate(monitoring_ids, 1):
-        log_print(f"\n{'#'*60}")
-        log_print(f"# Processing monitoring location {idx}/{len(monitoring_ids)}: {monitoring_id}")
-        log_print(f"{'#'*60}")
+        log_print(f"{'#'*60}\n")
+        log_print(f"# Processing monitoring location {idx}/{len(monitoring_ids)}: {monitoring_id}\n")
+        log_print(f"{'#'*60}\n")
         
         all_features = []
         
-        log_print(f"Fetching data for {YEAR} in 4 quarters...")
+        log_print(f"Fetching data for {YEAR} in 4 quarters...\n")
         
         for i, (start, end) in enumerate(date_ranges, 1):
-            log_print(f"\n{'='*50}")
-            log_print(f"Quarter {i}: {start} to {end}")
-            log_print(f"{'='*50}")
+            log_print(f"{'='*50}\n")
+            log_print(f"Quarter {i}: {start} to {end}\n")
+            log_print(f"{'='*50}\n")
             features = fetch_usgs_data(monitoring_id, API_KEY, start, end)
             all_features.extend(features)
-            log_print(f"  Quarter {i} total: {len(features)} features")
+            log_print(f"  Quarter {i} total: {len(features)} features\n\n")
             time.sleep(1)
         
-        log_print(f"\n{'='*50}")
-        log_print(f"Total features fetched for {monitoring_id}: {len(all_features)}")
-        log_print(f"{'='*50}")
+        log_print(f"{'='*50}\n")
+        log_print(f"Total features fetched for {monitoring_id}: {len(all_features)}\n")
+        log_print(f"{'='*50}\n")
         
         if not all_features:
             log_print(f"No data retrieved for {monitoring_id}, skipping...")
@@ -304,35 +404,50 @@ def main():
         successful_ids += 1
         total_features_all_ids += len(all_features)
         
-        log_print("\nProcessing monthly statistics...")
+        log_print("Processing monthly statistics...")
         monthly_data = process_features_to_monthly_stats(all_features)
         monthly_stats = calculate_monthly_stats(monthly_data)
         
-        log_print(f"\nCalculated stats for {len(monthly_stats)} months:")
+        # Calculate yearly summary
+        yearly_summary = calculate_yearly_summary(monthly_stats, YEAR, monitoring_id)
+        
+        log_print(f"{'='*50}\n")
+        log_print(f"YEARLY SUMMARY FOR {monitoring_id} - {YEAR}\n")
+        log_print(f"{'='*50}")
+        log_print(f"Total months with data: {yearly_summary['total_months']}/12")
+        log_print(f"Overall Maximum: {yearly_summary['overall_max']} in {yearly_summary['overall_max_month']}")
+        log_print(f"Overall Minimum: {yearly_summary['overall_min']} in {yearly_summary['overall_min_month']}")
+        log_print(f"Yearly Average (real): {yearly_summary['yearly_average']}")
+        log_print(f"Yearly Baseline (outlier-adjusted): {yearly_summary['yearly_baseline_average']}")
+        log_print(f"Highest Monthly Average: {yearly_summary['highest_avg_value']} in {yearly_summary['highest_avg_month']}")
+        log_print(f"Lowest Monthly Average: {yearly_summary['lowest_avg_value']} in {yearly_summary['lowest_avg_month']}\n")
+        log_print(f"{'='*50}\n\n")
+        
+        log_print(f"Detailed monthly stats:")
         for stat in monthly_stats:
-            log_print(f"\n  {stat['month']}:")
-            log_print(f"    Real average (including outliers): {stat['average']}")
-            log_print(f"    Baseline average (outlier-adjusted): {stat['baseline_average']}")
+            log_print(f"  {stat['month']}:")
+            log_print(f"    Real average: {stat['average']}")
+            log_print(f"    Baseline average: {stat['baseline_average']}")
             log_print(f"    Min: {stat['min']} at {stat['min_timestamp']}")
             log_print(f"    Max: {stat['max']} at {stat['max_timestamp']}")
-            log_print(f"    Records: {stat['count']} (outliers removed: {stat.get('outliers_removed', 0)})")
+            log_print(f"    Records: {stat['count']} (outliers removed: {stat.get('outliers_removed', 0)})\n")
         
-        update_historic_data('../json/historic-data.json', monitoring_id, monthly_stats)
-        log_print(f"\n✅ Done processing {monitoring_id}!")
+        update_historic_data('../json/historic-data.json', monitoring_id, monthly_stats, yearly_summary)
+        log_print(f"✅ Done processing {monitoring_id}!\n")
         
         if monitoring_id != monitoring_ids[-1]:
-            log_print("\nSleeping 10s")
+            log_print("Sleeping 10s")
             time.sleep(10)
     
     # Print summary
-    log_print(f"\n{'#'*60}")
-    log_print(f"# PROCESSING COMPLETE")
-    log_print(f"{'#'*60}")
+    log_print(f"{'#'*60}\n")
+    log_print(f"# PROCESSING COMPLETE\n")
+    log_print(f"{'#'*60}\n")
     log_print(f"Total monitoring IDs processed: {len(monitoring_ids)}")
     log_print(f"Successful IDs: {successful_ids}")
     log_print(f"Total features fetched across all IDs: {total_features_all_ids}")
     log_print(f"Finished at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    log_print(f"Log file saved as: {log_filename}")
+    log_print(f"Log file saved as: {log_filename}\n")
     log_print(f"{'#'*60}")
     
     log_file.close()
