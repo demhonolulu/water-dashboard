@@ -18,6 +18,13 @@ body {
   padding: 2rem;
 }
 
+#app {
+  background-color: #0a0a1a;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 2rem;
+}
+
 #loading-overlay {
   display: none;
   position: fixed;
@@ -268,148 +275,8 @@ td.threshold-highlighted-action {
   </div>
 
   <script>
-    // City and County of Honolulu
-// Department of Emergency Management 
-// Water Gauge Dashboard
-
-const params    = new URLSearchParams(window.location.search);
-const preset    = params.get('preset');
-
-// stream and dam location data
-let LOCATIONS = {};
-let LOCATION_IDS;
-let VEOCI_NOTES = {};
-let AREAS = [];
-
-// dont look
-let API_KEY = 'bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1';
-
-let graphCount = 0;
-let charts = [];
-
-let USGS_OVERVIEW = [];
-
-const BASE_URL = 'https://api.waterdata.usgs.gov/ogcapi/v0/collections/';
-const CONFIG_SETTINGS = 
-    '?f=json' +
-    '&lang=en-US' +
-    '&limit=50000' +
-    '&skipGeometry=true' + 
-    '&offset=0';
-let ALL_ITEMS_URL = BASE_URL;
-let USGS_OVERVIEW_URL = BASE_URL;
-let INDIVIDUAL_URL = BASE_URL;
-
-let countdownInterval;
-
-// configs
-let CONFIG_VALUES;
-
-const overlay = document.getElementById('loading-overlay');
-function showLoading() { overlay.classList.add('active');    }
-function hideLoading() { overlay.classList.remove('active'); }
-
-const thresholdLinesPlugin = {
-    id: 'thresholdLines',
-    afterDraw(chart, args, options) {
-        const { ctx, chartArea, scales } = chart;
-        const yScale = scales.y;
-
-        if (!options || !options.lines) return;
-
-        options.lines.forEach(line => {
-            const { value, color = 'yellow', dash = [] } = line;
-
-            if (value < yScale.min || value > yScale.max) return;
-
-            const y = yScale.getPixelForValue(value);
-
-            ctx.save();
-            ctx.beginPath();
-            ctx.moveTo(chartArea.left, y);
-            ctx.lineTo(chartArea.right, y);
-            ctx.lineWidth = 2;
-            ctx.strokeStyle = color;
-            ctx.setLineDash(dash);
-            ctx.stroke();
-            ctx.restore();
-        });
-    }
-};
-Chart.register(thresholdLinesPlugin);
-
-
-// all items
-// https://api.waterdata.usgs.gov/ogcapi/v0/collections/latest-continuous/items?f=json&lang=en-US&limit=50000&skipGeometry=false&offset=0&monitoring_location_id=USGS-16210000
-// individual
-// https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?limit=50000&properties=time,value,unit_of_measure,approval_status,qualifier&time_series_id=26e3b29b90d34a3baf13ebe7c297197a&time=P7D
-
-
-// ── DOM refs ──────────────────────────────────────────────
-const gaugesTableDiv = document.getElementById('allGaugesTable');
-const graphs         = document.getElementById('allGraphs');
-const sectionTable   = document.getElementById('sectionTable');
-const sectionButtons = document.getElementById('sectionButtons');
-const sectionGraphs  = document.getElementById('sectionGraphs');
-
-// ── Init ──────────────────────────────────────────────────
-async function init() {
-    showLoading();
-    try {
-        // fetch json files
-        /*
-        const [locationsResult, veociResult, areaResult, configResult] = await Promise.all([
-            fetchAndWait('locations.json'),
-            fetchAndWait('veoci-export.json'),
-            fetchAndWait('area.json'),
-            fetchAndWait('config.json')
-        ]);*/
-        let configResult = {
-    "title": "",
-    "display-mode": 1,
-    "reload-time": 900,
-    "gauge-tables": {
-        "columns": 2
-    },
-    "gauge-graphs": {
-        "columns": 3,
-        "default-scale": "hour",
-        "sites": []
-    },
-    "default-selection": [
-
-    ],
-    "presets": {
-        "1": {
-            "title": "EOC - Gauge Monitoring",
-            "display-mode": 2,
-            "reload-time": 900,
-            "gauge-tables": {
-                "columns": 2
-            }
-        },
-        "2": {
-            "title": "EOC - Flood and Stream Views",
-            "display-mode": 3,
-            "reload-time": 900,
-            "gauge-graphs": {
-                "columns": 3,
-                "default-scale": "hour",
-                "sites": [
-                    "USGS-16294900",
-                    "USGS-16294100",
-                    "USGS-16210000",
-                    "USGS-16241600",
-                    "USGS-213133158014201"
-                ]
-            }
-        }
-    }
-}
-        CONFIG_VALUES = configResult;
-        LoadPreset()
-
-        let locationsResult = {
+const __BUNDLED_DATA__ = {
+  'locations.json':    {
    "USGS-16279200": {
       "type": "Feature",
       "properties": {
@@ -3336,8 +3203,8 @@ async function init() {
         ]
       }
     }
-};
-        let veociResult = {
+},
+  'veoci-export.json': {
   "Sheet0": [
     {
       "Site": "Kemoo 5 Reservoir, Oahu, HI",
@@ -4555,9 +4422,8 @@ async function init() {
       "Admin Field: Monitor Flag": ""
     }
   ]
-};
-        
-        let areaResult = [
+},
+  'area.json':         [
    {
       "Area":"NORTH SHORE",
       "Order": 1,
@@ -4652,7 +4518,158 @@ async function init() {
          "16211600"
       ]
    }
-];
+],
+  'config.json':       {
+    "title": "",
+    "display-mode": 1,
+    "reload-time": 900,
+    "gauge-tables": {
+        "columns": 2
+    },
+    "gauge-graphs": {
+        "columns": 3,
+        "default-scale": "hour",
+        "sites": []
+    },
+    "default-selection": [
+
+    ],
+    "presets": {
+        "1": {
+            "title": "EOC - Gauge Monitoring",
+            "display-mode": 2,
+            "reload-time": 900,
+            "gauge-tables": {
+                "columns": 2
+            }
+        },
+        "2": {
+            "title": "EOC - Flood and Stream Views",
+            "display-mode": 3,
+            "reload-time": 900,
+            "gauge-graphs": {
+                "columns": 3,
+                "default-scale": "hour",
+                "sites": [
+                    "USGS-16294900",
+                    "USGS-16294100",
+                    "USGS-16210000",
+                    "USGS-16241600",
+                    "USGS-213133158014201"
+                ]
+            }
+        }
+    }
+}
+};
+const __real_fetch__ = window.fetch.bind(window);
+window.fetch = function(url, options) {
+  const key = Object.keys(__BUNDLED_DATA__).find(k => url === k || url.endsWith('/' + k));
+  if (key) {
+    return Promise.resolve({ ok: true, json: () => Promise.resolve(__BUNDLED_DATA__[key]) });
+  }
+  return __real_fetch__(url, options);
+};
+  </script>
+  <script>
+// City and County of Honolulu
+// Department of Emergency Management 
+// Water Gauge Dashboard
+
+const params    = new URLSearchParams(window.location.search);
+const preset    = params.get('preset');
+
+// stream and dam location data
+let LOCATIONS = {};
+let LOCATION_IDS;
+let VEOCI_NOTES = {};
+let AREAS = [];
+
+// dont look
+let API_KEY = 'bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1';
+
+let graphCount = 0;
+let charts = [];
+
+let USGS_OVERVIEW = [];
+
+const BASE_URL = 'https://api.waterdata.usgs.gov/ogcapi/v0/collections/';
+const CONFIG_SETTINGS = 
+    '?f=json' +
+    '&lang=en-US' +
+    '&limit=50000' +
+    '&skipGeometry=true' + 
+    '&offset=0';
+let ALL_ITEMS_URL = BASE_URL;
+let USGS_OVERVIEW_URL = BASE_URL;
+let INDIVIDUAL_URL = BASE_URL;
+
+let countdownInterval;
+
+// configs
+let CONFIG_VALUES;
+
+const overlay = document.getElementById('loading-overlay');
+function showLoading() { overlay.classList.add('active');    }
+function hideLoading() { overlay.classList.remove('active'); }
+
+const thresholdLinesPlugin = {
+    id: 'thresholdLines',
+    afterDraw(chart, args, options) {
+        const { ctx, chartArea, scales } = chart;
+        const yScale = scales.y;
+
+        if (!options || !options.lines) return;
+
+        options.lines.forEach(line => {
+            const { value, color = 'yellow', dash = [] } = line;
+
+            if (value < yScale.min || value > yScale.max) return;
+
+            const y = yScale.getPixelForValue(value);
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(chartArea.left, y);
+            ctx.lineTo(chartArea.right, y);
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = color;
+            ctx.setLineDash(dash);
+            ctx.stroke();
+            ctx.restore();
+        });
+    }
+};
+Chart.register(thresholdLinesPlugin);
+
+
+// all items
+// https://api.waterdata.usgs.gov/ogcapi/v0/collections/latest-continuous/items?f=json&lang=en-US&limit=50000&skipGeometry=false&offset=0&monitoring_location_id=USGS-16210000
+// individual
+// https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?limit=50000&properties=time,value,unit_of_measure,approval_status,qualifier&time_series_id=26e3b29b90d34a3baf13ebe7c297197a&time=P7D
+
+
+// ── DOM refs ──────────────────────────────────────────────
+const gaugesTableDiv = document.getElementById('allGaugesTable');
+const graphs         = document.getElementById('allGraphs');
+const sectionTable   = document.getElementById('sectionTable');
+const sectionButtons = document.getElementById('sectionButtons');
+const sectionGraphs  = document.getElementById('sectionGraphs');
+
+// ── Init ──────────────────────────────────────────────────
+async function init() {
+    showLoading();
+    try {
+        // fetch json files
+        const [locationsResult, veociResult, areaResult, configResult] = await Promise.all([
+            fetchAndWait('locations.json'),
+            fetchAndWait('veoci-export.json'),
+            fetchAndWait('area.json'),
+            fetchAndWait('config.json')
+        ]);
+        CONFIG_VALUES = configResult;
+        LoadPreset()
+
         LOCATIONS = locationsResult;
         LOCATION_IDS = Object.keys(LOCATIONS).join(',');
         VEOCI_NOTES = veociResult.Sheet0;
