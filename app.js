@@ -82,6 +82,7 @@ const graphs         = document.getElementById('allGraphs');
 const sectionTable   = document.getElementById('sectionTable');
 const sectionButtons = document.getElementById('sectionButtons');
 const sectionGraphs  = document.getElementById('sectionGraphs');
+const popupOverlay   = document.getElementById('popupOverlay');
 
 // ── Init ──────────────────────────────────────────────────
 async function init() {
@@ -141,6 +142,7 @@ function loadParams() {
         'title': 'title',
         'display-mode': 'display-mode',
         'reload-time': 'reload-time',
+        'user': 'user',
         'table-columns': ['gauge-table', 'columns'],
         'graph-columns': ['gauge-graphs', 'columns'],
         'graph-sites': ['gauge-graphs', 'sites']
@@ -259,14 +261,18 @@ function buildNewGaugeTable() {
             cell.style.height = '50px';
             
             cell.innerHTML = `${gaugeReport(usgsItem, locationItem)}`;
-            cell.classList.add('gauge-cell', `${usgsId}`);
-            const thresholdLevel = getCurrentThreshold(usgsItem, locationItem);
-            if (thresholdLevel !== null) {
-                cell.classList.add(`threshold-highlighted-${thresholdLevel}`);
-            }
+            cell.classList.add('gauge-cell');
 
-            cell.style.cursor = 'pointer';
-            cell.addEventListener('click', (event) => handleCellClick(usgsItem.items, event));
+            if(hasUSGSReports(usgsItem)) {
+                cell.classList.add(`${usgsId}`);
+                const thresholdLevel = getCurrentThreshold(usgsItem.items[usgsItem.items.length - 1].properties.value, locationItem);
+                if (thresholdLevel !== null) {
+                    cell.classList.add(`threshold-highlighted-${thresholdLevel}`);
+                }
+
+                cell.style.cursor = 'pointer';
+                cell.addEventListener('click', (event) => handleCellClick(usgsItem.items, event));
+            }
 
             cellCount++;
         });
@@ -340,7 +346,13 @@ function groupUSGSBySite() {
 }
 
 function gaugeReport(usgsItem, locationItem) {
-    const currentDisplayThreshold = getCurrentThreshold(usgsItem, locationItem);
+    if (!hasUSGSReports(usgsItem)) {
+        return `<div class="gauge-cell-location" style="color: #FFFFFF">
+            ${removeLocationSuffix(locationItem.properties.monitoring_location_name)}
+        </div>`;
+    }
+
+    const currentDisplayThreshold = getCurrentThreshold(usgsItem.items[usgsItem.items.length - 1].properties.value, locationItem);
     const textColor = getWarningColor(currentDisplayThreshold);
 
     let report = `
@@ -436,13 +448,16 @@ function getWarningColor(threshold) {
     }
 }
 
-function getCurrentThreshold(usgsItem, locationItem) {
-    if (!hasUSGSReports(usgsItem)) {
-        console.log("No USGS values items: " + locationItem.properties.monitoring_location_number);
-        return null;
+function getCurrentThreshold(value, locationItem) {
+    if(!value) {
+        return null
     }
+    // if (!hasUSGSReports(usgsItem)) {
+    //     console.log("No USGS values items: " + locationItem.properties.monitoring_location_number);
+    //     return null;
+    // }
 
-    const value = usgsItem.items[usgsItem.items.length - 1].properties.value;
+    // const value = usgsItem.items[usgsItem.items.length - 1].properties.value;
     const thresholdsObject = locationItem.properties.thresholds;
     const { base, minor, major, action } = thresholdsObject;
 
@@ -537,9 +552,10 @@ async function fetchAndWait(url) {
 async function handleCellClick(item, event) {
     item = Array.from(item).pop();
     if (item == null) {
-        
         return;
     }
+
+    showLoading();
 
     const td = event.target.closest('td');
     const location_id = item.properties.monitoring_location_id;
@@ -574,15 +590,18 @@ async function handleCellClick(item, event) {
             // remove from array
             charts.splice(chartIndex, 1);
         }
-        return;
+    }
+    else {
+        let data = await GetGraphData(time_series_id);
+        await buildGraph(location_id, time_series_id, data);
+        const chart = charts.find(chart => chart.id === `chart-${location_id}`);
+        await setRangeIndividual(chart, CONFIG_VALUES["gauge-graphs"]["default-scale"]);
     }
 
-    let data = await GetGraphData(time_series_id);
-    await buildGraph(location_id, time_series_id, data);
-    const chart = charts.find(chart => chart.id === `chart-${location_id}`);
-    setRangeIndividual(chart, CONFIG_VALUES["gauge-graphs"]["default-scale"]);
-    console.log(chart);
-    //setRangeIndividual
+    resizeGraphs();
+    hideLoading();
+
+    return;
 }
 
 async function GetGraphData(time_series_id) {
@@ -599,6 +618,115 @@ async function GetGraphData(time_series_id) {
 }
 
 // graphs
+function resizeGraphs() {
+    charts.forEach((chart) => {
+        chart.instance.resize();
+    });
+}
+
+// open popup
+function graphClick(location_id, event) {
+    popupOverlay.style.display = "flex";
+    document.body.style.overflow = 'hidden';
+
+    const locationItem = LOCATIONS[location_id];
+    const historicItem = HISTORIC[location_id];
+    const veociItem = VEOCI_NOTES.find(obj => obj.SiteID === location_id.replace("USGS-", ""));
+
+    console.log(locationItem);
+    console.log(historicItem);
+    console.log(veociItem);
+
+    const headerText = popupOverlay.querySelector('.popup-header-text');
+    headerText.textContent = locationItem.properties.monitoring_location_name;
+
+    const body = popupOverlay.querySelector('.popup-body');
+    body.innerHTML = '';
+
+    const nwsNotes = veociItem["NWS Notes"];
+    const eocNotes = veociItem["EOC Procedures"];
+
+    if (nwsNotes != null && nwsNotes != "") {
+        const nwsDiv = document.createElement('div');
+        nwsDiv.textContent = nwsNotes;
+        body.appendChild(nwsDiv);
+    }
+
+    if (eocNotes != null && eocNotes != "" && CONFIG_VALUES.user == "dem") {
+        const eocDiv = document.createElement('div');
+        eocDiv.textContent = eocNotes;
+        body.appendChild(eocDiv);
+    }
+
+    const tableDiv = document.createElement('div');
+    tableDiv.className = 'tables-wrapper';
+    const chart = charts.find(obj => obj.location_id === location_id);
+    const currentItem = chart.fullData[chart.fullData.length - 1];
+
+    const currentDisplayThreshold = getCurrentThreshold(currentItem.y, locationItem);
+    const textColor = getWarningColor(currentDisplayThreshold);
+
+    tableDiv.appendChild(createDetailsTable("Current", [
+        {"title": "Current", "value": `${parseFloat(currentItem.y).toFixed(2)} ft`, "color": textColor},
+        {"title": "Last Update", "value": `${currentItem.x.toString().split(' GMT')[0]}`, "color": "#FFFFFF"},
+        {"title": "Minor Threshold", "value": `${locationItem.properties.thresholds.minor} ft`, "color": getWarningColor('minor')},
+        {"title": "Major Threshold", "value": `${locationItem.properties.thresholds.major} ft`, "color": getWarningColor('major')},
+        {"title": "Alert Threshold", "value": `${locationItem.properties.thresholds.alert} ft`, "color": getWarningColor('alert')}
+    ]));
+
+    tableDiv.appendChild(createDetailsTable("Current", [
+        {"title": "Current", "value": `${currentItem.y} ft`, "color": textColor},
+        {"title": "Last Update", "value": `${currentItem.x}`, "color": "#FFFFFF"},
+        {"title": "Minor Threshold", "value": `${locationItem.properties.thresholds.minor} ft`, "color": getWarningColor('minor')},
+        {"title": "Major Threshold", "value": `${locationItem.properties.thresholds.major} ft`, "color": getWarningColor('major')},
+        {"title": "Alert Threshold", "value": `${locationItem.properties.thresholds.alert} ft`, "color": getWarningColor('alert')}
+    ]));
+
+    body.appendChild(tableDiv);
+}
+
+function createDetailsTable(header, rows) {
+    const tableContainer = document.createElement('div');
+    tableContainer.className = 'details-table-container';
+    
+    const headerDiv = document.createElement('div');
+    headerDiv.className = 'table-header';
+    headerDiv.textContent = header;
+    tableContainer.appendChild(headerDiv);
+    
+    const table = document.createElement('table');
+    table.className = 'details-table';
+    
+    rows.forEach(row => {
+        const tr = document.createElement('tr');
+        
+        const tdTitle = document.createElement('td');
+        tdTitle.className = 'table-title';
+        tdTitle.textContent = row.title;
+        tr.appendChild(tdTitle);
+        
+        const tdValue = document.createElement('td');
+        tdValue.className = 'table-value';
+        tdValue.textContent = row.value;
+        
+        if (row.color) {
+            tdValue.style.color = row.color;
+        }
+        
+        tr.appendChild(tdValue);
+        table.appendChild(tr);
+    });
+    
+    tableContainer.appendChild(table);
+    return tableContainer;
+}
+
+function popupClose() {
+    console.log("close");
+    popupOverlay.style.display = "none";
+    document.body.style.overflow = 'auto';
+}
+
 async function loadGaugeGraphs() {
     if (CONFIG_VALUES["gauge-graphs"].sites == null && CONFIG_VALUES["gauge-graphs"].sites.length < 1) {
         return;
@@ -667,6 +795,8 @@ async function buildGraph(location_id, time_series_id, data) {
         </div>
         <div class="chart-footer ${location_id}"></div>
     `;
+
+    cell.addEventListener('click', (event) => graphClick(location_id, event));
 
     // format data to chartjs format
     let formattedData = formatData(data);
@@ -900,16 +1030,13 @@ async function reloadData() {
         fetchAndWait(USGS_OVERVIEW_URL)
     ]);
     USGS_OVERVIEW = overviewResults.features;
-    const usgsGrouping = groupUSGSBySite(); 
-
     console.log(USGS_OVERVIEW);
     USGS_OVERVIEW.forEach((item) => {
         const id   = item.properties.monitoring_location_id;
-        const usgsItem = usgsGrouping.get(id);
         const cell = document.querySelector(`.gauge-cell.${id}`);
         if (cell) {
             //cell.innerHTML = `<div class="circle">${item.properties.value}</div>`;
-            cell.innerHTML = `<div class="circle">${gaugeReport(usgsItem, LOCATIONS[id])}</div>`;
+            cell.innerHTML = `<div class="circle">${gaugeReport(USGS_OVERVIEW, LOCATIONS[id])}</div>`;
         }
     });
 

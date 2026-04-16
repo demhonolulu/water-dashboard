@@ -2,6 +2,7 @@
     "title": "",
     "display-mode": 1,
     "reload-time": 900,
+    "user": null,
     "gauge-tables": {
         "columns": 2
     },

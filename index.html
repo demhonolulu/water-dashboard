@@ -19,6 +19,16 @@
         <span id="timer" style="margin-left: 15px; color: #ffffff;"></span>
     </h1>
 
+    <div id="popupOverlay" class="popup-overlay" style="display: none" onclick="if(event.target === this) popupClose()">
+      <div class="popup-content" onclick="event.stopPropagation()">
+        <div class="popup-header">
+            <div class="popup-header-text">Popup Title</div>
+            <button class="popup-close" onclick="popupClose()">✖</button>
+        </div>
+        <div class="popup-body"></div>
+      </div>
+    </div>
+
     <section id="sectionTable">
       <div id="allGaugesTable" style="display: flex; gap: 5px" class="hideable"></div>
     </section>
