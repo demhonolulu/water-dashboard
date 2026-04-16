@@ -89,11 +89,11 @@ async function init() {
     try {
         // fetch json files
         const [locationsResult, veociResult, areaResult, configResult, historicResult] = await Promise.all([
-            fetchAndWait('locations.json'),
-            fetchAndWait('veoci-export.json'),
-            fetchAndWait('area.json'),
-            fetchAndWait('config.json'),
-            fetchAndWait('historic-data.json')
+            fetchAndWait('json/locations.json'),
+            fetchAndWait('json/veoci-export.json'),
+            fetchAndWait('json/area.json'),
+            fetchAndWait('json/config.json'),
+            fetchAndWait('json/historic-data.json')
         ]);
         CONFIG_VALUES = configResult;
         loadPreset()
