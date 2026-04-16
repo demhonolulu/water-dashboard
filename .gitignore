@@ -1,5 +1,6 @@
 # Bundle files
 dashboard-bundle.html
+utilities/squarespace
 
 # Log files
 utilities/water_data_log_*.txt
