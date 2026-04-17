@@ -646,6 +646,21 @@ function graphClick(location_id, event) {
     const nwsNotes = veociItem["NWS Notes"];
     const eocNotes = veociItem["EOC Procedures"];
 
+    // map of location
+    const mapDiv = document.createElement('div');
+    mapDiv.style.height = '400px';
+    mapDiv.innerHTML = `
+        <iframe
+            width="100%"
+            height="100%"
+            style="border:0; border-radius: 8px;"
+            loading="lazy"
+            allowfullscreen
+            src="https://www.google.com/maps?q=21.306,-157.858&z=13&output=embed">
+        </iframe>
+    `;
+    body.appendChild(mapDiv);
+
     if (nwsNotes != null && nwsNotes != "") {
         const nwsDiv = document.createElement('div');
         nwsDiv.textContent = nwsNotes;
@@ -662,27 +677,66 @@ function graphClick(location_id, event) {
     tableDiv.className = 'tables-wrapper';
     const chart = charts.find(obj => obj.location_id === location_id);
     const currentItem = chart.fullData[chart.fullData.length - 1];
-
+    console.log(currentItem);
     const currentDisplayThreshold = getCurrentThreshold(currentItem.y, locationItem);
     const textColor = getWarningColor(currentDisplayThreshold);
 
+    // tables
     tableDiv.appendChild(createDetailsTable("Current", [
         {"title": "Current", "value": `${parseFloat(currentItem.y).toFixed(2)} ft`, "color": textColor},
-        {"title": "Last Update", "value": `${currentItem.x.toString().split(' GMT')[0]}`, "color": "#FFFFFF"},
+        {"title": "Last Update", "value": `${formatDateTime(currentItem.x)}`, "color": "#b9b9b9"},
         {"title": "Minor Threshold", "value": `${locationItem.properties.thresholds.minor} ft`, "color": getWarningColor('minor')},
         {"title": "Major Threshold", "value": `${locationItem.properties.thresholds.major} ft`, "color": getWarningColor('major')},
-        {"title": "Alert Threshold", "value": `${locationItem.properties.thresholds.alert} ft`, "color": getWarningColor('alert')}
+        {"title": "Action Threshold", "value": `${locationItem.properties.thresholds.action} ft`, "color": getWarningColor('action')}
     ]));
 
-    tableDiv.appendChild(createDetailsTable("Current", [
-        {"title": "Current", "value": `${currentItem.y} ft`, "color": textColor},
-        {"title": "Last Update", "value": `${currentItem.x}`, "color": "#FFFFFF"},
-        {"title": "Minor Threshold", "value": `${locationItem.properties.thresholds.minor} ft`, "color": getWarningColor('minor')},
-        {"title": "Major Threshold", "value": `${locationItem.properties.thresholds.major} ft`, "color": getWarningColor('major')},
-        {"title": "Alert Threshold", "value": `${locationItem.properties.thresholds.alert} ft`, "color": getWarningColor('alert')}
+    tableDiv.appendChild(createDetailsTable(`Historic Month (${printMonth(historicItem.currentMonth.month)})`, [
+        {"title": "Average", "value": `${historicItem.currentMonth.average.toFixed(2)} ft`},
+        {"title": "Max", "value": `${historicItem.currentMonth.max.toFixed(2)} ft`, "color": getCurrentThreshold(historicItem.currentMonth.max, locationItem)},
+        {"title": "Min", "value": `${historicItem.currentMonth.min.toFixed(2)} ft`},
+        {"title": "Max date", "value": `${formatDateTime(historicItem.currentMonth.max_timestamp)}`, "color": "#b9b9b9"},
+        {"title": "Min date", "value": `${formatDateTime(historicItem.currentMonth.min_timestamp)}`, "color": "#b9b9b9"}
+    ]));
+
+    tableDiv.appendChild(createDetailsTable(`Historic Year (${historicItem.yearly.year})`, [
+        {"title": "Average", "value": `${historicItem.yearly.yearly_average.toFixed(2)} ft`, "color": textColor},
+        {"title": "Max", "value": `${historicItem.yearly.overall_max.toFixed(2)} ft`},
+        {"title": "Min", "value": `${historicItem.yearly.overall_min.toFixed(2)} ft`},
+        {"title": "Highest average", "value": `${printMonth(historicItem.yearly.overall_max_month)}`, "color": "#b9b9b9"},
+        {"title": "Lowest average", "value": `${printMonth(historicItem.yearly.overall_min_month)}`, "color": "#b9b9b9"}
     ]));
 
     body.appendChild(tableDiv);
+
+/*
+<div class="map-container">
+    <iframe 
+        src="https://www.google.com/maps?q=21.306,-157.858&z=12&output=embed"
+        loading="lazy"
+        allowfullscreen>
+    </iframe>
+</div>
+*/
+}
+
+function printMonth(dateString) {
+    const [year, month] = dateString.split('-');
+    const date = new Date(year, month - 1); // month is 0-indexed
+    return date.toLocaleString('default', { month: 'long' });
+}
+
+function formatDateTime(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleString('en-US', { 
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+        timeZone: 'UTC'
+    }).replace(/,/g, '');
 }
 
 function createDetailsTable(header, rows) {
