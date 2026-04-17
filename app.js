@@ -647,6 +647,7 @@ function graphClick(location_id, event) {
     const eocNotes = veociItem["EOC Procedures"];
 
     // map of location
+    console.log(`https://www.google.com/maps?q=${locationItem.geometry.coordinates[1]},${locationItem.geometry.coordinates[0]}`);
     const mapDiv = document.createElement('div');
     mapDiv.style.height = '400px';
     mapDiv.innerHTML = `
@@ -656,7 +657,7 @@ function graphClick(location_id, event) {
             style="border:0; border-radius: 8px;"
             loading="lazy"
             allowfullscreen
-            src="https://www.google.com/maps?q=21.306,-157.858&z=13&output=embed">
+            src="https://www.google.com/maps?q=${locationItem.geometry.coordinates[1]},${locationItem.geometry.coordinates[0]}&t=h&output=embed">
         </iframe>
     `;
     body.appendChild(mapDiv);
@@ -690,7 +691,7 @@ function graphClick(location_id, event) {
         {"title": "Action Threshold", "value": `${locationItem.properties.thresholds.action} ft`, "color": getWarningColor('action')}
     ]));
 
-    tableDiv.appendChild(createDetailsTable(`Historic Month (${printMonth(historicItem.currentMonth.month)})`, [
+    tableDiv.appendChild(createDetailsTable(`Historic Month (${printMonth(historicItem.currentMonth.month)} ${historicItem.yearly.year})`, [
         {"title": "Average", "value": `${historicItem.currentMonth.average.toFixed(2)} ft`},
         {"title": "Max", "value": `${historicItem.currentMonth.max.toFixed(2)} ft`, "color": getCurrentThreshold(historicItem.currentMonth.max, locationItem)},
         {"title": "Min", "value": `${historicItem.currentMonth.min.toFixed(2)} ft`},
