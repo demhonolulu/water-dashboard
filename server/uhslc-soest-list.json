@@ -1,0 +1,268 @@
+{
+   "output":"..refresh-time.children...station-table.data...station-table.columns..",
+   "outputs":[
+      {
+         "id":"refresh-time",
+         "property":"children"
+      },
+      {
+         "id":"station-table",
+         "property":"data"
+      },
+      {
+         "id":"station-table",
+         "property":"columns"
+      }
+   ],
+   "inputs":[
+      {
+         "id":"refresh-time",
+         "property":"children",
+         "value":"Thu Apr 16 2026  3:45 PM HST"
+      },
+      {
+         "id":"station-table",
+         "property":"data",
+         "value":[
+            {
+               "id":"KA-0117",
+               "STATION ID":"KA-0117",
+               "NAME":"Elua",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:40 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:40",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  17.4",
+               "WATCH LEVEL (ft)":22
+            },
+            {
+               "id":"KA-0098",
+               "STATION ID":"KA-0098",
+               "NAME":"Alexander",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:41 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:41",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  98.6",
+               "WATCH LEVEL (ft)":100
+            },
+            {
+               "id":"KA-0104",
+               "STATION ID":"KA-0104",
+               "NAME":"Huinawai",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:05 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:05",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  24.3",
+               "WATCH LEVEL (ft)":28
+            },
+            {
+               "id":"KA-0103",
+               "STATION ID":"KA-0103",
+               "NAME":"Aepo",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:05 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:05",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  15.0",
+               "WATCH LEVEL (ft)":49
+            },
+            {
+               "id":"KA-0112",
+               "STATION ID":"KA-0112",
+               "NAME":"Aepoeha",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:05 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:05",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  27.7",
+               "WATCH LEVEL (ft)":34
+            },
+            {
+               "id":"KA-0119",
+               "STATION ID":"KA-0119",
+               "NAME":"Mauka",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:40 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:40",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  2.3",
+               "WATCH LEVEL (ft)":8
+            },
+            {
+               "id":"KA-0120",
+               "STATION ID":"KA-0120",
+               "NAME":"Papuaa",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:11 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:11",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  25.3",
+               "WATCH LEVEL (ft)":38
+            },
+            {
+               "id":"KA-0099",
+               "STATION ID":"KA-0099",
+               "NAME":"Waita",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:04 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:04",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  13.3",
+               "WATCH LEVEL (ft)":19
+            },
+            {
+               "id":"KA-0121",
+               "STATION ID":"KA-0121",
+               "NAME":"Halenanahu",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:11 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:11",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  14.5",
+               "WATCH LEVEL (ft)":21
+            },
+            {
+               "id":"KA-0024",
+               "STATION ID":"KA-0024",
+               "NAME":"Kalihiwai",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:40 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:40",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  7.4",
+               "WATCH LEVEL (ft)":10.5
+            },
+            {
+               "id":"KA-0060",
+               "STATION ID":"KA-0060",
+               "NAME":"Wailua",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:05 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:05",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  25.9",
+               "WATCH LEVEL (ft)":30.5
+            },
+            {
+               "id":"KA-0012",
+               "STATION ID":"KA-0012",
+               "NAME":"Kapaia",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:05 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:05",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  38.2",
+               "WATCH LEVEL (ft)":45
+            },
+            {
+               "id":"KA-0010",
+               "STATION ID":"KA-0010",
+               "NAME":"Waiakalua",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:04 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:04",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  9.1",
+               "WATCH LEVEL (ft)":12
+            },
+            {
+               "id":"KA-0015",
+               "STATION ID":"KA-0015",
+               "NAME":"Kaneha",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:12 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:12",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  10.8",
+               "WATCH LEVEL (ft)":30.5
+            },
+            {
+               "id":"KA-0014",
+               "STATION ID":"KA-0014",
+               "NAME":"Okinawa",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:40 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:40",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  3.6",
+               "WATCH LEVEL (ft)":7
+            },
+            {
+               "id":"KA-0016",
+               "STATION ID":"KA-0016",
+               "NAME":"Mimino",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:12 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:12",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  17.1",
+               "WATCH LEVEL (ft)":32
+            },
+            {
+               "id":"OA-0018",
+               "STATION ID":"OA-0018",
+               "NAME":"Opaeula 01",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:04 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:04",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  975.2",
+               "WATCH LEVEL (ft)":981.4
+            },
+            {
+               "id":"OA-0154",
+               "STATION ID":"OA-0154",
+               "NAME":"Nuuanu No 1",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:04 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:04",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  381.4",
+               "WATCH LEVEL (ft)":394
+            },
+            {
+               "id":"OA-0001",
+               "STATION ID":"OA-0001",
+               "NAME":"Nuuanu No 4",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:12 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:12",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  29.7",
+               "WATCH LEVEL (ft)":33
+            },
+            {
+               "id":"OA-0124",
+               "STATION ID":"OA-0124",
+               "NAME":"Kaneohe",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:12 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:12",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  160.3",
+               "WATCH LEVEL (ft)":166.8
+            },
+            {
+               "id":"MA-0073",
+               "STATION ID":"MA-0073",
+               "NAME":"HC&S #24",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:04 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:04",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  -2.5",
+               "WATCH LEVEL (ft)":22
+            },
+            {
+               "id":"MA-0068",
+               "STATION ID":"MA-0068",
+               "NAME":"#14",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:26 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:26",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  9.8",
+               "WATCH LEVEL (ft)":18
+            },
+            {
+               "id":"MA-0069",
+               "STATION ID":"MA-0069",
+               "NAME":"#15",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:13 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:13",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  16.1",
+               "WATCH LEVEL (ft)":30
+            },
+            {
+               "id":"MA-0095",
+               "STATION ID":"MA-0095",
+               "NAME":"Haiku ",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:12 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:12",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  12.0",
+               "WATCH LEVEL (ft)":20
+            },
+            {
+               "id":"MA-0096",
+               "STATION ID":"MA-0096",
+               "NAME":"Pauwela",
+               "DATA LAST REPORTED (HST)":"<i class=\"fa-solid fa-circle no-alert\"></i> 3:13 PM",
+               "DATA LAST REPORTED (UTC)":"<i class=\"fa-solid fa-circle no-alert\"></i> 01:13",
+               "REPORTED LEVEL (ft)":"<i class=\"fa-solid fa-circle no-alert\"></i>  3.6",
+               "WATCH LEVEL (ft)":27
+            }
+         ]
+      },
+      {
+         "id":"timezone-switch",
+         "property":"value",
+         "value":true
+      },
+      {
+         "id":"refresh-btn",
+         "property":"n_clicks",
+         "value":1
+      }
+   ],
+   "changedPropIds":[
+      "refresh-btn.n_clicks"
+   ]
+}

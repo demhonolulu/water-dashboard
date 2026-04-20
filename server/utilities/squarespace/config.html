@@ -1,0 +1,45 @@
+<script>
+window.__DATA__ = window.__DATA__ || {};
+window.__DATA__['json/config.json'] = {
+    "title": "",
+    "display-mode": 1,
+    "reload-time": 900,
+    "gauge-tables": {
+        "columns": 2
+    },
+    "gauge-graphs": {
+        "columns": 3,
+        "default-scale": "hour",
+        "sites": []
+    },
+    "default-selection": [
+
+    ],
+    "presets": {
+        "1": {
+            "title": "EOC - Gauge Monitoring",
+            "display-mode": 2,
+            "reload-time": 900,
+            "gauge-tables": {
+                "columns": 2
+            }
+        },
+        "2": {
+            "title": "EOC - Flood and Stream Views",
+            "display-mode": 3,
+            "reload-time": 900,
+            "gauge-graphs": {
+                "columns": 3,
+                "default-scale": "hour",
+                "sites": [
+                    "USGS-16294900",
+                    "USGS-16294100",
+                    "USGS-16210000",
+                    "USGS-16241600",
+                    "USGS-213133158014201"
+                ]
+            }
+        }
+    }
+};
+</script>
