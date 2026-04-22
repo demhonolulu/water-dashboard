@@ -1,8 +1,8 @@
 {
   "USGS-16279200": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16279200",
+      "time_series_id": "b04c812d8939471a8fc8214e17608434",
       "monitoring_location_number": "16279200",
       "monitoring_location_name": "Heeia Stream at Haiku Plantations Dr., Oahu, HI",
       "name_short": "Heeia Stre",
@@ -21,7 +21,6 @@
         "notes": "2000"
       }
     },
-    "id": "USGS-16279200",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -31,9 +30,9 @@
     }
   },
   "USGS-16275000": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16275000",
+      "time_series_id": "75d948b4426343d5b687e1d2298d3547",
       "monitoring_location_number": "16275000",
       "monitoring_location_name": "Heeia Stream at Haiku Valley nr Kaneohe, Oahu, HI",
       "name_short": "Heeia Stre",
@@ -52,7 +51,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16275000",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -62,9 +60,9 @@
     }
   },
   "USGS-213308158035601": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-213308158035601",
+      "time_series_id": "0526f6d56f5047489cca59b5371cb2ca",
       "monitoring_location_number": "213308158035601",
       "monitoring_location_name": "Helemano 6 Reservoir, Oahu, HI",
       "name_short": "Helemano 6",
@@ -83,7 +81,6 @@
         "notes": "2001"
       }
     },
-    "id": "USGS-213308158035601",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -93,9 +90,9 @@
     }
   },
   "USGS-16212490": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16212490",
+      "time_series_id": "ac40c0d0c98c4acea8bd0fba635feeb2",
       "monitoring_location_number": "16212490",
       "monitoring_location_name": "Honouliuli Str at H-1 Freeway nr Waipahu, Oahu, HI",
       "name_short": "Honouliuli Str",
@@ -114,7 +111,6 @@
         "notes": "2001"
       }
     },
-    "id": "USGS-16212490",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -124,9 +120,9 @@
     }
   },
   "USGS-16283200": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16283200",
+      "time_series_id": "9e2d5051dc284569b981a58db7fccf8f",
       "monitoring_location_number": "16283200",
       "monitoring_location_name": "Kahaluu Str nr Ahuimanu, Oahu, HI",
       "name_short": "Kahaluu Str",
@@ -145,7 +141,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16283200",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -155,9 +150,9 @@
     }
   },
   "USGS-16296500": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16296500",
+      "time_series_id": "8ff0ea5f0208463aa15c9e074666e1f3",
       "monitoring_location_number": "16296500",
       "monitoring_location_name": "Kahana Str at alt 30 ft nr Kahana, Oahu, HI",
       "name_short": "Kahana Str",
@@ -176,7 +171,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16296500",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -186,9 +180,9 @@
     }
   },
   "USGS-16229000": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16229000",
+      "time_series_id": "3d95c3fd755e422487695b2914bd37e4",
       "monitoring_location_number": "16229000",
       "monitoring_location_name": "Kalihi Str nr Honolulu, Oahu, HI",
       "name_short": "Kalihi Str",
@@ -207,7 +201,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16229000",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -217,9 +210,9 @@
     }
   },
   "USGS-16304200": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16304200",
+      "time_series_id": "e987c774124843c3adfc815fcdbe074e",
       "monitoring_location_number": "16304200",
       "monitoring_location_name": "Kaluanui Stream nr Punaluu, Oahu, HI",
       "name_short": "Kaluanui Str",
@@ -238,7 +231,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16304200",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -248,9 +240,9 @@
     }
   },
   "USGS-16330000": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16330000",
+      "time_series_id": "ab77498dd0fa4906abd9e04e82ca758d",
       "monitoring_location_number": "16330000",
       "monitoring_location_name": "Kamananui Str at Maunawai, Oahu, HI",
       "name_short": "Kamananui Str",
@@ -269,7 +261,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16330000",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -279,9 +270,9 @@
     }
   },
   "USGS-16325000": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16325000",
+      "time_series_id": "10830dd9122b476d87851ba7d9a842ef",
       "monitoring_location_number": "16325000",
       "monitoring_location_name": "Kamananui Str at Pupukea Mil Rd, Oahu, HI",
       "name_short": "Kamananui Str",
@@ -300,7 +291,6 @@
         "notes": "2001"
       }
     },
-    "id": "USGS-16325000",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -310,9 +300,9 @@
     }
   },
   "USGS-16274100": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16274100",
+      "time_series_id": "664dc38861bc49cda5a5ab4ab6b48fe7",
       "monitoring_location_number": "16274100",
       "monitoring_location_name": "Kaneohe Str blw Kamehameha Hwy, Oahu, HI",
       "name_short": "Kaneohe Str",
@@ -331,7 +321,6 @@
         "notes": "2101"
       }
     },
-    "id": "USGS-16274100",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -341,9 +330,9 @@
     }
   },
   "USGS-16210500": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16210500",
+      "time_series_id": "3632f8c596754beabdfbc04121eccc2c",
       "monitoring_location_number": "16210500",
       "monitoring_location_name": "Kaukonahua Str at Waialua, Oahu, HI",
       "name_short": "Kaukonahua",
@@ -362,7 +351,6 @@
         "notes": "2121"
       }
     },
-    "id": "USGS-16210500",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -372,9 +360,9 @@
     }
   },
   "USGS-16210200": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16210200",
+      "time_series_id": "b0467e79068344138f5ece825479c9d6",
       "monitoring_location_number": "16210200",
       "monitoring_location_name": "Kaukonahua Stream blw Wahiawa Reservoir, Oahu, HI",
       "name_short": "Kaukonahua",
@@ -393,7 +381,6 @@
         "notes": "2001"
       }
     },
-    "id": "USGS-16210200",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -403,9 +390,9 @@
     }
   },
   "USGS-16211800": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16211800",
+      "time_series_id": "896211e6d4bf48ff90da3c11e0500cba",
       "monitoring_location_number": "16211800",
       "monitoring_location_name": "Kaupuni Str at alt 374 ft nr Waianae, Oahu, HI",
       "name_short": "Kaupuni Str",
@@ -424,7 +411,6 @@
         "notes": "2000"
       }
     },
-    "id": "USGS-16211800",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -434,9 +420,9 @@
     }
   },
   "USGS-16265000": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16265000",
+      "time_series_id": "f6d20396c14f4e3881a90dab5f2b041a",
       "monitoring_location_number": "16265000",
       "monitoring_location_name": "Kawa Str at Kaneohe, Oahu, HI",
       "name_short": "Kawa Str",
@@ -455,7 +441,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16265000",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -465,9 +450,9 @@
     }
   },
   "USGS-16264600": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16264600",
+      "time_series_id": "94d24bf1176d4e9c906cc5d2ed18dc3d",
       "monitoring_location_number": "16264600",
       "monitoring_location_name": "Kawainui Marsh nr levee sta 15+00, Oahu, HI",
       "name_short": "Kawainui Marsh",
@@ -486,7 +471,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16264600",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -496,9 +480,9 @@
     }
   },
   "USGS-213320158061401": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-213320158061401",
+      "time_series_id": "5ca608cdcf5a4f239531e796aa9dbec1",
       "monitoring_location_number": "213320158061401",
       "monitoring_location_name": "Kemoo 5 Reservoir, Oahu, HI",
       "name_short": "Kemoo 5 Res",
@@ -517,7 +501,6 @@
         "notes": "2000"
       }
     },
-    "id": "USGS-213320158061401",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -527,9 +510,9 @@
     }
   },
   "USGS-16206600": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16206600",
+      "time_series_id": "c2a9cce646d54e1dac293741cfb07a08",
       "monitoring_location_number": "16206600",
       "monitoring_location_name": "Koolau Reservoir near Wahiawa, Oahu, HI",
       "name_short": "Koolau Res",
@@ -548,7 +531,6 @@
         "notes": "2000"
       }
     },
-    "id": "USGS-16206600",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -558,9 +540,9 @@
     }
   },
   "USGS-16208400": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16208400",
+      "time_series_id": "2bac1d4c42e04f829729c5bb80220263",
       "monitoring_location_number": "16208400",
       "monitoring_location_name": "Ku Tree Reservoir near Wahiawa, Oahu, HI",
       "name_short": "Ku Tree Res",
@@ -579,7 +561,6 @@
         "notes": "2001"
       }
     },
-    "id": "USGS-16208400",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -589,9 +570,9 @@
     }
   },
   "USGS-16211600": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16211600",
+      "time_series_id": "a1f1e901af03491a850ca383acfcc1f0",
       "monitoring_location_number": "16211600",
       "monitoring_location_name": "Makaha Str nr Makaha, Oahu, HI",
       "name_short": "Makaha Str",
@@ -610,7 +591,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16211600",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -620,9 +600,9 @@
     }
   },
   "USGS-16254000": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16254000",
+      "time_series_id": "d678a40bf33b43d29dd4290346be040f",
       "monitoring_location_number": "16254000",
       "monitoring_location_name": "Makawao Str nr Kailua, Oahu, HI",
       "name_short": "Makawao Str",
@@ -641,7 +621,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16254000",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -651,9 +630,9 @@
     }
   },
   "USGS-16238000": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16238000",
+      "time_series_id": "6a56d1b861db47749377f08a5754d819",
       "monitoring_location_number": "16238000",
       "monitoring_location_name": "Makiki Stream at King St. bridge, Oahu, HI",
       "name_short": "Makiki Stream",
@@ -672,7 +651,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16238000",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -682,9 +660,9 @@
     }
   },
   "USGS-16241600": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16241600",
+      "time_series_id": "25a9a70adbe941168c48102a7024b391",
       "monitoring_location_number": "16241600",
       "monitoring_location_name": "Manoa Stream at Woodlawn Drive, Oahu, HI",
       "name_short": "Manoa Stream",
@@ -703,7 +681,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16241600",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -713,9 +690,9 @@
     }
   },
   "USGS-16247100": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16247100",
+      "time_series_id": "d59a651cef8643588c61a68c82654298",
       "monitoring_location_number": "16247100",
       "monitoring_location_name": "Manoa-Palolo Drainage Canal at Moiliili, Oahu, HI",
       "name_short": "Manoa-Palolo",
@@ -734,7 +711,6 @@
         "notes": "2101"
       }
     },
-    "id": "USGS-16247100",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -744,9 +720,9 @@
     }
   },
   "USGS-16227500": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16227500",
+      "time_series_id": "cbbf866237b544a397bd18dba5f8c222",
       "monitoring_location_number": "16227500",
       "monitoring_location_name": "Moanalua Stream nr Kaneohe, Oahu, HI",
       "name_short": "Moanalua Stream",
@@ -765,7 +741,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16227500",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -775,9 +750,9 @@
     }
   },
   "USGS-16226200": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16226200",
+      "time_series_id": "71f9f360a8014afaa146e17c899ecdfd",
       "monitoring_location_number": "16226200",
       "monitoring_location_name": "N. Halawa Str nr Honolulu, Oahu, HI",
       "name_short": "N. Halawa",
@@ -796,7 +771,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16226200",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -806,9 +780,9 @@
     }
   },
   "USGS-16226400": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16226400",
+      "time_series_id": "742e023a10444a76ae3b5c849e53e77b",
       "monitoring_location_number": "16226400",
       "monitoring_location_name": "N. Halawa Str nr Quar. Stn. at Halawa, Oahu, HI",
       "name_short": "N. Halawa Str",
@@ -827,7 +801,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16226400",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -837,9 +810,9 @@
     }
   },
   "USGS-16200000": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16200000",
+      "time_series_id": "e4a8af1e8b8e4bd58530414f540380f4",
       "monitoring_location_number": "16200000",
       "monitoring_location_name": "NF Kaukonahua Str abv RB, nr Wahiawa, Oahu, HI",
       "name_short": "Kaukonahua",
@@ -858,7 +831,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16200000",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -868,9 +840,9 @@
     }
   },
   "USGS-16345000": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16345000",
+      "time_series_id": "a8071f811ea3437faca4a239e6b4c6a1",
       "monitoring_location_number": "16345000",
       "monitoring_location_name": "Opaeula Str nr Wahiawa, Oahu, HI",
       "name_short": "Opaeula Str",
@@ -889,7 +861,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16345000",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -899,9 +870,9 @@
     }
   },
   "USGS-16244000": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16244000",
+      "time_series_id": "e5737dd5440b4c2f9b1a62c7df87ea4e",
       "monitoring_location_number": "16244000",
       "monitoring_location_name": "Pukele Stream near Honolulu, Oahu, HI",
       "name_short": "Pukele Stream",
@@ -920,7 +891,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16244000",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -930,9 +900,9 @@
     }
   },
   "USGS-16301050": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16301050",
+      "time_series_id": "a0748996d9b340c18bf9e14183eace13",
       "monitoring_location_number": "16301050",
       "monitoring_location_name": "Punaluu Str abv Punaluu Ditch Intake, Oahu, HI",
       "name_short": "Punaluu Str",
@@ -951,7 +921,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16301050",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -961,9 +930,9 @@
     }
   },
   "USGS-16208000": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16208000",
+      "time_series_id": "f3a0afd077854c4ab1206b1ad88c4db9",
       "monitoring_location_number": "16208000",
       "monitoring_location_name": "SF Kaukonahua Str at E pump, nr Wahiawa, Oahu, HI",
       "name_short": "Kaukonahua",
@@ -982,7 +951,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16208000",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -992,9 +960,9 @@
     }
   },
   "USGS-16226700": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16226700",
+      "time_series_id": null,
       "monitoring_location_number": "16226700",
       "monitoring_location_name": "South Halawa Stream nr H-3 Freeway, Oahu, HI",
       "name_short": "South Halawa Stream",
@@ -1013,7 +981,6 @@
         "notes": "0000"
       }
     },
-    "id": "USGS-16226700",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -1023,9 +990,9 @@
     }
   },
   "USGS-213133158014201": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-213133158014201",
+      "time_series_id": "80f781e10da94056b2cc6bf39b97ef67",
       "monitoring_location_number": "213133158014201",
       "monitoring_location_name": "Upper Helemano Reservoir near Wahiawa, Oahu, HI",
       "name_short": "Upper Helemano Res",
@@ -1044,7 +1011,6 @@
         "notes": "2001"
       }
     },
-    "id": "USGS-213133158014201",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -1054,9 +1020,9 @@
     }
   },
   "USGS-16210100": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16210100",
+      "time_series_id": "1889661998d34f679ec637bc9cec3155",
       "monitoring_location_number": "16210100",
       "monitoring_location_name": "Wahiawa Ditch at Wahiawa, Oahu, HI",
       "name_short": "Wahiawa Ditch",
@@ -1075,7 +1041,6 @@
         "notes": "2001"
       }
     },
-    "id": "USGS-16210100",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -1085,10 +1050,9 @@
     }
   },
   "USGS-16210000": {
-    "type": "Feature",
-    "time_series_id": "26e3b29b90d34a3baf13ebe7c297197a",
     "properties": {
       "id": "USGS-16210000",
+      "time_series_id": "26e3b29b90d34a3baf13ebe7c297197a",
       "monitoring_location_number": "16210000",
       "monitoring_location_name": "Wahiawa Reservoir at Spillway at Wahiawa, Oahu, HI",
       "name_short": "Wahiawa Res Spillway",
@@ -1107,7 +1071,6 @@
         "notes": "2101"
       }
     },
-    "id": "USGS-16210000",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -1117,9 +1080,9 @@
     }
   },
   "USGS-16294100": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16294100",
+      "time_series_id": "60992d9525344c05ab4ff37ae3737567",
       "monitoring_location_number": "16294100",
       "monitoring_location_name": "Waiahole Stream above Kamehameha Hwy, Oahu, HI",
       "name_short": "Waiahole",
@@ -1138,7 +1101,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16294100",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -1148,9 +1110,9 @@
     }
   },
   "USGS-16240500": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16240500",
+      "time_series_id": "6bb45b0ec32f4923a7624347d68ff614",
       "monitoring_location_number": "16240500",
       "monitoring_location_name": "Waiakeakua Str at Honolulu, Oahu, HI",
       "name_short": "Waiakeakua",
@@ -1169,7 +1131,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16240500",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -1179,9 +1140,9 @@
     }
   },
   "USGS-16284200": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16284200",
+      "time_series_id": "386c3e3d25404c8aaca0f8da474cd2e5",
       "monitoring_location_number": "16284200",
       "monitoring_location_name": "Waihee Str nr Kahaluu, Oahu, HI",
       "name_short": "Waihee Str",
@@ -1200,7 +1161,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16284200",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -1210,9 +1170,9 @@
     }
   },
   "USGS-16238500": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16238500",
+      "time_series_id": "759f76fc9af84ec38745e8993bdc40bd",
       "monitoring_location_number": "16238500",
       "monitoring_location_name": "Waihi Stream at Honolulu, Oahu, HI",
       "name_short": "Waihi Stream",
@@ -1231,7 +1191,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16238500",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -1241,9 +1200,9 @@
     }
   },
   "USGS-16294900": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16294900",
+      "time_series_id": "918c21cea93242fcb57695a92c4c4575",
       "monitoring_location_number": "16294900",
       "monitoring_location_name": "Waikane Str at alt 75 ft at Waikane, Oahu, HI",
       "name_short": "Waikane Str",
@@ -1262,7 +1221,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16294900",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -1272,9 +1230,9 @@
     }
   },
   "USGS-16213000": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16213000",
+      "time_series_id": "584930409a264158bbd4b1d7ae3be385",
       "monitoring_location_number": "16213000",
       "monitoring_location_name": "Waikele Str at Waipahu, Oahu, HI",
       "name_short": "Waikele Str",
@@ -1293,7 +1251,6 @@
         "notes": "2111"
       }
     },
-    "id": "USGS-16213000",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -1303,9 +1260,9 @@
     }
   },
   "USGS-16212601": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16212601",
+      "time_series_id": "a1364f3e520342cba16b179903cece8e",
       "monitoring_location_number": "16212601",
       "monitoring_location_name": "Waikele Str at Wheeler Field, Oahu, HI",
       "name_short": "Waikele Str",
@@ -1324,7 +1281,6 @@
         "notes": "2001"
       }
     },
-    "id": "USGS-16212601",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -1334,9 +1290,9 @@
     }
   },
   "USGS-16249000": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16249000",
+      "time_series_id": "83c32d0c99f746a595cd8d323330aad9",
       "monitoring_location_number": "16249000",
       "monitoring_location_name": "Waimanalo Str at Waimanalo, Oahu, HI",
       "name_short": "Waimanalo Str",
@@ -1355,7 +1311,6 @@
         "notes": "2101"
       }
     },
-    "id": "USGS-16249000",
     "geometry": {
       "type": "Point",
       "coordinates": [
@@ -1365,9 +1320,9 @@
     }
   },
   "USGS-16247150": {
-    "type": "Feature",
     "properties": {
       "id": "USGS-16247150",
+      "time_series_id": null,
       "monitoring_location_number": "16247150",
       "monitoring_location_name": "Makiki Stream at Archie Baker Park",
       "name_short": "Makiki Stream",
@@ -1386,7 +1341,6 @@
         "notes": "0000"
       }
     },
-    "id": "USGS-16247150",
     "geometry": {
       "type": "Point",
       "coordinates": [
