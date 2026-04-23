@@ -126,6 +126,7 @@ async function init() {
             fetchData("tableUsgs", AWS_USGS_TABLE_URL, USGS_TABLE_URL + "&monitoring_location_id=" + GAUGE_IDS)
         ]);
 
+        USGS_OVERVIEW = overviewResults;
         console.log(overviewResults);
         hideLoading();
 
@@ -306,50 +307,142 @@ function processUSGSTable(rawData) {
 
 // ── TABLE ─────────────────────────────────────────────────
 function buildGaugeTable() {
-    let row = null;
-    let cellCount = 0;
-
     AREAS.forEach((area) => {
         area.Sites.forEach((site) => {
-            if (cellCount % CONFIG_VALUES["gauge-tables"].columns === 0) {
-                row = document.createElement('div');
-                row.classList.add('gauge-grid');
-
-                tableContainer.appendChild(row);
-                cellCount = 0;
-            }
-            
             const card = createSiteCard(site, area.Color);
             if (card) {
-                row.appendChild(card);
-                cellCount++;
+                tableContainer.appendChild(card);
             }
         })
     });
 }
 
-function createSiteCard(site, borderColor) {
+function createSiteCard(site, color) {
     if (!site.visible) {
         return null;
     }
 
-    console.log(site.id);
     const locationItem = LOCATIONS[site.id];
-    const article = document.createElement('article');
-    article.classList.add('gauge-card');
-    article.style.borderColor = borderColor;
+    let article = document.createElement('article');
+    article.classList.add('gauge-card', site.type, `card-${site.id}`);
+    article.style.borderColor = color;
 
     const iconDiv = document.createElement('div');
     iconDiv.classList.add('card-icon', `icon-${locationItem.properties.site_type_code}`);
 
+    const siteIcon = document.createElement('span');
+    siteIcon.classList.add('site-icon');
+
+    const changeIcon = document.createElement('span');
+    changeIcon.classList.add('change-icon');
+
+    iconDiv.appendChild(siteIcon);
+    iconDiv.appendChild(changeIcon);
+    article.appendChild(iconDiv);
+
     const titleText = document.createElement('h6');
     titleText.style.margin = "0";
     titleText.textContent = locationItem.properties.name_short;
-
-    article.appendChild(iconDiv);
+    titleText.style.color = color;
     article.appendChild(titleText);
 
+    if (site.type == "USGS") {
+        article = addUSGSCard(article, site.id);
+    }
+
     return article;
+}
+
+function addUSGSCard(article, id) {
+    const data = USGS_OVERVIEW.gauges[id];
+    if (!data || !data.val) {
+        console.log(`${id}: no data found`);
+        return article;
+    }
+    
+    const change = (data.val - data.val_1h).toFixed(2);
+    const percent = (((data.val - data.val_1h) / data.val_1h) * 100).toFixed(2);
+    const symbol = change > 0 ? '▲' : change < 0 ? '▼' : '=';
+    const dirClass = change > 0 ? 'up' : change < 0 ? 'down' : 'equal';
+    const isOld = (Date.now() - new Date(data.time).getTime()) > 24 * 60 * 60 * 1000;
+
+    const thresholds = LOCATIONS[id].properties.thresholds;
+    const displayThreshold = getDisplayThreshold(data.val, thresholds);
+    const currentThreshold = getCurrentThreshold(data.val, thresholds);
+    const thresholdText = thresholds[displayThreshold] 
+        ? `<small> - <span class="threshold-highlight ${displayThreshold}">${thresholds[displayThreshold]}ft</span></small>` 
+        : '';
+    if (currentThreshold) {
+        article.classList.add(currentThreshold);
+    }
+
+    const siteIcon = article.querySelector('.site-icon');
+    const changeIcon = article.querySelector('.change-icon');
+    // siteIcon for fav later
+
+    changeIcon.textContent = symbol;
+    changeIcon.classList.add(`${dirClass}-bright`);
+
+    const dataDiv = document.createElement('div');
+    dataDiv.classList.add('gauge-data');
+    dataDiv.innerHTML = `
+        <span class="main-value"><strong>${data.val}</strong>
+        <small>ft</small>
+        </span>
+        <small><span class="card-diff ${dirClass}">(${change} ${percent}%)</span></small>
+    `;
+
+    const dateDiv = document.createElement('div');
+    dateDiv.classList.add('gauge-meta');
+    dateDiv.innerHTML = `
+        <small style="color: ${isOld ? 'red' : 'var(--pico-secondary)'};">${formatTimeShort(data.time)}</small>${thresholdText}
+    `;
+
+    article.appendChild(dataDiv);
+    article.appendChild(dateDiv);
+    return article;
+}
+
+function formatTimeShort(time) {
+    return new Date(time).toLocaleTimeString('en-US', {
+        timeZone: 'Pacific/Honolulu',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+    }).toLowerCase().replace(' ', '');
+}
+
+function getCurrentThreshold(value, thresholdsObject) {
+    if(!value) {
+        return null
+    }
+
+    const { base, minor, major, action } = thresholdsObject;
+
+    const isNear = (threshold) => {
+        if (threshold == null) return false;
+        return value >= (threshold - ((threshold - base) * 0.1));
+    };
+
+    if (isNear(action)) return 'action';
+    if (isNear(major)) return 'major';
+    if (isNear(minor)) return 'minor';
+
+    return null;
+}
+
+function getDisplayThreshold(value, thresholdsObject) {
+    if(!value) {
+        return null
+    }
+
+    const { base, minor, major, action } = thresholdsObject;
+
+    if (minor != null && value < minor) return 'minor';
+    else if (major != null && value < major) return 'major';
+    else if (action != null && value < action) return 'action';
+
+    return null;
 }
 
 function buildNewGaugeTable() {
@@ -589,32 +682,6 @@ function getWarningColor(threshold) {
         default:
             return "#FFFFFF";
     }
-}
-
-function getCurrentThreshold(value, locationItem) {
-    if(!value) {
-        return null
-    }
-    // if (!hasUSGSReports(usgsItem)) {
-    //     console.log("No USGS values items: " + locationItem.properties.monitoring_location_number);
-    //     return null;
-    // }
-
-    // const value = usgsItem.items[usgsItem.items.length - 1].properties.value;
-    const thresholdsObject = locationItem.properties.thresholds;
-    const { base, minor, major, action } = thresholdsObject;
-
-    //console.log(`${value} - ${base} - ${minor} - ${major} - ${action}`);
-    const isNear = (threshold) => {
-        if (threshold == null) return false;
-        return value >= (threshold - ((threshold - base) * 0.1));
-    };
-
-    if (isNear(action)) return 'action';
-    if (isNear(major)) return 'major';
-    if (isNear(minor)) return 'minor';
-
-    return null;
 }
 
 function getThresholdDisplay(usgsItem, thresholdObj) {
