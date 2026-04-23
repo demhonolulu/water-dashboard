@@ -14,12 +14,16 @@ let HISTORIC = [];
 
 // dont look
 let API_KEY = 'bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1';
+let AWS_ERROR = false;
 
 let graphCount = 0;
 let charts = [];
 
 let USGS_OVERVIEW = [];
 
+const GAUGE_IDS          = "USGS-213320158061401,USGS-213308158035601,USGS-213133158014201,USGS-16345000,USGS-16330000,USGS-16325000,USGS-16210500,USGS-16304200,USGS-16301050,USGS-16296500,USGS-16294900,USGS-16294100,USGS-16284200,USGS-16283200,USGS-16279200,USGS-16275000,USGS-16274100,USGS-16265000,USGS-16264600,USGS-16254000,USGS-16249000,USGS-16247100,USGS-16244000,USGS-16241600,USGS-16240500,USGS-16238500,USGS-16238000,USGS-16229000,USGS-16227500,USGS-16226700,USGS-16226400,USGS-16226200,USGS-16247150,USGS-16213000,USGS-16212601,USGS-16210200,USGS-16210100,USGS-16210000,USGS-16208400,USGS-16208000,USGS-16206600,USGS-16200000,USGS-16212490,USGS-16211800,USGS-16211600";
+const AWS_USGS_TABLE_URL = "https://ofsyjumlizgqte56n2kznphw740iwjzb.lambda-url.us-east-2.on.aws/";
+const USGS_TABLE_URL     = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=json&lang=en-US&limit=50000&skipGeometry=true&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&unit_of_measure=ft&time=PT2H&properties=monitoring_location_id,value,time";
 const BASE_URL = 'https://api.waterdata.usgs.gov/ogcapi/v0/collections/';
 const CONFIG_SETTINGS = 
     '?f=json' +
@@ -77,6 +81,7 @@ Chart.register(thresholdLinesPlugin);
 
 
 // ── DOM refs ──────────────────────────────────────────────
+const tableContainer = document.getElementById('table-container');
 const gaugesTableDiv = document.getElementById('allGaugesTable');
 const graphs         = document.getElementById('allGraphs');
 const sectionTable   = document.getElementById('sectionTable');
@@ -86,6 +91,11 @@ const popupOverlay   = document.getElementById('popupOverlay');
 
 // ── Init ──────────────────────────────────────────────────
 async function init() {
+    //const response = await fetch("https://ofsyjumlizgqte56n2kznphw740iwjzb.lambda-url.us-east-2.on.aws/");
+    //console.log(response);
+    //const data = await response.json();
+    //console.log(data);
+    
     showLoading();
     try {
         // fetch json files
@@ -97,7 +107,6 @@ async function init() {
             fetchAndWait('json/historic-data.json')
         ]);
         CONFIG_VALUES = configResult;
-        loadPreset()
 
         loadParams();
 
@@ -107,18 +116,21 @@ async function init() {
         AREAS = areaResult.sort((a, b) => a.Order - b.Order);
         HISTORIC = getCurrentMonthHistoric(historicResult);
 
-        buildURLLinks();
+        //buildURLLinks();
 
         // fetch usgs data for gauge dashboard overview
+        // const [overviewResults] = await Promise.all([
+        //     fetchAndWait(USGS_OVERVIEW_URL)
+        // ]);
         const [overviewResults] = await Promise.all([
-            fetchAndWait(USGS_OVERVIEW_URL)
+            fetchData("tableUsgs", AWS_USGS_TABLE_URL, USGS_TABLE_URL + "&monitoring_location_id=" + GAUGE_IDS)
         ]);
 
-        USGS_OVERVIEW = overviewResults.features;
+        console.log(overviewResults);
+        hideLoading();
 
-        //console.log(VEOCI_NOTES);
-        //console.log(LOCATIONS);
-        //console.log(USGS_OVERVIEW);
+        buildGaugeTable();
+        return
 
         buildNewGaugeTable();
 
@@ -138,6 +150,8 @@ init();
 
 // ── SETUP ─────────────────────────────────────────────────
 function loadParams() {
+    loadPreset();
+
     const paramMappings = {
         'title': 'title',
         'display-mode': 'display-mode',
@@ -207,6 +221,135 @@ function getCurrentMonthHistoric(json) {
         };
     }
     return filtered;
+}
+
+// ── FETCH ─────────────────────────────────────────────────
+async function fetchAndWait(url) {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+        throw new Error(`ERROR status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+}
+
+async function fetchData(type, awsURL, backupURL) {
+    let data;
+
+    try {
+        if (!AWS_ERROR) {
+            data = await fetchAndWait(awsURL);
+
+            if (!data || (Array.isArray(data) && data.length === 0)) {
+                AWS_ERROR = true;
+                throw new Error(`AWS data is empty: ${type}`);
+            }
+        }
+        else {
+            throw new Error(`Skipped AWS: ${type}`);
+        }
+    } 
+    catch (error) {
+        console.warn("AWS fetch failed or empty, trying backup...", error.message);
+        const raw = await fetchAndWait(backupURL);
+        data = processData(type, raw);
+    }
+
+    return data;
+}
+
+// ── PROCESS ───────────────────────────────────────────────
+function processData(type, rawData) {
+    let data;
+    switch(type) {
+        case 'tableUsgs':
+            data = processUSGSTable(rawData)
+            break;
+    }
+    return data;
+}
+
+function processUSGSTable(rawData) {
+    const grouped = {};
+    rawData.features.forEach(feature => {
+        const { monitoring_location_id, value, time } = feature.properties;
+        const parsed = parseFloat(value);
+
+        if (!grouped[monitoring_location_id]) grouped[monitoring_location_id] = []; {
+            grouped[monitoring_location_id].push({ val: isNaN(parsed) ? null : parsed, time: new Date(time) });
+        }
+    });
+
+    const updatedGauges = {};
+    Object.entries(grouped).forEach(([id, readings]) => {
+        readings.sort((a, b) => b.time - a.time); // newest first
+
+        const newest = readings[0];
+        const oneHourAgo = new Date(newest.time.getTime() - 60 * 60 * 1000);
+
+        // Find reading closest to 1 hour before the newest
+        const hourReading = readings.reduce((best, r) => {
+            const diff = Math.abs(r.time - oneHourAgo);
+            return diff < Math.abs(best.time - oneHourAgo) ? r : best;
+        }, readings[readings.length - 1]); // seed with oldest as fallback
+
+        updatedGauges[id] = {
+            val: newest.val,
+            val_1h: hourReading.val,
+            time: newest.time.toISOString()
+        };
+    });
+
+    return updatedGauges;
+}
+
+// ── TABLE ─────────────────────────────────────────────────
+function buildGaugeTable() {
+    let row = null;
+    let cellCount = 0;
+
+    AREAS.forEach((area) => {
+        area.Sites.forEach((site) => {
+            if (cellCount % CONFIG_VALUES["gauge-tables"].columns === 0) {
+                row = document.createElement('div');
+                row.classList.add('gauge-grid');
+
+                tableContainer.appendChild(row);
+                cellCount = 0;
+            }
+            
+            const card = createSiteCard(site, area.Color);
+            if (card) {
+                row.appendChild(card);
+                cellCount++;
+            }
+        })
+    });
+}
+
+function createSiteCard(site, borderColor) {
+    if (!site.visible) {
+        return null;
+    }
+
+    console.log(site.id);
+    const locationItem = LOCATIONS[site.id];
+    const article = document.createElement('article');
+    article.classList.add('gauge-card');
+    article.style.borderColor = borderColor;
+
+    const iconDiv = document.createElement('div');
+    iconDiv.classList.add('card-icon', `icon-${locationItem.properties.site_type_code}`);
+
+    const titleText = document.createElement('h6');
+    titleText.style.margin = "0";
+    titleText.textContent = locationItem.properties.name_short;
+
+    article.appendChild(iconDiv);
+    article.appendChild(titleText);
+
+    return article;
 }
 
 function buildNewGaugeTable() {
@@ -536,16 +679,6 @@ function updateDisplayMode(mode) {
             sectionGraphs.classList.remove('hidden');
             break;
     }
-}
-
-async function fetchAndWait(url) {
-    const response = await fetch(url);
-
-    if (!response.ok) {
-        throw new Error(`ERROR status: ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
 }
 
 // click table cell

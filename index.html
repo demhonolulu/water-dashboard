@@ -1,23 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html data-theme="dark" lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Oahu Water Dashboard</title>
   <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
 </head>
-<body>
+<body data-theme="dark">
+  <main class="container-fluid">
+
   <div id="loading-overlay">
     <div class="spinner"></div>
   </div>
+
   <div id="app">
     <h1>
         DEM Oahu Water Dashboard
         <button id="displayButton" onclick="changeDisplayMode()" style="margin-left: 15px; font-weight: bold;">1</button>
         <span id="timer" style="margin-left: 15px; color: #ffffff;"></span>
     </h1>
+
+    <section id="sectionTable">
+      <div id="table-container"></div>
+    </section>
+
+    <div class="gauge-grid">
+      <article class="gauge-card">
+        <div class="card-icon icon-stream"></div>
+        <h6 style="color: var(--pico-primary); margin: 0;">Waikele Str at Waipahu</h6>
+        <div class="gauge-data">
+          <span class="main-value"><strong>3.70</strong></span>
+          <small>ft</small>
+          <span style="opacity: 0.6; font-size: 0.8rem;">(0.00 0.00% =)</span>
+        </div>
+        <div class="gauge-meta">
+          <small>9:00 AM - <span class="threshold-highlight">12ft</span></small>
+        </div>
+      </article>
+    </div>
+  
 
     <div id="popupOverlay" class="popup-overlay" style="display: none" onclick="if(event.target === this) popupClose()">
       <div class="popup-content" onclick="event.stopPropagation()">
@@ -48,6 +72,8 @@
     </section>
   </div>
 
+  </main>
   <script src="app.js"></script>
+  
 </body>
 </html>

@@ -4,13 +4,13 @@
       "Order": 1,
       "Color": "#ea9999",
       "Sites":[
-         "213320158061401",
-         "213308158035601",
-         "213133158014201",
-         "16345000",
-         "16330000",
-         "16325000",
-         "16210500"
+         {"type": "USGS", "id": "USGS-213320158061401", "visible": true},
+         {"type": "USGS", "id": "USGS-213308158035601", "visible": true},
+         {"type": "USGS", "id": "USGS-213133158014201", "visible": true},
+         {"type": "USGS", "id": "USGS-16345000", "visible": true},
+         {"type": "USGS", "id": "USGS-16330000", "visible": true},
+         {"type": "USGS", "id": "USGS-16325000", "visible": true},
+         {"type": "USGS", "id": "USGS-16210500", "visible": true}
       ]
    },
    {
@@ -18,9 +18,9 @@
       "Order": 5,
       "Color": "#a2c4c9",
       "Sites":[
-         "16304200",
-         "16301050",
-         "16296500"
+         {"type": "USGS", "id": "USGS-16304200", "visible": true},
+         {"type": "USGS", "id": "USGS-16301050", "visible": true},
+         {"type": "USGS", "id": "USGS-16296500", "visible": true}
       ]
    },
    {
@@ -28,17 +28,17 @@
       "Order": 2,
       "Color": "#f9cb9c",
       "Sites":[
-         "16294900",
-         "16294100",
-         "16284200",
-         "16283200",
-         "16279200",
-         "16275000",
-         "16274100",
-         "16265000",
-         "16264600",
-         "16254000",
-         "16249000"
+         {"type": "USGS", "id": "USGS-16294900", "visible": true},
+         {"type": "USGS", "id": "USGS-16294100", "visible": true},
+         {"type": "USGS", "id": "USGS-16284200", "visible": true},
+         {"type": "USGS", "id": "USGS-16283200", "visible": true},
+         {"type": "USGS", "id": "USGS-16279200", "visible": true},
+         {"type": "USGS", "id": "USGS-16275000", "visible": true},
+         {"type": "USGS", "id": "USGS-16274100", "visible": true},
+         {"type": "USGS", "id": "USGS-16265000", "visible": true},
+         {"type": "USGS", "id": "USGS-16264600", "visible": true},
+         {"type": "USGS", "id": "USGS-16254000", "visible": true},
+         {"type": "USGS", "id": "USGS-16249000", "visible": true}
       ]
    },
    {
@@ -46,18 +46,18 @@
       "Order": 3,
       "Color": "#ffe599",
       "Sites":[
-         "16247100",
-         "16244000",
-         "16241600",
-         "16240500",
-         "16238500",
-         "16238000",
-         "16229000",
-         "16227500",
-         "16226700",
-         "16226400",
-         "16226200",
-         "16247150"
+         {"type": "USGS", "id": "USGS-16247100", "visible": true},
+         {"type": "USGS", "id": "USGS-16244000", "visible": true},
+         {"type": "USGS", "id": "USGS-16241600", "visible": true},
+         {"type": "USGS", "id": "USGS-16240500", "visible": true},
+         {"type": "USGS", "id": "USGS-16238500", "visible": true},
+         {"type": "USGS", "id": "USGS-16238000", "visible": true},
+         {"type": "USGS", "id": "USGS-16229000", "visible": true},
+         {"type": "USGS", "id": "USGS-16227500", "visible": true},
+         {"type": "USGS", "id": "USGS-16226700", "visible": true},
+         {"type": "USGS", "id": "USGS-16226400", "visible": true},
+         {"type": "USGS", "id": "USGS-16226200", "visible": true},
+         {"type": "USGS", "id": "USGS-16247150", "visible": true}
       ]
    },
    {
@@ -65,15 +65,15 @@
       "Order": 4,
       "Color": "#b6d7a8",
       "Sites":[
-         "16213000",
-         "16212601",
-         "16210200",
-         "16210100",
-         "16210000",
-         "16208400",
-         "16208000",
-         "16206600",
-         "16200000"
+         {"type": "USGS", "id": "USGS-16213000", "visible": true},
+         {"type": "USGS", "id": "USGS-16212601", "visible": true},
+         {"type": "USGS", "id": "USGS-16210200", "visible": true},
+         {"type": "USGS", "id": "USGS-16210100", "visible": true},
+         {"type": "USGS", "id": "USGS-16210000", "visible": true},
+         {"type": "USGS", "id": "USGS-16208400", "visible": true},
+         {"type": "USGS", "id": "USGS-16208000", "visible": true},
+         {"type": "USGS", "id": "USGS-16206600", "visible": true},
+         {"type": "USGS", "id": "USGS-16200000", "visible": true}
       ]
    },
    {
@@ -81,7 +81,7 @@
       "Order": 7,
       "Color": "#d5a6bd",
       "Sites":[
-         "16212490"
+         {"type": "USGS", "id": "USGS-16212490", "visible": true}
       ]
    },
    {
@@ -89,8 +89,8 @@
       "Order": 6,
       "Color": "#b4a7d6",
       "Sites":[
-         "16211800",
-         "16211600"
+         {"type": "USGS", "id": "USGS-16211800", "visible": true},
+         {"type": "USGS", "id": "USGS-16211600", "visible": true}
       ]
    }
 ]

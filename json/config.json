@@ -4,7 +4,7 @@
     "reload-time": 900,
     "user": null,
     "gauge-tables": {
-        "columns": 2
+        "columns": 10
     },
     "gauge-graphs": {
         "columns": 3,
