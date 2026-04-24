@@ -71,7 +71,7 @@ h6 {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 2lh;
+  min-height: calc(1.2em * 2);
 }
 
 .card-icon {
@@ -88,10 +88,20 @@ h6 {
 
 .site-icon { font-size: 1.8rem; }
 .change-icon { font-size: 1rem; }
+.select-icon::after { 
+  font-size: 1.8rem; 
+  content: "●";
+  color: #00d4ff;
+  display: none;
+}
 
-.icon-ST .site-icon::before    { content: "≋"; }
-.icon-ST-CA .site-icon::before { content: "≋"; }
-.icon-LK .site-icon::before    { content: "⊓"; }
+.selected .select-icon::after {
+  display: block;
+}
+
+.icon-ST     .site-icon::before { content: "≋"; }
+.icon-ST-CA  .site-icon::before { content: "≋"; }
+.icon-LK     .site-icon::before { content: "⊓"; }
 .icon-ST-DCH .site-icon::before { content: "⊔"; }
 
 .up    { color: #D9EAD3; }
@@ -104,12 +114,14 @@ h6 {
 
 .minor { color: #FFEA00; }
 .major { color: #EE4B2B; }
-.action { color: #FF0000; }
+.action { color: #8B0000; }
 
-.gauge-card.minor  { border-width: 5px; border-color: #FFEA00 !important; }
-.gauge-card.major  { border-width: 5px; border-color: #EE4B2B !important; }
-.gauge-card.action { border-width: 5px; border-color: #FF0000 !important; }
-
-.gauge-card.minor h6  { color: #FFEA00 !important; }
-.gauge-card.major h6  { color: #EE4B2B !important; }
-.gauge-card.action h6 { color: #FF0000 !important; }
+.gauge-card.alert {
+  color: #000000 !important;
+}
+.gauge-card.alert h6 {
+  color: #000000 !important;
+}
+.gauge-card.minor  { background-color: #FFEA00 }
+.gauge-card.major  { background-color: #EE4B2B !important; }
+.gauge-card.action { background-color: #8B0000 !important; }

@@ -331,13 +331,19 @@ function createSiteCard(site, color) {
     iconDiv.classList.add('card-icon', `icon-${locationItem.properties.site_type_code}`);
 
     const siteIcon = document.createElement('span');
-    siteIcon.classList.add('site-icon');
-
     const changeIcon = document.createElement('span');
+    const selectIcon = document.createElement('span');
+
+    siteIcon.classList.add('site-icon');
     changeIcon.classList.add('change-icon');
+    selectIcon.classList.add('select-icon');
 
     iconDiv.appendChild(siteIcon);
     iconDiv.appendChild(changeIcon);
+    iconDiv.appendChild(selectIcon);
+    siteIcon.addEventListener('click', () => {
+        favoriteCardToggle(site.id);
+    });
     article.appendChild(iconDiv);
 
     const titleText = document.createElement('h6');
@@ -348,6 +354,9 @@ function createSiteCard(site, color) {
 
     if (site.type == "USGS") {
         article = addUSGSCard(article, site.id);
+        article.addEventListener('click', () => {
+            viewGraphUSGS(site.id, article);
+        });
     }
 
     return article;
@@ -373,7 +382,7 @@ function addUSGSCard(article, id) {
         ? `<small> - <span class="threshold-highlight ${displayThreshold}">${thresholds[displayThreshold]}ft</span></small>` 
         : '';
     if (currentThreshold) {
-        article.classList.add(currentThreshold);
+        article.classList.add(currentThreshold, "alert");
     }
 
     const siteIcon = article.querySelector('.site-icon');
@@ -386,8 +395,8 @@ function addUSGSCard(article, id) {
     const dataDiv = document.createElement('div');
     dataDiv.classList.add('gauge-data');
     dataDiv.innerHTML = `
-        <span class="main-value"><strong>${data.val}</strong>
-        <small>ft</small>
+        <span class="main-value" style="padding-right: 0;"><strong>${data.val}</strong>
+        <small style="padding-left: 0;>ft</small>
         </span>
         <small><span class="card-diff ${dirClass}">(${change} ${percent}%)</span></small>
     `;
@@ -395,7 +404,7 @@ function addUSGSCard(article, id) {
     const dateDiv = document.createElement('div');
     dateDiv.classList.add('gauge-meta');
     dateDiv.innerHTML = `
-        <small style="color: ${isOld ? 'red' : 'var(--pico-secondary)'};">${formatTimeShort(data.time)}</small>${thresholdText}
+        <small ${isOld ? 'style="color: red;"' : ''}">${formatTimeShort(data.time)}</small>${thresholdText}
     `;
 
     article.appendChild(dataDiv);
@@ -445,6 +454,21 @@ function getDisplayThreshold(value, thresholdsObject) {
     return null;
 }
 
+function favoriteCardToggle(id) {
+    console.log("favorite " + id);
+}
+
+function viewGraphUSGS(id, article) {
+    if (article.classList.contains('selected')) {
+        article.classList.remove('selected');
+        console.log("remove")
+    }
+    else {
+        article.classList.add('selected');
+        console.log("add")
+    }
+    console.log("clicked " + id);
+}
 function buildNewGaugeTable() {
     //const areaGrouping = groupSitesByArea();
     const usgsGrouping = groupUSGSBySite(); // map
