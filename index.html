@@ -6,6 +6,7 @@
   <title>Oahu Water Dashboard</title>
   <link rel="stylesheet" href="style.css"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
 </head>
@@ -25,6 +26,10 @@
 
     <section id="sectionTable">
       <div id="table-container"></div>
+    </section>
+
+    <section id="sectionGraphs">
+      <div id="graph-container"></div>
     </section>
 
     <div class="gauge-grid">
@@ -64,11 +69,6 @@
         <button onclick="setRange('day')">7d</button>
         <button onclick="reloadData()">Reload</button>
       </div>
-    </section>
-
-    <section id="sectionGraphs">
-      <table id="allGraphs">
-      </table>
     </section>
   </div>
 

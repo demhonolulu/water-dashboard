@@ -4,6 +4,14 @@
 
 const params    = new URLSearchParams(window.location.search);
 const preset    = params.get('preset');
+const paramMappings = {
+    'display-mode': ['display-mode'],
+    'reload-time': ['reload-time'],
+    'user': ['user'],
+    'table-columns': ['gauge-tables', 'columns'],
+    'graph-columns': ['gauge-graphs', 'columns'],
+    'graph-sites': ['gauge-graphs', 'sites']
+};
 
 // stream and dam location data
 let LOCATIONS = {};
@@ -23,7 +31,9 @@ let USGS_OVERVIEW = [];
 
 const GAUGE_IDS          = "USGS-213320158061401,USGS-213308158035601,USGS-213133158014201,USGS-16345000,USGS-16330000,USGS-16325000,USGS-16210500,USGS-16304200,USGS-16301050,USGS-16296500,USGS-16294900,USGS-16294100,USGS-16284200,USGS-16283200,USGS-16279200,USGS-16275000,USGS-16274100,USGS-16265000,USGS-16264600,USGS-16254000,USGS-16249000,USGS-16247100,USGS-16244000,USGS-16241600,USGS-16240500,USGS-16238500,USGS-16238000,USGS-16229000,USGS-16227500,USGS-16226700,USGS-16226400,USGS-16226200,USGS-16247150,USGS-16213000,USGS-16212601,USGS-16210200,USGS-16210100,USGS-16210000,USGS-16208400,USGS-16208000,USGS-16206600,USGS-16200000,USGS-16212490,USGS-16211800,USGS-16211600";
 const AWS_USGS_TABLE_URL = "https://ofsyjumlizgqte56n2kznphw740iwjzb.lambda-url.us-east-2.on.aws/";
-const USGS_TABLE_URL     = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=json&lang=en-US&limit=50000&skipGeometry=true&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&unit_of_measure=ft&time=PT2H&properties=monitoring_location_id,value,time";
+const AWS_USGS_GRAPH_URL = "https://fpjimyrgmhmggjpfc3usfpwgti0fnbap.lambda-url.us-east-2.on.aws/?time_series_id=";
+const USGS_TABLE_URL     = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=json&lang=en-US&limit=50000&skipGeometry=true&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&unit_of_measure=ft&time=PT2H&properties=monitoring_location_id,value,time&monitoring_location_id=";
+const USGS_GRAPH_URL     = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?limit=50000&properties=time,value&time=P7D&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&time_series_id="
 const BASE_URL = 'https://api.waterdata.usgs.gov/ogcapi/v0/collections/';
 const CONFIG_SETTINGS = 
     '?f=json' +
@@ -73,7 +83,6 @@ const thresholdLinesPlugin = {
 };
 Chart.register(thresholdLinesPlugin);
 
-
 // all items
 // https://api.waterdata.usgs.gov/ogcapi/v0/collections/latest-continuous/items?f=json&lang=en-US&limit=50000&skipGeometry=false&offset=0&monitoring_location_id=USGS-16210000
 // individual
@@ -82,6 +91,7 @@ Chart.register(thresholdLinesPlugin);
 
 // ── DOM refs ──────────────────────────────────────────────
 const tableContainer = document.getElementById('table-container');
+const graphContainer = document.getElementById('graph-container');
 const gaugesTableDiv = document.getElementById('allGaugesTable');
 const graphs         = document.getElementById('allGraphs');
 const sectionTable   = document.getElementById('sectionTable');
@@ -91,11 +101,6 @@ const popupOverlay   = document.getElementById('popupOverlay');
 
 // ── Init ──────────────────────────────────────────────────
 async function init() {
-    //const response = await fetch("https://ofsyjumlizgqte56n2kznphw740iwjzb.lambda-url.us-east-2.on.aws/");
-    //console.log(response);
-    //const data = await response.json();
-    //console.log(data);
-    
     showLoading();
     try {
         // fetch json files
@@ -109,6 +114,7 @@ async function init() {
         CONFIG_VALUES = configResult;
 
         loadParams();
+        console.log(CONFIG_VALUES);
 
         LOCATIONS = locationsResult;
         LOCATION_IDS = Object.keys(LOCATIONS).join(',');
@@ -123,7 +129,7 @@ async function init() {
         //     fetchAndWait(USGS_OVERVIEW_URL)
         // ]);
         const [overviewResults] = await Promise.all([
-            fetchData("tableUsgs", AWS_USGS_TABLE_URL, USGS_TABLE_URL + "&monitoring_location_id=" + GAUGE_IDS)
+            fetchData("tableUsgs", AWS_USGS_TABLE_URL, USGS_TABLE_URL + GAUGE_IDS)
         ]);
 
         USGS_OVERVIEW = overviewResults;
@@ -132,8 +138,6 @@ async function init() {
 
         buildGaugeTable();
         return
-
-        buildNewGaugeTable();
 
         const [presetLoad] = await Promise.all([
             loadGaugeGraphs()
@@ -152,16 +156,6 @@ init();
 // ── SETUP ─────────────────────────────────────────────────
 function loadParams() {
     loadPreset();
-
-    const paramMappings = {
-        'title': 'title',
-        'display-mode': 'display-mode',
-        'reload-time': 'reload-time',
-        'user': 'user',
-        'table-columns': ['gauge-table', 'columns'],
-        'graph-columns': ['gauge-graphs', 'columns'],
-        'graph-sites': ['gauge-graphs', 'sites']
-    };
     
     for (const [paramKey, pathArray] of Object.entries(paramMappings)) {
         const value = params.get(paramKey);
@@ -177,6 +171,8 @@ function loadParams() {
             }
         }
     }
+
+    updateParams();
 }
 
 function loadPreset() {
@@ -190,6 +186,23 @@ function loadPreset() {
     CONFIG_VALUES = { ...CONFIG_VALUES, ...previewValues };
 
     updateDisplayMode(CONFIG_VALUES["display-mode"]);
+}
+
+function updateParams() {
+    const url = new URL(window.location.href);
+    url.search = '';
+
+    for (const [paramKey, path] of Object.entries(paramMappings)) {
+        let value = CONFIG_VALUES;
+        for (const key of path) {
+            value = value?.[key];
+        }
+        if (value !== null && value !== undefined) {
+            url.searchParams.set(paramKey, value);
+        }
+    }
+
+    window.history.replaceState({}, '', url);
 }
 
 function buildURLLinks() {   
@@ -355,7 +368,7 @@ function createSiteCard(site, color) {
     if (site.type == "USGS") {
         article = addUSGSCard(article, site.id);
         article.addEventListener('click', () => {
-            viewGraphUSGS(site.id, article);
+            clickTableCell(site, article);
         });
     }
 
@@ -458,17 +471,28 @@ function favoriteCardToggle(id) {
     console.log("favorite " + id);
 }
 
-function viewGraphUSGS(id, article) {
+async function clickTableCell(site, article) {
     if (article.classList.contains('selected')) {
         article.classList.remove('selected');
         console.log("remove")
     }
     else {
         article.classList.add('selected');
-        console.log("add")
+        let graphResults;
+        if (site.type == "USGS") {
+            const timeSeries = LOCATIONS[site.id].properties.time_series_id;
+            graphResults = await fetchData("tableUsgs", AWS_USGS_GRAPH_URL + timeSeries, USGS_GRAPH_URL + timeSeries);
+        }
+
+        graphContainer.appendChild(createGraph(site, graphResults));
     }
-    console.log("clicked " + id);
 }
+
+function createGraph(site, data) {
+    console.log(site.id);
+    console.log(data);
+}
+
 function buildNewGaugeTable() {
     //const areaGrouping = groupSitesByArea();
     const usgsGrouping = groupUSGSBySite(); // map

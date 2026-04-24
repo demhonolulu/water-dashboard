@@ -125,3 +125,11 @@ h6 {
 .gauge-card.minor  { background-color: #FFEA00 }
 .gauge-card.major  { background-color: #EE4B2B !important; }
 .gauge-card.action { background-color: #8B0000 !important; }
+
+#graph-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 1rem;
+}
