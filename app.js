@@ -10,6 +10,7 @@ const paramMappings = {
     'user': ['user'],
     'table-columns': ['gauge-tables', 'columns'],
     'graph-columns': ['gauge-graphs', 'columns'],
+    'graph-scale': ['gauge-graphs', 'default-scale'],
     'graph-sites': ['gauge-graphs', 'sites']
 };
 
@@ -114,7 +115,6 @@ async function init() {
         CONFIG_VALUES = configResult;
 
         loadParams();
-        console.log(CONFIG_VALUES);
 
         LOCATIONS = locationsResult;
         LOCATION_IDS = Object.keys(LOCATIONS).join(',');
@@ -203,6 +203,10 @@ function updateParams() {
     }
 
     window.history.replaceState({}, '', url);
+
+    // update table and graph columns
+    document.getElementById('table-container').style.gridTemplateColumns = `repeat(${CONFIG_VALUES["gauge-tables"].columns}, 1fr)`;
+    document.getElementById('graph-container').style.gridTemplateColumns = `repeat(${CONFIG_VALUES["gauge-graphs"].columns}, 1fr)`;
 }
 
 function buildURLLinks() {   
@@ -267,7 +271,11 @@ async function fetchData(type, awsURL, backupURL) {
     catch (error) {
         console.warn("AWS fetch failed or empty, trying backup...", error.message);
         const raw = await fetchAndWait(backupURL);
-        data = processData(type, raw);
+        switch(type) {
+            case 'tableUsgs':
+                data = processUSGSTable(raw)
+                break;
+        }
     }
 
     return data;
@@ -368,7 +376,7 @@ function createSiteCard(site, color) {
     if (site.type == "USGS") {
         article = addUSGSCard(article, site.id);
         article.addEventListener('click', () => {
-            clickTableCell(site, article);
+            clickTableCell(site, article, color);
         });
     }
 
@@ -434,6 +442,18 @@ function formatTimeShort(time) {
     }).toLowerCase().replace(' ', '');
 }
 
+function formatTimeLong(time) {
+    return new Date(time).toLocaleString('en-US', {
+        timeZone: 'Pacific/Honolulu',
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+    }).toLowerCase()
+}
+
 function getCurrentThreshold(value, thresholdsObject) {
     if(!value) {
         return null
@@ -471,26 +491,222 @@ function favoriteCardToggle(id) {
     console.log("favorite " + id);
 }
 
-async function clickTableCell(site, article) {
+async function clickTableCell(site, article, color) {
     if (article.classList.contains('selected')) {
         article.classList.remove('selected');
         console.log("remove")
+
+        const chartIndex = charts.findIndex(c => c.id === site.id);
+
+        if (chartIndex !== -1) {
+            charts[chartIndex].instance.destroy();
+            charts.splice(chartIndex, 1);
+        }
+
+        const chartContainer = document.getElementById(`chart-container-${site.id}`); // or however you reference it
+        if (chartContainer) {
+            chartContainer.remove();
+        }
     }
     else {
         article.classList.add('selected');
         let graphResults;
+
+        // fetch data
         if (site.type == "USGS") {
             const timeSeries = LOCATIONS[site.id].properties.time_series_id;
             graphResults = await fetchData("tableUsgs", AWS_USGS_GRAPH_URL + timeSeries, USGS_GRAPH_URL + timeSeries);
         }
 
-        graphContainer.appendChild(createGraph(site, graphResults));
+        // build graph
+        if (graphResults) {
+            const convertedData = convertDates(graphResults);
+            const chartDiv = await createGraph(site, convertedData, color);
+            graphContainer.appendChild(chartDiv);
+
+            charts[charts.length - 1].instance.render();
+            //console.log(charts);
+        }
     }
 }
 
-function createGraph(site, data) {
-    console.log(site.id);
-    console.log(data);
+function convertDates(data) {
+    if (!data || !data.data) {
+        return null;
+    }
+
+    return data.data.map(item => ({
+        ...item,
+        time: new Date(item.time).toLocaleString('en-US', {
+            timeZone: 'Pacific/Honolulu'
+        })
+    }));
+}
+
+async function createGraph(site, data, color) {
+    if (!data || data.length < 1) {
+        return null;
+    }
+
+    const locationItem = LOCATIONS[site.id];
+    const chartContainer = document.createElement('div');
+    chartContainer.id = `chart-container-${site.id}`;
+    chartContainer.addEventListener('click', (event) => graphClick(site, event));
+
+    const chartDiv = document.createElement('div');
+    chartDiv.classList.add('chart', site.type, `chart-${site.id}`);
+
+    const filteredRawData = filterDataByRange(data, CONFIG_VALUES["gauge-graphs"]["default-scale"]);
+    const chartData = filteredRawData.map(item => ({
+        x: new Date(item.time).getTime(),
+        y: item.value
+    }));
+
+    const options = {
+        series: [{
+            name: locationItem.properties.monitoring_location_name,
+            data: chartData
+        }],
+        title: {
+            text: locationItem.properties.monitoring_location_name,
+            align: 'center',
+            margin: 10,
+            offsetX: 0,
+            offsetY: 0,
+            floating: false,
+            style: {
+                fontSize:  '21px',
+                fontWeight: 'bold',
+                color:  color
+            },
+        },
+        chart: {
+            type: 'area', // 'area' looks great for water levels
+            zoom: { enabled: true },
+            toolbar: { show: false }
+        },
+        dataLabels: { enabled: false },
+        xaxis: {
+            type: 'datetime',
+            labels: {
+                style: {
+                    colors: '#FFFFFF'
+                }
+            }
+        },
+        yaxis: {
+            labels: {
+                style: {
+                    colors: '#FFFFFF'
+                }
+            }
+        },
+        tooltip: {
+            x: { format: 'dd MMM HH:mm' }
+        },
+        colors: color,
+        stroke: {
+            curve: 'smooth',
+            colors: color
+        },
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.6,
+                opacityTo: 0.1,
+                colorStops: [
+                    { offset: 0, color: color, opacity: 1 },
+                    { offset: 100, color: color, opacity: 0.8 }
+                ]
+            }
+        },
+        /*,
+        // Adding your threshold lines
+        annotations: {
+            yaxis: [
+                {
+                    y: 20, // Example Flood Stage
+                    borderColor: '#FF4560',
+                    label: {
+                        text: 'Flood Stage',
+                        style: { color: '#fff', background: '#FF4560' }
+                    }
+                }
+            ]
+        }*/
+    };
+
+    const newChart = new ApexCharts(chartDiv, options);
+    chartContainer.appendChild(chartDiv);
+    chartContainer.appendChild(createChartFooter(locationItem.properties.thresholds, site.id, chartData));
+
+    //newChart.render();
+    charts.push({
+        id: site.id,
+        type: site.type,
+        instance: newChart,
+        fullData: data
+    });   
+
+    return chartContainer;
+}
+
+function filterDataByRange(data, range) {
+    switch(range) {
+        case "w":
+            return data;
+        case "d":
+            return data.length > 288 ? data.slice(-288) : data;
+        case "h":
+            return data.length > 12 ? data.slice(-12) : data;
+    }
+}
+
+function createChartFooter(thresholds, id, data) {
+    const checkValue = (input) => input ?? '??';
+
+    const historic = HISTORIC[id]
+    const chartFooter = document.createElement('div');
+    chartFooter.classList.add(`.chart-footer.${id}`);
+
+    let average = checkValue(thresholds.base);    // default to old data
+
+    const { date, value, color, diff } = calcDataChange(data);
+    //const formatDate = new Date(data.features[data.features.length - 1].properties.time).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }).replace(' ', '');
+    //const dataDiff = dataChange(data);
+    if (historic) {
+        average = historic.currentMonth.average.toFixed(2);
+    }
+
+    chartFooter.innerHTML = `
+        <div style="display: flex; justify-content: space-between;>
+            <span style="color: #FFFFFF">Base: ${average}ft</span>
+            <span style="color: #FFEA00">Minor: ${checkValue(thresholds.minor)}ft</span>
+            <span style="color: #EE4B2B">Major: ${checkValue(thresholds.major)}ft</span>
+            <span style="color: #8B0000">Failure: ${checkValue(thresholds.action)}ft</span>
+        </div>
+        <div style="display: flex;">
+            <span style="color: #FFFFFF">Last Update: ${date} - </span>
+            <span style="color: ${getCurrentThreshold(value, thresholds)} ">${value}ft</span>
+            <span style="color: ${color} ">(${diff}%)</span>
+        </div> 
+    `;
+    return chartFooter;
+}
+
+function calcDataChange(data) {
+    const current = data[data.length - 1].y
+    const past = data.length >= 13 ? data[data.length - 13].y : data[0].y;
+    const diff = (((current - past) / past) * 100);
+    const color = diff > 0 ? 'green' : diff < 0 ? 'red' : 'gray';
+
+    return {
+        date: formatTimeLong(data[data.length - 1].x),
+        value: current.toFixed(2),
+        color: color,
+        diff: diff.toFixed(2)
+    };
 }
 
 function buildNewGaugeTable() {
@@ -873,13 +1089,13 @@ function resizeGraphs() {
 }
 
 // open popup
-function graphClick(location_id, event) {
+function graphClick(site, event) {
     popupOverlay.style.display = "flex";
     document.body.style.overflow = 'hidden';
 
-    const locationItem = LOCATIONS[location_id];
-    const historicItem = HISTORIC[location_id];
-    const veociItem = VEOCI_NOTES.find(obj => obj.SiteID === location_id.replace("USGS-", ""));
+    const locationItem = LOCATIONS[site.id];
+    const historicItem = HISTORIC[site.id];
+    const veociItem = VEOCI_NOTES.find(obj => obj.SiteID === site.id.replace("USGS-", ""));
 
     console.log(locationItem);
     console.log(historicItem);
@@ -924,7 +1140,7 @@ function graphClick(location_id, event) {
 
     const tableDiv = document.createElement('div');
     tableDiv.className = 'tables-wrapper';
-    const chart = charts.find(obj => obj.location_id === location_id);
+    const chart = charts.find(obj => obj.id === site.id);
     const currentItem = chart.fullData[chart.fullData.length - 1];
     console.log(currentItem);
     const currentDisplayThreshold = getCurrentThreshold(currentItem.y, locationItem);
@@ -1202,28 +1418,6 @@ async function buildGraph(location_id, time_series_id, data) {
     return;
 }
 
-function createGraphFooter(location_id, data) {
-    const footer = document.querySelector(`.chart-footer.${location_id}`);
-    const thresholds = LOCATIONS[location_id].properties.thresholds
-    const checkValue = (input) => input ?? '??';
-    const formatDate = new Date(data.features[data.features.length - 1].properties.time).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }).replace(' ', '');
-    const dataDiff = dataChange(data);
-
-    footer.innerHTML = `
-        <div>
-            <span style="color: #FFFFFF">Base: ${checkValue(thresholds.base)}ft</span>
-            <span style="color: #FFEA00">Minor: ${checkValue(thresholds.minor)}ft</span>
-            <span style="color: #EE4B2B">Major: ${checkValue(thresholds.major)}ft</span>
-            <span style="color: #8B0000">Failure: ${checkValue(thresholds.action)}ft</span>
-        </div>
-        <div style="justify-content: center;">
-            <span style="color: #FFFFFF">Last Update: ${formatDate} - ${data.features[data.features.length - 1].properties.value}ft</span>
-            <span style="gap: 0px; color: ${dataDiff.color} ">(${dataDiff.value}%)</span>
-        </div>
-    `;
-    return;
-}
-
 function createThresholdArray(thresholds) {
     let thresholdArray = [];
     
@@ -1285,12 +1479,13 @@ function formatData(data) {
     return formattedData;
 }
 
+/*
 async function filterDataByRange(data, hours) {
     const now = new Date();
     const cutoff = new Date(now.getTime() - hours * 60 * 60 * 1000);
 
     return data.filter(d => new Date(d.x) >= cutoff);
-}
+}*/
 
 async function setRange(time) {
     /*

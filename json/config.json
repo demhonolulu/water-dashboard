@@ -7,7 +7,7 @@
     },
     "gauge-graphs": {
         "columns": 3,
-        "default-scale": "hour",
+        "default-scale": "w",
         "sites": []
     },
     "presets": {
@@ -23,7 +23,7 @@
             "reload-time": 900,
             "gauge-graphs": {
                 "columns": 3,
-                "default-scale": "hour",
+                "default-scale": "d",
                 "sites": [
                     "USGS-16294900",
                     "USGS-16294100",
