@@ -33,6 +33,7 @@ let USGS_OVERVIEW = [];
 
 const GAUGE_IDS          = "USGS-213320158061401,USGS-213308158035601,USGS-213133158014201,USGS-16345000,USGS-16330000,USGS-16325000,USGS-16210500,USGS-16304200,USGS-16301050,USGS-16296500,USGS-16294900,USGS-16294100,USGS-16284200,USGS-16283200,USGS-16279200,USGS-16275000,USGS-16274100,USGS-16265000,USGS-16264600,USGS-16254000,USGS-16249000,USGS-16247100,USGS-16244000,USGS-16241600,USGS-16240500,USGS-16238500,USGS-16238000,USGS-16229000,USGS-16227500,USGS-16226700,USGS-16226400,USGS-16226200,USGS-16247150,USGS-16213000,USGS-16212601,USGS-16210200,USGS-16210100,USGS-16210000,USGS-16208400,USGS-16208000,USGS-16206600,USGS-16200000,USGS-16212490,USGS-16211800,USGS-16211600";
 const AWS_USGS_TABLE_URL = "https://ofsyjumlizgqte56n2kznphw740iwjzb.lambda-url.us-east-2.on.aws/";
+const AWS_USGS_TABLE_CACHE_URL = "https://ookj3pwjnfbg7iw7qmadxboiwy0bxzgy.lambda-url.us-east-2.on.aws/";
 const AWS_USGS_GRAPH_URL = "https://fpjimyrgmhmggjpfc3usfpwgti0fnbap.lambda-url.us-east-2.on.aws/?time_series_id=";
 const USGS_TABLE_URL     = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=json&lang=en-US&limit=50000&skipGeometry=true&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&unit_of_measure=ft&time=PT2H&properties=monitoring_location_id,value,time&monitoring_location_id=";
 const USGS_GRAPH_URL     = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?limit=50000&properties=time,value&time=P7D&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&time_series_id="
@@ -124,15 +125,8 @@ async function init() {
 
         GAUGE_REGISTRY = mapGaugeRegistry(LOCATIONS);
         GAUGE_BITMAP = CONFIG_VALUES["gauge-graphs"].sites ? decodeBase36ToBigInt(CONFIG_VALUES["gauge-graphs"].sites) : 0n;
-        
-        const [overviewResults] = await Promise.all([
-            fetchData("tableUSGS", AWS_USGS_TABLE_URL, USGS_TABLE_URL + GAUGE_IDS)
-        ]);
 
-        USGS_OVERVIEW = overviewResults;
-        console.log(overviewResults);
-
-        buildGaugeTable();
+        await buildGaugeTable();
 
         // load graphs
         const preloadGauges = readBitMap(GAUGE_BITMAP);
@@ -308,7 +302,7 @@ async function fetchData(type, awsURL, backupURL) {
                 AWS_ERROR = true;
                 throw new Error(`AWS data is empty: ${type}`);
             }
-            console.log(`✅ ${type}: fetched successfully in ${(performance.now() - start).toFixed(0)}ms`);
+            console.log(`✅ ${type}: fetched successfully in [${(performance.now() - start).toFixed(0)}ms]`);
             switch(type) {
                 case 'tableUSGS':
                     data = processUSGSTable(data);
@@ -324,17 +318,18 @@ async function fetchData(type, awsURL, backupURL) {
     } 
     catch (error) {
         console.warn("AWS fetch failed or empty, trying backup...", error.message);
-        const raw = await fetchAndWait(backupURL);
-        switch(type) {
-            case 'tableUSGS':
-                data = processRawUSGSTable(raw);
-                break;
-            case 'graphUSGS':
-                data = processRawUSGSGraph(raw);
-                break;
+        if (backupURL) {
+            const raw = await fetchAndWait(backupURL);
+            switch(type) {
+                case 'tableUSGS':
+                    data = processRawUSGSTable(raw);
+                    break;
+                case 'graphUSGS':
+                    data = processRawUSGSGraph(raw);
+                    break;
+            }
         }
     }
-
     return data;
 }
 
@@ -411,8 +406,52 @@ function processUSGSGraph(data) {
     };
 }
 
+// ── RELOAD ────────────────────────────────────────────────
+async function reloadGaugeTable() {
+    console.log(USGS_OVERVIEW);
+    const isRecentUSGS = isRecentTime(USGS_OVERVIEW.updateTime);
+
+    if (!isRecentUSGS) {
+        const [overviewResultsUSGS] = await Promise.all([
+            fetchData("tableUSGS", AWS_USGS_TABLE_URL, USGS_TABLE_URL + GAUGE_IDS)
+        ]);
+
+        USGS_OVERVIEW = overviewResultsUSGS;
+    }
+
+    // only find areas that are visible and have updates
+    const filteredAreas = AREAS.map(area => ({
+        ...area,
+        Sites: area.Sites.filter(site => 
+            site.visible &&
+            !(site.type === 'USGS' && isRecentUSGS)
+        )
+    }));
+
+    console.log(filteredAreas);
+    
+    filteredAreas.forEach((area) => {
+        area.Sites.forEach((site) => {
+            const currentArticle = document.querySelector(`.gauge-card.USGS.card-${site.id}`);
+            const updatedArticle = createSiteCard(site, area.Color);
+
+            currentArticle._abortController?.abort();
+            currentArticle.replaceWith(updatedArticle);
+        })
+    });
+
+    console.log("finished reload");
+}
+
 // ── TABLE ─────────────────────────────────────────────────
-function buildGaugeTable() {
+async function buildGaugeTable() {
+    // pull cache data to build table
+    const [overviewResultsUSGS] = await Promise.all([
+        fetchData("tableUSGS", AWS_USGS_TABLE_CACHE_URL, USGS_TABLE_URL + GAUGE_IDS)
+    ]);
+
+    USGS_OVERVIEW = overviewResultsUSGS;
+
     AREAS.forEach((area) => {
         area.Sites.forEach((site) => {
             const card = createSiteCard(site, area.Color);
@@ -421,6 +460,9 @@ function buildGaugeTable() {
             }
         })
     });
+
+    // run function async
+    reloadGaugeTable();
 }
 
 function createSiteCard(site, color) {
@@ -432,6 +474,8 @@ function createSiteCard(site, color) {
     let article = document.createElement('article');
     article.classList.add('gauge-card', site.type, `card-${site.id}`);
     article.style.borderColor = color;
+    article._abortController = new AbortController();
+    const signal = article._abortController.signal;
 
     const iconDiv = document.createElement('div');
     iconDiv.classList.add('card-icon', `icon-${locationItem.properties.site_type_code}`);
@@ -449,7 +493,7 @@ function createSiteCard(site, color) {
     iconDiv.appendChild(selectIcon);
     siteIcon.addEventListener('click', () => {
         favoriteCardToggle(site.id);
-    });
+    }, { signal });
     article.appendChild(iconDiv);
 
     const titleText = document.createElement('h6');
@@ -462,7 +506,7 @@ function createSiteCard(site, color) {
         article = addUSGSCard(article, site.id);
         article.addEventListener('click', () => {
             clickTableCell(site, article, color);
-        });
+        }, { signal });
     }
 
     return article;
@@ -516,6 +560,10 @@ function addUSGSCard(article, id) {
     article.appendChild(dataDiv);
     article.appendChild(dateDiv);
     return article;
+}
+
+function isRecentTime(time) {
+    return time && (Date.now() - new Date(new Date(time).toLocaleString('en-US', { timeZone: 'UTC' })).getTime() + (10 * 60 * 60 * 1000)) < 15 * 60 * 1000;
 }
 
 function formatTimeShort(time) {
