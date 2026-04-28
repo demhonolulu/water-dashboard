@@ -8,7 +8,7 @@
     "gauge-graphs": {
         "columns": 3,
         "default-scale": "w",
-        "sites": []
+        "sites": ""
     },
     "presets": {
         "1": {
@@ -24,13 +24,7 @@
             "gauge-graphs": {
                 "columns": 3,
                 "default-scale": "d",
-                "sites": [
-                    "USGS-16294900",
-                    "USGS-16294100",
-                    "USGS-16210000",
-                    "USGS-16241600",
-                    "USGS-213133158014201"
-                ]
+                "sites": ""
             }
         }
     }

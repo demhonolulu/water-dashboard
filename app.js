@@ -16,10 +16,11 @@ const paramMappings = {
 
 // stream and dam location data
 let LOCATIONS = {};
-let LOCATION_IDS;
 let VEOCI_NOTES = {};
 let AREAS = [];
 let HISTORIC = [];
+let GAUGE_REGISTRY = [];
+let GAUGE_BITMAP = 0n;
 
 // dont look
 let API_KEY = 'bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1';
@@ -93,7 +94,6 @@ Chart.register(thresholdLinesPlugin);
 // ── DOM refs ──────────────────────────────────────────────
 const tableContainer = document.getElementById('table-container');
 const graphContainer = document.getElementById('graph-container');
-const gaugesTableDiv = document.getElementById('allGaugesTable');
 const graphs         = document.getElementById('allGraphs');
 const sectionTable   = document.getElementById('sectionTable');
 const sectionButtons = document.getElementById('sectionButtons');
@@ -112,31 +112,40 @@ async function init() {
             fetchAndWait('json/config.json'),
             fetchAndWait('json/historic-data.json')
         ]);
+
+        // set globals from json files
         CONFIG_VALUES = configResult;
-
-        loadParams();
-
         LOCATIONS = locationsResult;
-        LOCATION_IDS = Object.keys(LOCATIONS).join(',');
         VEOCI_NOTES = veociResult.Sheet0;
         AREAS = areaResult.sort((a, b) => a.Order - b.Order);
         HISTORIC = getCurrentMonthHistoric(historicResult);
 
-        //buildURLLinks();
+        loadParams();
 
-        // fetch usgs data for gauge dashboard overview
-        // const [overviewResults] = await Promise.all([
-        //     fetchAndWait(USGS_OVERVIEW_URL)
-        // ]);
+        GAUGE_REGISTRY = mapGaugeRegistry(LOCATIONS);
+        GAUGE_BITMAP = CONFIG_VALUES["gauge-graphs"].sites ? decodeBase36ToBigInt(CONFIG_VALUES["gauge-graphs"].sites) : 0n;
+        
         const [overviewResults] = await Promise.all([
-            fetchData("tableUsgs", AWS_USGS_TABLE_URL, USGS_TABLE_URL + GAUGE_IDS)
+            fetchData("tableUSGS", AWS_USGS_TABLE_URL, USGS_TABLE_URL + GAUGE_IDS)
         ]);
 
         USGS_OVERVIEW = overviewResults;
         console.log(overviewResults);
-        hideLoading();
 
         buildGaugeTable();
+
+        // load graphs
+        const preloadGauges = readBitMap(GAUGE_BITMAP);
+        await Promise.all(
+            preloadGauges.map(async (gauge) => {
+                const site    = AREAS.flatMap(a => a.Sites).find(s => s.id == gauge);
+                const color   = AREAS.find(a => a.Sites.some(s => s.id == gauge))?.Color;
+                const article = document.querySelector(`.gauge-card.${site?.type}.card-${gauge}`);
+                await clickTableCell(site, article, color);
+            })
+        );
+
+        hideLoading();
         return
 
         const [presetLoad] = await Promise.all([
@@ -144,7 +153,7 @@ async function init() {
         ]);
         
         startCountdown(CONFIG_VALUES["reload-time"]);
-        hideLoading();
+        
     } 
     catch (err) {
         console.error(err);
@@ -154,6 +163,51 @@ async function init() {
 init();
 
 // ── SETUP ─────────────────────────────────────────────────
+function decodeBase36ToBigInt(str) {
+    return str.split('').reduce((acc, char) => {
+        return acc * 36n + BigInt(parseInt(char, 36));
+    }, 0n);
+}
+
+function mapGaugeRegistry(locations) {
+    const entries = Object.entries(locations);
+    const maxOrder = Math.max(...entries.map(([, val]) => val.order));
+    const result = new Array(maxOrder).fill(null);
+  
+    entries.forEach(([id, value]) => {
+        result[value.order - 1] = id;
+    });
+  
+    return result;
+}
+
+function readBitMap(map) {
+    if (!map) return [];
+    const mask = BigInt(map); 
+
+    return GAUGE_REGISTRY.filter((id, index) => {
+        if (id === null) return false;
+        return (mask & (1n << BigInt(index))) !== 0n;
+    });
+}
+
+function updateGaugeBit(id, state) {
+    const index = GAUGE_REGISTRY.indexOf(id);
+
+    if (index === -1) {
+        console.error(`Station ${id} not found in registry.`);
+        return;
+    }
+
+    const bitPosition = 1n << BigInt(index);
+    if (state) {
+        GAUGE_BITMAP |= bitPosition;
+    } 
+    else {
+        GAUGE_BITMAP &= ~bitPosition;
+    }
+}
+
 function loadParams() {
     loadPreset();
     
@@ -197,8 +251,14 @@ function updateParams() {
         for (const key of path) {
             value = value?.[key];
         }
+
         if (value !== null && value !== undefined) {
-            url.searchParams.set(paramKey, value);
+            // CHECK: If the value is a BigInt, convert it to Base36 string
+            const formattedValue = (typeof value === 'bigint') 
+                ? value.toString(36) 
+                : value;
+
+            url.searchParams.set(paramKey, formattedValue);
         }
     }
 
@@ -207,23 +267,6 @@ function updateParams() {
     // update table and graph columns
     document.getElementById('table-container').style.gridTemplateColumns = `repeat(${CONFIG_VALUES["gauge-tables"].columns}, 1fr)`;
     document.getElementById('graph-container').style.gridTemplateColumns = `repeat(${CONFIG_VALUES["gauge-graphs"].columns}, 1fr)`;
-}
-
-function buildURLLinks() {   
-    INDIVIDUAL_URL = INDIVIDUAL_URL +
-        'continuous/items' + CONFIG_SETTINGS +
-        '&api_key=' + API_KEY +
-        '&properties=time,value,unit_of_measure' + 
-        '&time=P7D' + 
-        '&time_series_id=';
-
-    USGS_OVERVIEW_URL = USGS_OVERVIEW_URL + 
-        'continuous/items' + CONFIG_SETTINGS +
-        '&api_key=' + API_KEY +
-        '&monitoring_location_id=' + LOCATION_IDS +
-        '&unit_of_measure=ft' + 
-        '&time=PT2H' +
-        '&properties=monitoring_location_id,time_series_id,value,unit_of_measure,time';
 }
 
 function getCurrentMonthHistoric(json) {
@@ -254,6 +297,8 @@ async function fetchAndWait(url) {
 
 async function fetchData(type, awsURL, backupURL) {
     let data;
+    const start = performance.now();
+    console.log(`➤ ${type}: Starting API call at [${rawConvertDate(new Date().toISOString())}]`);
 
     try {
         if (!AWS_ERROR) {
@@ -262,6 +307,15 @@ async function fetchData(type, awsURL, backupURL) {
             if (!data || (Array.isArray(data) && data.length === 0)) {
                 AWS_ERROR = true;
                 throw new Error(`AWS data is empty: ${type}`);
+            }
+            console.log(`✅ ${type}: fetched successfully in ${(performance.now() - start).toFixed(0)}ms`);
+            switch(type) {
+                case 'tableUSGS':
+                    data = processUSGSTable(data);
+                    break;
+                case 'graphUSGS':
+                    data = processUSGSGraph(data);
+                    break;
             }
         }
         else {
@@ -272,8 +326,11 @@ async function fetchData(type, awsURL, backupURL) {
         console.warn("AWS fetch failed or empty, trying backup...", error.message);
         const raw = await fetchAndWait(backupURL);
         switch(type) {
-            case 'tableUsgs':
-                data = processUSGSTable(raw)
+            case 'tableUSGS':
+                data = processRawUSGSTable(raw);
+                break;
+            case 'graphUSGS':
+                data = processRawUSGSGraph(raw);
                 break;
         }
     }
@@ -282,17 +339,7 @@ async function fetchData(type, awsURL, backupURL) {
 }
 
 // ── PROCESS ───────────────────────────────────────────────
-function processData(type, rawData) {
-    let data;
-    switch(type) {
-        case 'tableUsgs':
-            data = processUSGSTable(rawData)
-            break;
-    }
-    return data;
-}
-
-function processUSGSTable(rawData) {
+function processRawUSGSTable(rawData) {
     const grouped = {};
     rawData.features.forEach(feature => {
         const { monitoring_location_id, value, time } = feature.properties;
@@ -323,7 +370,45 @@ function processUSGSTable(rawData) {
         };
     });
 
-    return updatedGauges;
+    return processUSGSTable({
+        gauges: updatedGauges,
+        updateTime: new Date().toISOString()
+    });
+}
+
+function rawConvertDate(date) {
+    return new Date(date).toLocaleString('en-US', { timeZone: 'Pacific/Honolulu' })
+}
+
+function processUSGSTable(data) {
+    return {
+        updateTime: rawConvertDate(data.updateTime),
+        gauges: Object.fromEntries(
+            Object.entries(data.gauges).map(([id, gauge]) => [
+                id, { ...gauge, time: rawConvertDate(gauge.time) }
+            ])
+        )
+    };
+}
+
+function processRawUSGSGraph(rawData) {
+    const formattedData = rawData.features.map(feature => ({
+      time: feature.properties.time,
+      value: parseFloat(feature.properties.value) 
+    }));
+    formattedData.sort((a, b) => new Date(a.time) - new Date(b.time));
+
+    return formattedData;
+}
+
+function processUSGSGraph(data) {
+    return {
+        updateTime: rawConvertDate(new Date()),
+        data: data.data.map(entry => ({
+            ...entry,
+            time: rawConvertDate(entry.time)
+        }))
+    };
 }
 
 // ── TABLE ─────────────────────────────────────────────────
@@ -435,7 +520,6 @@ function addUSGSCard(article, id) {
 
 function formatTimeShort(time) {
     return new Date(time).toLocaleTimeString('en-US', {
-        timeZone: 'Pacific/Honolulu',
         hour: 'numeric',
         minute: '2-digit',
         hour12: true
@@ -444,7 +528,6 @@ function formatTimeShort(time) {
 
 function formatTimeLong(time) {
     return new Date(time).toLocaleString('en-US', {
-        timeZone: 'Pacific/Honolulu',
         year: 'numeric',
         month: 'numeric',
         day: 'numeric',
@@ -507,6 +590,9 @@ async function clickTableCell(site, article, color) {
         if (chartContainer) {
             chartContainer.remove();
         }
+
+        // update url
+        updateGaugeBit(site.id, false);
     }
     else {
         article.classList.add('selected');
@@ -515,7 +601,7 @@ async function clickTableCell(site, article, color) {
         // fetch data
         if (site.type == "USGS") {
             const timeSeries = LOCATIONS[site.id].properties.time_series_id;
-            graphResults = await fetchData("tableUsgs", AWS_USGS_GRAPH_URL + timeSeries, USGS_GRAPH_URL + timeSeries);
+            graphResults = await fetchData("graphUSGS", AWS_USGS_GRAPH_URL + timeSeries, USGS_GRAPH_URL + timeSeries);
         }
 
         // build graph
@@ -525,9 +611,15 @@ async function clickTableCell(site, article, color) {
             graphContainer.appendChild(chartDiv);
 
             charts[charts.length - 1].instance.render();
-            //console.log(charts);
         }
+
+        updateGaugeBit(site.id, true);
     }
+
+    CONFIG_VALUES["gauge-graphs"]["sites"] = GAUGE_BITMAP;
+    updateParams();
+
+    return;
 }
 
 function convertDates(data) {
@@ -589,6 +681,7 @@ async function createGraph(site, data, color) {
         xaxis: {
             type: 'datetime',
             labels: {
+                datetimeUTC: false,
                 style: {
                     colors: '#FFFFFF'
                 }
@@ -602,7 +695,8 @@ async function createGraph(site, data, color) {
             }
         },
         tooltip: {
-            x: { format: 'dd MMM HH:mm' }
+            x: { format: 'dd MMM HH:mm' },
+            theme: 'dark'
         },
         colors: color,
         stroke: {
@@ -709,232 +803,6 @@ function calcDataChange(data) {
     };
 }
 
-function buildNewGaugeTable() {
-    //const areaGrouping = groupSitesByArea();
-    const usgsGrouping = groupUSGSBySite(); // map
-
-    let row, cellCount;
-
-    AREAS.forEach((area) => {
-        // create last column stacked tables
-        const div = document.createElement('div');
-        const table = document.createElement('table');
-        table.classList.add('gauge-table', `${area.Area.replace(/ /g, '-')}`);
-        table.style.border = `2px solid ${area.Color}`;
-        
-        // table header
-        const thead = document.createElement('thead');
-        const thr = document.createElement('tr');
-        const thh = document.createElement('th');
-
-        thh.textContent = area.Area;
-        thh.colSpan = area.Sites.length;
-        thh.style.color = area.Color;
-
-        thr.appendChild(thh);
-        thead.appendChild(thr);
-        table.appendChild(thead);
-
-        // column rows
-        row = null;
-        cellCount = 0;
-
-        const tbody = document.createElement('tbody');
-        area.Sites.forEach((site) => {
-            // site = number without prefix usgs
-            const usgsId = 'USGS-' + site;
-            const usgsItem = usgsGrouping.get(usgsId);
-            const locationItem = LOCATIONS[usgsId];
-
-            /*
-            console.log(site);
-            console.log(usgsItem);
-            console.log(locationItem);*/
-
-            if (cellCount % CONFIG_VALUES["gauge-tables"].columns === 0) {
-                row = tbody.insertRow();
-                row.classList.add('gauge-row');
-                cellCount = 0;
-            }
-            
-            const cell = row.insertCell();
-            cell.style.height = '50px';
-            
-            cell.innerHTML = `${gaugeReport(usgsItem, locationItem)}`;
-            cell.classList.add('gauge-cell');
-
-            if(hasUSGSReports(usgsItem)) {
-                cell.classList.add(`${usgsId}`);
-                const thresholdLevel = getCurrentThreshold(usgsItem.items[usgsItem.items.length - 1].properties.value, locationItem);
-                if (thresholdLevel !== null) {
-                    cell.classList.add(`threshold-highlighted-${thresholdLevel}`);
-                }
-
-                cell.style.cursor = 'pointer';
-                cell.addEventListener('click', (event) => handleCellClick(usgsItem.items, event));
-            }
-
-            cellCount++;
-        });
-
-        // create last stacked table in single row
-        table.appendChild(tbody);
-        switch(area.Area) {
-            case 'NORTH SHORE':
-            case 'KOOLAUPOKO':
-            case 'PRIMARY URBAN CENTER':
-            case 'CENTRAL OAHU':
-                div.style.height = '100%';
-                div.appendChild(table);
-                gaugesTableDiv.appendChild(div);
-                break;
-            case 'KOOLAULOA':
-                div.id = 'div-stacked-tables';
-                div.style.display = 'flex';
-                div.style.flexDirection = 'column';
-                div.style.gap = '5px';
-                div.appendChild(table);
-                gaugesTableDiv.appendChild(div);
-                break;
-            case 'WAIANAE':
-            case 'EWA':
-                const stackedDiv = document.getElementById('div-stacked-tables');
-                stackedDiv.appendChild(table);
-                gaugesTableDiv.appendChild(stackedDiv);
-        }
-    });
-}
-
-function groupSitesByArea() {
-    return Object.values(
-        VEOCI_NOTES.reduce((acc, item) => {
-            const area = item.Area;
-            if (!acc[area]) {
-                acc[area] = { Area: area, Sites: [] };
-            }
-            acc[area].Sites.push(item.SiteID);
-            return acc;
-        }, {})
-    );
-}
-
-function groupUSGSBySite() {
-    const map = new Map();
-    
-    USGS_OVERVIEW.forEach((item) => {
-        const locationId = item.properties?.monitoring_location_id;
-        if (!locationId) return;
-        
-        if (!map.has(locationId)) {
-            map.set(locationId, {
-                monitoring_location_id: locationId,
-                items: []
-            });
-        }
-        map.get(locationId).items.push(item);
-    });
-    
-    for (const [locationId, group] of map) {
-        group.items.sort((a, b) => {
-            const timeA = new Date(a.properties?.time);
-            const timeB = new Date(b.properties?.time);
-            return timeA - timeB;
-        });
-    }
-    
-    return map;
-}
-
-function gaugeReport(usgsItem, locationItem) {
-    if (!hasUSGSReports(usgsItem)) {
-        return `<div class="gauge-cell-location" style="color: #FFFFFF">
-            ${removeLocationSuffix(locationItem.properties.monitoring_location_name)}
-        </div>`;
-    }
-
-    const currentDisplayThreshold = getCurrentThreshold(usgsItem.items[usgsItem.items.length - 1].properties.value, locationItem);
-    const textColor = getWarningColor(currentDisplayThreshold);
-
-    let report = `
-        <div class="gauge-cell-location" style="color: ${textColor}">
-            ${removeLocationSuffix(locationItem.properties.monitoring_location_name)}
-        </div>        
-    `;
-
-    if (hasUSGSReports(usgsItem)) {
-        const oldMeasure = usgsItem.items[0].properties;
-        const newMeasure = usgsItem.items[usgsItem.items.length - 1].properties;
-
-        const gaugeDiff = calcGaugeDiff(oldMeasure.value, newMeasure.value);
-        const diff = `<span class="gauge-cell-diff" style="color: ${gaugeDiff.color}"> (${gaugeDiff.change} ${gaugeDiff.percent} ${gaugeDiff.symbol})</span>`
-
-        const dateItem = `${new Date(newMeasure.time).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }).replace(' ', '')}`;
-        const thresholdItem = getThresholdDisplay(usgsItem, locationItem.properties.thresholds);
-        report += `
-            <div class="gauge-cell-value">
-                <span style="color: #CCCCCC">${newMeasure.value}ft </span>${diff}
-            </div>
-
-            <div class="gauge-cell-date">
-                <small><span>${dateItem}</span>${thresholdItem}</small>
-            </div>
-        `;
-    }
-
-    return report;
-}
-
-function hasUSGSReports(usgsItem) {
-    return (usgsItem && usgsItem.items && usgsItem.items.length > 0);
-}
-
-function removeLocationSuffix(str) {
-    const parts = str.split(',');
-
-    if (parts.length > 2) {
-        return parts.slice(0, -2).join(',').trim();
-    }
-
-    return str;
-}
-
-function calcGaugeDiff(oldMeasure, newMeasure) {
-    const greater = newMeasure > oldMeasure;
-    const less = newMeasure < oldMeasure;
-
-    const changeAmount = oldMeasure !== 0
-        ? (newMeasure - oldMeasure) / oldMeasure
-        : 0;
-
-    let colorVal, symbolVal;
-
-    if (greater) {
-        const intensity = Math.min(changeAmount / 100, 1); // 0 to 1, capped at 100%
-
-        const r = Math.round(217 - (217 * intensity)); // 217 → 0
-        const g = Math.round(234 - (234 - 255) * intensity); // 234 → 255
-        const b = Math.round(211 - (211 * intensity)); // 211 → 0
-
-        colorVal = `rgb(${r}, ${g}, ${b})`;
-        symbolVal = '▲';
-    }
-    else if(less) {
-        colorVal = '#FFB3B3';
-        symbolVal = '▼';
-    }
-    else {
-        colorVal = '#FFFFFF';
-        symbolVal = '=';
-    }
-
-    return {
-        color: colorVal,
-        change: `${greater ? '+' : ''}${changeAmount.toFixed(2)} `,
-        percent: `${(changeAmount * 100).toFixed(2)}% `,
-        symbol: symbolVal
-    }
-}
-
 function getWarningColor(threshold) {
     switch (threshold) {
         case 'action':
@@ -946,28 +814,6 @@ function getWarningColor(threshold) {
         default:
             return "#FFFFFF";
     }
-}
-
-function getThresholdDisplay(usgsItem, thresholdObj) {
-    if (!hasUSGSReports(usgsItem))
-        return "";
-
-    const value = usgsItem.items[usgsItem.items.length - 1].properties.value;
-    const { base, minor, major, action } = thresholdObj;
-
-    let threshold = null;
-    if (minor != null && value < minor) threshold = 'minor';
-    else if (major != null && value < major) threshold = 'major';
-    else if (action != null && value < action) threshold = 'action';
-
-    if(threshold == null)
-        return "";
-
-    return `
-        <span style="color: ${getWarningColor(threshold)}">
-            ${thresholdObj[threshold]}ft
-        </span>
-    `;
 }
 
 // ── Button click ──────────────────────────────────────────
@@ -1172,16 +1018,6 @@ function graphClick(site, event) {
     ]));
 
     body.appendChild(tableDiv);
-
-/*
-<div class="map-container">
-    <iframe 
-        src="https://www.google.com/maps?q=21.306,-157.858&z=12&output=embed"
-        loading="lazy"
-        allowfullscreen>
-    </iframe>
-</div>
-*/
 }
 
 function printMonth(dateString) {
@@ -1199,8 +1035,7 @@ function formatDateTime(dateString) {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
-        hour12: false,
-        timeZone: 'UTC'
+        hour12: false
     }).replace(/,/g, '');
 }
 
@@ -1520,6 +1355,7 @@ async function setRangeIndividual(chart, time) {
     chart.instance.update();
 }
 
+/*
 async function reloadData() {
     showLoading();
 
@@ -1555,7 +1391,7 @@ async function reloadData() {
 
     console.log("Reloaded");
     hideLoading();
-}
+}*/
 
 // update timer
 function startCountdown(seconds) {
