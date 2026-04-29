@@ -31,13 +31,14 @@ let charts = [];
 
 let USGS_OVERVIEW = [];
 
-const GAUGE_IDS          = "USGS-213320158061401,USGS-213308158035601,USGS-213133158014201,USGS-16345000,USGS-16330000,USGS-16325000,USGS-16210500,USGS-16304200,USGS-16301050,USGS-16296500,USGS-16294900,USGS-16294100,USGS-16284200,USGS-16283200,USGS-16279200,USGS-16275000,USGS-16274100,USGS-16265000,USGS-16264600,USGS-16254000,USGS-16249000,USGS-16247100,USGS-16244000,USGS-16241600,USGS-16240500,USGS-16238500,USGS-16238000,USGS-16229000,USGS-16227500,USGS-16226700,USGS-16226400,USGS-16226200,USGS-16247150,USGS-16213000,USGS-16212601,USGS-16210200,USGS-16210100,USGS-16210000,USGS-16208400,USGS-16208000,USGS-16206600,USGS-16200000,USGS-16212490,USGS-16211800,USGS-16211600";
-const AWS_USGS_TABLE_URL = "https://ofsyjumlizgqte56n2kznphw740iwjzb.lambda-url.us-east-2.on.aws/";
-const AWS_USGS_TABLE_CACHE_URL = "https://ookj3pwjnfbg7iw7qmadxboiwy0bxzgy.lambda-url.us-east-2.on.aws/";
-const AWS_USGS_GRAPH_URL = "https://fpjimyrgmhmggjpfc3usfpwgti0fnbap.lambda-url.us-east-2.on.aws/?time_series_id=";
-const USGS_TABLE_URL     = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=json&lang=en-US&limit=50000&skipGeometry=true&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&unit_of_measure=ft&time=PT2H&properties=monitoring_location_id,value,time&monitoring_location_id=";
-const USGS_GRAPH_URL     = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?limit=50000&properties=time,value&time=P7D&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&time_series_id="
-const BASE_URL = 'https://api.waterdata.usgs.gov/ogcapi/v0/collections/';
+const GAUGE_IDS                 = "USGS-213320158061401,USGS-213308158035601,USGS-213133158014201,USGS-16345000,USGS-16330000,USGS-16325000,USGS-16210500,USGS-16304200,USGS-16301050,USGS-16296500,USGS-16294900,USGS-16294100,USGS-16284200,USGS-16283200,USGS-16279200,USGS-16275000,USGS-16274100,USGS-16265000,USGS-16264600,USGS-16254000,USGS-16249000,USGS-16247100,USGS-16244000,USGS-16241600,USGS-16240500,USGS-16238500,USGS-16238000,USGS-16229000,USGS-16227500,USGS-16226700,USGS-16226400,USGS-16226200,USGS-16247150,USGS-16213000,USGS-16212601,USGS-16210200,USGS-16210100,USGS-16210000,USGS-16208400,USGS-16208000,USGS-16206600,USGS-16200000,USGS-16212490,USGS-16211800,USGS-16211600";
+const AWS_USGS_TABLE_URL        = "https://ofsyjumlizgqte56n2kznphw740iwjzb.lambda-url.us-east-2.on.aws/";
+const AWS_USGS_TABLE_CACHE_URL  = "https://ookj3pwjnfbg7iw7qmadxboiwy0bxzgy.lambda-url.us-east-2.on.aws/";
+const AWS_USGS_GRAPH_URL        = "https://fpjimyrgmhmggjpfc3usfpwgti0fnbap.lambda-url.us-east-2.on.aws/?time_series_id=";
+const AWS_USGS_GRAPH_CACHE_URL  = "https://e6ctj5yqbrefeysjl7ibrriwti0tcluj.lambda-url.us-east-2.on.aws/?time_series_id=";
+const USGS_TABLE_URL            = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=json&lang=en-US&limit=50000&skipGeometry=true&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&unit_of_measure=ft&time=PT2H&properties=monitoring_location_id,value,time&monitoring_location_id=";
+const USGS_GRAPH_URL            = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?limit=50000&properties=time,value&time=P7D&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&time_series_id="
+const BASE_URL                  = 'https://api.waterdata.usgs.gov/ogcapi/v0/collections/';
 const CONFIG_SETTINGS = 
     '?f=json' +
     '&lang=en-US' +
@@ -141,10 +142,6 @@ async function init() {
 
         hideLoading();
         return
-
-        const [presetLoad] = await Promise.all([
-            loadGaugeGraphs()
-        ]);
         
         startCountdown(CONFIG_VALUES["reload-time"]);
         
@@ -292,22 +289,30 @@ async function fetchAndWait(url) {
 async function fetchData(type, awsURL, backupURL) {
     let data;
     const start = performance.now();
-    console.log(`➤ ${type}: Starting API call at [${rawConvertDate(new Date().toISOString())}]`);
+    const fetchUUID = crypto.randomUUID();
+    console.log(`↗️ Starting API call at [${rawConvertDate(new Date().toISOString())}]\n      '${fetchUUID}': ${type}`);
 
     try {
         if (!AWS_ERROR) {
             data = await fetchAndWait(awsURL);
 
             if (!data || (Array.isArray(data) && data.length === 0)) {
-                AWS_ERROR = true;
+                if (type != 'graphUSGSCache') {
+                    AWS_ERROR = true;
+                }
+
                 throw new Error(`AWS data is empty: ${type}`);
             }
-            console.log(`✅ ${type}: fetched successfully in [${(performance.now() - start).toFixed(0)}ms]`);
+            console.log(`✅ fetched successfully in [${(performance.now() - start).toFixed(0)}ms]\n      '${fetchUUID}': ${type}`);
             switch(type) {
+                case 'tableUSGSCache':
                 case 'tableUSGS':
                     data = processUSGSTable(data);
                     break;
+                case 'graphUSGSCache':
                 case 'graphUSGS':
+                    console.log("fetchdata");
+                    console.log(data);
                     data = processUSGSGraph(data);
                     break;
             }
@@ -317,17 +322,32 @@ async function fetchData(type, awsURL, backupURL) {
         }
     } 
     catch (error) {
-        console.warn("AWS fetch failed or empty, trying backup...", error.message);
-        if (backupURL) {
-            const raw = await fetchAndWait(backupURL);
-            switch(type) {
-                case 'tableUSGS':
-                    data = processRawUSGSTable(raw);
-                    break;
-                case 'graphUSGS':
-                    data = processRawUSGSGraph(raw);
-                    break;
+        console.warn(`⚠️ AWS fetch failed or empty, trying backup...\n      '${fetchUUID}': ${type}\n      `, error.message);
+        try {
+            if (backupURL) {
+                const raw = await fetchAndWait(backupURL);
+                switch(type) {
+                    case 'tableUSGSCache':
+                    case 'tableUSGS':
+                        data = processRawUSGSTable(raw);
+                        break;
+                    case 'graphUSGSCache':
+                    case 'graphUSGS':
+                        data = processRawUSGSGraph(raw);
+                        console.log(data);
+                        break;
+                }
+                
+                if (!data || (Array.isArray(data) && data.length === 0)) {
+                    throw new Error(`Backup data is empty: ${type}`);
+                }
+                else {
+                    console.log(`✅ Backup fetched successfully in [${(performance.now() - start).toFixed(0)}ms]\n      '${fetchUUID}': ${type}`);
+                }
             }
+        }
+        catch (error) {
+            console.error(`❌ Backup fetch failed or empty\n      '${fetchUUID}': ${type}\n      `, error.message);
         }
     }
     return data;
@@ -388,17 +408,20 @@ function processUSGSTable(data) {
 
 function processRawUSGSGraph(rawData) {
     const formattedData = rawData.features.map(feature => ({
-      time: feature.properties.time,
+      time: rawConvertDate(feature.properties.time),
       value: parseFloat(feature.properties.value) 
     }));
     formattedData.sort((a, b) => new Date(a.time) - new Date(b.time));
 
-    return formattedData;
+    return {
+        updateTime: rawConvertDate(new Date()),
+        data: formattedData
+    };
 }
 
 function processUSGSGraph(data) {
     return {
-        updateTime: rawConvertDate(new Date()),
+        updateTime: rawConvertDate(data.updateTime),
         data: data.data.map(entry => ({
             ...entry,
             time: rawConvertDate(entry.time)
@@ -408,7 +431,7 @@ function processUSGSGraph(data) {
 
 // ── RELOAD ────────────────────────────────────────────────
 async function reloadGaugeTable() {
-    console.log(USGS_OVERVIEW);
+    const start = performance.now();
     const isRecentUSGS = isRecentTime(USGS_OVERVIEW.updateTime);
 
     if (!isRecentUSGS) {
@@ -427,8 +450,6 @@ async function reloadGaugeTable() {
             !(site.type === 'USGS' && isRecentUSGS)
         )
     }));
-
-    console.log(filteredAreas);
     
     filteredAreas.forEach((area) => {
         area.Sites.forEach((site) => {
@@ -440,14 +461,47 @@ async function reloadGaugeTable() {
         })
     });
 
-    console.log("finished reload");
+    console.log(`🔄 Gauges reloaded, took: [${(performance.now() - start).toFixed(0)}ms]`);
+}
+
+async function reloadGaugeGraph(site) {
+    const start = performance.now();
+    const chart = charts.find(chart => chart.id == site.id);
+    const isRecentUSGS = isRecentTime(chart.pullTime);
+    const locationItem = LOCATIONS[site.id].properties;
+    const timeSeries = locationItem.time_series_id;
+
+    if (!isRecentUSGS) {
+        const [graphResultsUSGS] = await Promise.all([
+            fetchData("graphUSGS", AWS_USGS_GRAPH_URL + timeSeries, USGS_TABLE_URL + timeSeries)
+        ]);
+
+        // update graph
+        const convertedData = convertDates(graphResultsUSGS);
+        const filteredRawData = filterDataByRange(convertedData, CONFIG_VALUES["gauge-graphs"]["default-scale"]);
+        const chartData = filteredRawData.map(item => ({
+            x: new Date(item.time).getTime(),
+            y: item.value
+        }));
+
+        chart.instance.updateSeries([{ data: chartData }], true);
+        chart.fullData = convertedData;
+        chart.pullTime = rawConvertDate(new Date().toISOString());
+
+        // update footer
+        const currentFooter = document.querySelector(`.chart-footer-${site.id}`);
+        const updatedFooter = createChartFooter(locationItem.thresholds, site.id, chartData);
+        currentFooter.replaceWith(updatedFooter);
+    }
+
+    console.log(`🔄 Graph reloaded, took: [${(performance.now() - start).toFixed(0)}ms]`);
 }
 
 // ── TABLE ─────────────────────────────────────────────────
 async function buildGaugeTable() {
     // pull cache data to build table
     const [overviewResultsUSGS] = await Promise.all([
-        fetchData("tableUSGS", AWS_USGS_TABLE_CACHE_URL, USGS_TABLE_URL + GAUGE_IDS)
+        fetchData("tableUSGSCache", AWS_USGS_TABLE_CACHE_URL, USGS_TABLE_URL + GAUGE_IDS)
     ]);
 
     USGS_OVERVIEW = overviewResultsUSGS;
@@ -515,7 +569,6 @@ function createSiteCard(site, color) {
 function addUSGSCard(article, id) {
     const data = USGS_OVERVIEW.gauges[id];
     if (!data || !data.val) {
-        console.log(`${id}: no data found`);
         return article;
     }
     
@@ -623,9 +676,9 @@ function favoriteCardToggle(id) {
 }
 
 async function clickTableCell(site, article, color) {
+    showLoading();
     if (article.classList.contains('selected')) {
         article.classList.remove('selected');
-        console.log("remove")
 
         const chartIndex = charts.findIndex(c => c.id === site.id);
 
@@ -643,22 +696,28 @@ async function clickTableCell(site, article, color) {
         updateGaugeBit(site.id, false);
     }
     else {
+
+
         article.classList.add('selected');
         let graphResults;
 
         // fetch data
         if (site.type == "USGS") {
             const timeSeries = LOCATIONS[site.id].properties.time_series_id;
-            graphResults = await fetchData("graphUSGS", AWS_USGS_GRAPH_URL + timeSeries, USGS_GRAPH_URL + timeSeries);
+            graphResults = await fetchData("graphUSGSCache", AWS_USGS_GRAPH_CACHE_URL + timeSeries, USGS_GRAPH_URL + timeSeries);
+            console.log("graph results");
+            console.log(graphResults);
         }
-
+        
         // build graph
         if (graphResults) {
             const convertedData = convertDates(graphResults);
-            const chartDiv = await createGraph(site, convertedData, color);
+            const chartDiv = await createGraph(site, convertedData, color, graphResults.updateTime);
             graphContainer.appendChild(chartDiv);
 
             charts[charts.length - 1].instance.render();
+
+            reloadGaugeGraph(site);
         }
 
         updateGaugeBit(site.id, true);
@@ -667,6 +726,7 @@ async function clickTableCell(site, article, color) {
     CONFIG_VALUES["gauge-graphs"]["sites"] = GAUGE_BITMAP;
     updateParams();
 
+    hideLoading();
     return;
 }
 
@@ -683,7 +743,7 @@ function convertDates(data) {
     }));
 }
 
-async function createGraph(site, data, color) {
+async function createGraph(site, data, color, time) {
     if (!data || data.length < 1) {
         return null;
     }
@@ -788,7 +848,8 @@ async function createGraph(site, data, color) {
         id: site.id,
         type: site.type,
         instance: newChart,
-        fullData: data
+        fullData: data,
+        pullTime: time
     });   
 
     return chartContainer;
@@ -810,7 +871,7 @@ function createChartFooter(thresholds, id, data) {
 
     const historic = HISTORIC[id]
     const chartFooter = document.createElement('div');
-    chartFooter.classList.add(`.chart-footer.${id}`);
+    chartFooter.classList.add(`.chart-footer-${id}`);
 
     let average = checkValue(thresholds.base);    // default to old data
 
