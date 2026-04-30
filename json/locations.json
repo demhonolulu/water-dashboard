@@ -1393,5 +1393,36 @@
       ]
     },
     "order": 45
+  },
+  "OA-0018": {
+    "properties": {
+      "id": "OA-0018",
+      "time_series_id": null,
+      "monitoring_location_number": "16247150",
+      "monitoring_location_name": "Opaeula 01 Reservoir (Honolulu County, HI)",
+      "name_short": "Opaeula 01 Reservoir",
+      "site_type_code": "LK",
+      "site_type": "Lake, Reservoir, Impoundment",
+      "hydrologic_unit_code": null,
+      "drainage_area": null,
+      "revision_note": null,
+      "revision_created": null,
+      "revision_modified": null,
+      "thresholds": {
+        "base": null,
+        "minor": null,
+        "major": null,
+        "action": null,
+        "notes": "0000"
+      }
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -158.0277,
+        21.5708
+      ]
+    },
+    "order": 46
   }
 }

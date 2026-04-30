@@ -39,16 +39,6 @@ const AWS_USGS_GRAPH_URL        = "https://fpjimyrgmhmggjpfc3usfpwgti0fnbap.lamb
 const AWS_USGS_GRAPH_CACHE_URL  = "https://e6ctj5yqbrefeysjl7ibrriwti0tcluj.lambda-url.us-east-2.on.aws/?time_series_id=";
 const USGS_TABLE_URL            = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=json&lang=en-US&limit=50000&skipGeometry=true&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&unit_of_measure=ft&time=PT2H&properties=monitoring_location_id,value,time&monitoring_location_id=";
 const USGS_GRAPH_URL            = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?limit=50000&properties=time,value&time=P7D&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&time_series_id="
-const BASE_URL                  = 'https://api.waterdata.usgs.gov/ogcapi/v0/collections/';
-const CONFIG_SETTINGS = 
-    '?f=json' +
-    '&lang=en-US' +
-    '&limit=50000' +
-    '&skipGeometry=true' + 
-    '&offset=0';
-let ALL_ITEMS_URL = BASE_URL;
-let USGS_OVERVIEW_URL = BASE_URL;
-let INDIVIDUAL_URL = BASE_URL;
 
 let countdownInterval;
 
@@ -516,7 +506,7 @@ async function reloadGaugeGraph(site) {
 
         currentFooter.replaceWith(updatedFooter);
 
-        console.log(`🔄${site.id}_RELOAD - Graph reloaded, took: [${(performance.now() - start).toFixed(0)}ms]`);
+        console.log(`🔄 ${site.id}_RELOAD - Graph reloaded, took: [${(performance.now() - start).toFixed(0)}ms]`);
     }
 }
 
