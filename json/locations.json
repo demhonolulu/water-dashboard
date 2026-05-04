@@ -90,7 +90,10 @@
         21.55235702734568
       ]
     },
-    "order": 3
+    "order": 3,
+    "dam" : {
+      "link": "https://dams.hawaii.gov/DamInformation.aspx?id=85AA28E4-EEBE-4C1F-900C-19D0B8EDA41D"
+    }
   },
   "USGS-16212490": {
     "properties": {
@@ -513,7 +516,7 @@
         "base": 12.5,
         "minor": null,
         "major": null,
-        "action": null,
+        "action": 37.8,
         "notes": "2000"
       }
     },
@@ -524,7 +527,10 @@
         21.555468138000858
       ]
     },
-    "order": 17
+    "order": 17,
+    "dam" : {
+      "link": "https://dams.hawaii.gov/DamInformation.aspx?id=9901527f-dbe4-4a65-bca8-aa6338845293"
+    }
   },
   "USGS-16206600": {
     "properties": {
@@ -586,7 +592,10 @@
         21.497357016356652
       ]
     },
-    "order": 19
+    "order": 19,
+    "dam": {
+      "link": "https://dams.hawaii.gov/DamInformation.aspx?id=8c7d5de9-fe3a-4be2-b95d-d5f9c18935b2"
+    }
   },
   "USGS-16211600": {
     "properties": {
@@ -1051,7 +1060,10 @@
         21.525912577503725
       ]
     },
-    "order": 34
+    "order": 34,
+    "dam" : {
+      "link": "https://dams.hawaii.gov/DamInformation.aspx?id=78561d64-b03e-4730-a63a-fc8fd5588c24"
+    }
   },
   "USGS-16210100": {
     "properties": {
@@ -1113,7 +1125,10 @@
         21.496468125040746
       ]
     },
-    "order": 36
+    "order": 36,
+    "dam" : {
+      "link": "https://dams.hawaii.gov/DamInformation.aspx?id=544d3655-872d-42a2-a6cb-bf8668bb49b3"
+    }
   },
   "USGS-16294100": {
     "properties": {
@@ -1398,7 +1413,7 @@
     "properties": {
       "id": "OA-0018",
       "time_series_id": null,
-      "monitoring_location_number": "16247150",
+      "monitoring_location_number": null,
       "monitoring_location_name": "Opaeula 01 Reservoir (Honolulu County, HI)",
       "name_short": "Opaeula 01 Reservoir",
       "site_type_code": "LK",
@@ -1423,6 +1438,111 @@
         21.5708
       ]
     },
-    "order": 46
+    "order": 46,
+    "dam" : {
+      "link": "https://dams.hawaii.gov/DamInformation.aspx?id=bc88c8d0-8e80-4e45-a953-2bea6fe7df2c"
+    }
+  },
+  "OA-0154": {
+    "properties": {
+      "id": "OA-0154",
+      "time_series_id": null,
+      "monitoring_location_number": null,
+      "monitoring_location_name": "Nuuanu Reservoir No. 1 nr Honolulu, HI",
+      "name_short": "Nuuanu Reservoir No. 1",
+      "site_type_code": "LK",
+      "site_type": "Lake, Reservoir, Impoundment",
+      "hydrologic_unit_code": null,
+      "drainage_area": null,
+      "revision_note": null,
+      "revision_created": null,
+      "revision_modified": null,
+      "thresholds": {
+        "base": null,
+        "minor": null,
+        "major": null,
+        "action": null,
+        "notes": "0000"
+      }
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.8368,
+        21.3391
+      ]
+    },
+    "order": 47,
+    "dam" : {
+      "link": "https://dams.hawaii.gov/DamInformation.aspx?id=fbeb89e1-3526-481a-b435-a4e3615cd3a7"
+    }
+  },
+  "OA-0001": {
+    "properties": {
+      "id": "OA-0001",
+      "time_series_id": null,
+      "monitoring_location_number": null,
+      "monitoring_location_name": "Nuuanu Reservoir No. 4 nr Honolulu, HI",
+      "name_short": "Nuuanu Reservoir No. 4",
+      "site_type_code": "LK",
+      "site_type": "Lake, Reservoir, Impoundment",
+      "hydrologic_unit_code": null,
+      "drainage_area": null,
+      "revision_note": null,
+      "revision_created": null,
+      "revision_modified": null,
+      "thresholds": {
+        "base": null,
+        "minor": null,
+        "major": null,
+        "action": null,
+        "notes": "0000"
+      }
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.807,
+        21.3536
+      ]
+    },
+    "order": 48,
+    "dam" : {
+      "link": "https://dams.hawaii.gov/DamInformation.aspx?id=818982de-5fda-4442-89f2-0d7e3ea2e1f4"
+    }
+  },
+  "OA-0124": {
+    "properties": {
+      "id": "OA-0124",
+      "time_series_id": null,
+      "monitoring_location_number": null,
+      "monitoring_location_name": "Kaneohe Dam",
+      "name_short": "Kaneohe Dam",
+      "site_type_code": "LK",
+      "site_type": "Lake, Reservoir, Impoundment",
+      "hydrologic_unit_code": null,
+      "drainage_area": null,
+      "revision_note": null,
+      "revision_created": null,
+      "revision_modified": null,
+      "thresholds": {
+        "base": null,
+        "minor": null,
+        "major": null,
+        "action": null,
+        "notes": "0000"
+      }
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -157.8049,
+        21.3905
+      ]
+    },
+    "order": 49,
+    "dam": {
+      "link": "https://dams.hawaii.gov/DamInformation.aspx?id=1E83FBF6-359F-41B8-972C-F42F47037862"
+    }
   }
 }

@@ -39,7 +39,8 @@
          {"type": "USGS", "id": "USGS-16265000", "visible": true},
          {"type": "USGS", "id": "USGS-16264600", "visible": true},
          {"type": "USGS", "id": "USGS-16254000", "visible": true},
-         {"type": "USGS", "id": "USGS-16249000", "visible": true}
+         {"type": "USGS", "id": "USGS-16249000", "visible": true},
+         {"type": "UHSLC", "id": "OA-0124", "visible": true}
       ]
    },
    {
@@ -58,7 +59,8 @@
          {"type": "USGS", "id": "USGS-16226700", "visible": false},
          {"type": "USGS", "id": "USGS-16226400", "visible": true},
          {"type": "USGS", "id": "USGS-16226200", "visible": true},
-         {"type": "USGS", "id": "USGS-16247150", "visible": false}
+         {"type": "UHSLC", "id": "OA-0154", "visible": true},
+         {"type": "UHSLC", "id": "OA-0001", "visible": true}
       ]
    },
    {
