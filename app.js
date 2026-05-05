@@ -39,6 +39,8 @@ const AWS_USGS_GRAPH_URL        = "https://fpjimyrgmhmggjpfc3usfpwgti0fnbap.lamb
 const AWS_USGS_GRAPH_CACHE_URL  = "https://e6ctj5yqbrefeysjl7ibrriwti0tcluj.lambda-url.us-east-2.on.aws/?time_series_id=";
 const AWS_UHSLC_TABLE_URL       = "https://rixj5y655m3fetk5tgyrar4mae0mdsin.lambda-url.us-east-2.on.aws/";
 const AWS_UHSLC_TABLE_CACHE_URL = "https://jjulfzgttjof6m5jcj4lifz4qq0kgrop.lambda-url.us-east-2.on.aws/";
+const AWS_UHSLC_GRAPH_URL       = "https://v5s6r3g7fjkyfhcb4e2yio7i7a0jjpjl.lambda-url.us-east-2.on.aws/?site_id=";
+const AWS_UHSLC_GRAPH_CACHE_URL = "https://jonvmpzzk2n5ftpnpxjzztyvhi0kqeop.lambda-url.us-east-2.on.aws/?site_id=";
 const USGS_TABLE_URL            = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=json&lang=en-US&limit=50000&skipGeometry=true&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&unit_of_measure=ft&time=PT2H&properties=monitoring_location_id,value,time&monitoring_location_id=";
 const USGS_GRAPH_URL            = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?limit=50000&properties=time,value&time=P7D&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&time_series_id=";
 const UHSLC_URL                 = "https://uhslc.soest.hawaii.edu/reservoir-new/_dash-update-component";
@@ -137,8 +139,10 @@ async function init() {
         GAUGE_REGISTRY = mapGaugeRegistry(LOCATIONS);
         GAUGE_BITMAP = CONFIG_VALUES["gauge-graphs"].sites ? decodeBase36ToBigInt(CONFIG_VALUES["gauge-graphs"].sites) : 0n;
 
+        // const output = await fetchAndWait(AWS_UHSLC_GRAPH_URL + "OA-0018");
+        // console.log(output);
+        
         await buildGaugeTable();
-
         
         // load graphs
         const preloadGauges = readBitMap(GAUGE_BITMAP);
@@ -342,6 +346,9 @@ async function fetchData(type, awsURL, backupURL, printId = null, body = null) {
                     }
                 }
             }
+            else {
+                console.error(`❌ ${printId} - No backup URL. Could not fetch data\n      '${fetchUUID}': ${type}\n      `);
+            }
         }
         catch (error) {
             console.error(`❌ ${printId} - Backup fetch failed or empty\n      '${fetchUUID}': ${type}\n      `, error.message);
@@ -522,41 +529,56 @@ async function reloadGaugeTable() {
         })
     });
 
-    console.log(`🔄 Gauges reloaded, took: [${(performance.now() - start).toFixed(0)}ms]`);
+    if (!isRecentUSGS || !isRecentUHSLC) {
+        console.log(`🔄 Table gauges reloaded, took: [${(performance.now() - start).toFixed(0)}ms]`);
+    }
 }
 
 async function reloadGaugeGraph(site) {
     const start = performance.now();
     const chart = charts.find(chart => chart.id == site.id);
-    const isRecentUSGS = isRecentTime(chart.pullTime);
+    const recent = !isRecentTime(chart.pullTime);
     const locationItem = LOCATIONS[site.id].properties;
     const timeSeries = locationItem.time_series_id;
 
-    if (!isRecentUSGS) {
-        const [graphResultsUSGS] = await Promise.all([
-            fetchData("graphUSGS", AWS_USGS_GRAPH_URL + timeSeries, USGS_TABLE_URL + timeSeries, `${site.id}_RELOAD`)
-        ]);
-
-        // update graph
-        const convertedData = convertDates(graphResultsUSGS);
-        const filteredRawData = filterDataByRange(convertedData, CONFIG_VALUES["gauge-graphs"]["default-scale"]);
-        const chartData = filteredRawData.map(item => ({
-            x: new Date(item.time).getTime(),
-            y: item.value
-        }));
-
-        chart.instance.updateSeries([{ data: chartData }], true);
-        chart.fullData = convertedData;
-        chart.pullTime = rawConvertDate(new Date().toISOString());
-
-        // update footer
-        const currentFooter = document.querySelector(`.chart-footer-${site.id}`);
-        const updatedFooter = createChartFooter(locationItem.thresholds, site.id, chartData);
-
-        currentFooter.replaceWith(updatedFooter);
-
-        console.log(`🔄 ${site.id}_RELOAD - Graph reloaded, took: [${(performance.now() - start).toFixed(0)}ms]`);
+    if (recent) {
+        return;
     }
+
+    const [graphResultsUSGS, graphResultsUHSLC] = await Promise.all([
+        site.type == "USGS" ? 
+            fetchData("graphUSGS", AWS_USGS_GRAPH_URL + timeSeries, USGS_TABLE_URL + timeSeries, `${site.id}-RELOAD`) : 
+            Promise.resolve(),
+        site.type == "UHSLC" ? 
+            fetchData("graphUHSLC", AWS_UHSLC_GRAPH_URL, UHSLC_URL, null, `${site.id}-RELOAD`) : 
+            Promise.resolve()
+    ]);
+
+    let convertedData;
+    if (site.type == "USGS") {
+        convertedData = convertDates(graphResultsUSGS);
+    }
+    else {
+        convertedData = convertDates(graphResultsUHSLC);
+    }
+
+    const filteredRawData = filterDataByRange(convertedData, CONFIG_VALUES["gauge-graphs"]["default-scale"]);
+    const chartData = filteredRawData.map(item => ({
+        x: new Date(item.time).getTime(),
+        y: item.value
+    }));
+
+    chart.instance.updateSeries([{ data: chartData }], true);
+    chart.fullData = convertedData;
+    chart.pullTime = rawConvertDate(new Date().toISOString());
+
+    // update footer
+    const currentFooter = document.querySelector(`.chart-footer-${site.id}`);
+    const updatedFooter = createChartFooter(locationItem.thresholds, site.id, chartData);
+
+    currentFooter.replaceWith(updatedFooter);
+
+    console.log(`🔄 ${site.id}_RELOAD - Graph reloaded, took: [${(performance.now() - start).toFixed(0)}ms]`);
 }
 
 // ── TABLE ─────────────────────────────────────────────────
@@ -575,6 +597,7 @@ async function buildGaugeTable() {
     UHSLC_OVERVIEW = overviewResultsUHSLC;
 
     console.log(USGS_OVERVIEW);
+    console.log(UHSLC_OVERVIEW);
 
     AREAS.forEach((area) => {
         area.Sites.forEach((site) => {
@@ -779,7 +802,11 @@ async function clickTableCell(site, article, color) {
         // fetch data
         if (site.type == "USGS") {
             const timeSeries = LOCATIONS[site.id].properties.time_series_id;
-            graphResults = await fetchData("graphUSGSCache", AWS_USGS_GRAPH_CACHE_URL + timeSeries, USGS_GRAPH_URL + timeSeries, `${site.id}`);
+            graphResults = await fetchData("graphUSGSCache", AWS_USGS_GRAPH_CACHE_URL + timeSeries, USGS_GRAPH_URL + timeSeries, site.id);
+        }
+
+        if (site.type == "UHSLC") {
+            graphResults = await fetchData("graphUHSLCCache", AWS_UHSLC_GRAPH_CACHE_URL + site.id, null, site.id);
         }
         
         // build graph
@@ -1048,6 +1075,7 @@ function graphClick(site, event) {
     const locationItem = LOCATIONS[site.id];
     const historicItem = HISTORIC[site.id];
     const veociItem = VEOCI_NOTES.find(obj => obj.SiteID === site.id.replace("USGS-", ""));
+    const siteColor = getSiteColor(site);
 
     console.log(locationItem);
     console.log(historicItem);
@@ -1055,15 +1083,15 @@ function graphClick(site, event) {
 
     const headerText = popupOverlay.querySelector('.popup-header-text');
     headerText.textContent = locationItem.properties.monitoring_location_name;
+    headerText.style.color = siteColor;
 
     const body = popupOverlay.querySelector('.popup-body');
     body.innerHTML = '';
 
-    const nwsNotes = veociItem["NWS Notes"];
-    const eocNotes = veociItem["EOC Procedures"];
+    const nwsNotes = veociItem?.["NWS Notes"];
+    const eocNotes = veociItem?.["EOC Procedures"] ?? null;
 
     // map of location
-    console.log(`https://www.google.com/maps?q=${locationItem.geometry.coordinates[1]},${locationItem.geometry.coordinates[0]}`);
     const mapDiv = document.createElement('div');
     mapDiv.style.height = '400px';
     mapDiv.innerHTML = `
@@ -1077,17 +1105,30 @@ function graphClick(site, event) {
         </iframe>
     `;
     body.appendChild(mapDiv);
+    body.appendChild(document.createElement('br'));
 
-    if (nwsNotes != null && nwsNotes != "") {
-        const nwsDiv = document.createElement('div');
-        nwsDiv.textContent = nwsNotes;
-        body.appendChild(nwsDiv);
+    if (locationItem?.dam?.link != "") {
+        const graphLink = document.createElement('a');
+        graphLink.href = locationItem.dam.link;
+        graphLink.textContent = 'DLNR Dam Information Link';
+        graphLink.target = '_blank';
+
+        body.appendChild(graphLink);
+        body.appendChild(document.createElement('br'));
     }
 
-    if (eocNotes != null && eocNotes != "" && CONFIG_VALUES.user == "dem") {
-        const eocDiv = document.createElement('div');
-        eocDiv.textContent = eocNotes;
-        body.appendChild(eocDiv);
+    const nwsDiv = createPopupEntry("National Weather Service Notes", nwsNotes, siteColor);
+    if (nwsDiv) {
+        body.appendChild(nwsDiv);
+        body.appendChild(document.createElement('br'));
+    }
+
+    if (CONFIG_VALUES.user == "dem") {
+        const eocDiv = createPopupEntry("Department of Emergency Management Notes", eocNotes, siteColor);
+        if (eocDiv) {
+            body.appendChild(eocDiv);
+            body.appendChild(document.createElement('br'));
+        }
     }
 
     const tableDiv = document.createElement('div');
@@ -1107,23 +1148,54 @@ function graphClick(site, event) {
         {"title": "Action Threshold", "value": `${locationItem.properties.thresholds.action} ft`, "color": getWarningColor('action')}
     ]));
 
-    tableDiv.appendChild(createDetailsTable(`Historic Month (${printMonth(historicItem.currentMonth.month)} ${historicItem.yearly.year})`, [
-        {"title": "Average", "value": `${historicItem.currentMonth.average.toFixed(2)} ft`},
-        {"title": "Max", "value": `${historicItem.currentMonth.max.toFixed(2)} ft`, "color": getCurrentThreshold(historicItem.currentMonth.max, locationItem)},
-        {"title": "Min", "value": `${historicItem.currentMonth.min.toFixed(2)} ft`},
-        {"title": "Max date", "value": `${formatDateTime(historicItem.currentMonth.max_timestamp)}`, "color": "#b9b9b9"},
-        {"title": "Min date", "value": `${formatDateTime(historicItem.currentMonth.min_timestamp)}`, "color": "#b9b9b9"}
-    ]));
+    if (historicItem?.currentMonth) {
+        tableDiv.appendChild(createDetailsTable(`Historic Month (${printMonth(historicItem.currentMonth.month)} ${historicItem.yearly.year})`, [
+            {"title": "Average", "value": `${historicItem.currentMonth.average.toFixed(2)} ft`},
+            {"title": "Max", "value": `${historicItem.currentMonth.max.toFixed(2)} ft`, "color": getCurrentThreshold(historicItem.currentMonth.max, locationItem)},
+            {"title": "Min", "value": `${historicItem.currentMonth.min.toFixed(2)} ft`},
+            {"title": "Max date", "value": `${formatDateTime(historicItem.currentMonth.max_timestamp)}`, "color": "#b9b9b9"},
+            {"title": "Min date", "value": `${formatDateTime(historicItem.currentMonth.min_timestamp)}`, "color": "#b9b9b9"}
+        ]));
+    }
 
-    tableDiv.appendChild(createDetailsTable(`Historic Year (${historicItem.yearly.year})`, [
-        {"title": "Average", "value": `${historicItem.yearly.yearly_average.toFixed(2)} ft`, "color": textColor},
-        {"title": "Max", "value": `${historicItem.yearly.overall_max.toFixed(2)} ft`},
-        {"title": "Min", "value": `${historicItem.yearly.overall_min.toFixed(2)} ft`},
-        {"title": "Highest average", "value": `${printMonth(historicItem.yearly.overall_max_month)}`, "color": "#b9b9b9"},
-        {"title": "Lowest average", "value": `${printMonth(historicItem.yearly.overall_min_month)}`, "color": "#b9b9b9"}
-    ]));
+    if (historicItem?.yearly) {
+        tableDiv.appendChild(createDetailsTable(`Historic Year (${historicItem.yearly.year})`, [
+            {"title": "Average", "value": `${historicItem.yearly.yearly_average.toFixed(2)} ft`, "color": textColor},
+            {"title": "Max", "value": `${historicItem.yearly.overall_max.toFixed(2)} ft`},
+            {"title": "Min", "value": `${historicItem.yearly.overall_min.toFixed(2)} ft`},
+            {"title": "Highest average", "value": `${printMonth(historicItem.yearly.overall_max_month)}`, "color": "#b9b9b9"},
+            {"title": "Lowest average", "value": `${printMonth(historicItem.yearly.overall_min_month)}`, "color": "#b9b9b9"}
+        ]));
+    }
 
     body.appendChild(tableDiv);
+}
+
+function createPopupEntry(headerText, bodyText, color) {
+    if (!bodyText || bodyText == "") {
+        return null;
+    }
+    
+    const container = document.createElement('div');
+    const header = document.createElement('div');
+    const body = document.createElement('div');
+
+    header.textContent = headerText;
+    header.fontWeight = "bold";
+    header.style.color = color;
+    body.textContent = bodyText;
+
+    container.appendChild(header);
+    container.appendChild(body);
+    return container;
+}
+
+function getSiteColor(site) {
+    const area = AREAS.find(area => 
+        area.Sites.some(s => s.id === site.id)
+    );
+    const color = area?.Color ?? null;
+    return color;
 }
 
 function printMonth(dateString) {

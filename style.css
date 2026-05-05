@@ -147,7 +147,7 @@ h6 {
   color: var(--text-primary, #f9fafb);
   border-radius: 8px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-  width: min(500px, 90vw);
+  width: 80%;
   max-height: 85vh;
   display: flex;
   flex-direction: column;
@@ -162,9 +162,8 @@ h6 {
 }
 
 .popup-header-text {
-  font-size: 16px;
-  font-weight: 600;
-  color: #f9fafb;
+  font-size: 21px;
+  font-weight: bold;
 }
 
 .popup-close {
@@ -188,4 +187,28 @@ h6 {
   overflow-y: auto;
   flex: 1;
   color: #d1d5db;
+}
+
+.tables-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.details-table-container {
+  flex: 1;
+  background-color: var(--pico-background-color);
+  border-radius: 8px;
+  overflow: hidden;
+  min-width: 200px;
+}
+
+.details-table-container .table-header {
+  padding: 10px 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
 }
