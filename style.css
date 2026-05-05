@@ -48,6 +48,25 @@
   flex-direction: column;
 }
 
+#table-header-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 1rem;
+}
+
+#table-header-container article {
+  margin-bottom: 0 !important; 
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+hr {
+  border: none;
+  border-top: 3px solid #ffffff !important;
+}
+
 .gauge-card {
   position: relative;
   background: var(--card-bg);

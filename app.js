@@ -106,13 +106,13 @@ Chart.register(thresholdLinesPlugin);
 
 
 // ── DOM refs ──────────────────────────────────────────────
-const tableContainer = document.getElementById('table-container');
-const graphContainer = document.getElementById('graph-container');
-const graphs         = document.getElementById('allGraphs');
-const sectionTable   = document.getElementById('sectionTable');
-const sectionButtons = document.getElementById('sectionButtons');
-const sectionGraphs  = document.getElementById('sectionGraphs');
-const popupOverlay   = document.getElementById('popupOverlay');
+const tableContainer        = document.getElementById('table-container');
+const tableHeaderContainer  = document.getElementById('table-header-container');
+const graphContainer        = document.getElementById('graph-container');
+const sectionTable          = document.getElementById('sectionTable');
+const sectionButtons        = document.getElementById('sectionButtons');
+const sectionGraphs         = document.getElementById('sectionGraphs');
+const popupOverlay          = document.getElementById('popupOverlay');
 
 // ── Init ──────────────────────────────────────────────────
 async function init() {
@@ -491,8 +491,12 @@ function processRawUHSLCGraph(rawData) {
 // ── RELOAD ────────────────────────────────────────────────
 async function reloadGaugeTable() {
     const start = performance.now();
+
     const isRecentUSGS = isRecentTime(USGS_OVERVIEW.updateTime);
     const isRecentUHSLC = isRecentTime(UHSLC_OVERVIEW.updateTime);
+    console.log(`GAUGE_TABLE - Reload fetch results at [${rawConvertDate(new Date().toISOString())}]`);
+    console.log(USGS_OVERVIEW);
+    console.log(UHSLC_OVERVIEW);
 
     const [overviewResultsUSGS, overviewResultsUHSLC] = await Promise.all([
         !isRecentUSGS ? 
@@ -537,7 +541,7 @@ async function reloadGaugeTable() {
 async function reloadGaugeGraph(site) {
     const start = performance.now();
     const chart = charts.find(chart => chart.id == site.id);
-    const recent = !isRecentTime(chart.pullTime);
+    const recent = isRecentTime(chart.pullTime);
     const locationItem = LOCATIONS[site.id].properties;
     const timeSeries = locationItem.time_series_id;
 
@@ -550,7 +554,7 @@ async function reloadGaugeGraph(site) {
             fetchData("graphUSGS", AWS_USGS_GRAPH_URL + timeSeries, USGS_TABLE_URL + timeSeries, `${site.id}-RELOAD`) : 
             Promise.resolve(),
         site.type == "UHSLC" ? 
-            fetchData("graphUHSLC", AWS_UHSLC_GRAPH_URL, UHSLC_URL, null, `${site.id}-RELOAD`) : 
+            fetchData("graphUHSLC", AWS_UHSLC_GRAPH_URL + site.id, UHSLC_URL, null, `${site.id}-RELOAD`) : 
             Promise.resolve()
     ]);
 
@@ -578,7 +582,7 @@ async function reloadGaugeGraph(site) {
 
     currentFooter.replaceWith(updatedFooter);
 
-    console.log(`🔄 ${site.id}_RELOAD - Graph reloaded, took: [${(performance.now() - start).toFixed(0)}ms]`);
+    console.log(`🔄 ${site.id}-RELOAD - Graph reloaded, took: [${(performance.now() - start).toFixed(0)}ms]`);
 }
 
 // ── TABLE ─────────────────────────────────────────────────
@@ -596,12 +600,14 @@ async function buildGaugeTable() {
     USGS_OVERVIEW = overviewResultsUSGS;
     UHSLC_OVERVIEW = overviewResultsUHSLC;
 
+    console.log(`GAUGE_TABLE - Inital load fetch results at [${rawConvertDate(new Date().toISOString())}]`);
     console.log(USGS_OVERVIEW);
     console.log(UHSLC_OVERVIEW);
-
+    
     AREAS.forEach((area) => {
+        tableHeaderContainer.appendChild(createAreaCard(area));
+        
         area.Sites.forEach((site) => {
-            
             const data = site.type == "USGS" ?  USGS_OVERVIEW.gauges[site.id] : UHSLC_OVERVIEW.gauges[site.id];
             const card = createSiteCard(site, data, area.Color);
             if (card) {
@@ -614,6 +620,21 @@ async function buildGaugeTable() {
     reloadGaugeTable();
 }
 
+function createAreaCard(area) {
+    const article = document.createElement('article');
+    article.classList.add('gauge-card', `${area.Area.replace(/\s+/g, '-')}`);
+    article.style.borderColor = area.Color;
+    article._abortController = new AbortController();
+    const signal = article._abortController.signal;
+
+    const titleText = document.createElement('h6');
+    titleText.style.margin = "0";
+    titleText.textContent = `${area.Area}`;
+    titleText.style.color = area.Color;
+    article.appendChild(titleText);
+
+    return article;
+}
 function createSiteCard(site, data, color) {
     if (!site.visible) {
         return null;
