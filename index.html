@@ -20,9 +20,11 @@
   <div id="app">
     <h1>
         DEM Oahu Water Dashboard
-        <button id="displayButton" onclick="changeDisplayMode()" style="margin-left: 15px; font-weight: bold;">1</button>
+        <button id="settings-button" onclick="toggleSettings()" style="font-weight: bold;">▽</button>
         <span id="timer" style="margin-left: 15px; color: #ffffff;"></span>
     </h1>
+    
+    <div id="settings-container"></div>
 
     <section id="sectionTable">
       <div id="table-header-container"></div>
@@ -38,7 +40,7 @@
       <div class="popup-content" onclick="event.stopPropagation()">
         <div class="popup-header">
             <div class="popup-header-text">Popup Title</div>
-            <button class="popup-close" onclick="popupClose()">✖</button>
+            <button class="popup-close" onclick="popupClose()">✕</button>
         </div>
         <div class="popup-body"></div>
       </div>

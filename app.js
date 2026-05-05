@@ -524,7 +524,7 @@ async function reloadGaugeTable() {
         area.Sites.forEach((site) => {
             const data = site.type == "USGS" ? USGS_OVERVIEW.gauges[site.id] : UHSLC_OVERVIEW.gauges[site.id];
             const currentArticle = document.querySelector(`.gauge-card.USGS.card-${site.id}`);
-            const updatedArticle = createSiteCard(site, data, area.Color);
+            const updatedArticle = createSiteCard(site, data, area);
 
             if (currentArticle && updatedArticle) {
                 currentArticle._abortController?.abort();
@@ -609,7 +609,7 @@ async function buildGaugeTable() {
         
         area.Sites.forEach((site) => {
             const data = site.type == "USGS" ?  USGS_OVERVIEW.gauges[site.id] : UHSLC_OVERVIEW.gauges[site.id];
-            const card = createSiteCard(site, data, area.Color);
+            const card = createSiteCard(site, data, area);
             if (card) {
                 tableContainer.appendChild(card);
             }
@@ -622,7 +622,7 @@ async function buildGaugeTable() {
 
 function createAreaCard(area) {
     const article = document.createElement('article');
-    article.classList.add('gauge-card', `${area.Area.replace(/\s+/g, '-')}`);
+    article.classList.add('gauge-card', 'gauge-card-header', `${area.Area.replace(/\s+/g, '-')}`);
     article.style.borderColor = area.Color;
     article._abortController = new AbortController();
     const signal = article._abortController.signal;
@@ -633,16 +633,78 @@ function createAreaCard(area) {
     titleText.style.color = area.Color;
     article.appendChild(titleText);
 
+    article.addEventListener('click', () => {
+        filterByArea(area, article);
+    }, { signal });
+
     return article;
 }
-function createSiteCard(site, data, color) {
+
+function filterByArea(area, article) {
+    const articles = tableContainer.querySelectorAll('article');
+    const graphs = graphContainer.querySelectorAll('div.chart-container');
+    const headers = tableHeaderContainer.querySelectorAll('article');
+    const areaClass = area.Area.replace(/\s+/g, '-');
+
+    tableHeaderContainer.className = tableHeaderContainer.classList.contains(areaClass) ? '' : areaClass;
+    const selected = tableHeaderContainer.className !== '';
+
+    // table cells
+    articles.forEach(art => {
+        if (selected) {
+            // area selected and apply filter
+            if (art.classList.contains(areaClass)) {
+                art.classList.remove('hidden');
+            } 
+            else {
+                art.classList.add('hidden');
+            }
+        }
+        else {
+            // clear filter
+            art.classList.remove('hidden');
+        }
+    });
+
+    headers.forEach(art => {
+        art.classList.remove('filter-active');
+    });
+
+    if (selected) {
+        article.style.setProperty('--area-color', area.Color);
+        article.classList.add('filter-active');
+    }
+
+    // graphs
+    graphs.forEach(graph => {
+        if (selected) {
+            // area selected and apply filter
+            if (graph.classList.contains(areaClass)) {
+                graph.classList.remove('hidden');
+            } 
+            else {
+                graph.classList.add('hidden');
+            }
+        }
+        else {
+            // clear filter
+            graph.classList.remove('hidden');
+        }
+    });
+}
+
+function createSiteCard(site, data, area) {
     if (!site.visible) {
         return null;
     }
 
     const locationItem = LOCATIONS[site.id];
+    const color = area.Color;
+
     let article = document.createElement('article');
-    article.classList.add('gauge-card', site.type, `card-${site.id}`);
+    console.log(area.Area);
+    console.log();
+    article.classList.add('gauge-card', site.type, `card-${site.id}`, `${area.Area.replace(/\s+/g, '-')}`);
     article.style.borderColor = color;
     article._abortController = new AbortController();
     const signal = article._abortController.signal;
@@ -672,13 +734,6 @@ function createSiteCard(site, data, color) {
     titleText.style.color = color;
     article.appendChild(titleText);
 
-    /*
-    if (site.type == "USGS") {
-        article = addUSGSCard(article, site.id);
-        article.addEventListener('click', () => {
-            clickTableCell(site, article, color);
-        }, { signal });
-    }*/
     article = addCard(article, site.id, data);
     article.addEventListener('click', () => {
         clickTableCell(site, article, color);
@@ -872,10 +927,32 @@ async function createGraph(site, data, color, time) {
     const locationItem = LOCATIONS[site.id];
     const chartContainer = document.createElement('div');
     chartContainer.id = `chart-container-${site.id}`;
-    chartContainer.addEventListener('click', (event) => graphClick(site, event));
+    chartContainer.style.position = "relative";
+    
+    chartContainer._abortController = new AbortController();
+    const signal = chartContainer._abortController.signal;
+
+    const area = getSiteArea(site);
+    const areaClass = area.Area.replace(/\s+/g, '-');
+    chartContainer.classList.add(`${areaClass}`, 'chart-container');
+
+    // close graph
+    const closeGraphIcon = document.createElement('span');
+    closeGraphIcon.innerHTML = "✕";
+    closeGraphIcon.style.color = "#FF0000"
+    closeGraphIcon.classList.add('close-graph-icon');
+    closeGraphIcon.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const article = document.querySelector(`.gauge-card.${site.type}.card-${site.id}`);
+        clickTableCell(site, article, color)
+    }, { signal });
+    chartContainer.appendChild(closeGraphIcon);
 
     const chartDiv = document.createElement('div');
     chartDiv.classList.add('chart', site.type, `chart-${site.id}`);
+    chartDiv.addEventListener('click', (event) => {
+        graphClick(site, event)
+    }, { signal });
 
     const filteredRawData = filterDataByRange(data, CONFIG_VALUES["gauge-graphs"]["default-scale"]);
     const chartData = filteredRawData.map(item => ({
@@ -1047,6 +1124,23 @@ function getWarningColor(threshold) {
 }
 
 // ── Button click ──────────────────────────────────────────
+function toggleSettings() {
+    let mode;
+    switch(CONFIG_VALUES["display-mode"]) {
+        case 1:
+            mode = 2;
+            break;
+        case 2:
+            mode = 3;
+            break;
+        case 3:
+            mode = 1;
+            break;
+    }
+
+    updateDisplayMode(mode);
+}
+
 function changeDisplayMode() {
     let mode;
     switch(CONFIG_VALUES["display-mode"]) {
@@ -1096,7 +1190,7 @@ function graphClick(site, event) {
     const locationItem = LOCATIONS[site.id];
     const historicItem = HISTORIC[site.id];
     const veociItem = VEOCI_NOTES.find(obj => obj.SiteID === site.id.replace("USGS-", ""));
-    const siteColor = getSiteColor(site);
+    const siteColor = getSiteArea(site).Color;
 
     console.log(locationItem);
     console.log(historicItem);
@@ -1211,12 +1305,11 @@ function createPopupEntry(headerText, bodyText, color) {
     return container;
 }
 
-function getSiteColor(site) {
+function getSiteArea(site) {
     const area = AREAS.find(area => 
         area.Sites.some(s => s.id === site.id)
     );
-    const color = area?.Color ?? null;
-    return color;
+    return area;
 }
 
 function printMonth(dateString) {

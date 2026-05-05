@@ -60,6 +60,16 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  padding: 0.25rem 0.25rem 0.25rem 0.25rem;
+  text-align: center;
+}
+
+.filter-active {
+  background-color: var(--area-color) !important;
+}
+
+.filter-active * {
+    color: #000000 !important;
 }
 
 hr {
@@ -81,6 +91,11 @@ hr {
 .gauge-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.gauge-card-header h6 {
+  margin: 0;
+  text-align: center;
 }
 
 h6 {
@@ -121,6 +136,24 @@ h6 {
 .icon-ST-CA  .site-icon::before { content: "≋"; }
 .icon-LK     .site-icon::before { content: "⊓"; }
 .icon-ST-DCH .site-icon::before { content: "⊔"; }
+
+.close-graph-icon {
+  position: absolute;
+  top: 1.5rem;
+  right: 0.5rem;
+  z-index: 100;
+
+  cursor: pointer;
+
+  font-size: 1rem; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-graph-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
 
 .up    { color: #D9EAD3; }
 .down  { color: #FFB3B3; }
@@ -230,4 +263,23 @@ h6 {
   font-weight: bold;
   display: flex;
   justify-content: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#settings-button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 2rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#settings-button:hover {
+  background-color: #246aa0;
 }
