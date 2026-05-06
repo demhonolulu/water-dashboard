@@ -20,14 +20,28 @@
   <div id="app">
     <h1>
         DEM Oahu Water Dashboard
-        <button id="settings-button" onclick="toggleSettings()" style="font-weight: bold;">▽</button>
+        <button id="settings-button" onclick="toggleSettings(this)" style="font-weight: bold;">▽</button>
         <span id="timer" style="margin-left: 15px; color: #ffffff;"></span>
     </h1>
-    
-    <div id="settings-container"></div>
+
+    <div id="settings-container" style="display: none;">
+      <hr>
+      <div class="details-table-container settings">
+        <table>
+          <thead>
+            <tr>
+              <th colspan="2"><strong>Water Dashboard Settings</strong></th>
+            </tr>
+          </thead>
+          <tbody id="settings-table-body">
+          </tbody>
+        </table>
+      </div>
+      <hr>
+    </div>
 
     <section id="sectionTable">
-      <div id="table-header-container"></div>
+      <div id="table-header-container" style="position: sticky; top: 0; z-index: 100;"></div>
       <hr>
       <div id="table-container"></div>
     </section>

@@ -65,6 +65,7 @@ let countdownInterval;
 
 // configs
 let CONFIG_VALUES;
+let SETTINGS_CREATED = false;
 
 const overlay = document.getElementById('loading-overlay');
 function showLoading() { overlay.classList.add('active');    }
@@ -109,6 +110,8 @@ Chart.register(thresholdLinesPlugin);
 const tableContainer        = document.getElementById('table-container');
 const tableHeaderContainer  = document.getElementById('table-header-container');
 const graphContainer        = document.getElementById('graph-container');
+const settingsContainer     = document.getElementById('settings-container');
+const settingsTable         = document.getElementById('settings-table-body');
 const sectionTable          = document.getElementById('sectionTable');
 const sectionButtons        = document.getElementById('sectionButtons');
 const sectionGraphs         = document.getElementById('sectionGraphs');
@@ -585,6 +588,34 @@ async function reloadGaugeGraph(site) {
     console.log(`🔄 ${site.id}-RELOAD - Graph reloaded, took: [${(performance.now() - start).toFixed(0)}ms]`);
 }
 
+function updateGraphTimeScale(site) {
+    const locationItem = LOCATIONS[site.id].properties;
+    const chart = charts.find(chart => chart.id == site.id);
+    const filteredRawData = filterDataByRange(chart.fullData, CONFIG_VALUES["gauge-graphs"]["default-scale"]);
+    const chartData = filteredRawData.map(item => ({
+        x: new Date(item.time).getTime(),
+        y: item.value
+    }));
+
+    console.log(chartData);
+    chart.instance.updateOptions({
+        xaxis: {
+            min: undefined,
+            max: undefined,
+        },
+        yaxis: {
+            min: undefined,
+            max: undefined,
+        }
+    }, false, true);
+    chart.instance.updateSeries([{ data: chartData }], true);
+
+    // update footer
+    const currentFooter = document.querySelector(`.chart-footer-${site.id}`);
+    const updatedFooter = createChartFooter(locationItem.thresholds, site.id, chartData);
+
+    currentFooter.replaceWith(updatedFooter);
+}
 // ── TABLE ─────────────────────────────────────────────────
 async function buildGaugeTable() {
     // const [overviewResultsUHSLC] = await Promise.all([
@@ -702,8 +733,6 @@ function createSiteCard(site, data, area) {
     const color = area.Color;
 
     let article = document.createElement('article');
-    console.log(area.Area);
-    console.log();
     article.classList.add('gauge-card', site.type, `card-${site.id}`, `${area.Area.replace(/\s+/g, '-')}`);
     article.style.borderColor = color;
     article._abortController = new AbortController();
@@ -1124,46 +1153,157 @@ function getWarningColor(threshold) {
 }
 
 // ── Button click ──────────────────────────────────────────
-function toggleSettings() {
-    let mode;
-    switch(CONFIG_VALUES["display-mode"]) {
-        case 1:
-            mode = 2;
-            break;
-        case 2:
-            mode = 3;
-            break;
-        case 3:
-            mode = 1;
-            break;
-    }
+function toggleSettings(button) {
+    const isExpanded = button.classList.contains('expanded');
+    if (isExpanded) {
+        button.textContent = "▽";
+        button.classList.remove('expanded');
+        settingsContainer.style.display = 'none';
+    } else {
+        button.textContent = "△";
+        button.classList.add('expanded');
+        settingsContainer.style.display = '';
 
-    updateDisplayMode(mode);
+        if (!SETTINGS_CREATED) {
+            createSettings();
+        }
+    }
 }
 
-function changeDisplayMode() {
-    let mode;
-    switch(CONFIG_VALUES["display-mode"]) {
-        case 1:
-            mode = 2;
-            break;
-        case 2:
-            mode = 3;
-            break;
-        case 3:
-            mode = 1;
-            break;
+function createSettings() {
+    SETTINGS_CREATED = true;
+    //settingsTable
+
+    // display mode
+    const isDisplayMode = (val) => {
+        return CONFIG_VALUES["display-mode"] == val ? 'checked' : '';
+    }
+    settingsTable.appendChild(createDetailsTableRow("Display Mode", 
+        `<span style="display:flex; justify-content:space-between; width:100%;">
+            <label><input type="radio" name="display-mode-input" value="1" ${isDisplayMode(1)}>Standard</label>
+            <label><input type="radio" name="display-mode-input" value="2" ${isDisplayMode(2)}>Table View</label>
+            <label><input type="radio" name="display-mode-input" value="3" ${isDisplayMode(3)}>Graph View</label>
+        </span>`,
+        null
+    ));
+
+    // reload time
+    settingsTable.appendChild(createDetailsTableRow("Reload Time (minutes)", `<input type="number" id="reload-time-input" value="${(CONFIG_VALUES["reload-time"]/60)}" min="5" max="60">`, color = null));
+
+    // user
+    settingsTable.appendChild(createDetailsTableRow("Current User", `<input type="text" id="current-user-input" value="${CONFIG_VALUES["user"]}">`, color = null));
+    
+    // table columns
+    settingsTable.appendChild(createDetailsTableRow("Overview Table Columns", `<input type="number" id="table-columns-input" value="${CONFIG_VALUES["gauge-tables"].columns}" min="1" max="60">`, color = null));
+    
+    // graph columns
+    settingsTable.appendChild(createDetailsTableRow("Gauge Graph Columns", `<input type="number" id="graph-columns-input" value="${CONFIG_VALUES["gauge-graphs"].columns}" min="1" max="10">`, color = null));
+
+    // graph scale
+    const isGraphScale = (val) => {
+        return CONFIG_VALUES["gauge-graphs"]["default-scale"] == val ? 'checked' : '';
+    }
+    settingsTable.appendChild(createDetailsTableRow("Gauge Graph Timescale", 
+        `<span style="display:flex; justify-content:space-between; width:100%;">
+            <label><input type="radio" name="graph-scale-input" value="h" ${isGraphScale('h')}>Last Hour</label>
+            <label><input type="radio" name="graph-scale-input" value="d" ${isGraphScale('d')}>Last Day</label>
+            <label><input type="radio" name="graph-scale-input" value="w" ${isGraphScale('w')}>Last Week</label>
+        </span>`,
+        null
+    ));
+
+    const div = document.querySelector('.details-table-container.settings');
+    div.innerHTML += `
+    <div style="display:flex; justify-content:flex-end;">
+        <button onclick="updateSettings()">Update</button>
+    </div>`
+}
+
+function updateSettings() {
+    const displayMode = document.querySelector('input[name="display-mode-input"]:checked')?.value;
+    const reloadTime = document.getElementById('reload-time-input').value;
+    const user = document.getElementById('current-user-input').value;
+    const tableColumns = document.getElementById('table-columns-input').value;
+    const graphColumns = document.getElementById('graph-columns-input').value;
+    const graphScale = document.querySelector('input[name="graph-scale-input"]:checked')?.value;
+
+    const checkValid = (val, source) => { return (val && val != source) };
+    const printUpdate = (title, val) => {
+        console.log(`⚙️ Settings Updated: ${title} - ${val} at [${rawConvertDate(new Date().toISOString())}]`)
     }
 
-    updateDisplayMode(mode);
+    if (checkValid(displayMode, CONFIG_VALUES["display-mode"])) {
+        CONFIG_VALUES["display-mode"] = displayMode;
+        updateDisplayMode(displayMode);
+
+        printUpdate("display-mode", displayMode);
+    }
+
+    if (checkValid(reloadTime * 60, CONFIG_VALUES["reload-time"])) {
+        CONFIG_VALUES["reload-time"] = reloadTime * 60;
+        //updateDisplayMode(displayMode);
+
+        printUpdate("reload-time", reloadTime);
+    }
+
+    if (checkValid(user, CONFIG_VALUES["user"])) {
+        CONFIG_VALUES["user"] = user;
+
+        printUpdate("user", user);
+    }
+
+    if (checkValid(tableColumns, CONFIG_VALUES["gauge-tables"]["columns"])) {
+        CONFIG_VALUES["gauge-tables"]["columns"] = tableColumns;
+        document.getElementById('table-container').style.gridTemplateColumns = `repeat(${tableColumns}, 1fr)`;
+        printUpdate('["gauge-tables"]["columns"]', tableColumns);
+    }
+
+    if (checkValid(graphColumns, CONFIG_VALUES["gauge-graphs"]["columns"])) {
+        CONFIG_VALUES["gauge-graphs"]["columns"] = graphColumns;
+        document.getElementById('graph-container').style.gridTemplateColumns = `repeat(${graphColumns}, 1fr)`;
+        printUpdate('["gauge-graphs"]["columns"]', graphColumns);
+    }
+
+    if (checkValid(graphScale, CONFIG_VALUES["gauge-graphs"]["default-scale"])) {
+        CONFIG_VALUES["gauge-graphs"]["default-scale"] = graphScale;
+
+        charts.forEach(chart => {
+            const site = AREAS
+                .flatMap(area => area.Sites)
+                .find(s => s.id === chart.id);
+            
+            updateGraphTimeScale(site);
+            printUpdate(`["gauge-graphs"]["default-scale"][${site.id}]`, graphScale);
+        });
+    }
+
+        //CONFIG_VALUES["display-mode"]
+    //updateDisplayMode
+    //updateParams()
 }
+
+function createDetailsTableRow(title, value, color = null) {
+    const tr = document.createElement('tr');
+    
+    const tdTitle = document.createElement('td');
+    tdTitle.className = 'table-title';
+    tdTitle.textContent = title;
+    tr.appendChild(tdTitle);
+    
+    const tdValue = document.createElement('td');
+    tdValue.innerHTML = value;
+    tdValue.className = 'table-value';
+    
+    if (color) {
+        tdValue.style.color = row.color;
+    }
+    tr.appendChild(tdValue);
+
+    return tr;
+};
 
 function updateDisplayMode(mode) {
-    const displayButton = document.getElementById('displayButton');
-    CONFIG_VALUES["display-mode"] = parseInt(mode);
-    displayButton.textContent = CONFIG_VALUES["display-mode"];
-
-    switch(CONFIG_VALUES["display-mode"]) {
+    switch(mode) {
         case 1:
             sectionTable.classList.remove('hidden');
             sectionButtons.classList.remove('hidden');
