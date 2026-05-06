@@ -9,9 +9,11 @@ const paramMappings = {
     'reload-time': ['reload-time'],
     'user': ['user'],
     'table-columns': ['gauge-tables', 'columns'],
+    'table-filter': ['gauge-tables', 'filter'],
     'graph-columns': ['gauge-graphs', 'columns'],
     'graph-scale': ['gauge-graphs', 'default-scale'],
-    'graph-sites': ['gauge-graphs', 'sites']
+    'graph-sites': ['gauge-graphs', 'sites'],
+    'graph-padding': ['gauge-graphs', 'axis-padding']
 };
 
 // stream and dam location data
@@ -22,8 +24,9 @@ let HISTORIC = [];
 let GAUGE_REGISTRY = [];
 let GAUGE_BITMAP = 0n;
 
-// dont look
-let API_KEY = 'bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1';
+const HISTORIC_CACHE = {};
+
+const API_KEY = 'bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1'; // dont look
 let AWS_ERROR = false;
 
 let charts = [];
@@ -276,6 +279,7 @@ function updateParams() {
     // update table and graph columns
     document.getElementById('table-container').style.gridTemplateColumns = `repeat(${CONFIG_VALUES["gauge-tables"].columns}, 1fr)`;
     document.getElementById('graph-container').style.gridTemplateColumns = `repeat(${CONFIG_VALUES["gauge-graphs"].columns}, 1fr)`;
+    updateDisplayMode(CONFIG_VALUES["display-mode"]);
 }
 
 function getCurrentMonthHistoric(json) {
@@ -989,6 +993,11 @@ async function createGraph(site, data, color, time) {
         y: item.value
     }));
 
+    //HISTORIC_CACHE
+    const historicItem = await getHistoricItem(site.id);
+    const monthlyItems = getHistoricMonth(historicItem);
+    const thresholds = getThresholdGraph(site.id, locationItem.properties.thresholds, monthlyItems);
+
     const options = {
         series: [{
             name: locationItem.properties.monitoring_location_name,
@@ -1050,6 +1059,7 @@ async function createGraph(site, data, color, time) {
                 ]
             }
         },
+        annotations: thresholds
         /*,
         // Adding your threshold lines
         annotations: {
@@ -1082,6 +1092,56 @@ async function createGraph(site, data, color, time) {
     return chartContainer;
 }
 
+async function getHistoricItem(id) {
+    if (!HISTORIC_CACHE[id]) {
+        const [historicResult] = await Promise.all([
+            fetchAndWait('json/historic-data.json')
+        ]);
+
+        // check null or undefined
+        if (historicResult == null || historicResult[id] == null) {
+            historicResult = null;
+        }
+        
+        HISTORIC_CACHE[id] = historicResult[id];
+    }
+
+    return HISTORIC_CACHE[id];
+}
+function getHistoricMonth(historicItem) {
+    if (historicItem == null) {
+        return null;
+    }
+
+    const now = new Date();
+    const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
+
+    const filtered = historicItem.monthly
+        .filter(item => item.month.endsWith(`-${currentMonth}`))
+        .sort((a, b) => b.month.localeCompare(a.month));
+
+    return filtered;
+
+    // function getCurrentMonthHistoric(json) {
+    // const now = new Date();
+    // const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
+
+    // const filtered = {};
+    // for (const [locationId, data] of Object.entries(json)) {
+    //     const match = data.monthly.find(m => m.month.split('-')[1] === currentMonth);
+    //     filtered[locationId] = {
+    //         currentMonth: match || null,
+    //         yearly: data.yearly_summaries[0] || null
+    //     };
+    // }
+    // return filtered;
+    // }
+}
+
+function getHistoricYear(historicItem, year) {
+
+}
+
 function filterDataByRange(data, range) {
     switch(range) {
         case "w":
@@ -1111,14 +1171,14 @@ function createChartFooter(thresholds, id, data) {
 
     chartFooter.innerHTML = `
         <div style="display: flex; justify-content: space-between;>
-            <span style="color: #FFFFFF">Base: ${average}ft</span>
-            <span style="color: #FFEA00">Minor: ${checkValue(thresholds.minor)}ft</span>
-            <span style="color: #EE4B2B">Major: ${checkValue(thresholds.major)}ft</span>
-            <span style="color: #8B0000">Failure: ${checkValue(thresholds.action)}ft</span>
+            <span style="color: ${getWarningColor('base')}">Base: ${average}ft</span>
+            <span style="color: ${getWarningColor('minor')}">Minor: ${checkValue(thresholds.minor)}ft</span>
+            <span style="color: ${getWarningColor('major')}">Major: ${checkValue(thresholds.major)}ft</span>
+            <span style="color: ${getWarningColor('action')}">Failure: ${checkValue(thresholds.action)}ft</span>
         </div>
-        <div style="display: flex;">
+        <div style="display: flex; gap: 8px;">
             <span style="color: #FFFFFF">Last Update: ${date} - </span>
-            <span style="color: ${getCurrentThreshold(value, thresholds)} ">${value}ft</span>
+            <span style="color: ${getWarningColor(getCurrentThreshold(value, thresholds))} ">${value}ft</span>
             <span style="color: ${color} ">(${diff}%)</span>
         </div> 
     `;
@@ -1150,6 +1210,48 @@ function getWarningColor(threshold) {
         default:
             return "#FFFFFF";
     }
+}
+
+function getThresholdGraph(id, thresholds, monthly) {
+    if (!thresholds)
+        return {};
+
+    let base = thresholds.base;
+    let labelDesc = "Baseline Averag Height"
+    if (typeof monthly?.[0]?.average === 'number') {
+        LOCATIONS[id].properties.thresholds.base = monthly[0].average;
+        base = monthly[0].average;
+        labelDesc = `${monthly[0].month} Average Height`;
+    }
+
+    const yaxis = [];
+    const createThresholdObject = (val, level, dash = 0) => {
+        yaxis.push({
+            y: val,
+            borderColor: getWarningColor(level),
+            borderWidth: 3,
+            strokeDashArray: dash,
+            zIndex: 999
+        });
+    }
+    
+    if (base) {
+        createThresholdObject(base, "base", 5);
+    }
+
+    if (thresholds.minor) {
+        createThresholdObject(thresholds.minor, "minor");
+    }
+
+    if (thresholds.major) {
+        createThresholdObject(thresholds.major, "major");
+    }
+
+    if (thresholds.action) {
+        createThresholdObject(thresholds.action, "action");
+    }
+
+    return { "yaxis" : yaxis };
 }
 
 // ── Button click ──────────────────────────────────────────
@@ -1277,9 +1379,9 @@ function updateSettings() {
         });
     }
 
-        //CONFIG_VALUES["display-mode"]
-    //updateDisplayMode
-    //updateParams()
+    updateParams();
+    const button = document.getElementById('settings-button');
+    toggleSettings(button);
 }
 
 function createDetailsTableRow(title, value, color = null) {
@@ -1303,20 +1405,17 @@ function createDetailsTableRow(title, value, color = null) {
 };
 
 function updateDisplayMode(mode) {
-    switch(mode) {
+    switch(parseInt(mode)) {
         case 1:
             sectionTable.classList.remove('hidden');
-            sectionButtons.classList.remove('hidden');
             sectionGraphs.classList.remove('hidden');
             break;
         case 2:
             sectionTable.classList.remove('hidden');
-            sectionButtons.classList.add('hidden');
             sectionGraphs.classList.add('hidden');
             break;
         case 3:
             sectionTable.classList.add('hidden');
-            sectionButtons.classList.add('hidden');
             sectionGraphs.classList.remove('hidden');
             break;
     }

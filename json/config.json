@@ -3,19 +3,29 @@
     "reload-time": 900,
     "user": null,
     "gauge-tables": {
-        "columns": 10
+        "columns": 10,
+        "area-filter": 0
     },
     "gauge-graphs": {
         "columns": 3,
         "default-scale": "w",
-        "sites": ""
+        "sites": "",
+        "axis-padding" : "0p0"
     },
     "presets": {
         "1": {
-            "display-mode": 2,
+            "display-mode": 1,
             "reload-time": 900,
+            "user": null,
             "gauge-tables": {
-                "columns": 2
+                "columns": 2,
+                "area-filter": 0
+            },
+            "gauge-graphs": {
+                "columns": 3,
+                "default-scale": "w",
+                "sites": "",
+                "axis-padding" : "0p0"
             }
         },
         "2": {
@@ -24,7 +34,8 @@
             "gauge-graphs": {
                 "columns": 3,
                 "default-scale": "d",
-                "sites": ""
+                "sites": "",
+                "axis-padding" : "0p0"
             }
         }
     }
