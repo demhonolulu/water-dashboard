@@ -21,7 +21,6 @@ const paramMappings = {
 let LOCATIONS = {};
 let VEOCI_NOTES = {};
 let AREAS = [];
-let HISTORIC = [];
 let GAUGE_REGISTRY = [];
 let GAUGE_BITMAP = 0n;
 
@@ -47,22 +46,6 @@ const AWS_UHSLC_GRAPH_URL       = "https://v5s6r3g7fjkyfhcb4e2yio7i7a0jjpjl.lamb
 const AWS_UHSLC_GRAPH_CACHE_URL = "https://jonvmpzzk2n5ftpnpxjzztyvhi0kqeop.lambda-url.us-east-2.on.aws/?site_id=";
 const USGS_TABLE_URL            = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=json&lang=en-US&limit=50000&skipGeometry=true&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&unit_of_measure=ft&time=PT2H&properties=monitoring_location_id,value,time&monitoring_location_id=";
 const USGS_GRAPH_URL            = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?limit=50000&properties=time,value&time=P7D&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&time_series_id=";
-const UHSLC_URL                 = "https://uhslc.soest.hawaii.edu/reservoir-new/_dash-update-component";
-const UHSLC_TABLE_BODY          = (now) => `{
-    "output": "..refresh-time.children...station-table.data...station-table.columns..",
-    "outputs": [
-        {"id": "refresh-time", "property": "children"},
-        {"id": "station-table", "property": "data"},
-        {"id": "station-table", "property": "columns"}
-    ],
-    "inputs": [
-        {"id": "refresh-time", "property": "children", "value": "${now}"},
-        {"id": "station-table", "property": "data", "value": []},
-        {"id": "timezone-switch", "property": "value", "value": true},
-        {"id": "refresh-btn", "property": "n_clicks", "value": 1}
-    ],
-    "changedPropIds": ["refresh-btn.n_clicks"]
-}`;
 
 let countdownInterval;
 let remainingSeconds = 0;
@@ -74,35 +57,6 @@ let SETTINGS_CREATED = false;
 const overlay = document.getElementById('loading-overlay');
 function showLoading() { overlay.classList.add('active');    }
 function hideLoading() { overlay.classList.remove('active'); }
-
-const thresholdLinesPlugin = {
-    id: 'thresholdLines',
-    afterDraw(chart, args, options) {
-        const { ctx, chartArea, scales } = chart;
-        const yScale = scales.y;
-
-        if (!options || !options.lines) return;
-
-        options.lines.forEach(line => {
-            const { value, color = 'yellow', dash = [] } = line;
-
-            if (value < yScale.min || value > yScale.max) return;
-
-            const y = yScale.getPixelForValue(value);
-
-            ctx.save();
-            ctx.beginPath();
-            ctx.moveTo(chartArea.left, y);
-            ctx.lineTo(chartArea.right, y);
-            ctx.lineWidth = 2;
-            ctx.strokeStyle = color;
-            ctx.setLineDash(dash);
-            ctx.stroke();
-            ctx.restore();
-        });
-    }
-};
-Chart.register(thresholdLinesPlugin);
 
 // all items
 // https://api.waterdata.usgs.gov/ogcapi/v0/collections/latest-continuous/items?f=json&lang=en-US&limit=50000&skipGeometry=false&offset=0&monitoring_location_id=USGS-16210000
@@ -117,7 +71,6 @@ const graphContainer        = document.getElementById('graph-container');
 const settingsContainer     = document.getElementById('settings-container');
 const settingsTable         = document.getElementById('settings-table-body');
 const sectionTable          = document.getElementById('sectionTable');
-const sectionButtons        = document.getElementById('sectionButtons');
 const sectionGraphs         = document.getElementById('sectionGraphs');
 const popupOverlay          = document.getElementById('popupOverlay');
 
@@ -139,7 +92,6 @@ async function init() {
         LOCATIONS = locationsResult;
         VEOCI_NOTES = veociResult.Sheet0;
         AREAS = areaResult.sort((a, b) => a.Order - b.Order);
-        HISTORIC = getCurrentMonthHistoric(historicResult);
 
         loadParams();
 
@@ -289,21 +241,6 @@ function updateParams() {
     updateDisplayMode(CONFIG_VALUES["display-mode"]);
 }
 
-function getCurrentMonthHistoric(json) {
-    const now = new Date();
-    const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
-
-    const filtered = {};
-    for (const [locationId, data] of Object.entries(json)) {
-        const match = data.monthly.find(m => m.month.split('-')[1] === currentMonth);
-        filtered[locationId] = {
-            currentMonth: match || null,
-            yearly: data.yearly_summaries[0] || null
-        };
-    }
-    return filtered;
-}
-
 // ── FETCH ─────────────────────────────────────────────────
 async function fetchAndWait(url, body = null) {
     const response = await fetch(url, body ? {
@@ -369,10 +306,6 @@ async function fetchData(type, awsURL, backupURL, printId = null, body = null) {
         }
     }
     return data;
-}
-
-async function fetchDataUHSLC(type, awsURL, backupURL, id) {
-
 }
 
 async function postGraphData(type, data, id) {
@@ -519,7 +452,7 @@ async function reloadGaugeTable() {
             fetchData("tableUSGS", AWS_USGS_TABLE_URL, USGS_TABLE_URL + GAUGE_IDS, "GAUGE_OVERVIEW_RELOAD") : 
             Promise.resolve(USGS_OVERVIEW),
         !isRecentUHSLC ? 
-            fetchData("tableUHSLC", AWS_UHSLC_TABLE_URL, UHSLC_URL, "GAUGE_OVERVIEW", UHSLC_TABLE_BODY(rawConvertDate(new Date()))) : 
+            fetchData("tableUHSLC", AWS_UHSLC_TABLE_URL, null, "GAUGE_OVERVIEW") : 
             Promise.resolve(UHSLC_OVERVIEW)
     ]);
 
@@ -571,7 +504,7 @@ async function reloadGaugeGraph(site) {
             fetchData("graphUSGS", AWS_USGS_GRAPH_URL + timeSeries, USGS_TABLE_URL + timeSeries, `${site.id}-RELOAD`) : 
             Promise.resolve(),
         site.type == "UHSLC" ? 
-            fetchData("graphUHSLC", AWS_UHSLC_GRAPH_URL + site.id, UHSLC_URL, null, `${site.id}-RELOAD`) : 
+            fetchData("graphUHSLC", AWS_UHSLC_GRAPH_URL + site.id, null, `${site.id}-RELOAD`) : 
             Promise.resolve()
     ]);
 
@@ -583,39 +516,9 @@ async function reloadGaugeGraph(site) {
         convertedData = convertDates(graphResultsUHSLC);
     }
 
-    // const filteredRawData = filterDataByRange(convertedData, CONFIG_VALUES["gauge-graphs"]["default-scale"]);
-    // const chartData = filteredRawData.map(item => ({
-    //     x: new Date(item.time).getTime(),
-    //     y: item.value
-    // }));
     chart.fullData = convertedData;
     chart.pullTime = rawConvertDate(new Date().toISOString());
     await updateGraphTimeScale(site);
-    // const [minPadding, maxPadding] = getAxisPadding(chartData);
-    // chart.instance.updateOptions({
-    //     xaxis: {
-    //         labels: {
-    //             datetimeUTC: false,
-    //             style: { colors: '#FFFFFF' }
-    //         }
-    //     },
-    //     yaxis: {
-    //         min: minPadding,
-    //         max: maxPadding,
-    //         labels: {
-    //             style: { colors: '#FFFFFF' }
-    //         }
-    //     }
-    // }, false, false);
-    // chart.instance.updateSeries([{ data: chartData }], true);
-    // chart.fullData = convertedData;
-    // chart.pullTime = rawConvertDate(new Date().toISOString());
-
-    // // update footer
-    // const currentFooter = document.querySelector(`.chart-footer-${site.id}`);
-    // const updatedFooter = createChartFooter(locationItem.thresholds, site.id, chartData);
-
-    // currentFooter.replaceWith(updatedFooter);
 
     console.log(`🔄 ${site.id}-RELOAD - Graph reloaded, took: [${(performance.now() - start).toFixed(0)}ms]`);
 }
@@ -660,7 +563,7 @@ async function updateGraphTimeScale(site) {
 
     // update footer
     const currentFooter = document.querySelector(`.chart-footer-${site.id}`);
-    const updatedFooter = createChartFooter(locationItem.thresholds, site.id, chartData);
+    const updatedFooter = await createChartFooter(locationItem.thresholds, site.id, chartData);
 
     currentFooter.replaceWith(updatedFooter);
 }
@@ -670,7 +573,7 @@ async function buildGaugeTable() {
     // pull cache data to build table
     const [overviewResultsUSGS, overviewResultsUHSLC] = await Promise.all([
         fetchData("tableUSGSCache", AWS_USGS_TABLE_CACHE_URL, USGS_TABLE_URL + GAUGE_IDS, "GAUGE_OVERVIEW"),
-        fetchData("tableUHSLCCache", AWS_UHSLC_TABLE_CACHE_URL, UHSLC_URL, "GAUGE_OVERVIEW", UHSLC_TABLE_BODY(rawConvertDate(new Date())))
+        fetchData("tableUHSLCCache", AWS_UHSLC_TABLE_CACHE_URL, null, "GAUGE_OVERVIEW")
     ]);
 
     USGS_OVERVIEW = overviewResultsUSGS;
@@ -1127,9 +1030,8 @@ async function createGraph(site, data, color, time) {
 
     const newChart = new ApexCharts(chartDiv, options);
     chartContainer.appendChild(chartDiv);
-    chartContainer.appendChild(createChartFooter(locationItem.properties.thresholds, site.id, chartData));
+    chartContainer.appendChild(await createChartFooter(locationItem.properties.thresholds, site.id, chartData));
 
-    //newChart.render();
     charts.push({
         id: site.id,
         type: site.type,
@@ -1185,25 +1087,13 @@ function getHistoricMonth(historicItem) {
         .sort((a, b) => b.month.localeCompare(a.month));
 
     return filtered;
-
-    // function getCurrentMonthHistoric(json) {
-    // const now = new Date();
-    // const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
-
-    // const filtered = {};
-    // for (const [locationId, data] of Object.entries(json)) {
-    //     const match = data.monthly.find(m => m.month.split('-')[1] === currentMonth);
-    //     filtered[locationId] = {
-    //         currentMonth: match || null,
-    //         yearly: data.yearly_summaries[0] || null
-    //     };
-    // }
-    // return filtered;
-    // }
 }
 
 function getHistoricYear(historicItem, year) {
+    if (historicItem == null) return null;
 
+    const previousYear = new Date().getFullYear() - 1;
+    return historicItem.yearly_summaries?.find(y => y.year === previousYear) ?? null;
 }
 
 function filterDataByRange(data, range) {
@@ -1217,20 +1107,21 @@ function filterDataByRange(data, range) {
     }
 }
 
-function createChartFooter(thresholds, id, data) {
+async function createChartFooter(thresholds, id, data) {
     const checkValue = (input) => input ?? '??';
 
-    const historic = HISTORIC[id]
+    const historicItem = await getHistoricItem(id);
+    const currentMonth = getHistoricMonth(historicItem)?.[0] ?? null;;
+
     const chartFooter = document.createElement('div');
     chartFooter.classList.add(`chart-footer-${id}`);
 
     let average = checkValue(thresholds.base);    // default to old data
 
     const { date, value, color, diff } = calcDataChange(data);
-    //const formatDate = new Date(data.features[data.features.length - 1].properties.time).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }).replace(' ', '');
-    //const dataDiff = dataChange(data);
-    if (historic) {
-        average = historic.currentMonth.average.toFixed(2);
+
+    if (currentMonth) {
+        average = currentMonth.average.toFixed(2);
     }
 
     chartFooter.innerHTML = `
@@ -1531,12 +1422,11 @@ function updateDisplayMode(mode) {
 }
 
 // open popup
-function graphClick(site, event) {
+async function graphClick(site, event) {
     popupOverlay.style.display = "flex";
     document.body.style.overflow = 'hidden';
 
     const locationItem = LOCATIONS[site.id];
-    const historicItem = HISTORIC[site.id];
     const veociItem = VEOCI_NOTES.find(obj => obj.SiteID === site.id.replace("USGS-", ""));
     const siteColor = getSiteArea(site).Color;
 
@@ -1599,6 +1489,10 @@ function graphClick(site, event) {
     const currentDisplayThreshold = getCurrentThreshold(currentItem.value, locationItem);
     const textColor = getWarningColor(currentDisplayThreshold);
 
+    const historicItem = await getHistoricItem(site.id);
+    const currentMonth = getHistoricMonth(historicItem)?.[0] ?? null;;
+    const previousYear = getHistoricYear(historicItem);
+
     // tables
     tableDiv.appendChild(createDetailsTable("Current", [
         {"title": "Current", "value": `${parseFloat(currentItem.value).toFixed(2)} ft`, "color": textColor},
@@ -1608,23 +1502,23 @@ function graphClick(site, event) {
         {"title": "Action Threshold", "value": `${locationItem.properties.thresholds.action} ft`, "color": getWarningColor('action')}
     ]));
 
-    if (historicItem?.currentMonth) {
-        tableDiv.appendChild(createDetailsTable(`Historic Month (${printMonth(historicItem.currentMonth.month)} ${historicItem.yearly.year})`, [
-            {"title": "Average", "value": `${historicItem.currentMonth.average.toFixed(2)} ft`},
-            {"title": "Max", "value": `${historicItem.currentMonth.max.toFixed(2)} ft`, "color": getCurrentThreshold(historicItem.currentMonth.max, locationItem)},
-            {"title": "Min", "value": `${historicItem.currentMonth.min.toFixed(2)} ft`},
-            {"title": "Max date", "value": `${formatDateTime(historicItem.currentMonth.max_timestamp)}`, "color": "#b9b9b9"},
-            {"title": "Min date", "value": `${formatDateTime(historicItem.currentMonth.min_timestamp)}`, "color": "#b9b9b9"}
+    if (currentMonth) {
+        tableDiv.appendChild(createDetailsTable(`Historic Month (${printMonth(currentMonth.month)} ${previousYear.year})`, [
+            {"title": "Average", "value": `${currentMonth.average.toFixed(2)} ft`},
+            {"title": "Max", "value": `${currentMonth.max.toFixed(2)} ft`, "color": getCurrentThreshold(currentMonth.max, locationItem)},
+            {"title": "Min", "value": `${currentMonth.min.toFixed(2)} ft`},
+            {"title": "Max date", "value": `${formatDateTime(currentMonth.max_timestamp)}`, "color": "#b9b9b9"},
+            {"title": "Min date", "value": `${formatDateTime(currentMonth.min_timestamp)}`, "color": "#b9b9b9"}
         ]));
     }
 
-    if (historicItem?.yearly) {
-        tableDiv.appendChild(createDetailsTable(`Historic Year (${historicItem.yearly.year})`, [
-            {"title": "Average", "value": `${historicItem.yearly.yearly_average.toFixed(2)} ft`, "color": textColor},
-            {"title": "Max", "value": `${historicItem.yearly.overall_max.toFixed(2)} ft`},
-            {"title": "Min", "value": `${historicItem.yearly.overall_min.toFixed(2)} ft`},
-            {"title": "Highest average", "value": `${printMonth(historicItem.yearly.overall_max_month)}`, "color": "#b9b9b9"},
-            {"title": "Lowest average", "value": `${printMonth(historicItem.yearly.overall_min_month)}`, "color": "#b9b9b9"}
+    if (previousYear) {
+        tableDiv.appendChild(createDetailsTable(`Historic Year (${previousYear.year})`, [
+            {"title": "Average", "value": `${previousYear.yearly_average.toFixed(2)} ft`, "color": textColor},
+            {"title": "Max", "value": `${previousYear.overall_max.toFixed(2)} ft`},
+            {"title": "Min", "value": `${previousYear.overall_min.toFixed(2)} ft`},
+            {"title": "Highest average", "value": `${printMonth(previousYear.overall_max_month)}`, "color": "#b9b9b9"},
+            {"title": "Lowest average", "value": `${printMonth(previousYear.overall_min_month)}`, "color": "#b9b9b9"}
         ]));
     }
 
@@ -1713,47 +1607,8 @@ function createDetailsTable(header, rows) {
 }
 
 function popupClose() {
-    console.log("close");
     popupOverlay.style.display = "none";
     document.body.style.overflow = 'auto';
-}
-
-function createThresholdArray(thresholds) {
-    let thresholdArray = [];
-    
-    if (thresholds.base != null) {
-        thresholdArray.push({
-            value: thresholds.base,
-            color: '#FFFFFF',
-            dash: [5, 5]
-        })
-    }
-
-    if (thresholds.minor != null) {
-        thresholdArray.push({
-            value: thresholds.minor,
-            color: '#FFEA00',
-            dash: []
-        })
-    }
-
-    if (thresholds.major != null) {
-        thresholdArray.push({
-            value: thresholds.major,
-            color: '#EE4B2B',
-            dash: [5, 5]
-        })
-    }
-
-    if (thresholds.action != null) {
-        thresholdArray.push({
-            value: thresholds.action,
-            color: '#8B0000',
-            dash: []
-        })
-    }
-
-    return thresholdArray;
 }
 
 // update timer
@@ -1791,10 +1646,4 @@ function updateDisplay(stopReload) {
         
         reloadGaugeGraph(site);
     });
-}
-
-function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 }
