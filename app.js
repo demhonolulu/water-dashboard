@@ -9,11 +9,12 @@ const paramMappings = {
     'reload-time': ['reload-time'],
     'user': ['user'],
     'table-columns': ['gauge-tables', 'columns'],
-    'table-filter': ['gauge-tables', 'filter'],
+    'table-filter': ['gauge-tables', 'area-filter'],
     'graph-columns': ['gauge-graphs', 'columns'],
     'graph-scale': ['gauge-graphs', 'default-scale'],
     'graph-sites': ['gauge-graphs', 'sites'],
-    'graph-padding': ['gauge-graphs', 'axis-padding']
+    'graph-padding': ['gauge-graphs', 'axis-padding'],
+    'graph-padding-enabled': ['gauge-graphs', 'axis-padding-enabled']
 };
 
 // stream and dam location data
@@ -260,6 +261,7 @@ function updateParams() {
 
     for (const [paramKey, path] of Object.entries(paramMappings)) {
         let value = CONFIG_VALUES;
+
         for (const key of path) {
             value = value?.[key];
         }
@@ -620,12 +622,9 @@ function updateGraphTimeScale(site) {
 
     currentFooter.replaceWith(updatedFooter);
 }
+
 // ── TABLE ─────────────────────────────────────────────────
 async function buildGaugeTable() {
-    // const [overviewResultsUHSLC] = await Promise.all([
-    //     fetchData("tableUHSLC", AWS_UHSLC_TABLE_URL, UHSLC_URL, "GAUGE_OVERVIEW", UHSLC_TABLE_BODY(rawConvertDate(new Date())))
-    // ]);
-
     // pull cache data to build table
     const [overviewResultsUSGS, overviewResultsUHSLC] = await Promise.all([
         fetchData("tableUSGSCache", AWS_USGS_TABLE_CACHE_URL, USGS_TABLE_URL + GAUGE_IDS, "GAUGE_OVERVIEW"),
@@ -651,8 +650,21 @@ async function buildGaugeTable() {
         })
     });
 
+    const areaObj = AREAS.find(a => a.Order === parseInt(CONFIG_VALUES["gauge-tables"]["area-filter"]));
+    const name = areaObj?.Area ?? null;
+    if (name) {
+        const article = document.querySelector(`article.gauge-card.gauge-card-header.${getAreaClassName(name)}`);
+        if (article) {
+            filterByArea(areaObj, article);
+        }
+    }
+    
     // run function async
     reloadGaugeTable();
+}
+
+function getAreaClassName(area) {
+    return area.replace(/\s+/g, '-')
 }
 
 function createAreaCard(area) {
@@ -708,6 +720,10 @@ function filterByArea(area, article) {
     if (selected) {
         article.style.setProperty('--area-color', area.Color);
         article.classList.add('filter-active');
+        CONFIG_VALUES["gauge-tables"]["area-filter"] = area.Order;
+    }
+    else {
+        CONFIG_VALUES["gauge-tables"]["area-filter"] = 0;
     }
 
     // graphs
@@ -726,6 +742,8 @@ function filterByArea(area, article) {
             graph.classList.remove('hidden');
         }
     });
+
+    updateParams();
 }
 
 function createSiteCard(site, data, area) {
@@ -767,7 +785,7 @@ function createSiteCard(site, data, area) {
     titleText.style.color = color;
     article.appendChild(titleText);
 
-    article = addCard(article, site.id, data);
+    article = addCardDetails(article, site.id, data);
     article.addEventListener('click', () => {
         clickTableCell(site, article, color);
     }, { signal });
@@ -775,7 +793,7 @@ function createSiteCard(site, data, area) {
     return article;
 }
 
-function addCard(article, id, data) {
+function addCardDetails(article, id, data) {
     if (!data || !data.val) {
         console.log("⚠️ No live data found: " + id)
         return article;
@@ -807,8 +825,8 @@ function addCard(article, id, data) {
     const dataDiv = document.createElement('div');
     dataDiv.classList.add('gauge-data');
     dataDiv.innerHTML = `
-        <span class="main-value" style="padding-right: 0;"><strong>${data.val}</strong>
-        <small style="padding-left: 0;>ft</small>
+        <span class="main-value" style="gap: 0px; padding-right: 0;"><strong style="margin: 0; padding: 0;">${data.val}</strong>
+        <small style="padding: 0; margin: 0;">ft</small>
         </span>
         <small><span class="card-diff ${dirClass}">(${change} ${percent}%)</span></small>
     `;
@@ -993,6 +1011,15 @@ async function createGraph(site, data, color, time) {
         y: item.value
     }));
 
+    // y axis padding
+    const [percent, add] = CONFIG_VALUES["gauge-graphs"]["axis-padding"].split('p').map(Number);
+    const [below, above] = CONFIG_VALUES["gauge-graphs"]["axis-padding-enabled"].split('p').map(Number);
+    const yValues = chartData.map(d => d.y);
+    const min = Math.min(...yValues);
+    const max = Math.max(...yValues);
+    const minPadding = below ? (min * (1 - percent * 0.01)) - add : min;
+    const maxPadding = above ? (max * (percent * 0.01 + 1)) + add : max;
+
     //HISTORIC_CACHE
     const historicItem = await getHistoricItem(site.id);
     const monthlyItems = getHistoricMonth(historicItem);
@@ -1032,6 +1059,8 @@ async function createGraph(site, data, color, time) {
             }
         },
         yaxis: {
+            min: minPadding,
+            max: maxPadding,
             labels: {
                 style: {
                     colors: '#FFFFFF'
@@ -1060,20 +1089,6 @@ async function createGraph(site, data, color, time) {
             }
         },
         annotations: thresholds
-        /*,
-        // Adding your threshold lines
-        annotations: {
-            yaxis: [
-                {
-                    y: 20, // Example Flood Stage
-                    borderColor: '#FF4560',
-                    label: {
-                        text: 'Flood Stage',
-                        style: { color: '#fff', background: '#FF4560' }
-                    }
-                }
-            ]
-        }*/
     };
 
     const newChart = new ApexCharts(chartDiv, options);
@@ -1285,21 +1300,20 @@ function createSettings() {
             <label><input type="radio" name="display-mode-input" value="1" ${isDisplayMode(1)}>Standard</label>
             <label><input type="radio" name="display-mode-input" value="2" ${isDisplayMode(2)}>Table View</label>
             <label><input type="radio" name="display-mode-input" value="3" ${isDisplayMode(3)}>Graph View</label>
-        </span>`,
-        null
+        </span>`
     ));
 
     // reload time
-    settingsTable.appendChild(createDetailsTableRow("Reload Time (minutes)", `<input type="number" id="reload-time-input" value="${(CONFIG_VALUES["reload-time"]/60)}" min="5" max="60">`, color = null));
+    settingsTable.appendChild(createDetailsTableRow("Reload Time (minutes)", `<input type="number" id="reload-time-input" value="${(CONFIG_VALUES["reload-time"]/60)}" min="5" max="60">`));
 
     // user
-    settingsTable.appendChild(createDetailsTableRow("Current User", `<input type="text" id="current-user-input" value="${CONFIG_VALUES["user"]}">`, color = null));
+    settingsTable.appendChild(createDetailsTableRow("Current User", `<input type="text" id="current-user-input" value="${CONFIG_VALUES["user"]}">`));
     
     // table columns
-    settingsTable.appendChild(createDetailsTableRow("Overview Table Columns", `<input type="number" id="table-columns-input" value="${CONFIG_VALUES["gauge-tables"].columns}" min="1" max="60">`, color = null));
+    settingsTable.appendChild(createDetailsTableRow("Overview Table Columns", `<input type="number" id="table-columns-input" value="${CONFIG_VALUES["gauge-tables"].columns}" min="1" max="60">`));
     
     // graph columns
-    settingsTable.appendChild(createDetailsTableRow("Gauge Graph Columns", `<input type="number" id="graph-columns-input" value="${CONFIG_VALUES["gauge-graphs"].columns}" min="1" max="10">`, color = null));
+    settingsTable.appendChild(createDetailsTableRow("Gauge Graph Columns", `<input type="number" id="graph-columns-input" value="${CONFIG_VALUES["gauge-graphs"].columns}" min="1" max="10">`));
 
     // graph scale
     const isGraphScale = (val) => {
@@ -1310,10 +1324,28 @@ function createSettings() {
             <label><input type="radio" name="graph-scale-input" value="h" ${isGraphScale('h')}>Last Hour</label>
             <label><input type="radio" name="graph-scale-input" value="d" ${isGraphScale('d')}>Last Day</label>
             <label><input type="radio" name="graph-scale-input" value="w" ${isGraphScale('w')}>Last Week</label>
-        </span>`,
-        null
+        </span>`
     ));
 
+    // graph padding
+    const [percent, add] = CONFIG_VALUES["gauge-graphs"]["axis-padding"].split('p').map(Number);
+    settingsTable.appendChild(createDetailsTableRow("Gauge Graph y-axis Padding (% , +)", 
+        `<span style="display:flex; justify-content:space-between; width:100%;">
+            <input type="number" id="graph-padding-per-input" value="${percent}" min="0" step="0.1">
+            <input type="number" id="graph-padding-add-input" value="${add}" min="0" step="0.1">
+        </span>`
+    ));
+
+    // graph padding enabled
+    const [below, above] = CONFIG_VALUES["gauge-graphs"]["axis-padding-enabled"].split('p').map(Number);
+    settingsTable.appendChild(createDetailsTableRow("Gauge Graph Padding Enabled (below , above)", 
+        `<span style="display:flex; justify-content:space-between; width:100%;">
+            <label>Below<input type="checkbox" id="graph-padding-below-input" ${below ? 'checked' : ''}></label>
+            <label>Above<input type="checkbox" id="graph-padding-above-input" ${above ? 'checked' : ''}></label>
+        </span>`
+    ));
+
+    //'graph-padding-enabled': ['gauge-graphs', 'axis-padding-enabled']
     const div = document.querySelector('.details-table-container.settings');
     div.innerHTML += `
     <div style="display:flex; justify-content:flex-end;">
@@ -1328,6 +1360,10 @@ function updateSettings() {
     const tableColumns = document.getElementById('table-columns-input').value;
     const graphColumns = document.getElementById('graph-columns-input').value;
     const graphScale = document.querySelector('input[name="graph-scale-input"]:checked')?.value;
+    const paddingPercent = document.getElementById('graph-padding-per-input').value;
+    const paddingAdd = document.getElementById('graph-padding-add-input').value;
+    const paddingBelow = document.getElementById('graph-padding-below-input').checked;
+    const paddingAbove = document.getElementById('graph-padding-above-input').checked;
 
     const checkValid = (val, source) => { return (val && val != source) };
     const printUpdate = (title, val) => {
@@ -1377,6 +1413,18 @@ function updateSettings() {
             updateGraphTimeScale(site);
             printUpdate(`["gauge-graphs"]["default-scale"][${site.id}]`, graphScale);
         });
+    }
+
+    const padding = `${paddingPercent}p${paddingAdd}`;
+    if (checkValid(padding, CONFIG_VALUES["gauge-graphs"]["axis-padding"])) {
+        CONFIG_VALUES["gauge-graphs"]["axis-padding"] = padding;
+        printUpdate('["gauge-graphs"]["axis-padding"]', padding);
+    }
+
+    const paddingEnabled = `${Number(paddingBelow)}p${Number(paddingAbove)}`;
+    if (checkValid(paddingEnabled, CONFIG_VALUES["gauge-graphs"]["axis-padding-enabled"])) {
+        CONFIG_VALUES["gauge-graphs"]["axis-padding-enabled"] = paddingEnabled;
+        printUpdate('["gauge-graphs"]["axis-padding-enabled"]', paddingEnabled);
     }
 
     updateParams();

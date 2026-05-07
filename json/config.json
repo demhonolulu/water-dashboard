@@ -10,7 +10,8 @@
         "columns": 3,
         "default-scale": "w",
         "sites": "",
-        "axis-padding" : "0p0"
+        "axis-padding" : "2.5p0.1",
+        "axis-padding-enabled" : "0,1"
     },
     "presets": {
         "1": {
@@ -25,7 +26,8 @@
                 "columns": 3,
                 "default-scale": "w",
                 "sites": "",
-                "axis-padding" : "0p0"
+                "axis-padding" : "2.5p0.1",
+                "axis-padding-enabled" : "0,1"
             }
         },
         "2": {
@@ -35,7 +37,8 @@
                 "columns": 3,
                 "default-scale": "d",
                 "sites": "",
-                "axis-padding" : "0p0"
+                "axis-padding" : "2.5p0.1",
+                "axis-padding-enabled" : "0,1"
             }
         }
     }
