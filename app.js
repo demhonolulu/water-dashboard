@@ -63,9 +63,9 @@ const UHSLC_TABLE_BODY          = (now) => `{
     ],
     "changedPropIds": ["refresh-btn.n_clicks"]
 }`;
-const UHSLC_GRAPH_BODY          = (now) => ``;
 
 let countdownInterval;
+let remainingSeconds = 0;
 
 // configs
 let CONFIG_VALUES;
@@ -145,9 +145,6 @@ async function init() {
 
         GAUGE_REGISTRY = mapGaugeRegistry(LOCATIONS);
         GAUGE_BITMAP = CONFIG_VALUES["gauge-graphs"].sites ? decodeBase36ToBigInt(CONFIG_VALUES["gauge-graphs"].sites) : 0n;
-
-        // const output = await fetchAndWait(AWS_UHSLC_GRAPH_URL + "OA-0018");
-        // console.log(output);
         
         await buildGaugeTable();
         
@@ -162,11 +159,19 @@ async function init() {
             })
         );
 
+        // reorder graphs by area
+        const graphContainer = document.getElementById('graph-container');
+        const charts = [...graphContainer.children];
+
+        charts.sort((a, b) => {
+            const areaA = AREAS.find(area => a.classList.contains(area.Area.replace(/\s+/g, '-')));
+            const areaB = AREAS.find(area => b.classList.contains(area.Area.replace(/\s+/g, '-')));
+            return (areaA?.Order ?? 999) - (areaB?.Order ?? 999);
+        }).forEach(el => graphContainer.appendChild(el));
+
+        startCountdown(CONFIG_VALUES["reload-time"], true);
+
         hideLoading();
-        return
-        
-        startCountdown(CONFIG_VALUES["reload-time"]);
-        
     } 
     catch (err) {
         console.error(err);
@@ -222,37 +227,37 @@ function updateGaugeBit(id, state) {
 }
 
 function loadParams() {
-    loadPreset();
-    
-    for (const [paramKey, pathArray] of Object.entries(paramMappings)) {
-        const value = params.get(paramKey);
-        if (value !== null) {
-            if (Array.isArray(pathArray)) {
-                let target = CONFIG_VALUES;
-                for (let i = 0; i < pathArray.length - 1; i++) {
-                    target = target[pathArray[i]] = target[pathArray[i]] || {};
+    const loadPreset = () => {
+        if (preset == null || isNaN(preset))
+            return false;
+
+        const previewValues = CONFIG_VALUES.presets[`${preset}`];
+        if (previewValues == null)
+            return false;
+
+        CONFIG_VALUES = { ...CONFIG_VALUES, ...previewValues };
+
+        return true;
+    }
+
+    if (!loadPreset()) {
+        for (const [paramKey, pathArray] of Object.entries(paramMappings)) {
+            const value = params.get(paramKey);
+            if (value !== null) {
+                if (Array.isArray(pathArray)) {
+                    let target = CONFIG_VALUES;
+                    for (let i = 0; i < pathArray.length - 1; i++) {
+                        target = target[pathArray[i]] = target[pathArray[i]] || {};
+                    }
+                    target[pathArray[pathArray.length - 1]] = value;
+                } else {
+                    CONFIG_VALUES[pathArray] = value;
                 }
-                target[pathArray[pathArray.length - 1]] = value;
-            } else {
-                CONFIG_VALUES[pathArray] = value;
             }
         }
     }
 
     updateParams();
-}
-
-function loadPreset() {
-    if (preset == null || isNaN(preset))
-        return;
-
-    const previewValues = CONFIG_VALUES.presets[`${preset}`];
-    if (previewValues == null)
-        return;
-
-    CONFIG_VALUES = { ...CONFIG_VALUES, ...previewValues };
-
-    updateDisplayMode(CONFIG_VALUES["display-mode"]);
 }
 
 function updateParams() {
@@ -503,9 +508,11 @@ async function reloadGaugeTable() {
 
     const isRecentUSGS = isRecentTime(USGS_OVERVIEW.updateTime);
     const isRecentUHSLC = isRecentTime(UHSLC_OVERVIEW.updateTime);
-    console.log(`GAUGE_TABLE - Reload fetch results at [${rawConvertDate(new Date().toISOString())}]`);
-    console.log(USGS_OVERVIEW);
-    console.log(UHSLC_OVERVIEW);
+
+    if (isRecentUSGS && isRecentUHSLC) {
+        console.log(`🔄 TABLE-RELOAD - Data recent, not repulling`);
+        return;
+    }
 
     const [overviewResultsUSGS, overviewResultsUHSLC] = await Promise.all([
         !isRecentUSGS ? 
@@ -555,6 +562,7 @@ async function reloadGaugeGraph(site) {
     const timeSeries = locationItem.time_series_id;
 
     if (recent) {
+        console.log(`🔄 ${site.id}-RELOAD - Data recent, not repulling`);
         return;
     }
 
@@ -603,11 +611,11 @@ async function reloadGaugeGraph(site) {
     // chart.fullData = convertedData;
     // chart.pullTime = rawConvertDate(new Date().toISOString());
 
-    // update footer
-    const currentFooter = document.querySelector(`.chart-footer-${site.id}`);
-    const updatedFooter = createChartFooter(locationItem.thresholds, site.id, chartData);
+    // // update footer
+    // const currentFooter = document.querySelector(`.chart-footer-${site.id}`);
+    // const updatedFooter = createChartFooter(locationItem.thresholds, site.id, chartData);
 
-    currentFooter.replaceWith(updatedFooter);
+    // currentFooter.replaceWith(updatedFooter);
 
     console.log(`🔄 ${site.id}-RELOAD - Graph reloaded, took: [${(performance.now() - start).toFixed(0)}ms]`);
 }
@@ -848,6 +856,7 @@ function addCardDetails(article, id, data) {
     if (currentThreshold) {
         article.classList.add(currentThreshold, "alert");
     }
+    const colorOverrideAlert = currentThreshold ? `style="color: #000000"` : '';
 
     const siteIcon = article.querySelector('.site-icon');
     const changeIcon = article.querySelector('.change-icon');
@@ -862,7 +871,7 @@ function addCardDetails(article, id, data) {
         <span class="main-value" style="gap: 0px; padding-right: 0;"><strong style="margin: 0; padding: 0;">${data.val}</strong>
         <small style="padding: 0; margin: 0;">ft</small>
         </span>
-        <small><span class="card-diff ${dirClass}">(${change} ${percent}%)</span></small>
+        <small><span ${colorOverrideAlert} class="card-diff ${dirClass}">(${change} ${percent}%)</span></small>
     `;
 
     const dateDiv = document.createElement('div');
@@ -1748,33 +1757,40 @@ function createThresholdArray(thresholds) {
 }
 
 // update timer
-function startCountdown(seconds) {
-    // Clear any existing interval
-    if (countdownInterval) {
-        clearInterval(countdownInterval);
-    }
-    
-    updateDisplay(seconds);
-    
+function startCountdown(seconds, stopReload = false) {
+    clearInterval(countdownInterval);
+    remainingSeconds = seconds;
+
+    updateDisplay(stopReload);
+
     countdownInterval = setInterval(() => {
-        seconds--;
-        updateDisplay(seconds);
+        remainingSeconds--;
+
+        if (remainingSeconds <= 0) {
+            startCountdown(CONFIG_VALUES["reload-time"]);
+        }
     }, 1000);
 }
 
 // Update timer display
-function updateDisplay(remaining) {
-    const timerSpan = document.getElementById('timer');
-    
-    if (remaining <= 0) {
-        timerSpan.textContent = '00:00';
-        clearInterval(countdownInterval);
+function updateDisplay(stopReload) {
+    const lastUpdate = document.getElementById('last-update');
+    lastUpdate.textContent = `Last Refresh: ${rawConvertDate(new Date().toISOString()).split(', ')[1]}`;
 
-        startCountdown(CONFIG_VALUES["reload-time"]);
-        reloadData();
-    } else {
-        timerSpan.textContent = `${formatTime(remaining)}`;
+    if (stopReload) {
+        return;
     }
+
+    console.log(`⏱️ Timer end starting refresh at [${rawConvertDate(new Date().toISOString())}]`);
+    reloadGaugeTable();
+
+    charts.forEach(chart => {
+        const site = AREAS
+            .flatMap(area => area.Sites)
+            .find(s => s.id === chart.id);
+        
+        reloadGaugeGraph(site);
+    });
 }
 
 function formatTime(seconds) {
