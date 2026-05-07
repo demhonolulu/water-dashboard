@@ -575,15 +575,33 @@ async function reloadGaugeGraph(site) {
         convertedData = convertDates(graphResultsUHSLC);
     }
 
-    const filteredRawData = filterDataByRange(convertedData, CONFIG_VALUES["gauge-graphs"]["default-scale"]);
-    const chartData = filteredRawData.map(item => ({
-        x: new Date(item.time).getTime(),
-        y: item.value
-    }));
-
-    chart.instance.updateSeries([{ data: chartData }], true);
+    // const filteredRawData = filterDataByRange(convertedData, CONFIG_VALUES["gauge-graphs"]["default-scale"]);
+    // const chartData = filteredRawData.map(item => ({
+    //     x: new Date(item.time).getTime(),
+    //     y: item.value
+    // }));
     chart.fullData = convertedData;
     chart.pullTime = rawConvertDate(new Date().toISOString());
+    await updateGraphTimeScale(site);
+    // const [minPadding, maxPadding] = getAxisPadding(chartData);
+    // chart.instance.updateOptions({
+    //     xaxis: {
+    //         labels: {
+    //             datetimeUTC: false,
+    //             style: { colors: '#FFFFFF' }
+    //         }
+    //     },
+    //     yaxis: {
+    //         min: minPadding,
+    //         max: maxPadding,
+    //         labels: {
+    //             style: { colors: '#FFFFFF' }
+    //         }
+    //     }
+    // }, false, false);
+    // chart.instance.updateSeries([{ data: chartData }], true);
+    // chart.fullData = convertedData;
+    // chart.pullTime = rawConvertDate(new Date().toISOString());
 
     // update footer
     const currentFooter = document.querySelector(`.chart-footer-${site.id}`);
@@ -594,27 +612,43 @@ async function reloadGaugeGraph(site) {
     console.log(`🔄 ${site.id}-RELOAD - Graph reloaded, took: [${(performance.now() - start).toFixed(0)}ms]`);
 }
 
-function updateGraphTimeScale(site) {
+async function updateGraphTimeScale(site) {
     const locationItem = LOCATIONS[site.id].properties;
     const chart = charts.find(chart => chart.id == site.id);
     const filteredRawData = filterDataByRange(chart.fullData, CONFIG_VALUES["gauge-graphs"]["default-scale"]);
+
     const chartData = filteredRawData.map(item => ({
         x: new Date(item.time).getTime(),
         y: item.value
     }));
 
-    console.log(chartData);
+    const [minPadding, maxPadding] = getAxisPadding(chartData);
+    const thresholds = await getThresholdObject(site.id);
+
     chart.instance.updateOptions({
         xaxis: {
-            min: undefined,
-            max: undefined,
+            type: 'datetime',
+            labels: {
+                datetimeUTC: false,
+                style: { colors: '#FFFFFF' }
+            }
         },
         yaxis: {
-            min: undefined,
-            max: undefined,
-        }
-    }, false, true);
-    chart.instance.updateSeries([{ data: chartData }], true);
+            min: minPadding,
+            max: maxPadding,
+            labels: {
+                style: { colors: '#FFFFFF' }
+            }
+        },
+    }, false, false);
+
+    chart.instance.updateSeries([{ data: chartData }], false);
+
+    setTimeout(() => {
+        chart.instance.updateOptions({
+            annotations: thresholds
+        }, true, false);
+    }, 100);
 
     // update footer
     const currentFooter = document.querySelector(`.chart-footer-${site.id}`);
@@ -1012,18 +1046,9 @@ async function createGraph(site, data, color, time) {
     }));
 
     // y axis padding
-    const [percent, add] = CONFIG_VALUES["gauge-graphs"]["axis-padding"].split('p').map(Number);
-    const [below, above] = CONFIG_VALUES["gauge-graphs"]["axis-padding-enabled"].split('p').map(Number);
-    const yValues = chartData.map(d => d.y);
-    const min = Math.min(...yValues);
-    const max = Math.max(...yValues);
-    const minPadding = below ? (min * (1 - percent * 0.01)) - add : min;
-    const maxPadding = above ? (max * (percent * 0.01 + 1)) + add : max;
+    const [minPadding, maxPadding] = getAxisPadding(chartData);
 
-    //HISTORIC_CACHE
-    const historicItem = await getHistoricItem(site.id);
-    const monthlyItems = getHistoricMonth(historicItem);
-    const thresholds = getThresholdGraph(site.id, locationItem.properties.thresholds, monthlyItems);
+    const thresholds = await getThresholdObject(site.id);
 
     const options = {
         series: [{
@@ -1031,7 +1056,7 @@ async function createGraph(site, data, color, time) {
             data: chartData
         }],
         title: {
-            text: locationItem.properties.monitoring_location_name,
+            text: locationItem.properties.monitoring_location_name.replace(', Oahu, HI', ''),
             align: 'center',
             margin: 10,
             offsetX: 0,
@@ -1107,16 +1132,31 @@ async function createGraph(site, data, color, time) {
     return chartContainer;
 }
 
+function getAxisPadding(chartData) {
+    const [percent, add] = CONFIG_VALUES["gauge-graphs"]["axis-padding"].split('p').map(Number);
+    const [below, above] = CONFIG_VALUES["gauge-graphs"]["axis-padding-enabled"].split('p').map(Number);
+    const yValues = chartData.map(d => d.y);
+    const min = Math.min(...yValues);
+    const max = Math.max(...yValues);
+    const minPadding = below ? (min * (1 - percent * 0.01)) - add : min;
+    const maxPadding = above ? (max * (percent * 0.01 + 1)) + add : max;
+
+    return [minPadding, maxPadding];
+}
+
+async function getThresholdObject(id) {
+    const locationItem = LOCATIONS[id];
+    const historicItem = await getHistoricItem(id);
+    const monthlyItems = getHistoricMonth(historicItem);
+    const thresholds = getThresholdGraph(id, locationItem.properties.thresholds, monthlyItems);
+    return thresholds;
+}
+
 async function getHistoricItem(id) {
     if (!HISTORIC_CACHE[id]) {
         const [historicResult] = await Promise.all([
             fetchAndWait('json/historic-data.json')
         ]);
-
-        // check null or undefined
-        if (historicResult == null || historicResult[id] == null) {
-            historicResult = null;
-        }
         
         HISTORIC_CACHE[id] = historicResult[id];
     }
@@ -1370,6 +1410,8 @@ function updateSettings() {
         console.log(`⚙️ Settings Updated: ${title} - ${val} at [${rawConvertDate(new Date().toISOString())}]`)
     }
 
+    let updateTimeScale = false;
+
     if (checkValid(displayMode, CONFIG_VALUES["display-mode"])) {
         CONFIG_VALUES["display-mode"] = displayMode;
         updateDisplayMode(displayMode);
@@ -1393,38 +1435,48 @@ function updateSettings() {
     if (checkValid(tableColumns, CONFIG_VALUES["gauge-tables"]["columns"])) {
         CONFIG_VALUES["gauge-tables"]["columns"] = tableColumns;
         document.getElementById('table-container').style.gridTemplateColumns = `repeat(${tableColumns}, 1fr)`;
+
         printUpdate('["gauge-tables"]["columns"]', tableColumns);
     }
 
     if (checkValid(graphColumns, CONFIG_VALUES["gauge-graphs"]["columns"])) {
         CONFIG_VALUES["gauge-graphs"]["columns"] = graphColumns;
         document.getElementById('graph-container').style.gridTemplateColumns = `repeat(${graphColumns}, 1fr)`;
+
         printUpdate('["gauge-graphs"]["columns"]', graphColumns);
     }
 
     if (checkValid(graphScale, CONFIG_VALUES["gauge-graphs"]["default-scale"])) {
         CONFIG_VALUES["gauge-graphs"]["default-scale"] = graphScale;
+        updateTimeScale = true;
 
-        charts.forEach(chart => {
-            const site = AREAS
-                .flatMap(area => area.Sites)
-                .find(s => s.id === chart.id);
-            
-            updateGraphTimeScale(site);
-            printUpdate(`["gauge-graphs"]["default-scale"][${site.id}]`, graphScale);
-        });
+        printUpdate(`["gauge-graphs"]["default-scale"]`, graphScale);
     }
 
     const padding = `${paddingPercent}p${paddingAdd}`;
     if (checkValid(padding, CONFIG_VALUES["gauge-graphs"]["axis-padding"])) {
         CONFIG_VALUES["gauge-graphs"]["axis-padding"] = padding;
+        updateTimeScale = true;
+
         printUpdate('["gauge-graphs"]["axis-padding"]', padding);
     }
 
     const paddingEnabled = `${Number(paddingBelow)}p${Number(paddingAbove)}`;
     if (checkValid(paddingEnabled, CONFIG_VALUES["gauge-graphs"]["axis-padding-enabled"])) {
         CONFIG_VALUES["gauge-graphs"]["axis-padding-enabled"] = paddingEnabled;
+        updateTimeScale = true;
+
         printUpdate('["gauge-graphs"]["axis-padding-enabled"]', paddingEnabled);
+    }
+
+    if (updateTimeScale) {
+        charts.forEach(chart => {
+            const site = AREAS
+                .flatMap(area => area.Sites)
+                .find(s => s.id === chart.id);
+            
+            updateGraphTimeScale(site); 
+        });
     }
 
     updateParams();
@@ -1479,10 +1531,6 @@ function graphClick(site, event) {
     const veociItem = VEOCI_NOTES.find(obj => obj.SiteID === site.id.replace("USGS-", ""));
     const siteColor = getSiteArea(site).Color;
 
-    console.log(locationItem);
-    console.log(historicItem);
-    console.log(veociItem);
-
     const headerText = popupOverlay.querySelector('.popup-header-text');
     headerText.textContent = locationItem.properties.monitoring_location_name;
     headerText.style.color = siteColor;
@@ -1509,13 +1557,15 @@ function graphClick(site, event) {
     body.appendChild(mapDiv);
     body.appendChild(document.createElement('br'));
 
-    if (locationItem?.dam?.link != "") {
+    if (locationItem?.dam?.link) {
+        const linkDiv = document.createElement('div');
         const graphLink = document.createElement('a');
         graphLink.href = locationItem.dam.link;
         graphLink.textContent = 'DLNR Dam Information Link';
         graphLink.target = '_blank';
 
-        body.appendChild(graphLink);
+        linkDiv.appendChild(graphLink);
+        body.appendChild(linkDiv);
         body.appendChild(document.createElement('br'));
     }
 
@@ -1537,14 +1587,13 @@ function graphClick(site, event) {
     tableDiv.className = 'tables-wrapper';
     const chart = charts.find(obj => obj.id === site.id);
     const currentItem = chart.fullData[chart.fullData.length - 1];
-    console.log(currentItem);
-    const currentDisplayThreshold = getCurrentThreshold(currentItem.y, locationItem);
+    const currentDisplayThreshold = getCurrentThreshold(currentItem.value, locationItem);
     const textColor = getWarningColor(currentDisplayThreshold);
 
     // tables
     tableDiv.appendChild(createDetailsTable("Current", [
-        {"title": "Current", "value": `${parseFloat(currentItem.y).toFixed(2)} ft`, "color": textColor},
-        {"title": "Last Update", "value": `${formatDateTime(currentItem.x)}`, "color": "#b9b9b9"},
+        {"title": "Current", "value": `${parseFloat(currentItem.value).toFixed(2)} ft`, "color": textColor},
+        {"title": "Last Update", "value": `${formatDateTime(currentItem.time)}`, "color": "#b9b9b9"},
         {"title": "Minor Threshold", "value": `${locationItem.properties.thresholds.minor} ft`, "color": getWarningColor('minor')},
         {"title": "Major Threshold", "value": `${locationItem.properties.thresholds.major} ft`, "color": getWarningColor('major')},
         {"title": "Action Threshold", "value": `${locationItem.properties.thresholds.action} ft`, "color": getWarningColor('action')}
