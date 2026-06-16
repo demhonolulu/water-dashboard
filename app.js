@@ -771,7 +771,7 @@ function addCardDetails(article, id, data) {
     const dataDiv = document.createElement('div');
     dataDiv.classList.add('gauge-data');
     dataDiv.innerHTML = `
-        <span class="main-value" style="gap: 0px; padding-right: 0;"><strong style="margin: 0; padding: 0;">${data.val}</strong>
+        <span class="main-value" ${colorOverrideAlert}><strong style="margin: 0; padding: 0;">${data.val}</strong>
         <small style="padding: 0; margin: 0;">ft</small>
         </span>
         <small><span ${colorOverrideAlert} class="card-diff ${dirClass}">(${change} ${percent}%)</span></small>
@@ -780,7 +780,7 @@ function addCardDetails(article, id, data) {
     const dateDiv = document.createElement('div');
     dateDiv.classList.add('gauge-meta');
     dateDiv.innerHTML = `
-        <small ${isOld ? 'style="color: red;"' : ''}">${formatTimeShort(data.time)}</small>${thresholdText}
+        <small class="main-value" ${isOld ? 'style="color: red;"' : ''}">${formatTimeShort(data.time)}</small>${thresholdText}
     `;
 
     article.appendChild(dataDiv);
@@ -1125,7 +1125,7 @@ async function createChartFooter(thresholds, id, data) {
     }
 
     chartFooter.innerHTML = `
-        <div style="display: flex; justify-content: space-between;>
+        <div style="display: flex; justify-content: space-between;">
             <span style="color: ${getWarningColor('base')}">Base: ${average}ft</span>
             <span style="color: ${getWarningColor('minor')}">Minor: ${checkValue(thresholds.minor)}ft</span>
             <span style="color: ${getWarningColor('major')}">Major: ${checkValue(thresholds.major)}ft</span>
