@@ -1,28 +1,36 @@
-// // City and County of Honolulu
-// // Department of Emergency Management 
-// // Water Gauge Dashboard
+// City and County of Honolulu
+// Department of Emergency Management 
+// Water Gauge Dashboard
 
-// const params    = new URLSearchParams(window.location.search);
-// const preset    = params.get('preset');
-// const paramMappings = {
-//     'display-mode': ['display-mode'],
-//     'reload-time': ['reload-time'],
-//     'user': ['user'],
-//     'table-columns': ['gauge-tables', 'columns'],
-//     'table-filter': ['gauge-tables', 'area-filter'],
-//     'graph-columns': ['gauge-graphs', 'columns'],
-//     'graph-scale': ['gauge-graphs', 'default-scale'],
-//     'graph-sites': ['gauge-graphs', 'sites'],
-//     'graph-padding': ['gauge-graphs', 'axis-padding'],
-//     'graph-padding-enabled': ['gauge-graphs', 'axis-padding-enabled']
-// };
+let SETTINGS = {};
+const paramPresets = {
+    1: {
+        'display-mode': 1,
+        'reload-time': 900,
+        'user': null,
+        'table-columns': 10,
+        'table-filter': null,
+        'graph-columns': 3,
+        'graph-scale': 'w',
+        'graph-sites': '',
+        'graph-padding': '0p0,0p0'
+    },
+    2: {
+        'display-mode': 2
+    },
+    3: {
+        'display-mode': 3,
+        'graph-padding': '0p0,0.1p0.1'
+    }
+};
 
 // // stream and dam location data
 // let LOCATIONS = {};
 // let VEOCI_NOTES = {};
 // let AREAS = [];
-// let GAUGE_REGISTRY = [];
-// let GAUGE_BITMAP = 0n;
+
+let GAUGE_REGISTRY = [];
+let GAUGE_BITMAP = 0n;
 
 // const HISTORIC_CACHE = {};
 
@@ -58,11 +66,6 @@ const overlay = document.getElementById('loading-overlay');
 function showLoading() { overlay.classList.add('active');    }
 function hideLoading() { overlay.classList.remove('active'); }
 
-// // all items
-// // https://api.waterdata.usgs.gov/ogcapi/v0/collections/latest-continuous/items?f=json&lang=en-US&limit=50000&skipGeometry=false&offset=0&monitoring_location_id=USGS-16210000
-// // individual
-// // https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?limit=50000&properties=time,value,unit_of_measure,approval_status,qualifier&time_series_id=26e3b29b90d34a3baf13ebe7c297197a&time=P7D
-
 // // ── DOM refs ──────────────────────────────────────────────
 // const tableContainer        = document.getElementById('table-container');
 // const tableHeaderContainer  = document.getElementById('table-header-container');
@@ -77,7 +80,9 @@ function hideLoading() { overlay.classList.remove('active'); }
 async function init() {
     showLoading();
     try {
-        loadParams();
+        // load in parameters
+        SETTINGS = { ...paramPresets[1], ...loadParams(new URLSearchParams(window.location.search)) };
+        updateParams();
 
         const response = await fetch('https://api.oahudem.com/water/get-active-locations?flat=true');
         const data = await response.json();
@@ -97,9 +102,8 @@ async function init() {
         // VEOCI_NOTES = veociResult.Sheet0;
         // AREAS = areaResult.sort((a, b) => a.Order - b.Order);
 
-
-
-        // GAUGE_REGISTRY = mapGaugeRegistry(LOCATIONS);
+        //GAUGE_REGISTRY = mapGaugeRegistry(LOCATIONS);
+        
         // GAUGE_BITMAP = CONFIG_VALUES["gauge-graphs"].sites ? decodeBase36ToBigInt(CONFIG_VALUES["gauge-graphs"].sites) : 0n;
         
         // await buildGaugeTable();
@@ -136,99 +140,85 @@ async function init() {
 
 init();
 
-// // ── SETUP ─────────────────────────────────────────────────
-// function decodeBase36ToBigInt(str) {
-//     return str.split('').reduce((acc, char) => {
-//         return acc * 36n + BigInt(parseInt(char, 36));
-//     }, 0n);
-// }
+// ── SETUP ─────────────────────────────────────────────────
+function decodeBase36ToBigInt(str) {
+    return str.split('').reduce((acc, char) => {
+        return acc * 36n + BigInt(parseInt(char, 36));
+    }, 0n);
+}
 
-// function mapGaugeRegistry(locations) {
-//     const entries = Object.entries(locations);
-//     const maxOrder = Math.max(...entries.map(([, val]) => val.order));
-//     const result = new Array(maxOrder).fill(null);
+function mapGaugeRegistry(locations) {
+    const entries = Object.entries(locations);
+    const maxOrder = Math.max(...entries.map(([, val]) => val.order));
+    const result = new Array(maxOrder).fill(null);
   
-//     entries.forEach(([id, value]) => {
-//         result[value.order - 1] = id;
-//     });
+    entries.forEach(([id, value]) => {
+        result[value.order - 1] = id;
+    });
   
-//     return result;
-// }
+    return result;
+}
 
-// function readBitMap(map) {
-//     if (!map) return [];
-//     const mask = BigInt(map); 
+function readBitMap(map) {
+    if (!map) return [];
+    const mask = BigInt(map); 
 
-//     return GAUGE_REGISTRY.filter((id, index) => {
-//         if (id === null) return false;
-//         return (mask & (1n << BigInt(index))) !== 0n;
-//     });
-// }
+    return GAUGE_REGISTRY.filter((id, index) => {
+        if (id === null) return false;
+        return (mask & (1n << BigInt(index))) !== 0n;
+    });
+}
 
-// function updateGaugeBit(id, state) {
-//     const index = GAUGE_REGISTRY.indexOf(id);
+function updateGaugeBit(id, state) {
+    const index = GAUGE_REGISTRY.indexOf(id);
 
-//     if (index === -1) {
-//         console.error(`Station ${id} not found in registry.`);
-//         return;
-//     }
-
-//     const bitPosition = 1n << BigInt(index);
-//     if (state) {
-//         GAUGE_BITMAP |= bitPosition;
-//     } 
-//     else {
-//         GAUGE_BITMAP &= ~bitPosition;
-//     }
-// }
-
-function loadParams() {
-    const loadPreset = () => {
-        if (preset == null || isNaN(preset))
-            return false;
-
-        const previewValues = CONFIG_VALUES.presets[`${preset}`];
-        if (previewValues == null)
-            return false;
-
-        CONFIG_VALUES = { ...CONFIG_VALUES, ...previewValues };
-
-        return true;
+    if (index === -1) {
+        console.error(`Station ${id} not found in registry.`);
+        return;
     }
 
-    if (!loadPreset()) {
-        for (const [paramKey, pathArray] of Object.entries(paramMappings)) {
-            const value = params.get(paramKey);
-            if (value !== null) {
-                if (Array.isArray(pathArray)) {
-                    let target = CONFIG_VALUES;
-                    for (let i = 0; i < pathArray.length - 1; i++) {
-                        target = target[pathArray[i]] = target[pathArray[i]] || {};
-                    }
-                    target[pathArray[pathArray.length - 1]] = value;
-                } else {
-                    CONFIG_VALUES[pathArray] = value;
-                }
-            }
+    const bitPosition = 1n << BigInt(index);
+    if (state) {
+        GAUGE_BITMAP |= bitPosition;
+    } 
+    else {
+        GAUGE_BITMAP &= ~bitPosition;
+    }
+}
+
+function loadParams(urlParams) {
+    const preset = urlParams.get('preset');
+
+    // if preset exist, ignore rest
+    if (preset && preset > 0) {
+        return paramPresets[preset];
+    }
+
+    const foundParams = {};
+    for (const paramKey of Object.keys(paramPresets[1])) {
+        const value = urlParams.get(paramKey);
+        if (value) {
+            foundParams[paramKey] = value;
         }
     }
 
-    updateParams();
+    return foundParams;
 }
 
 function updateParams() {
     const url = new URL(window.location.href);
     url.search = '';
 
-    for (const [paramKey, path] of Object.entries(paramMappings)) {
-        let value = CONFIG_VALUES;
+    for (const paramKey of Object.keys(paramPresets[1])) {
+        const value = SETTINGS[paramKey];
 
-        for (const key of path) {
-            value = value?.[key];
+        // if value is same as default, skip
+        if (value == paramPresets[1][paramKey]) {
+            continue;
         }
 
         if (value !== null && value !== undefined) {
-            // CHECK: If the value is a BigInt, convert it to Base36 string
+            // if the value is BigInt, convert it to Base36 string
             const formattedValue = (typeof value === 'bigint') 
                 ? value.toString(36) 
                 : value;
@@ -238,11 +228,6 @@ function updateParams() {
     }
 
     window.history.replaceState({}, '', url);
-
-    // update table and graph columns
-    document.getElementById('table-container').style.gridTemplateColumns = `repeat(${CONFIG_VALUES["gauge-tables"].columns}, 1fr)`;
-    document.getElementById('graph-container').style.gridTemplateColumns = `repeat(${CONFIG_VALUES["gauge-graphs"].columns}, 1fr)`;
-    updateDisplayMode(CONFIG_VALUES["display-mode"]);
 }
 
 // // ── FETCH ─────────────────────────────────────────────────
