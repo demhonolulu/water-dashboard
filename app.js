@@ -25,11 +25,13 @@ const paramPresets = {
 };
 
 // // stream and dam location data
-// let LOCATIONS = {};
+
 // let VEOCI_NOTES = {};
-// let AREAS = [];
+
 let ACTIVE_LOCATIONS = {};
 let ACTIVE_LOCATIONS_STRING;
+let LOCATIONS = {};
+let AREAS;
 
 let GAUGE_REGISTRY = [];
 let GAUGE_BITMAP = 0n;
@@ -41,6 +43,7 @@ let GAUGE_BITMAP = 0n;
 
 // let charts = [];
 
+let OVERVIEW = [];
 // let USGS_OVERVIEW = [];
 // let UHSLC_OVERVIEW = [];
 
@@ -87,7 +90,16 @@ async function init() {
         updateParams();
 
         ACTIVE_LOCATIONS = await fetchAndWait(BASE_URL + 'get-active-locations?flat=true');
-        ACTIVE_LOCATIONS_STRING = Object.entries(ACTIVE_LOCATIONS).reduce((acc, [key]) => acc ? acc + ',' + key : key, '');
+        ACTIVE_LOCATIONS_STRING = Object.entries(ACTIVE_LOCATIONS).reduce((output, [key]) => output ? output + ',' + key : key, '');
+        LOCATIONS = await fetchAndWait(BASE_URL + 'get-location-data?locations=' + ACTIVE_LOCATIONS_STRING);
+        AREAS = Object.values(LOCATIONS).reduce((output, gauge) => {
+            const area = gauge.area ?? 'Unknown';
+            if (!output[area]) {
+                output[area] = [];
+            }
+            output[area].push(gauge.gauge_id);
+            return output;
+        }, {});
 
         // // fetch json files
         // const [locationsResult, veociResult, areaResult, configResult, historicResult] = await Promise.all([
@@ -564,9 +576,13 @@ async function buildGaugeTable(locations) {
     //     fetchData("tableUSGSCache", AWS_USGS_TABLE_CACHE_URL, USGS_TABLE_URL + GAUGE_IDS, "GAUGE_OVERVIEW"),
     //     fetchData("tableUHSLCCache", AWS_UHSLC_TABLE_CACHE_URL, null, "GAUGE_OVERVIEW")
     // ]);
-    const overview = await fetchAndWait(BASE_URL + 'get-table-overview?locations=' + locations);
-    console.log(overview);
-    
+
+    // set up placeholder cards for all locations
+    // group gauges by location
+    // create card
+    OVERVIEW = await fetchAndWait(BASE_URL + 'get-table-overview?locations=' + locations);
+    console.log(OVERVIEW);
+
     // USGS_OVERVIEW = overviewResultsUSGS;
     // UHSLC_OVERVIEW = overviewResultsUHSLC;
 
