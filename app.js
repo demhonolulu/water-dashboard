@@ -28,6 +28,8 @@ const paramPresets = {
 // let LOCATIONS = {};
 // let VEOCI_NOTES = {};
 // let AREAS = [];
+let ACTIVE_LOCATIONS = {};
+let ACTIVE_LOCATIONS_STRING;
 
 let GAUGE_REGISTRY = [];
 let GAUGE_BITMAP = 0n;
@@ -42,6 +44,7 @@ let GAUGE_BITMAP = 0n;
 // let USGS_OVERVIEW = [];
 // let UHSLC_OVERVIEW = [];
 
+const BASE_URL = "https://api.oahudem.com/water/";
 // const GAUGE_IDS                 = "USGS-213320158061401,USGS-213308158035601,USGS-213133158014201,USGS-16345000,USGS-16330000,USGS-16325000,USGS-16210500,USGS-16304200,USGS-16301050,USGS-16296500,USGS-16294900,USGS-16294100,USGS-16284200,USGS-16283200,USGS-16279200,USGS-16275000,USGS-16274100,USGS-16265000,USGS-16264600,USGS-16254000,USGS-16249000,USGS-16247100,USGS-16244000,USGS-16241600,USGS-16240500,USGS-16238500,USGS-16238000,USGS-16229000,USGS-16227500,USGS-16226700,USGS-16226400,USGS-16226200,USGS-16247150,USGS-16213000,USGS-16212601,USGS-16210200,USGS-16210100,USGS-16210000,USGS-16208400,USGS-16208000,USGS-16206600,USGS-16200000,USGS-16212490,USGS-16211800,USGS-16211600";
 // const AWS_USGS_TABLE_URL        = "https://ofsyjumlizgqte56n2kznphw740iwjzb.lambda-url.us-east-2.on.aws/";
 // const AWS_USGS_TABLE_CACHE_URL  = "https://ookj3pwjnfbg7iw7qmadxboiwy0bxzgy.lambda-url.us-east-2.on.aws/";
@@ -66,8 +69,8 @@ const overlay = document.getElementById('loading-overlay');
 function showLoading() { overlay.classList.add('active');    }
 function hideLoading() { overlay.classList.remove('active'); }
 
-// // ── DOM refs ──────────────────────────────────────────────
-// const tableContainer        = document.getElementById('table-container');
+// ── DOM refs ──────────────────────────────────────────────
+const tableContainer        = document.getElementById('table-container');
 // const tableHeaderContainer  = document.getElementById('table-header-container');
 // const graphContainer        = document.getElementById('graph-container');
 // const settingsContainer     = document.getElementById('settings-container');
@@ -80,13 +83,12 @@ function hideLoading() { overlay.classList.remove('active'); }
 async function init() {
     showLoading();
     try {
-        // load in parameters
         SETTINGS = { ...paramPresets[1], ...loadParams(new URLSearchParams(window.location.search)) };
         updateParams();
 
-        const response = await fetch('https://api.oahudem.com/water/get-active-locations?flat=true');
-        const data = await response.json();
-        console.log(data);
+        ACTIVE_LOCATIONS = await fetchAndWait(BASE_URL + 'get-active-locations?flat=true');
+        ACTIVE_LOCATIONS_STRING = Object.entries(ACTIVE_LOCATIONS).reduce((acc, [key]) => acc ? acc + ',' + key : key, '');
+
         // // fetch json files
         // const [locationsResult, veociResult, areaResult, configResult, historicResult] = await Promise.all([
         //     fetchAndWait('json/locations.json'),
@@ -102,11 +104,10 @@ async function init() {
         // VEOCI_NOTES = veociResult.Sheet0;
         // AREAS = areaResult.sort((a, b) => a.Order - b.Order);
 
-        //GAUGE_REGISTRY = mapGaugeRegistry(LOCATIONS);
-        
+        GAUGE_REGISTRY = mapGaugeRegistry();
         // GAUGE_BITMAP = CONFIG_VALUES["gauge-graphs"].sites ? decodeBase36ToBigInt(CONFIG_VALUES["gauge-graphs"].sites) : 0n;
         
-        // await buildGaugeTable();
+        await buildGaugeTable(ACTIVE_LOCATIONS_STRING);
         
         // // load graphs
         // const preloadGauges = readBitMap(GAUGE_BITMAP);
@@ -147,15 +148,14 @@ function decodeBase36ToBigInt(str) {
     }, 0n);
 }
 
-function mapGaugeRegistry(locations) {
-    const entries = Object.entries(locations);
-    const maxOrder = Math.max(...entries.map(([, val]) => val.order));
-    const result = new Array(maxOrder).fill(null);
-  
-    entries.forEach(([id, value]) => {
-        result[value.order - 1] = id;
+function mapGaugeRegistry() {
+    const maxOrder = Math.max(...Object.values(ACTIVE_LOCATIONS).map(v => v.order));
+    const result = new Array(maxOrder + 1).fill(null);
+
+    Object.entries(ACTIVE_LOCATIONS).forEach(([gauge_id, val]) => {
+        result[val.order] = gauge_id;
     });
-  
+
     return result;
 }
 
@@ -230,20 +230,20 @@ function updateParams() {
     window.history.replaceState({}, '', url);
 }
 
-// // ── FETCH ─────────────────────────────────────────────────
-// async function fetchAndWait(url, body = null) {
-//     const response = await fetch(url, body ? {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(body)
-//     } : undefined);
+// ── FETCH ─────────────────────────────────────────────────
+async function fetchAndWait(url, body = null) {
+    const response = await fetch(url, body ? {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    } : undefined);
 
-//     if (!response.ok) {
-//         throw new Error(`ERROR status: ${response.status}`);
-//     }
-//     const data = await response.json();
-//     return data;
-// }
+    if (!response.ok) {
+        throw new Error(`ERROR status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+}
 
 // async function fetchData(type, awsURL, backupURL, printId = null, body = null) {
 //     let data;
@@ -557,45 +557,47 @@ function updateParams() {
 //     currentFooter.replaceWith(updatedFooter);
 // }
 
-// // ── TABLE ─────────────────────────────────────────────────
-// async function buildGaugeTable() {
-//     // pull cache data to build table
-//     const [overviewResultsUSGS, overviewResultsUHSLC] = await Promise.all([
-//         fetchData("tableUSGSCache", AWS_USGS_TABLE_CACHE_URL, USGS_TABLE_URL + GAUGE_IDS, "GAUGE_OVERVIEW"),
-//         fetchData("tableUHSLCCache", AWS_UHSLC_TABLE_CACHE_URL, null, "GAUGE_OVERVIEW")
-//     ]);
-
-//     USGS_OVERVIEW = overviewResultsUSGS;
-//     UHSLC_OVERVIEW = overviewResultsUHSLC;
-
-//     console.log(`GAUGE_TABLE - Inital load fetch results at [${rawConvertDate(new Date().toISOString())}]`);
-//     console.log(USGS_OVERVIEW);
-//     console.log(UHSLC_OVERVIEW);
+// ── TABLE ─────────────────────────────────────────────────
+async function buildGaugeTable(locations) {
+    // pull cache data to build table
+    // const [overviewResultsUSGS, overviewResultsUHSLC] = await Promise.all([
+    //     fetchData("tableUSGSCache", AWS_USGS_TABLE_CACHE_URL, USGS_TABLE_URL + GAUGE_IDS, "GAUGE_OVERVIEW"),
+    //     fetchData("tableUHSLCCache", AWS_UHSLC_TABLE_CACHE_URL, null, "GAUGE_OVERVIEW")
+    // ]);
+    const overview = await fetchAndWait(BASE_URL + 'get-table-overview?locations=' + locations);
+    console.log(overview);
     
-//     AREAS.forEach((area) => {
-//         tableHeaderContainer.appendChild(createAreaCard(area));
+    // USGS_OVERVIEW = overviewResultsUSGS;
+    // UHSLC_OVERVIEW = overviewResultsUHSLC;
+
+    // console.log(`GAUGE_TABLE - Inital load fetch results at [${rawConvertDate(new Date().toISOString())}]`);
+    // console.log(USGS_OVERVIEW);
+    // console.log(UHSLC_OVERVIEW);
+    
+    // AREAS.forEach((area) => {
+    //     tableHeaderContainer.appendChild(createAreaCard(area));
         
-//         area.Sites.forEach((site) => {
-//             const data = site.type == "USGS" ?  USGS_OVERVIEW.gauges[site.id] : UHSLC_OVERVIEW.gauges[site.id];
-//             const card = createSiteCard(site, data, area);
-//             if (card) {
-//                 tableContainer.appendChild(card);
-//             }
-//         })
-//     });
+    //     area.Sites.forEach((site) => {
+    //         const data = site.type == "USGS" ?  USGS_OVERVIEW.gauges[site.id] : UHSLC_OVERVIEW.gauges[site.id];
+    //         const card = createSiteCard(site, data, area);
+    //         if (card) {
+    //             tableContainer.appendChild(card);
+    //         }
+    //     })
+    // });
 
-//     const areaObj = AREAS.find(a => a.Order === parseInt(CONFIG_VALUES["gauge-tables"]["area-filter"]));
-//     const name = areaObj?.Area ?? null;
-//     if (name) {
-//         const article = document.querySelector(`article.gauge-card.gauge-card-header.${getAreaClassName(name)}`);
-//         if (article) {
-//             filterByArea(areaObj, article);
-//         }
-//     }
+    // const areaObj = AREAS.find(a => a.Order === parseInt(CONFIG_VALUES["gauge-tables"]["area-filter"]));
+    // const name = areaObj?.Area ?? null;
+    // if (name) {
+    //     const article = document.querySelector(`article.gauge-card.gauge-card-header.${getAreaClassName(name)}`);
+    //     if (article) {
+    //         filterByArea(areaObj, article);
+    //     }
+    // }
     
-//     // run function async
-//     reloadGaugeTable();
-// }
+    // // run function async
+    // reloadGaugeTable();
+}
 
 // function getAreaClassName(area) {
 //     return area.replace(/\s+/g, '-')

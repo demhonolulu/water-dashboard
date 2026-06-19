@@ -1,4 +1,7 @@
-.container, .container-fluid {
+* {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+/* .container, .container-fluid {
   max-width: 100% !important;
   width: 100% !important;
 }
@@ -315,4 +318,4 @@ h6 {
 
 #settings-button:hover {
   background-color: #246aa0;
-}
+} */
