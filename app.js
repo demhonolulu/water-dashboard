@@ -92,6 +92,7 @@ async function init() {
         ACTIVE_LOCATIONS = await fetchAndWait(BASE_URL + 'get-active-locations?flat=true');
         ACTIVE_LOCATIONS_STRING = Object.entries(ACTIVE_LOCATIONS).reduce((output, [key]) => output ? output + ',' + key : key, '');
         LOCATIONS = await fetchAndWait(BASE_URL + 'get-location-data?locations=' + ACTIVE_LOCATIONS_STRING);
+        console.log(LOCATIONS);
         AREAS = Object.values(LOCATIONS).reduce((output, gauge) => {
             const area = gauge.area ?? 'Unknown';
             if (!output[area]) {
@@ -578,6 +579,15 @@ async function buildGaugeTable(locations) {
     // ]);
 
     // set up placeholder cards for all locations
+    Object.entries(AREAS).forEach(([area, locationList]) => {
+        console.log(area);
+        locationList.forEach((location) => {
+            const info = LOCATIONS[location];
+            // create card
+            //tableContainer
+            console.log(info)
+        });
+    });
     // group gauges by location
     // create card
     OVERVIEW = await fetchAndWait(BASE_URL + 'get-table-overview?locations=' + locations);
