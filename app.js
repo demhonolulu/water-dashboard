@@ -581,10 +581,33 @@ async function buildGaugeTable(locations) {
     // set up placeholder cards for all locations
     Object.entries(AREAS).forEach(([area, locationList]) => {
         console.log(area);
+
         locationList.forEach((location) => {
             const info = LOCATIONS[location];
             // create card
-            //tableContainer
+            tableContainer.innerHTML += `
+            <div class="table-card col-12 col-sm-6 col-md-3 col-lg-1">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">${info.short_name}</h5>
+                        <p class="card-text">
+                            <strong class="table-value">-??</strong> ft
+                            <span class="table-change">(-??.?? -??.??%)</span>
+                        </p>
+                        <p class="card-text">
+                            <strong class="table-date">??:??am</strong> 
+                            <span class="table-threshold">??ft</span>
+                        </p>
+                        <div class="mt-auto table-tags">
+                            <span class="badge rounded-pill tag-${info.gauge_type}">${info.gauge_type}</span>
+                            <span class="badge rounded-pill site-${info.site_type_code}">${info.site_type}</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-top-0">
+                    <a href="#" class="btn btn-outline-primary btn-sm">Learn more</a>
+                </div>
+            </div>
+            `;
             console.log(info)
         });
     });

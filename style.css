@@ -1,6 +1,23 @@
 * {
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
+
+:root {
+  --color-usgs: #1e4d2b;
+  --color-uhslc: #1a5276;
+  --color-stream: rgb(14, 165, 233);
+  --color-dam: rgb(249, 115, 22);
+}
+
+.tag-USGS {
+  background: var(--color-usgs);
+}
+
+.tag-UHSLC {
+  background: var(--color-uhslc);
+}
+
+
 /* .container, .container-fluid {
   max-width: 100% !important;
   width: 100% !important;
