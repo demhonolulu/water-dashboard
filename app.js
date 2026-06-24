@@ -38,7 +38,10 @@ const tabLookup = {
   'PRIMARY-URBAN-CENTER': { icon: 'ti ti-building-skyscraper', tooltip: 'Primary Urban Center' },
   'CENTRAL-OAHU':         { icon: 'ti ti-map-pin',         tooltip: 'Central Oahu' },
   'EWA':                  { icon: 'ti ti-sun',             tooltip: 'Ewa' },
-  'WAIANAE':              { icon: 'ti ti-sunset-2',        tooltip: 'Waianae' }
+  'WAIANAE':              { icon: 'ti ti-sunset-2',        tooltip: 'Waianae' },
+  'positive': { icon: 'ti ti-chevrons-up-right',   tooltip: 'Gauge level increasing' },
+  'negative': { icon: 'ti ti-chevrons-down-right', tooltip: 'Gauge level decreasing' },
+  'clicked': { icon: 'ti ti-chart-bar', tooltip: 'Gauge graph expanded' }
 }
 
 // // stream and dam location data
@@ -392,67 +395,6 @@ async function fetchAndWait(url, body = null) {
 //     };
 // }
 
-// function processRawUSGSTable(rawData) {
-//     const grouped = {};
-//     rawData.features.forEach(feature => {
-//         const { monitoring_location_id, value, time } = feature.properties;
-//         const parsed = parseFloat(value);
-
-//         if (!grouped[monitoring_location_id]) grouped[monitoring_location_id] = []; {
-//             grouped[monitoring_location_id].push({ val: isNaN(parsed) ? null : parsed, time: new Date(time) });
-//         }
-//     });
-
-//     const updatedGauges = {};
-//     Object.entries(grouped).forEach(([id, readings]) => {
-//         readings.sort((a, b) => b.time - a.time); // newest first
-
-//         const newest = readings[0];
-//         const oneHourAgo = new Date(newest.time.getTime() - 60 * 60 * 1000);
-
-//         // Find reading closest to 1 hour before the newest
-//         const hourReading = readings.reduce((best, r) => {
-//             const diff = Math.abs(r.time - oneHourAgo);
-//             return diff < Math.abs(best.time - oneHourAgo) ? r : best;
-//         }, readings[readings.length - 1]); // seed with oldest as fallback
-
-//         updatedGauges[id] = {
-//             val: newest.val,
-//             val_1h: hourReading.val,
-//             time: newest.time.toISOString()
-//         };
-//     });
-
-//     return processTable({
-//         gauges: updatedGauges,
-//         updateTime: new Date().toISOString()
-//     });
-// }
-
-// function processRawUSGSGraph(rawData) {
-//     const formattedData = rawData.features.map(feature => ({
-//       time: rawConvertDate(feature.properties.time),
-//       value: parseFloat(feature.properties.value) 
-//     }));
-//     formattedData.sort((a, b) => new Date(a.time) - new Date(b.time));
-
-//     return {
-//         updateTime: rawConvertDate(new Date()),
-//         data: formattedData
-//     };
-// }
-
-// function processRawUHSLCTable(rawData) {
-//     // doesnt even work because of cross origin
-//     return null;
-// }
-
-
-// function processRawUHSLCGraph(rawData) {
-//     // doesnt even work because of cross origin
-//     return null;
-// }
-
 
 // // ── RELOAD ────────────────────────────────────────────────
 // async function reloadGaugeTable() {
@@ -589,12 +531,6 @@ async function fetchAndWait(url, body = null) {
 
 // ── TABLE ─────────────────────────────────────────────────
 async function buildGaugeTable(locations) {
-    // pull cache data to build table
-    // const [overviewResultsUSGS, overviewResultsUHSLC] = await Promise.all([
-    //     fetchData("tableUSGSCache", AWS_USGS_TABLE_CACHE_URL, USGS_TABLE_URL + GAUGE_IDS, "GAUGE_OVERVIEW"),
-    //     fetchData("tableUHSLCCache", AWS_UHSLC_TABLE_CACHE_URL, null, "GAUGE_OVERVIEW")
-    // ]);
-
     // set up placeholder cards for all locations
     Object.entries(AREAS).forEach(([area, locationList]) => {
         const lookupArea = getAreaClassName(area);
@@ -604,7 +540,7 @@ async function buildGaugeTable(locations) {
             // create card
             tableContainer.innerHTML += `
             <div class="table-card col-12 col-sm-6 col-md-4 col-lg-2 col-xl-1 table-${info.gauge_id}">
-                <div class="card h-100">
+                <div class="card h-100" onclick="tableClick('${info.gauge_id}')">
                     <div class="card-body">
                         <h5 class="card-title" style="color: var(--color-${lookupArea})"><strong>${info.short_name}</strong></h5>
                         <p class="card-text mb-0">
@@ -615,10 +551,10 @@ async function buildGaugeTable(locations) {
                             <span class="table-date">??:?? am</span> 
                             <span class="table-threshold">?? ft</span>
                         </p>
-                        <div class="mt-auto table-tags d-flex gap-2">
-                            ${createTab('area', lookupArea)}
-                            ${createTab('type', info.gauge_type)}
-                            ${createTab('site', info.site_type_code)}
+                        <div class="mt-auto table-tags d-flex gap-2 flex-wrap">
+                            ${createTab('area', lookupArea, true)}
+                            ${createTab('type', info.gauge_type, true)}
+                            ${createTab('site', info.site_type_code, true)}
                         </div>
                     </div>
             </div>
@@ -663,9 +599,10 @@ async function buildGaugeTable(locations) {
     updateGaugeTable(locations);
 }
 
-function createTab(type, code) {
+function createTab(type, code, static) {
+    const staticClass = static ? 'static' : '';
     return `
-    <span class="badge rounded-pill table-tag tag-${type} ${type}-${code}"
+    <span class="badge rounded-pill table-tag tag-${type} ${type}-${code} ${staticClass}"
         data-bs-toggle="tooltip"
         title="${tabLookup[code]?.tooltip}">
         <i class="${tabLookup[code]?.icon}"></i>
@@ -688,16 +625,31 @@ async function updateGaugeTable(locations) {
             card.querySelector('.table-value').textContent = location.current_val;
 
             const changeEl = card.querySelector('.table-change');
-            const changePercent = ((location.current_val - location.past_val) / location.past_val);
-            const sign = changePercent >= 0 ? '+' : '';
-            changeEl.textContent = `(${sign}${changePercent.toFixed(2)}%)`;
-            changeEl.setAttribute('title', `${location.past_val} (${sign}${(location.current_val - location.past_val).toFixed(2)}) at ${formatDateShort(location.past_date)}`);
-            // changeEl.style.color = info.change < 0 ? 'var(--bs-danger)' : 'var(--bs-success)';
+            const changePercent = ((location.current_val - location.past_val) / location.past_val).toFixed(2);
+            const sign = changePercent > 0 ? '+' : changePercent < 0 ? '-' : '=';
+            changeEl.textContent = `(${sign}${Math.abs(changePercent)}%)`;
+            changeEl.setAttribute('title', `${location.past_val} (${sign}${Math.abs(location.current_val - location.past_val).toFixed(2)}) at ${formatDateShort(location.past_date)}`);
+
+            const signLookup = { '+': 'positive', '=': 'neutral', '-': 'negative' }
+            changeEl.classList.remove('positive', 'negative', 'neutral');
+            changeEl.classList.add(signLookup[sign]);
 
             // date
             const dateEl = card.querySelector('.table-date');
             dateEl.textContent = formatDateShort(location.current_date);
             dateEl.setAttribute('title', `${formatDateLong(location.current_date)}`);
+
+            const currentDate = new Date(location.current_date);
+            const today = new Date();
+            const isOld = currentDate.toDateString() !== today.toDateString();
+
+            dateEl.classList.toggle('old', isOld);
+
+            // update tags 
+            const tagsEl = card.querySelector('.table-tags');
+            const changeTag = tagsEl.querySelector('.tag-change');
+            if (changeTag) changeTag.remove();
+            if (sign != '=') tagsEl.innerHTML += createTab('change', signLookup[sign], false);
         }
     });
 }
@@ -721,25 +673,33 @@ function formatDateLong(dateString) {
     }).toLowerCase();
     return `${datePart}, ${timePart}`;
 }
-// function createAreaCard(area) {
-//     const article = document.createElement('article');
-//     article.classList.add('gauge-card', 'gauge-card-header', `${area.Area.replace(/\s+/g, '-')}`);
-//     article.style.borderColor = area.Color;
-//     article._abortController = new AbortController();
-//     const signal = article._abortController.signal;
 
-//     const titleText = document.createElement('h6');
-//     titleText.style.margin = "0";
-//     titleText.textContent = `${area.Area}`;
-//     titleText.style.color = area.Color;
-//     article.appendChild(titleText);
+function tableClick(location, visible = null) {
+    if (visible) {
+        return;
+    }
+    const card = document.querySelector(`.table-${location}`);
+    const tagsEl = card.querySelector('.table-tags');
+    const clickTag = tagsEl.querySelector('.tag-clicked');
 
-//     article.addEventListener('click', () => {
-//         filterByArea(area, article);
-//     }, { signal });
+    if (clickTag) {
+        clickTag.remove();
+        hideGraph();
+    }
+    else {
+        tagsEl.innerHTML += createTab('clicked', 'clicked', false);
+        createGraph();
+    }
+    console.log(location)
+}
 
-//     return article;
-// }
+async function createGraph() {
+
+}
+
+async function hideGraph() {
+
+}
 
 // function filterByArea(area, article) {
 //     const articles = tableContainer.querySelectorAll('article');

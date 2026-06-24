@@ -4,6 +4,7 @@
 
 
 :root {
+  --color-main-text: #ffffff;
   --color-type: #32cd32;
   --color-site: rgb(14, 165, 233);
   --color-NORTH-SHORE: #ea9999;
@@ -13,11 +14,14 @@
   --color-CENTRAL-OAHU: #b6d7a8;
   --color-EWA: #d5a6bd;
   --color-WAIANAE: #b4a7d6;
+
+  --color-positive: #57bb8a;
+  --color-negative: #e67c73;
 }
 
 [data-bs-theme="dark"] {
   --bs-body-bg: #16113a;         /* main page bg */
-  --bs-body-color: #ffffff;      /* main text color */
+  --bs-body-color: var(--color-main-text);      /* main text color */
   --bs-secondary-bg: #2d294e;    /* secondary surfaces 
   --bs-border-color: #2d2d2d;    /* borders */
   --bs-tertiary-bg: #2d294e;     /* navbar, footer etc */
@@ -97,6 +101,26 @@
   border-color: var(--color-WAIANAE);
   color: var(--color-WAIANAE);
 }
+
+.positive { color: var(--color-positive); }
+.negative { color: var(--color-negative); }
+.neutral  { color: var(--color-main-text); }
+
+.badge.change-positive {
+  border-color: var(--color-positive);
+  color: var(--color-positive);
+}
+
+.badge.change-negative {
+  border-color: var(--color-negative);
+  color: var(--color-negative);
+}
+
+.badge.clicked-clicked {
+  border-color: var(--color-main-text);
+  color: var(--color-main-text);
+}
+
 
 /* .container, .container-fluid {
   max-width: 100% !important;
