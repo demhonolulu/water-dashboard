@@ -2,21 +2,101 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
+
 :root {
-  --color-usgs: #1e4d2b;
-  --color-uhslc: #1a5276;
-  --color-stream: rgb(14, 165, 233);
-  --color-dam: rgb(249, 115, 22);
+  --color-type: #32cd32;
+  --color-site: rgb(14, 165, 233);
+  --color-NORTH-SHORE: #ea9999;
+  --color-KOOLAULOA: #a2c4c9;
+  --color-KOOLAUPOKO: #f9cb9c;
+  --color-PRIMARY-URBAN-CENTER: #ffe599;
+  --color-CENTRAL-OAHU: #b6d7a8;
+  --color-EWA: #d5a6bd;
+  --color-WAIANAE: #b4a7d6;
 }
 
-.tag-USGS {
-  background: var(--color-usgs);
+[data-bs-theme="dark"] {
+  --bs-body-bg: #16113a;         /* main page bg */
+  --bs-body-color: #ffffff;      /* main text color */
+  --bs-secondary-bg: #2d294e;    /* secondary surfaces 
+  --bs-border-color: #2d2d2d;    /* borders */
+  --bs-tertiary-bg: #2d294e;     /* navbar, footer etc */
 }
 
-.tag-UHSLC {
-  background: var(--color-uhslc);
+[data-bs-theme="dark"] .card {
+  --bs-card-bg: #2d294e;
+  --bs-card-border-radius: 1rem;
 }
 
+.navbar-brand {
+  white-space: normal;
+}
+
+.navbar {
+  background-color: #2d294e !important;
+}
+
+/* table tags */
+.badge.table-tag {
+  background: transparent;
+  border: 2px solid;
+}
+
+.badge.tag-type {
+  border-color: var(--color-type);
+  color: var(--color-type);
+}
+
+.badge.tag-site {
+  border-color: var(--color-site);
+  color: var(--color-site);
+}
+
+.card-title {
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.5em;
+  line-height: 1.25;
+}
+
+/* area tags */
+.badge.area-NORTH-SHORE {
+  border-color: var(--color-NORTH-SHORE);
+  color: var(--color-NORTH-SHORE);
+}
+
+.badge.area-KOOLAULOA {
+  border-color: var(--color-KOOLAULOA);
+  color: var(--color-KOOLAULOA);
+}
+
+.badge.area-KOOLAUPOKO {
+  border-color: var(--color-KOOLAUPOKO);
+  color: var(--color-KOOLAUPOKO);
+}
+
+.badge.area-PRIMARY-URBAN-CENTER {
+  border-color: var(--color-PRIMARY-URBAN-CENTER);
+  color: var(--color-PRIMARY-URBAN-CENTER);
+}
+
+.badge.area-CENTRAL-OAHU {
+  border-color: var(--color-CENTRAL-OAHU);
+  color: var(--color-CENTRAL-OAHU);
+}
+
+.badge.area-EWA {
+  border-color: var(--color-EWA);
+  color: var(--color-EWA);
+}
+
+.badge.area-WAIANAE {
+  border-color: var(--color-WAIANAE);
+  color: var(--color-WAIANAE);
+}
 
 /* .container, .container-fluid {
   max-width: 100% !important;

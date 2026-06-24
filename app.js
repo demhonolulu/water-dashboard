@@ -24,6 +24,23 @@ const paramPresets = {
     }
 };
 
+
+const tabLookup = {
+  'USGS':   { icon: 'ti ti-building-bank',     tooltip: 'USGS' },
+  'UHSLC':  { icon: 'ti ti-fish',              tooltip: 'UHSLC' },
+  'ST':     { icon: 'ti ti-ripple',             tooltip: 'Stream' },
+  'ST-CA':  { icon: 'ti ti-arrow-wave-right-up',tooltip: 'Canal' },
+  'ST-DCH': { icon: 'ti ti-line-dashed',        tooltip: 'Ditch' },
+  'LK':     { icon: 'ti ti-droplet-half-2',     tooltip: 'Lake/Reservoir' },
+  'NORTH-SHORE':          { icon: 'ti ti-beach',          tooltip: 'North Shore' },
+  'KOOLAULOA':            { icon: 'ti ti-mountain',        tooltip: 'Koolauloa' },
+  'KOOLAUPOKO':           { icon: 'ti ti-trees',           tooltip: 'Koolaupoko' },
+  'PRIMARY-URBAN-CENTER': { icon: 'ti ti-building-skyscraper', tooltip: 'Primary Urban Center' },
+  'CENTRAL-OAHU':         { icon: 'ti ti-map-pin',         tooltip: 'Central Oahu' },
+  'EWA':                  { icon: 'ti ti-sun',             tooltip: 'Ewa' },
+  'WAIANAE':              { icon: 'ti ti-sunset-2',        tooltip: 'Waianae' }
+}
+
 // // stream and dam location data
 
 // let VEOCI_NOTES = {};
@@ -580,41 +597,37 @@ async function buildGaugeTable(locations) {
 
     // set up placeholder cards for all locations
     Object.entries(AREAS).forEach(([area, locationList]) => {
-        console.log(area);
+        const lookupArea = getAreaClassName(area);
 
         locationList.forEach((location) => {
             const info = LOCATIONS[location];
             // create card
             tableContainer.innerHTML += `
-            <div class="table-card col-12 col-sm-6 col-md-3 col-lg-1">
+            <div class="table-card col-12 col-sm-6 col-md-4 col-lg-2 col-xl-1 table-${info.gauge_id}">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h5 class="card-title">${info.short_name}</h5>
-                        <p class="card-text">
+                        <h5 class="card-title" style="color: var(--color-${lookupArea})"><strong>${info.short_name}</strong></h5>
+                        <p class="card-text mb-0">
                             <strong class="table-value">-??</strong> ft
-                            <span class="table-change">(-??.?? -??.??%)</span>
+                            <span class="table-change ms-1">(-??.?? -??.??%)</span>
                         </p>
-                        <p class="card-text">
-                            <strong class="table-date">??:??am</strong> 
-                            <span class="table-threshold">??ft</span>
+                        <p class="card-text d-flex justify-content-between mb-1">
+                            <span class="table-date">??:?? am</span> 
+                            <span class="table-threshold">?? ft</span>
                         </p>
-                        <div class="mt-auto table-tags">
-                            <span class="badge rounded-pill tag-${info.gauge_type}">${info.gauge_type}</span>
-                            <span class="badge rounded-pill site-${info.site_type_code}">${info.site_type}</span>
+                        <div class="mt-auto table-tags d-flex gap-2">
+                            ${createTab('area', lookupArea)}
+                            ${createTab('type', info.gauge_type)}
+                            ${createTab('site', info.site_type_code)}
                         </div>
                     </div>
-                    <div class="card-footer bg-white border-top-0">
-                    <a href="#" class="btn btn-outline-primary btn-sm">Learn more</a>
-                </div>
             </div>
             `;
-            console.log(info)
         });
     });
     // group gauges by location
     // create card
-    OVERVIEW = await fetchAndWait(BASE_URL + 'get-table-overview?locations=' + locations);
-    console.log(OVERVIEW);
+
 
     // USGS_OVERVIEW = overviewResultsUSGS;
     // UHSLC_OVERVIEW = overviewResultsUHSLC;
@@ -646,12 +659,68 @@ async function buildGaugeTable(locations) {
     
     // // run function async
     // reloadGaugeTable();
+
+    updateGaugeTable(locations);
 }
 
-// function getAreaClassName(area) {
-//     return area.replace(/\s+/g, '-')
-// }
+function createTab(type, code) {
+    return `
+    <span class="badge rounded-pill table-tag tag-${type} ${type}-${code}"
+        data-bs-toggle="tooltip"
+        title="${tabLookup[code]?.tooltip}">
+        <i class="${tabLookup[code]?.icon}"></i>
+    </span>
+    `;
+}
 
+function getAreaClassName(area) {
+    return area.replace(/\s+/g, '-')
+}
+
+async function updateGaugeTable(locations) {
+    OVERVIEW = await fetchAndWait(BASE_URL + 'get-table-overview?locations=' + locations);
+    console.log(OVERVIEW);
+
+    OVERVIEW.forEach((location) => {
+        const card = document.querySelector(`.table-${location.gauge_id}`);
+        if (card) {
+            // value with change
+            card.querySelector('.table-value').textContent = location.current_val;
+
+            const changeEl = card.querySelector('.table-change');
+            const changePercent = ((location.current_val - location.past_val) / location.past_val);
+            const sign = changePercent >= 0 ? '+' : '';
+            changeEl.textContent = `(${sign}${changePercent.toFixed(2)}%)`;
+            changeEl.setAttribute('title', `${location.past_val} (${sign}${(location.current_val - location.past_val).toFixed(2)}) at ${formatDateShort(location.past_date)}`);
+            // changeEl.style.color = info.change < 0 ? 'var(--bs-danger)' : 'var(--bs-success)';
+
+            // date
+            const dateEl = card.querySelector('.table-date');
+            dateEl.textContent = formatDateShort(location.current_date);
+            dateEl.setAttribute('title', `${formatDateLong(location.current_date)}`);
+        }
+    });
+}
+
+function formatDateShort(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+    });
+}
+
+function formatDateLong(dateString) {
+    const date = new Date(dateString);
+    const datePart = date.toLocaleDateString('en-US');
+    const timePart = date.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+    }).toLowerCase();
+    return `${datePart}, ${timePart}`;
+}
 // function createAreaCard(area) {
 //     const article = document.createElement('article');
 //     article.classList.add('gauge-card', 'gauge-card-header', `${area.Area.replace(/\s+/g, '-')}`);
