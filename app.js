@@ -24,25 +24,89 @@ const paramPresets = {
     }
 };
 
-
 const tabLookup = {
-  'USGS':   { icon: 'ti ti-building-bank',     tooltip: 'USGS' },
-  'UHSLC':  { icon: 'ti ti-fish',              tooltip: 'UHSLC' },
-  'ST':     { icon: 'ti ti-ripple',             tooltip: 'Stream' },
-  'ST-CA':  { icon: 'ti ti-arrow-wave-right-up',tooltip: 'Canal' },
-  'ST-DCH': { icon: 'ti ti-line-dashed',        tooltip: 'Ditch' },
-  'LK':     { icon: 'ti ti-droplet-half-2',     tooltip: 'Lake/Reservoir' },
-  'NORTH-SHORE':          { icon: 'ti ti-beach',          tooltip: 'North Shore' },
-  'KOOLAULOA':            { icon: 'ti ti-mountain',        tooltip: 'Koolauloa' },
-  'KOOLAUPOKO':           { icon: 'ti ti-trees',           tooltip: 'Koolaupoko' },
-  'PRIMARY-URBAN-CENTER': { icon: 'ti ti-building-skyscraper', tooltip: 'Primary Urban Center' },
-  'CENTRAL-OAHU':         { icon: 'ti ti-map-pin',         tooltip: 'Central Oahu' },
-  'EWA':                  { icon: 'ti ti-sun',             tooltip: 'Ewa' },
-  'WAIANAE':              { icon: 'ti ti-sunset-2',        tooltip: 'Waianae' },
-  'positive': { icon: 'ti ti-chevrons-up-right',   tooltip: 'Gauge level increasing' },
-  'negative': { icon: 'ti ti-chevrons-down-right', tooltip: 'Gauge level decreasing' },
-  'clicked': { icon: 'ti ti-chart-bar', tooltip: 'Gauge graph expanded' }
+    'USGS':   { icon: 'ti ti-building-bank',     tooltip: 'USGS' },
+    'UHSLC':  { icon: 'ti ti-fish',              tooltip: 'UHSLC' },
+    'ST':     { icon: 'ti ti-ripple',             tooltip: 'Stream' },
+    'ST-CA':  { icon: 'ti ti-arrow-wave-right-up',tooltip: 'Canal' },
+    'ST-DCH': { icon: 'ti ti-line-dashed',        tooltip: 'Ditch' },
+    'LK':     { icon: 'ti ti-droplet-half-2',     tooltip: 'Lake/Reservoir' },
+    'NORTH-SHORE':          { icon: 'ti ti-beach',          tooltip: 'North Shore' },
+    'KOOLAULOA':            { icon: 'ti ti-mountain',        tooltip: 'Koolauloa' },
+    'KOOLAUPOKO':           { icon: 'ti ti-trees',           tooltip: 'Koolaupoko' },
+    'PRIMARY-URBAN-CENTER': { icon: 'ti ti-building-skyscraper', tooltip: 'Primary Urban Center' },
+    'CENTRAL-OAHU':         { icon: 'ti ti-map-pin',         tooltip: 'Central Oahu' },
+    'EWA':                  { icon: 'ti ti-sun',             tooltip: 'Ewa' },
+    'WAIANAE':              { icon: 'ti ti-sunset-2',        tooltip: 'Waianae' },
+    'positive': { icon: 'ti ti-chevrons-up-right',   tooltip: 'Gauge level increasing' },
+    'negative': { icon: 'ti ti-chevrons-down-right', tooltip: 'Gauge level decreasing' },
+    'clicked': { icon: 'ti ti-chart-bar', tooltip: 'Gauge graph expanded' },
+    'close': { icon: 'ti ti-trash', tooltip: 'Close gauge graph' },
+    'expand': { icon: 'ti ti-arrows-maximize', tooltip: 'Expand gauge graph' },
 }
+
+const colorToAreaMap = {
+    'NORTH-SHORE': '#ea9999',
+    'KOOLAULOA': '#a2c4c9',
+    'KOOLAUPOKO': '#f9cb9c',
+    'PRIMARY-URBAN-CENTER': '#ffe599',
+    'CENTRAL-OAHU': '#b6d7a8',
+    'EWA': '#d5a6bd',
+    'WAIANAE': '#b4a7d6',
+}
+
+const graphOptions = (locationName, chartData, areaColor, min, max) => ({
+    series: [{ name: locationName, data: chartData }],
+    // title: {
+    //     text: locationName.replace(', Oahu, HI', ''),
+    //     align: 'center',
+    //     margin: 10,
+    //     offsetX: 0,
+    //     offsetY: 0,
+    //     floating: false,
+    //     style: {
+    //         fontSize:  '21px',
+    //         fontWeight: 'bold',
+    //         color:  '#ffff'
+    //     },
+    // },
+    chart: { type: 'area', zoom: { enabled: false }, toolbar: { show: false } },
+    dataLabels: { enabled: false },
+    xaxis: {
+        type: 'datetime',
+        labels: {
+            datetimeUTC: false,
+            style: {
+                colors: areaColor
+            }
+        }
+    },
+    yaxis: {
+        min: min,
+        max: max,
+        labels: {
+            style: {
+                colors: areaColor
+            }
+        }
+    },
+    tooltip: { x: { format: 'dd MMM HH:mm' }, theme: 'dark' },
+    colors: areaColor,
+    stroke: { curve: 'smooth', colors: areaColor },
+    fill: {
+        type: 'gradient',
+        gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.6,
+            opacityTo: 0.1,
+            colorStops: [
+                { offset: 0, color: areaColor, opacity: 1 },
+                { offset: 100, color: areaColor, opacity: 0.8 }
+            ]
+        }
+    },
+    //annotations: thresholds
+});
 
 // // stream and dam location data
 
@@ -64,9 +128,8 @@ let GAUGE_BITMAP = 0n;
 // let charts = [];
 
 let OVERVIEW = [];
-// let USGS_OVERVIEW = [];
-// let UHSLC_OVERVIEW = [];
 
+const GRAPHS = {};
 const BASE_URL = "https://api.oahudem.com/water/";
 // const GAUGE_IDS                 = "USGS-213320158061401,USGS-213308158035601,USGS-213133158014201,USGS-16345000,USGS-16330000,USGS-16325000,USGS-16210500,USGS-16304200,USGS-16301050,USGS-16296500,USGS-16294900,USGS-16294100,USGS-16284200,USGS-16283200,USGS-16279200,USGS-16275000,USGS-16274100,USGS-16265000,USGS-16264600,USGS-16254000,USGS-16249000,USGS-16247100,USGS-16244000,USGS-16241600,USGS-16240500,USGS-16238500,USGS-16238000,USGS-16229000,USGS-16227500,USGS-16226700,USGS-16226400,USGS-16226200,USGS-16247150,USGS-16213000,USGS-16212601,USGS-16210200,USGS-16210100,USGS-16210000,USGS-16208400,USGS-16208000,USGS-16206600,USGS-16200000,USGS-16212490,USGS-16211800,USGS-16211600";
 // const AWS_USGS_TABLE_URL        = "https://ofsyjumlizgqte56n2kznphw740iwjzb.lambda-url.us-east-2.on.aws/";
@@ -95,7 +158,7 @@ function hideLoading() { overlay.classList.remove('active'); }
 // ── DOM refs ──────────────────────────────────────────────
 const tableContainer        = document.getElementById('table-container');
 // const tableHeaderContainer  = document.getElementById('table-header-container');
-// const graphContainer        = document.getElementById('graph-container');
+const graphContainer        = document.getElementById('graph-container');
 // const settingsContainer     = document.getElementById('settings-container');
 // const settingsTable         = document.getElementById('settings-table-body');
 // const sectionTable          = document.getElementById('sectionTable');
@@ -599,11 +662,12 @@ async function buildGaugeTable(locations) {
     updateGaugeTable(locations);
 }
 
-function createTab(type, code, static) {
+function createTab(type, code, static, func = null, params = null) {
     const staticClass = static ? 'static' : '';
+    const clickEvent = func ? `onclick="${func}('${params}')"` : ''
     return `
     <span class="badge rounded-pill table-tag tag-${type} ${type}-${code} ${staticClass}"
-        data-bs-toggle="tooltip"
+        data-bs-toggle="tooltip" ${clickEvent}
         title="${tabLookup[code]?.tooltip}">
         <i class="${tabLookup[code]?.icon}"></i>
     </span>
@@ -683,22 +747,83 @@ function tableClick(location, visible = null) {
     const clickTag = tagsEl.querySelector('.tag-clicked');
 
     if (clickTag) {
-        clickTag.remove();
-        hideGraph();
+        hideGraph(location);
     }
     else {
         tagsEl.innerHTML += createTab('clicked', 'clicked', false);
-        createGraph();
+        createGraph(location);
     }
     console.log(location)
 }
 
-async function createGraph() {
+async function createGraph(location) {
+    showLoading();
+    const cached = GRAPHS[location];
+    if (!cached) {
+        const info = LOCATIONS[location];
+        const data = await fetchAndWait(BASE_URL + 'get-graph-data?gauge_id=' + location);
+        const { data: formatted, min, max } = formatGraphData(data[location], 24 * 7);
+        const areaName = getAreaClassName(info.area);
 
+        graphContainer.insertAdjacentHTML('beforeend', `
+            <div class="table-card col-12 col-sm-12 col-md-6 col-lg-4 graph-${location}">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between gap-2">
+                            <h5 class="card-title" style="color: var(--color-${areaName})"><strong>${info.full_name}</strong></h5>
+                            <div class="d-flex gap-2">
+                                ${createTab('expand', 'expand', false, 'console.log', 'test')}
+                                ${createTab('close', 'close', false, 'hideGraph', location)}
+                            </div>
+                        </div>
+                        <div class="chart-${location}"></div>
+                    </div>
+            </div>
+        `);
+        const chartDiv = document.querySelector(`.chart-${location}`);
+
+        const padding = (max - min) * 0.1;
+        const newChart = new ApexCharts(chartDiv, graphOptions(info.full_name, formatted, colorToAreaMap[areaName], Math.floor(min - padding), Math.ceil(max + padding)));
+        newChart.render();
+        
+        GRAPHS[location] = {
+            fullData: data,
+            timeScale: 'test'
+        };
+    }
+    else {
+        const graphCard = document.querySelector(`.table-card.graph-${location}`);
+        graphCard.classList.remove('hidden');
+    }
+
+    hideLoading(location);
 }
 
-async function hideGraph() {
+async function hideGraph(location) {
+    const graphCard = document.querySelector(`.table-card.graph-${location}`);
+    const tableCard = document.querySelector(`.table-${location}`);
+    const tagsEl = tableCard.querySelector('.table-tags');
+    const clickTag = tagsEl.querySelector('.tag-clicked');
 
+    graphCard.classList.add('hidden');
+    clickTag.remove();
+}
+
+function formatGraphData(data, range) {
+    const cutoff = new Date(Date.now() - range * 60 * 60 * 1000);
+    const filtered = data
+        .filter(reading => new Date(reading.reading_datetime) >= cutoff)
+        .sort((a, b) => new Date(b.reading_datetime) - new Date(a.reading_datetime))
+        .map(reading => ({
+            x: reading.reading_datetime,
+            y: parseFloat(reading.val)
+        }));
+
+    const vals = filtered.map(r => r.y);
+    const min = Math.min(...vals);
+    const max = Math.max(...vals);
+
+    return { data: filtered, min, max };
 }
 
 // function filterByArea(area, article) {
