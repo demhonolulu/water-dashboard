@@ -16,6 +16,11 @@
 
   --color-positive: #57bb8a;
   --color-negative: #e67c73;
+
+  --color-minor: #ffea00;
+  --color-moderate: #ffae00;
+  --color-major: #ee4b2b;
+  --color-action: #8b0000;
 }
 
 [data-bs-theme="dark"] {
@@ -69,6 +74,12 @@
 .navbar {
   background-color: #2d294e !important;
 }
+
+/* threshold colors */
+.minor { color: var(--color-minor); }
+.moderate {color: var(--color-moderate); }
+.major {color: var(--color-major); }
+.action { color: var(--color-action); }
 
 /* table tags */
 .badge.table-tag {

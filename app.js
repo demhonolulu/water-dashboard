@@ -665,11 +665,12 @@ async function buildGaugeTable(locations) {
 function createTab(type, code, static, func = null, params = null) {
     const staticClass = static ? 'static' : '';
     const clickEvent = func ? `onclick="${func}('${params}')"` : ''
+    const icon = type == 'text' ? code : `<i class="${tabLookup[code]?.icon}"></i>`;
     return `
     <span class="badge rounded-pill table-tag tag-${type} ${type}-${code} ${staticClass}"
         data-bs-toggle="tooltip" ${clickEvent}
         title="${tabLookup[code]?.tooltip}">
-        <i class="${tabLookup[code]?.icon}"></i>
+        ${icon}
     </span>
     `;
 }
@@ -709,6 +710,13 @@ async function updateGaugeTable(locations) {
 
             dateEl.classList.toggle('old', isOld);
 
+            // update thresholds
+            const thresholdEl = card.querySelector('.table-threshold');
+            const { text, hits, display } = tableDisplayThreshold(location);
+            thresholdEl.textContent = text;
+            thresholdEl.classList.remove('minor', 'major', 'action');
+            if (display) thresholdEl.classList.add(display);
+
             // update tags 
             const tagsEl = card.querySelector('.table-tags');
             const changeTag = tagsEl.querySelector('.tag-change');
@@ -728,14 +736,18 @@ function formatDateShort(dateString) {
 }
 
 function formatDateLong(dateString) {
-    const date = new Date(dateString);
-    const datePart = date.toLocaleDateString('en-US');
-    const timePart = date.toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true
-    }).toLowerCase();
-    return `${datePart}, ${timePart}`;
+    if (dateString) {
+        const date = new Date(dateString);
+        const datePart = date.toLocaleDateString('en-US');
+        const timePart = date.toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+        }).toLowerCase();
+        return `${datePart}, ${timePart}`;
+    }
+
+    return 'N/A';
 }
 
 function tableClick(location, visible = null) {
@@ -759,14 +771,16 @@ function tableClick(location, visible = null) {
 async function createGraph(location) {
     showLoading();
     const cached = GRAPHS[location];
+
     if (!cached) {
         const info = LOCATIONS[location];
         const data = await fetchAndWait(BASE_URL + 'get-graph-data?gauge_id=' + location);
-        const { data: formatted, min, max } = formatGraphData(data[location], 24 * 7);
+        const { data: formatted, min, max, padding } = formatGraphData(data[location], 24 * 7);
         const areaName = getAreaClassName(info.area);
+        const isDamn = info.site_type_code == 'LK';
 
         graphContainer.insertAdjacentHTML('beforeend', `
-            <div class="table-card col-12 col-sm-12 col-md-6 col-lg-4 graph-${location}">
+            <div class="graph-card col-12 col-sm-12 col-md-6 col-lg-4 graph-${location}">
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between gap-2">
@@ -777,36 +791,134 @@ async function createGraph(location) {
                             </div>
                         </div>
                         <div class="chart-${location}"></div>
+                        <div class="graph-footer">
+                            <div class="graph-current d-flex align-items-center justify-content-between gap-2 mb-0">
+                                <span class="d-flex gap-1">
+                                    <span>Latest:</span>
+                                    <span class="footer-latest">??ft ??/??/???? ??:?? am</span>
+                                </span>
+                                <span class="d-flex gap-1">
+                                    <span>Time Scale:</span>
+                                    ${createTab('text', 'H', false, 'updateTimeScale', location + ',1')}
+                                    ${createTab('text', 'D', false, 'updateTimeScale', location + ',24')}
+                                    ${createTab('text', 'W', false, 'updateTimeScale', location + ',168')}
+                                    ${createTab('text', 'M', false, 'updateTimeScale', location + ',5040')}
+                                </span>
+                            </div>
+                            <div class="graph-current d-flex align-items-center justify-content-between gap-2 mb-0">
+                                <span class="d-flex gap-1">
+                                    <span>First:</span>
+                                    <span class="footer-first">??ft</span>
+                                </span>
+                                <span class="d-flex gap-1">
+                                    <span>Min:</span>
+                                    <span class="footer-min">??ft</span>
+                                </span>
+                                <span class="d-flex gap-1">
+                                    <span>Max:</span>
+                                    <span class="footer-max">??ft</span>
+                                </span>
+                            </div>
+                            <div class="graph-thresholds d-flex gap-2 w-100 justify-content-between"">
+                                <span class="d-flex gap-1">
+                                    <span>${isDamn ? 'High-Flow' : 'Minor'}:</span>
+                                    <span class="footer-threshold minor">??ft</span>
+                                </span>
+                                <span class="d-flex gap-1">
+                                    <span>${isDamn ? 'Emergency' : 'Moderate'}:</span>
+                                    <span class="footer-threshold moderate">??ft</span>
+                                </span>
+                                <span class="d-flex gap-1">
+                                    <span>${isDamn ? 'Imminent' : 'Major'}:</span>
+                                    <span class="footer-threshold major">??ft</span>
+                                </span>
+                                <span class="d-flex gap-1">
+                                    <span>${isDamn ? 'Top of Dam' : 'Action'}:</span>
+                                    <span class="footer-threshold action">??ft</span>
+                                </span>
+                            </div>
+                        </div>
                     </div>
             </div>
         `);
         const chartDiv = document.querySelector(`.chart-${location}`);
 
-        const padding = (max - min) * 0.1;
         const newChart = new ApexCharts(chartDiv, graphOptions(info.full_name, formatted, colorToAreaMap[areaName], Math.floor(min - padding), Math.ceil(max + padding)));
         newChart.render();
         
         GRAPHS[location] = {
-            fullData: data,
-            timeScale: 'test'
+            fullData: data[location],
+            time: Date.now(),
+            timeScale: 24*7,
+            chartInstance: newChart
         };
+
+        updateGraph(location, false)
     }
     else {
-        const graphCard = document.querySelector(`.table-card.graph-${location}`);
+        const graphCard = document.querySelector(`.graph-card.graph-${location}`);
+        const isStale = cached && (Date.now() - cached.time) > 5 * 60 * 1000;
+
         graphCard.classList.remove('hidden');
+
+        if (isStale) {
+            updateGraph(location, true);
+        }
     }
 
     hideLoading(location);
 }
 
 async function hideGraph(location) {
-    const graphCard = document.querySelector(`.table-card.graph-${location}`);
+    const graphCard = document.querySelector(`.graph-card.graph-${location}`);
     const tableCard = document.querySelector(`.table-${location}`);
     const tagsEl = tableCard.querySelector('.table-tags');
     const clickTag = tagsEl.querySelector('.tag-clicked');
 
     graphCard.classList.add('hidden');
     clickTag.remove();
+}
+
+function updateTimeScale(params) {
+    const split = params.split(',');
+    const location = split[0];
+    const hours = parseInt(split[1]);
+
+    GRAPHS[location].timeScale = hours;
+    updateGraph(location, false);
+}
+
+async function updateGraph(location, reload) {
+    if (reload) {
+        const data = await fetchAndWait(BASE_URL + 'get-graph-data?gauge_id=' + location);
+        GRAPHS[location] = {
+            fullData: data[location],
+            time: Date.now()
+        };
+    }
+
+    // update chart
+    const { data: formatted, min, max, padding } = formatGraphData(GRAPHS[location].fullData, GRAPHS[location].timeScale);
+    GRAPHS[location].chartInstance.updateOptions({
+        series: [{ data: formatted }],
+        yaxis: {
+            min: Math.floor(min - padding),
+            max: Math.ceil(max + padding)
+        }
+    });
+
+    // update footer
+    const graphCard = document.querySelector(`.graph-card.graph-${location}`);
+    const latest = graphCard.querySelector('.footer-latest');
+    const first = graphCard.querySelector('.footer-first');
+    const minEl = graphCard.querySelector('.footer-min');
+    const maxEl = graphCard.querySelector('.footer-max');
+
+    console.log("updated : " + min + " " + max);
+    latest.textContent = `${formatted[0].y.toFixed(2) ?? '??'}ft - ${formatDateShort(formatted[0].x)}`;
+    first.textContent = `test`;
+    minEl.textContent = `${min?.toFixed(2) ?? '??'}ft`;
+    maxEl.textContent = `${max?.toFixed(2) ?? '??'}ft`;
 }
 
 function formatGraphData(data, range) {
@@ -822,10 +934,37 @@ function formatGraphData(data, range) {
     const vals = filtered.map(r => r.y);
     const min = Math.min(...vals);
     const max = Math.max(...vals);
+    const padding = (max - min) * 0.1;
 
-    return { data: filtered, min, max };
+    return { data: filtered, min, max, padding };
 }
 
+function tableDisplayThreshold(overview) {
+    const locationItem = LOCATIONS[overview.gauge_id];
+    if (!locationItem?.thresholds || (!locationItem?.thresholds?.minor && !locationItem?.thresholds?.major && !locationItem?.thresholds?.action)) {
+        return { text: 'N/A', hits: [], display: '' };
+    }
+
+    const thresholds = locationItem.thresholds;
+    const val = parseFloat(overview.current_val);
+    const hits = [];
+    let display = '';
+
+    // determine which thresholds are hit
+    const minorHit = thresholds.minor != null && val >= thresholds.minor;
+    const majorHit = thresholds.major != null && val >= thresholds.major;
+    const actionHit = thresholds.action != null && val >= thresholds.action;
+
+    if (minorHit) hits.push('minor');
+    if (majorHit) hits.push('major');
+    if (actionHit) hits.push('action');
+
+    if (thresholds.minor) display = 'minor';
+    if (thresholds.major && val >= thresholds.minor) display = 'major';
+    if (thresholds.action && val >= thresholds.major) display = 'action';
+
+    return { text: `${thresholds[display]}ft`, hits, display};
+}
 // function filterByArea(area, article) {
 //     const articles = tableContainer.querySelectorAll('article');
 //     const graphs = graphContainer.querySelectorAll('div.chart-container');
