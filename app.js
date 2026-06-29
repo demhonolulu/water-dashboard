@@ -38,8 +38,8 @@ const tabLookup = {
     'CENTRAL-OAHU':         { icon: 'ti ti-map-pin',         tooltip: 'Central Oahu' },
     'EWA':                  { icon: 'ti ti-sun',             tooltip: 'Ewa' },
     'WAIANAE':              { icon: 'ti ti-sunset-2',        tooltip: 'Waianae' },
-    'positive': { icon: 'ti ti-chevrons-up-right',   tooltip: 'Gauge level increasing' },
-    'negative': { icon: 'ti ti-chevrons-down-right', tooltip: 'Gauge level decreasing' },
+    'increase': { icon: 'ti ti-chevrons-up-right',   tooltip: 'Gauge level increasing' },
+    'decrease': { icon: 'ti ti-chevrons-down-right', tooltip: 'Gauge level decreasing' },
     'clicked': { icon: 'ti ti-chart-bar', tooltip: 'Gauge graph expanded' },
     'close': { icon: 'ti ti-trash', tooltip: 'Close gauge graph' },
     'expand': { icon: 'ti ti-arrows-maximize', tooltip: 'Expand gauge graph' },
@@ -65,8 +65,7 @@ const graphOptions = (locationName, chartData, areaColor, min, max) => ({
         offsetY: 0,
         floating: false,
         style: {
-            fontSize:  '21px',
-            fontWeight: 'bold',
+            fontSize:  '16px',
             color:  '#ffff'
         },
     },
@@ -123,6 +122,9 @@ let GAUGE_BITMAP = 0n;
 
 // let charts = [];
 
+const GAUGES = {};
+const SEARCH_STRINGS = {};
+
 let OVERVIEW = [];
 
 const GRAPHS = {};
@@ -152,10 +154,12 @@ function showLoading() { overlay.classList.add('active');    }
 function hideLoading() { overlay.classList.remove('active'); }
 
 // ── DOM refs ──────────────────────────────────────────────
+const searchInput           = document.getElementById('search-input');
 const tableContainer        = document.getElementById('table-container');
 const tableTemplate         = document.getElementById('table-card-template');
 // const tableHeaderContainer  = document.getElementById('table-header-container');
 const graphContainer        = document.getElementById('graph-container');
+const graphTemplate         = document.getElementById('graph-card-template');
 // const settingsContainer     = document.getElementById('settings-container');
 // const settingsTable         = document.getElementById('settings-table-body');
 // const sectionTable          = document.getElementById('sectionTable');
@@ -589,6 +593,30 @@ async function fetchAndWait(url, body = null) {
 //     currentFooter.replaceWith(updatedFooter);
 // }
 
+function updateSearchString(location) {
+    const gauge = GAUGES[location]?.search;
+    const searchString = Object.values(gauge).filter(Boolean)
+        .join(',')
+        .toLowerCase()
+        .replace(/\s+/g, '');
+
+    SEARCH_STRINGS[location] = searchString
+    //console.log(searchString);
+}
+
+function search(text) {
+    const input = text.toLowerCase().replace(/\s+/g, '');
+    Object.entries(SEARCH_STRINGS).forEach(([id, string]) => {
+        // if (input === '' || string.includes(input)) {
+        //     console.log(`${id}`);
+        // }
+        // // GAUGES[location].data.table
+        const visible = input === '' || string.includes(input);
+        GAUGES[id].data.table?.classList.toggle('d-none', !visible);
+        GAUGES[id].data.graph?.classList.toggle('d-none', !visible);
+    });
+}
+
 // ── TABLE ─────────────────────────────────────────────────
 async function buildGaugeTable(locations) {
     // set up placeholder cards for all locations
@@ -615,6 +643,20 @@ async function buildGaugeTable(locations) {
                 ${createTab('type', info.gauge_type, true)}
                 ${createTab('site', info.site_type_code, true)}
             `;
+
+            // add to gauges list
+            GAUGES[location] = {
+                data: {
+                    table: card
+                },
+                search: {
+                    name: info.full_name,
+                    area: area,
+                    id: location,
+                    type: info.gauge_type,
+                    type_code: info.site_type
+                }
+            };
             // create card
             // tableContainer.innerHTML += `
             // <div class="table-card col-12 col-sm-6 col-md-4 col-lg-2 col-xl-1 table-${info.gauge_id}">
@@ -711,9 +753,10 @@ async function updateGaugeTable(locations) {
             changeEl.textContent = `(${sign}${Math.abs(changePercent)}%)`;
             changeEl.setAttribute('title', `${location.past_val} (${sign}${Math.abs(location.current_val - location.past_val).toFixed(2)}) at ${formatDateShort(location.past_date)}`);
 
-            const signLookup = { '+': 'positive', '=': 'neutral', '-': 'negative' }
-            changeEl.classList.remove('positive', 'negative', 'neutral');
+            const signLookup = { '+': 'increase', '=': 'neutral', '-': 'decrease' }
+            changeEl.classList.remove('increase', 'decrease', 'neutral');
             changeEl.classList.add(signLookup[sign]);
+            GAUGES[location.gauge_id].search['change'] = signLookup[sign];
 
             // date
             const dateEl = card.querySelector('.table-date');
@@ -732,12 +775,15 @@ async function updateGaugeTable(locations) {
             thresholdEl.textContent = text;
             thresholdEl.classList.remove('minor', 'major', 'action');
             if (display) thresholdEl.classList.add(display);
+            GAUGES[location.gauge_id].search['thresholds'] = hits.join(',');
 
             // update tags 
             const tagsEl = card.querySelector('.table-tags');
             const changeTag = tagsEl.querySelector('.tag-change');
             if (changeTag) changeTag.remove();
             if (sign != '=') tagsEl.innerHTML += createTab('change', signLookup[sign], false);
+            
+            updateSearchString(location.gauge_id);
         }
     });
 }
@@ -775,12 +821,16 @@ function tableClick(location, visible = null) {
     const clickTag = tagsEl.querySelector('.tag-clicked');
 
     if (clickTag) {
+        GAUGES[location].search['expanded'] = null;
         hideGraph(location);
     }
     else {
+        GAUGES[location].search['expanded'] = 'expanded';
         tagsEl.innerHTML += createTab('clicked', 'clicked', false);
+
         createGraph(location);
     }
+    updateSearchString(location);
     console.log(location)
 }
 
@@ -796,57 +846,95 @@ async function createGraph(location) {
         const isDamn = info.site_type_code == 'LK';
         const thresholds = getThresholdValues(info.thresholds);
 
-        graphContainer.insertAdjacentHTML('beforeend', `
-            <div class="graph-card col-12 col-sm-12 col-md-6 col-lg-4 graph-${location}">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center justify-content-between gap-2">
-                            <h5 class="card-title" style="color: var(--color-${areaName})"><strong>${info.full_name}</strong></h5>
-                            <div class="d-flex gap-2">
-                                ${createTab('expand', 'expand', false, 'console.log', 'test')}
-                                ${createTab('close', 'close', false, 'hideGraph', location)}
-                            </div>
-                        </div>
-                        <div class="chart-${location}"></div>
-                        <div class="graph-footer">
-                            <div class="graph-current d-flex align-items-center justify-content-between gap-2 mb-0">
-                                <span class="d-flex gap-1">
-                                    <span>Latest:</span>
-                                    <span class="footer-latest">??ft </span>
-                                    <span class="footer-change">(+??.00 +??.??%)</span>
-                                    <span>@</span>
-                                    <span class="footer-time">??/??/?? ??:??AM</span>
-                                </span>
-                                <span class="d-flex gap-1">
-                                    <span>Time Scale:</span>
-                                    ${createTab('text', 'H', false, 'updateTimeScale', location + ',1')}
-                                    ${createTab('text', 'D', false, 'updateTimeScale', location + ',24')}
-                                    ${createTab('text', 'W', false, 'updateTimeScale', location + ',168')}
-                                    ${createTab('text', 'M', false, 'updateTimeScale', location + ',5040')}
-                                </span>
-                            </div>
-                            <div class="graph-thresholds d-flex gap-2 w-100 justify-content-between"">
-                                <span class="d-flex gap-1">
-                                    <span>${isDamn ? 'High-Flow' : 'Minor'}:</span>
-                                    <span class="footer-threshold minor">${thresholds.minor}</span>
-                                </span>
-                                <span class="d-flex gap-1">
-                                    <span>${isDamn ? 'Emergency' : 'Moderate'}:</span>
-                                    <span class="footer-threshold moderate">${thresholds.moderate}</span>
-                                </span>
-                                <span class="d-flex gap-1">
-                                    <span>${isDamn ? 'Imminent' : 'Major'}:</span>
-                                    <span class="footer-threshold major">${thresholds.major}</span>
-                                </span>
-                                <span class="d-flex gap-1">
-                                    <span>${isDamn ? 'Top of Dam' : 'Action'}:</span>
-                                    <span class="footer-threshold action">${thresholds.action}</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-        `);
+        const clone = graphTemplate.content.cloneNode(true);
+
+        clone.querySelector('.graph-card').classList.add(`graph-${info.gauge_id}`);
+
+        const title = clone.querySelector('.card-title');
+        title.innerHTML = `<strong>${info.short_name}</strong>`;
+        title.style.color = `var(--color-${areaName})`;
+
+        clone.querySelector('.card-buttons').innerHTML = `
+            ${createTab('expand', 'expand', false, 'console.log', 'test')}
+            ${createTab('close', 'close', false, 'hideGraph', location)}
+        `;
+
+        // body chart
+        clone.querySelector('.card-chart').classList.add(`chart-${info.gauge_id}`);
+
+        // footer items
+        clone.querySelector('.footer-scale').innerHTML = `
+            <span>Time Scale:</span>
+            ${createTab('text', 'H', false, 'updateTimeScale', location + ',1')}
+            ${createTab('text', 'D', false, 'updateTimeScale', location + ',24')}
+            ${createTab('text', 'W', false, 'updateTimeScale', location + ',168')}
+            ${createTab('text', 'M', false, 'updateTimeScale', location + ',5040')}
+        `;
+
+        // thresholds
+        clone.querySelector('.footer-threshold.minor').textContent = `${thresholds.minor}`;
+        clone.querySelector('.footer-threshold.moderate').textContent = `${thresholds.moderate}`;
+        clone.querySelector('.footer-threshold.major').textContent = `${thresholds.major}`;
+        clone.querySelector('.footer-threshold.action').textContent = `${thresholds.action}`;
+        if (isDamn) {
+            clone.querySelector('.title-minor').textContent = 'High-Flow:';
+            clone.querySelector('.title-moderate').textContent = 'Emergency:';
+            clone.querySelector('.title-major').textContent = 'Imminent:';
+            clone.querySelector('.title-action').textContent = 'Top of Dam:';
+        }
+
+        graphContainer.appendChild(clone);
+        // graphContainer.insertAdjacentHTML('beforeend', `
+        //     <div class="graph-card col-12 col-sm-12 col-md-6 col-lg-4 graph-${location}">
+        //         <div class="card h-100">
+        //             <div class="card-body">
+        //                 <div class="d-flex align-items-center justify-content-between gap-2">
+        //                     <h5 class="card-title" style="color: var(--color-${areaName})"><strong>${info.full_name}</strong></h5>
+        //                     <div class="d-flex gap-2">
+        //                         ${createTab('expand', 'expand', false, 'console.log', 'test')}
+        //                         ${createTab('close', 'close', false, 'hideGraph', location)}
+        //                     </div>
+        //                 </div>
+        //                 <div class="chart-${location}"></div>
+        //                 <div class="graph-footer">
+        //                     <div class="graph-current d-flex align-items-center justify-content-between gap-2 mb-0">
+        //                         <span class="d-flex gap-1">
+        //                             <span>Latest:</span>
+        //                             <span class="footer-latest">??ft </span>
+        //                             <span class="footer-change">(+??.00 +??.??%)</span>
+        //                             <span>@</span>
+        //                             <span class="footer-time">??/??/?? ??:??AM</span>
+        //                         </span>
+        //                         <span class="d-flex gap-1">
+        //                             <span>Time Scale:</span>
+        //                             ${createTab('text', 'H', false, 'updateTimeScale', location + ',1')}
+        //                             ${createTab('text', 'D', false, 'updateTimeScale', location + ',24')}
+        //                             ${createTab('text', 'W', false, 'updateTimeScale', location + ',168')}
+        //                             ${createTab('text', 'M', false, 'updateTimeScale', location + ',5040')}
+        //                         </span>
+        //                     </div>
+        //                     <div class="graph-thresholds d-flex gap-2 w-100 justify-content-between"">
+        //                         <span class="d-flex gap-1">
+        //                             <span>${isDamn ? 'High-Flow' : 'Minor'}:</span>
+        //                             <span class="footer-threshold minor">${thresholds.minor}</span>
+        //                         </span>
+        //                         <span class="d-flex gap-1">
+        //                             <span>${isDamn ? 'Emergency' : 'Moderate'}:</span>
+        //                             <span class="footer-threshold moderate">${thresholds.moderate}</span>
+        //                         </span>
+        //                         <span class="d-flex gap-1">
+        //                             <span>${isDamn ? 'Imminent' : 'Major'}:</span>
+        //                             <span class="footer-threshold major">${thresholds.major}</span>
+        //                         </span>
+        //                         <span class="d-flex gap-1">
+        //                             <span>${isDamn ? 'Top of Dam' : 'Action'}:</span>
+        //                             <span class="footer-threshold action">${thresholds.action}</span>
+        //                         </span>
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //     </div>
+        // `);
         const chartDiv = document.querySelector(`.chart-${location}`);
 
         const newChart = new ApexCharts(chartDiv, graphOptions(info.full_name, formatted, colorToAreaMap[areaName], Math.floor(min - padding), Math.ceil(max + padding)));
@@ -927,8 +1015,8 @@ async function updateGraph(location, reload) {
     const overview = OVERVIEW.find(item => item.gauge_id === location);
     const changePercent = ((overview.current_val - overview.past_val) / overview.past_val).toFixed(2);
     const sign = changePercent > 0 ? '+' : changePercent < 0 ? '-' : '';
-    const signLookup = { '+': 'positive', '': 'neutral', '-': 'negative' }
-    change.classList.remove('positive', 'negative', 'neutral');
+    const signLookup = { '+': 'increase', '': 'neutral', '-': 'decrease' }
+    change.classList.remove('increase', 'decrease', 'neutral');
     change.classList.add(signLookup[sign]);
     latest.textContent = `${formatted[0].y.toFixed(2) ?? '??'}`;
     change.textContent = `(${sign}${Math.abs(overview.current_val - overview.past_val).toFixed(2)} ${sign}${Math.abs(changePercent)}%)`;

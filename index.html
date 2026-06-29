@@ -40,7 +40,7 @@
   <main class="container-fluid">
     <div id="search-container" class="d-flex gap-2 align-items-center py-3">
         <div class="d-flex align-items-center flex-grow-1 border rounded px-2" style="height:38px; background: var(--bs-body-bg);">
-        <input id="search-input" type="text" class="border-0 bg-transparent flex-grow-1" placeholder="Search gauges..." style="outline:none; color: var(--bs-body-color);" />
+        <input id="search-input" type="text" oninput="search(this.value)" class="border-0 bg-transparent flex-grow-1" placeholder="Search gauges..." style="outline:none; color: var(--bs-body-color);" />
         <button id="search-btn" class="btn btn-sm border-0 p-0">
           <i class="ti ti-search fs-5"></i>
         </button>
@@ -81,7 +81,51 @@
     </template>
     <div id="table-container" class="row g-3"></div>
 
+    <template id="graph-card-template">
+      <div class="graph-card col-12 col-sm-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="d-flex align-items-center justify-content-between gap-2">
+              <h5 class="card-title"></h5>
+              <div class="card-buttons d-flex gap-2"></div>
+            </div>
+            <div class="card-chart"></div>
+            <div class="graph-footer">
+              <div class="graph-current d-flex align-items-center justify-content-between gap-2 mb-0">
+                  <span class="d-flex gap-1">
+                      <span>Latest:</span>
+                      <span class="footer-latest">??ft </span>
+                      <span class="footer-change">(+??.00 +??.??%)</span>
+                      <span>@</span>
+                      <span class="footer-time">??/??/?? ??:??AM</span>
+                  </span>
+                  <span class="footer-scale d-flex gap-1"></span>
+              </div>
+              <div class="graph-thresholds d-flex gap-2 w-100 justify-content-between">
+                <span class="d-flex gap-1">
+                    <span class="title-minor">Minor:</span>
+                    <span class="footer-threshold minor">??ft</span>
+                </span>
+                <span class="d-flex gap-1">
+                    <span class="title-moderate">Moderate:</span>
+                    <span class="footer-threshold moderate">??ft</span>
+                </span>
+                <span class="d-flex gap-1">
+                    <span class="title-major">Major:</span>
+                    <span class="footer-threshold major">??ft</span>
+                </span>
+                <span class="d-flex gap-1">
+                    <span class="title-action">Action:</span>
+                    <span class="footer-threshold action">??ft</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
     <div id="graph-container" class="row g-3"></div>
+
   </main>
   <script src="app.js"></script>
 </body>
