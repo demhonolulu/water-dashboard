@@ -28,15 +28,57 @@
       </button>
       <div class="collapse navbar-collapse" id="navMenu">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Table</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Graphs</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
   <main class="container-fluid">
+    <div id="search-container" class="d-flex gap-2 align-items-center py-3">
+        <div class="d-flex align-items-center flex-grow-1 border rounded px-2" style="height:38px; background: var(--bs-body-bg);">
+        <input id="search-input" type="text" class="border-0 bg-transparent flex-grow-1" placeholder="Search gauges..." style="outline:none; color: var(--bs-body-color);" />
+        <button id="search-btn" class="btn btn-sm border-0 p-0">
+          <i class="ti ti-search fs-5"></i>
+        </button>
+      </div>
+
+      <select id="filter-tag" class="form-select" style="width:auto;">
+        <option value="">Filter by tag</option>
+        <option value="USGS">USGS</option>
+        <option value="UHSLC">UHSLC</option>
+        <option value="ST">Stream</option>
+        <option value="ST-CA">Canal</option>
+        <option value="ST-DCH">Ditch</option>
+        <option value="LK">Lake/Reservoir</option>
+      </select>
+
+      <select id="filter-id" class="form-select" style="width:auto;">
+        <option value="">All gauge IDs</option>
+      </select>
+    </div>
+
+    <template id="table-card-template">
+      <div class="table-card col-12 col-sm-6 col-md-4 col-lg-2 col-xl-1">
+        <div class="table-click card h-100">
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text mb-0">
+              <strong class="table-value">-??</strong> ft
+              <span class="table-change ms-1">(-??.?? -??.??%)</span>
+            </p>
+            <p class="card-text d-flex justify-content-between mb-1">
+              <span class="table-date">??:?? am</span>
+              <span class="table-threshold">?? ft</span>
+            </p>
+            <div class="table-tags mt-auto d-flex gap-2 flex-wrap"></div>
+          </div>
+        </div>
+      </div>
+    </template>
     <div id="table-container" class="row g-3"></div>
 
     <div id="graph-container" class="row g-3"></div>

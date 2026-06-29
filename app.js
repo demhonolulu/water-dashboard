@@ -57,37 +57,33 @@ const colorToAreaMap = {
 
 const graphOptions = (locationName, chartData, areaColor, min, max) => ({
     series: [{ name: locationName, data: chartData }],
-    // title: {
-    //     text: locationName.replace(', Oahu, HI', ''),
-    //     align: 'center',
-    //     margin: 10,
-    //     offsetX: 0,
-    //     offsetY: 0,
-    //     floating: false,
-    //     style: {
-    //         fontSize:  '21px',
-    //         fontWeight: 'bold',
-    //         color:  '#ffff'
-    //     },
-    // },
+    title: {
+        text: "TEST",
+        align: 'center',
+        margin: 10,
+        offsetX: 0,
+        offsetY: 0,
+        floating: false,
+        style: {
+            fontSize:  '21px',
+            fontWeight: 'bold',
+            color:  '#ffff'
+        },
+    },
     chart: { type: 'area', zoom: { enabled: false }, toolbar: { show: false } },
     dataLabels: { enabled: false },
     xaxis: {
         type: 'datetime',
         labels: {
             datetimeUTC: false,
-            style: {
-                colors: areaColor
-            }
+            style: { colors: '#ffffff' }
         }
     },
     yaxis: {
         min: min,
         max: max,
         labels: {
-            style: {
-                colors: areaColor
-            }
+            style: { colors: '#ffffff' }
         }
     },
     tooltip: { x: { format: 'dd MMM HH:mm' }, theme: 'dark' },
@@ -157,6 +153,7 @@ function hideLoading() { overlay.classList.remove('active'); }
 
 // ── DOM refs ──────────────────────────────────────────────
 const tableContainer        = document.getElementById('table-container');
+const tableTemplate         = document.getElementById('table-card-template');
 // const tableHeaderContainer  = document.getElementById('table-header-container');
 const graphContainer        = document.getElementById('graph-container');
 // const settingsContainer     = document.getElementById('settings-container');
@@ -600,28 +597,47 @@ async function buildGaugeTable(locations) {
 
         locationList.forEach((location) => {
             const info = LOCATIONS[location];
-            // create card
-            tableContainer.innerHTML += `
-            <div class="table-card col-12 col-sm-6 col-md-4 col-lg-2 col-xl-1 table-${info.gauge_id}">
-                <div class="card h-100" onclick="tableClick('${info.gauge_id}')">
-                    <div class="card-body">
-                        <h5 class="card-title" style="color: var(--color-${lookupArea})"><strong>${info.short_name}</strong></h5>
-                        <p class="card-text mb-0">
-                            <strong class="table-value">-??</strong> ft
-                            <span class="table-change ms-1">(-??.?? -??.??%)</span>
-                        </p>
-                        <p class="card-text d-flex justify-content-between mb-1">
-                            <span class="table-date">??:?? am</span> 
-                            <span class="table-threshold">?? ft</span>
-                        </p>
-                        <div class="mt-auto table-tags d-flex gap-2 flex-wrap">
-                            ${createTab('area', lookupArea, true)}
-                            ${createTab('type', info.gauge_type, true)}
-                            ${createTab('site', info.site_type_code, true)}
-                        </div>
-                    </div>
-            </div>
+            const clone = tableTemplate.content.cloneNode(true);
+
+            const card = clone.querySelector('.table-card');
+            card.classList.add(`table-${info.gauge_id}`);
+
+            const click = clone.querySelector('.table-click');
+            click.addEventListener('click', () => tableClick(info.gauge_id));
+            
+            const title = clone.querySelector('.card-title');
+            title.innerHTML = `<strong>${info.short_name}</strong>`;
+            title.style.color = `var(--color-${lookupArea})`;
+
+            const tags = clone.querySelector('.table-tags');
+            tags.innerHTML = `
+                ${createTab('area', lookupArea, true)}
+                ${createTab('type', info.gauge_type, true)}
+                ${createTab('site', info.site_type_code, true)}
             `;
+            // create card
+            // tableContainer.innerHTML += `
+            // <div class="table-card col-12 col-sm-6 col-md-4 col-lg-2 col-xl-1 table-${info.gauge_id}">
+            //     <div class="card h-100" onclick="tableClick('${info.gauge_id}')">
+            //         <div class="card-body">
+            //             <h5 class="card-title" style="color: var(--color-${lookupArea})"><strong>${info.short_name}</strong></h5>
+            //             <p class="card-text mb-0">
+            //                 <strong class="table-value">-??</strong> ft
+            //                 <span class="table-change ms-1">(-??.?? -??.??%)</span>
+            //             </p>
+            //             <p class="card-text d-flex justify-content-between mb-1">
+            //                 <span class="table-date">??:?? am</span> 
+            //                 <span class="table-threshold">?? ft</span>
+            //             </p>
+            //             <div class="mt-auto table-tags d-flex gap-2 flex-wrap">
+            //                 ${createTab('area', lookupArea, true)}
+            //                 ${createTab('type', info.gauge_type, true)}
+            //                 ${createTab('site', info.site_type_code, true)}
+            //             </div>
+            //         </div>
+            // </div>
+            // `;
+            tableContainer.appendChild(clone);
         });
     });
     // group gauges by location
@@ -743,7 +759,7 @@ function formatDateLong(dateString) {
             hour: 'numeric',
             minute: '2-digit',
             hour12: true
-        }).toLowerCase();
+        });
         return `${datePart}, ${timePart}`;
     }
 
@@ -778,6 +794,7 @@ async function createGraph(location) {
         const { data: formatted, min, max, padding } = formatGraphData(data[location], 24 * 7);
         const areaName = getAreaClassName(info.area);
         const isDamn = info.site_type_code == 'LK';
+        const thresholds = getThresholdValues(info.thresholds);
 
         graphContainer.insertAdjacentHTML('beforeend', `
             <div class="graph-card col-12 col-sm-12 col-md-6 col-lg-4 graph-${location}">
@@ -795,7 +812,10 @@ async function createGraph(location) {
                             <div class="graph-current d-flex align-items-center justify-content-between gap-2 mb-0">
                                 <span class="d-flex gap-1">
                                     <span>Latest:</span>
-                                    <span class="footer-latest">??ft ??/??/???? ??:?? am</span>
+                                    <span class="footer-latest">??ft </span>
+                                    <span class="footer-change">(+??.00 +??.??%)</span>
+                                    <span>@</span>
+                                    <span class="footer-time">??/??/?? ??:??AM</span>
                                 </span>
                                 <span class="d-flex gap-1">
                                     <span>Time Scale:</span>
@@ -805,36 +825,22 @@ async function createGraph(location) {
                                     ${createTab('text', 'M', false, 'updateTimeScale', location + ',5040')}
                                 </span>
                             </div>
-                            <div class="graph-current d-flex align-items-center justify-content-between gap-2 mb-0">
-                                <span class="d-flex gap-1">
-                                    <span>First:</span>
-                                    <span class="footer-first">??ft</span>
-                                </span>
-                                <span class="d-flex gap-1">
-                                    <span>Min:</span>
-                                    <span class="footer-min">??ft</span>
-                                </span>
-                                <span class="d-flex gap-1">
-                                    <span>Max:</span>
-                                    <span class="footer-max">??ft</span>
-                                </span>
-                            </div>
                             <div class="graph-thresholds d-flex gap-2 w-100 justify-content-between"">
                                 <span class="d-flex gap-1">
                                     <span>${isDamn ? 'High-Flow' : 'Minor'}:</span>
-                                    <span class="footer-threshold minor">??ft</span>
+                                    <span class="footer-threshold minor">${thresholds.minor}</span>
                                 </span>
                                 <span class="d-flex gap-1">
                                     <span>${isDamn ? 'Emergency' : 'Moderate'}:</span>
-                                    <span class="footer-threshold moderate">??ft</span>
+                                    <span class="footer-threshold moderate">${thresholds.moderate}</span>
                                 </span>
                                 <span class="d-flex gap-1">
                                     <span>${isDamn ? 'Imminent' : 'Major'}:</span>
-                                    <span class="footer-threshold major">??ft</span>
+                                    <span class="footer-threshold major">${thresholds.major}</span>
                                 </span>
                                 <span class="d-flex gap-1">
                                     <span>${isDamn ? 'Top of Dam' : 'Action'}:</span>
-                                    <span class="footer-threshold action">??ft</span>
+                                    <span class="footer-threshold action">${thresholds.action}</span>
                                 </span>
                             </div>
                         </div>
@@ -903,22 +909,30 @@ async function updateGraph(location, reload) {
         series: [{ data: formatted }],
         yaxis: {
             min: Math.floor(min - padding),
-            max: Math.ceil(max + padding)
+            max: Math.ceil(max + padding),
+            labels: {
+                style: { colors: '#ffffff' }
+            }
+        },
+        title: {
+            text: `${formatDateLong(formatted[formatted.length - 1].x)} - ${formatDateLong(formatted[0].x)}`
         }
     });
 
     // update footer
     const graphCard = document.querySelector(`.graph-card.graph-${location}`);
     const latest = graphCard.querySelector('.footer-latest');
-    const first = graphCard.querySelector('.footer-first');
-    const minEl = graphCard.querySelector('.footer-min');
-    const maxEl = graphCard.querySelector('.footer-max');
-
-    console.log("updated : " + min + " " + max);
-    latest.textContent = `${formatted[0].y.toFixed(2) ?? '??'}ft - ${formatDateShort(formatted[0].x)}`;
-    first.textContent = `test`;
-    minEl.textContent = `${min?.toFixed(2) ?? '??'}ft`;
-    maxEl.textContent = `${max?.toFixed(2) ?? '??'}ft`;
+    const change = graphCard.querySelector('.footer-change');
+    const time = graphCard.querySelector('.footer-time');
+    const overview = OVERVIEW.find(item => item.gauge_id === location);
+    const changePercent = ((overview.current_val - overview.past_val) / overview.past_val).toFixed(2);
+    const sign = changePercent > 0 ? '+' : changePercent < 0 ? '-' : '';
+    const signLookup = { '+': 'positive', '': 'neutral', '-': 'negative' }
+    change.classList.remove('positive', 'negative', 'neutral');
+    change.classList.add(signLookup[sign]);
+    latest.textContent = `${formatted[0].y.toFixed(2) ?? '??'}`;
+    change.textContent = `(${sign}${Math.abs(overview.current_val - overview.past_val).toFixed(2)} ${sign}${Math.abs(changePercent)}%)`;
+    time.textContent = `${formatDateShort(formatted[0].x)}`;
 }
 
 function formatGraphData(data, range) {
@@ -937,6 +951,15 @@ function formatGraphData(data, range) {
     const padding = (max - min) * 0.1;
 
     return { data: filtered, min, max, padding };
+}
+
+function getThresholdValues(thresholds) {
+    const minor = thresholds?.minor ?? 'N/A';
+    const moderate = thresholds?.moderate ?? 'N/A';
+    const major = thresholds?.major ?? 'N/A';
+    const action = thresholds?.action ?? 'N/A';
+
+    return { minor, moderate, major, action };
 }
 
 function tableDisplayThreshold(overview) {
