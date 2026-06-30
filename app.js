@@ -25,19 +25,19 @@ const paramPresets = {
 };
 
 const tabLookup = {
-    'USGS':   { icon: 'ti ti-building-bank',     tooltip: 'USGS' },
-    'UHSLC':  { icon: 'ti ti-fish',              tooltip: 'UHSLC' },
-    'ST':     { icon: 'ti ti-ripple',             tooltip: 'Stream' },
-    'ST-CA':  { icon: 'ti ti-arrow-wave-right-up',tooltip: 'Canal' },
-    'ST-DCH': { icon: 'ti ti-line-dashed',        tooltip: 'Ditch' },
-    'LK':     { icon: 'ti ti-droplet-half-2',     tooltip: 'Lake/Reservoir' },
-    'NORTH-SHORE':          { icon: 'ti ti-beach',          tooltip: 'North Shore' },
-    'KOOLAULOA':            { icon: 'ti ti-mountain',        tooltip: 'Koolauloa' },
-    'KOOLAUPOKO':           { icon: 'ti ti-trees',           tooltip: 'Koolaupoko' },
-    'PRIMARY-URBAN-CENTER': { icon: 'ti ti-building-skyscraper', tooltip: 'Primary Urban Center' },
-    'CENTRAL-OAHU':         { icon: 'ti ti-map-pin',         tooltip: 'Central Oahu' },
-    'EWA':                  { icon: 'ti ti-sun',             tooltip: 'Ewa' },
-    'WAIANAE':              { icon: 'ti ti-sunset-2',        tooltip: 'Waianae' },
+    'USGS':   { icon: 'ti ti-building-bank',     tooltip: 'USGS', type: 'source' },
+    'UHSLC':  { icon: 'ti ti-fish',              tooltip: 'UHSLC', type: 'source' },
+    'ST':     { icon: 'ti ti-ripple',             tooltip: 'Stream', type: 'type' },
+    'ST-CA':  { icon: 'ti ti-arrow-wave-right-up',tooltip: 'Canal', type: 'type' },
+    'ST-DCH': { icon: 'ti ti-line-dashed',        tooltip: 'Ditch', type: 'type' },
+    'LK':     { icon: 'ti ti-droplet-half-2',     tooltip: 'Lake/Reservoir/Dam', type: 'type' },
+    'NORTH-SHORE':          { icon: 'ti ti-beach',          tooltip: 'North Shore', type: 'area', order: 1 },
+    'KOOLAULOA':            { icon: 'ti ti-mountain',        tooltip: 'Koolauloa', type: 'area', order: 5 },
+    'KOOLAUPOKO':           { icon: 'ti ti-trees',           tooltip: 'Koolaupoko', type: 'area', order: 2 },
+    'PRIMARY-URBAN-CENTER': { icon: 'ti ti-building-skyscraper', tooltip: 'Primary Urban Center', type: 'area', order: 3 },
+    'CENTRAL-OAHU':         { icon: 'ti ti-map-pin',         tooltip: 'Central Oahu', type: 'area', order: 4 },
+    'EWA':                  { icon: 'ti ti-sun',             tooltip: 'Ewa', type: 'area', order: 7 },
+    'WAIANAE':              { icon: 'ti ti-sunset-2',        tooltip: 'Waianae', type: 'area', order: 6 },
     'increase': { icon: 'ti ti-chevrons-up-right',   tooltip: 'Gauge level increasing' },
     'decrease': { icon: 'ti ti-chevrons-down-right', tooltip: 'Gauge level decreasing' },
     'clicked': { icon: 'ti ti-chart-bar', tooltip: 'Gauge graph expanded' },
@@ -124,32 +124,30 @@ let GAUGE_BITMAP = 0n;
 
 const GAUGES = {};
 const SEARCH_STRINGS = {};
-const FILTERS = {
+
+// const FILTERS = {
+//     area: {},
+//     type: {},
+//     source: {},
+//     change: {},
+//     threshold: {},
+//     gauges: {}
+// };
+const ACTIVE_FILTERS = {
     area: new Set(),
     type: new Set(),
     source: new Set(),
     change: new Set(),
-    thresholds: new Set(),
+    threshold: new Set(),
     gauges: new Set()
 };
 let filterOpened = false;
+let filtersActive = false;
 
 let OVERVIEW = [];
 
 const GRAPHS = {};
 const BASE_URL = "https://api.oahudem.com/water/";
-// const GAUGE_IDS                 = "USGS-213320158061401,USGS-213308158035601,USGS-213133158014201,USGS-16345000,USGS-16330000,USGS-16325000,USGS-16210500,USGS-16304200,USGS-16301050,USGS-16296500,USGS-16294900,USGS-16294100,USGS-16284200,USGS-16283200,USGS-16279200,USGS-16275000,USGS-16274100,USGS-16265000,USGS-16264600,USGS-16254000,USGS-16249000,USGS-16247100,USGS-16244000,USGS-16241600,USGS-16240500,USGS-16238500,USGS-16238000,USGS-16229000,USGS-16227500,USGS-16226700,USGS-16226400,USGS-16226200,USGS-16247150,USGS-16213000,USGS-16212601,USGS-16210200,USGS-16210100,USGS-16210000,USGS-16208400,USGS-16208000,USGS-16206600,USGS-16200000,USGS-16212490,USGS-16211800,USGS-16211600";
-// const AWS_USGS_TABLE_URL        = "https://ofsyjumlizgqte56n2kznphw740iwjzb.lambda-url.us-east-2.on.aws/";
-// const AWS_USGS_TABLE_CACHE_URL  = "https://ookj3pwjnfbg7iw7qmadxboiwy0bxzgy.lambda-url.us-east-2.on.aws/";
-// const AWS_POST_GRAPH_URL        = "https://y7q6tacvwpfr2yibliaf5ihnhy0ypocs.lambda-url.us-east-2.on.aws/";
-// const AWS_USGS_GRAPH_URL        = "https://fpjimyrgmhmggjpfc3usfpwgti0fnbap.lambda-url.us-east-2.on.aws/?time_series_id=";
-// const AWS_USGS_GRAPH_CACHE_URL  = "https://e6ctj5yqbrefeysjl7ibrriwti0tcluj.lambda-url.us-east-2.on.aws/?time_series_id=";
-// const AWS_UHSLC_TABLE_URL       = "https://rixj5y655m3fetk5tgyrar4mae0mdsin.lambda-url.us-east-2.on.aws/";
-// const AWS_UHSLC_TABLE_CACHE_URL = "https://jjulfzgttjof6m5jcj4lifz4qq0kgrop.lambda-url.us-east-2.on.aws/";
-// const AWS_UHSLC_GRAPH_URL       = "https://v5s6r3g7fjkyfhcb4e2yio7i7a0jjpjl.lambda-url.us-east-2.on.aws/?site_id=";
-// const AWS_UHSLC_GRAPH_CACHE_URL = "https://jonvmpzzk2n5ftpnpxjzztyvhi0kqeop.lambda-url.us-east-2.on.aws/?site_id=";
-// const USGS_TABLE_URL            = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=json&lang=en-US&limit=50000&skipGeometry=true&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&unit_of_measure=ft&time=PT2H&properties=monitoring_location_id,value,time&monitoring_location_id=";
-// const USGS_GRAPH_URL            = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?limit=50000&properties=time,value&time=P7D&api_key=bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1&time_series_id=";
 
 // let countdownInterval;
 // let remainingSeconds = 0;
@@ -354,257 +352,6 @@ async function fetchAndWait(url, body = null) {
     return data;
 }
 
-// async function fetchData(type, awsURL, backupURL, printId = null, body = null) {
-//     let data;
-//     const start = performance.now();
-//     const fetchUUID = crypto.randomUUID();
-//     console.log(`↗️ Starting API call at [${rawConvertDate(new Date().toISOString())}]\n      '${fetchUUID}': ${type}`);
-
-//     try {
-//         if (!AWS_ERROR) {
-//             data = await fetchAndWait(awsURL);
-//             if (!data || (Array.isArray(data) && data.length === 0)) {
-//                 if (type != 'graphUSGSCache') {
-//                     AWS_ERROR = true;
-//                 }
-
-//                 throw new Error(`AWS data is empty: ${type}`);
-//             }
-//             console.log(`✅ ${printId} - fetched successfully in [${(performance.now() - start).toFixed(0)}ms]\n      '${fetchUUID}': ${type}`);
-//             data = switchProcessData(type, false, data);
-//         }
-//         else {
-//             throw new Error(`Skipped AWS: ${type}`);
-//         }
-//     } 
-//     catch (error) {
-//         console.warn(`⚠️ ${printId} - AWS fetch failed or empty, trying backup...\n      '${fetchUUID}': ${type}\n      `, error.message);
-//         console.warn(data);
-//         try {
-//             if (backupURL) {
-//                 const raw = await fetchAndWait(backupURL, body);
-//                 data = switchProcessData(type, true, raw);
-                
-//                 if (!data || (Array.isArray(data) && data.length === 0)) {
-//                     throw new Error(`Backup data is empty: ${type}`);
-//                 }
-//                 else {
-//                     console.log(`✅ ${printId} - Backup fetched successfully in [${(performance.now() - start).toFixed(0)}ms]\n      '${fetchUUID}': ${type}`);
-//                     if (!AWS_ERROR && type == 'graphUSGSCache') {
-//                         postGraphData(type, data, printId)
-//                     }
-//                 }
-//             }
-//             else {
-//                 console.error(`❌ ${printId} - No backup URL. Could not fetch data\n      '${fetchUUID}': ${type}\n      `);
-//             }
-//         }
-//         catch (error) {
-//             console.error(`❌ ${printId} - Backup fetch failed or empty\n      '${fetchUUID}': ${type}\n      `, error.message);
-//         }
-//     }
-//     return data;
-// }
-
-// async function postGraphData(type, data, id) {
-//     const start = performance.now();
-//     const time_series_id = LOCATIONS[id].properties.time_series_id;
-//     switch(type) {
-//         case 'graphUSGSCache':
-//             const response = await fetch(AWS_POST_GRAPH_URL, {
-//                 method: "POST",
-//                 headers: {
-//                     "Content-Type": "application/json"
-//                 },
-//                 body: JSON.stringify({
-//                     timeSeries: time_series_id,
-//                     update_time_now: data.updateTime,
-//                     formattedData: data.data
-//                 })
-//             });
-//     }
-//     console.log(`🟨 ${id} - Data posted successfully in [${(performance.now() - start).toFixed(0)}ms]`);
-// }
-
-// // ── PROCESS ───────────────────────────────────────────────
-// function switchProcessData(type, raw, data) {
-//     const kind = type.toLowerCase().includes('table') ? 'Table' : 'Graph';
-//     if (!raw) {
-//         if (kind === 'Table') {
-//             return processTable(data);
-//         }
-//         else {
-//             return processGraph(data);
-//         }
-//     }
-
-//     const source = type.replace('Cache', '').replace('table', '').replace('graph', '');
-//     return eval(`processRaw${source}${kind}`)(data);
-// }
-
-// function rawConvertDate(date) {
-//     return new Date(date).toLocaleString('en-US', { timeZone: 'Pacific/Honolulu' })
-// }
-
-// function processTable(data) {
-//     return {
-//         updateTime: rawConvertDate(data.updateTime),
-//         gauges: Object.fromEntries(
-//             Object.entries(data.gauges).map(([id, gauge]) => [
-//                 id, { 
-//                     ...gauge, 
-//                     time: rawConvertDate(gauge.time),
-//                     ...(gauge.time_1h && { time_1h: rawConvertDate(gauge.time_1h) })
-//                 }
-//             ])
-//         )
-//     };
-// }
-
-// function processGraph(data) {
-//     return {
-//         updateTime: rawConvertDate(data.updateTime),
-//         data: data.data.map(entry => ({
-//             ...entry,
-//             time: rawConvertDate(entry.time)
-//         }))
-//     };
-// }
-
-
-// // ── RELOAD ────────────────────────────────────────────────
-// async function reloadGaugeTable() {
-//     const start = performance.now();
-
-//     const isRecentUSGS = isRecentTime(USGS_OVERVIEW.updateTime);
-//     const isRecentUHSLC = isRecentTime(UHSLC_OVERVIEW.updateTime);
-
-//     if (isRecentUSGS && isRecentUHSLC) {
-//         console.log(`🔄 TABLE-RELOAD - Data recent, not repulling`);
-//         return;
-//     }
-
-//     const [overviewResultsUSGS, overviewResultsUHSLC] = await Promise.all([
-//         !isRecentUSGS ? 
-//             fetchData("tableUSGS", AWS_USGS_TABLE_URL, USGS_TABLE_URL + GAUGE_IDS, "GAUGE_OVERVIEW_RELOAD") : 
-//             Promise.resolve(USGS_OVERVIEW),
-//         !isRecentUHSLC ? 
-//             fetchData("tableUHSLC", AWS_UHSLC_TABLE_URL, null, "GAUGE_OVERVIEW") : 
-//             Promise.resolve(UHSLC_OVERVIEW)
-//     ]);
-
-//     USGS_OVERVIEW = overviewResultsUSGS;
-//     UHSLC_OVERVIEW = overviewResultsUHSLC;
-
-//     // only find areas that are visible and have updates
-//     const filteredAreas = AREAS.map(area => ({
-//         ...area,
-//         Sites: area.Sites.filter(site => 
-//             site.visible &&
-//             !(site.type === 'USGS' && isRecentUSGS) &&
-//             !(site.type === 'UHSLC' && isRecentUHSLC)
-//         )
-//     }));
-    
-//     filteredAreas.forEach((area) => {
-//         area.Sites.forEach((site) => {
-//             const data = site.type == "USGS" ? USGS_OVERVIEW.gauges[site.id] : UHSLC_OVERVIEW.gauges[site.id];
-//             const currentArticle = document.querySelector(`.gauge-card.USGS.card-${site.id}`);
-//             const updatedArticle = createSiteCard(site, data, area);
-
-//             if (currentArticle && updatedArticle) {
-//                 currentArticle._abortController?.abort();
-//                 currentArticle.replaceWith(updatedArticle);
-//             }
-//         })
-//     });
-
-//     if (!isRecentUSGS || !isRecentUHSLC) {
-//         console.log(`🔄 Table gauges reloaded, took: [${(performance.now() - start).toFixed(0)}ms]`);
-//     }
-// }
-
-// async function reloadGaugeGraph(site) {
-//     const start = performance.now();
-//     const chart = charts.find(chart => chart.id == site.id);
-//     const recent = isRecentTime(chart.pullTime);
-//     const locationItem = LOCATIONS[site.id].properties;
-//     const timeSeries = locationItem.time_series_id;
-
-//     if (recent) {
-//         console.log(`🔄 ${site.id}-RELOAD - Data recent, not repulling`);
-//         return;
-//     }
-
-//     const [graphResultsUSGS, graphResultsUHSLC] = await Promise.all([
-//         site.type == "USGS" ? 
-//             fetchData("graphUSGS", AWS_USGS_GRAPH_URL + timeSeries, USGS_TABLE_URL + timeSeries, `${site.id}-RELOAD`) : 
-//             Promise.resolve(),
-//         site.type == "UHSLC" ? 
-//             fetchData("graphUHSLC", AWS_UHSLC_GRAPH_URL + site.id, null, `${site.id}-RELOAD`) : 
-//             Promise.resolve()
-//     ]);
-
-//     let convertedData;
-//     if (site.type == "USGS") {
-//         convertedData = convertDates(graphResultsUSGS);
-//     }
-//     else {
-//         convertedData = convertDates(graphResultsUHSLC);
-//     }
-
-//     chart.fullData = convertedData;
-//     chart.pullTime = rawConvertDate(new Date().toISOString());
-//     await updateGraphTimeScale(site);
-
-//     console.log(`🔄 ${site.id}-RELOAD - Graph reloaded, took: [${(performance.now() - start).toFixed(0)}ms]`);
-// }
-
-// async function updateGraphTimeScale(site) {
-//     const locationItem = LOCATIONS[site.id].properties;
-//     const chart = charts.find(chart => chart.id == site.id);
-//     const filteredRawData = filterDataByRange(chart.fullData, CONFIG_VALUES["gauge-graphs"]["default-scale"]);
-
-//     const chartData = filteredRawData.map(item => ({
-//         x: new Date(item.time).getTime(),
-//         y: item.value
-//     }));
-
-//     const [minPadding, maxPadding] = getAxisPadding(chartData);
-//     const thresholds = await getThresholdObject(site.id);
-
-//     chart.instance.updateOptions({
-//         xaxis: {
-//             type: 'datetime',
-//             labels: {
-//                 datetimeUTC: false,
-//                 style: { colors: '#FFFFFF' }
-//             }
-//         },
-//         yaxis: {
-//             min: minPadding,
-//             max: maxPadding,
-//             labels: {
-//                 style: { colors: '#FFFFFF' }
-//             }
-//         },
-//     }, false, false);
-
-//     chart.instance.updateSeries([{ data: chartData }], false);
-
-//     setTimeout(() => {
-//         chart.instance.updateOptions({
-//             annotations: thresholds
-//         }, true, false);
-//     }, 100);
-
-//     // update footer
-//     const currentFooter = document.querySelector(`.chart-footer-${site.id}`);
-//     const updatedFooter = await createChartFooter(locationItem.thresholds, site.id, chartData);
-
-//     currentFooter.replaceWith(updatedFooter);
-// }
-
 function updateSearchString(location) {
     const gauge = GAUGES[location]?.search;
     const searchString = Object.values(gauge).filter(Boolean)
@@ -618,49 +365,155 @@ function updateSearchString(location) {
 function search(text) {
     const input = text.toLowerCase().replace(/\s+/g, '');
     Object.entries(SEARCH_STRINGS).forEach(([id, string]) => {
-        const visible = GAUGES[id].visible && (input === '' || string.includes(input));
+        const visible = !(filtersActive && GAUGES[id].hide) && ((input === '' && !filtersActive)|| string.includes(input));
         GAUGES[id].data.table?.classList.toggle('d-none', !visible);
         GAUGES[id].data.graph?.classList.toggle('d-none', !visible);
     });
 }
 
 function createFilter() {
-    const createButton = (type, values) => {
-        return values.map(value => {
-            const key = value.replace(/\s+/g, '-').replace(/\//g, '-');
-            return createFilterButton(value, `${type}-${key}`, type, key);
-        }).join('');
+    // const createButton = (type, values) => {
+    //     if (values instanceof Object && !Array.isArray(values)) {
+    //         return Object.entries(values).map(([code, label]) => {
+    //         return createFilterButton(label, code, type, code);
+    //         }).join('');
+    //     }
+    //     return values.map(value => {
+    //         const key = value.replace(/\//g, '-');
+    //         return createFilterButton(value, `${type}-${key}`, type, key);
+    //     }).join('');
+    // };
+
+    const getIdsbyFilter = (type, value) => {
+        return Object.values(LOCATIONS)
+            .filter(location => location[type] === value)
+            .map(location => location.gauge_id);
     };
 
-    const area = filterContainer.querySelector('#filter-area');
-    area.innerHTML = createButton('area', ['NORTH SHORE', 'KOOLAUPOKO', 'PRIMARY URBAN CENTER','CENTRAL OAHU', 'KOOLAULOA', 'EWA', 'WAIANAE']);
+    const getTypeMap = (type) => {
+        return Object.fromEntries(Object.entries(tabLookup)
+            .filter(([code, val]) => val.type === type)
+            .sort(([, a], [, b]) => a.order - b.order)
+            .map(([code, val]) => [code, val.tooltip])
+        );
+    };
 
-    const type = filterContainer.querySelector('#filter-type');
-    type.innerHTML = createButton('type', ['stream', 'canal', 'ditch', 'lake/reservoir/dam']);
+    // static filters
+    //const areaArr = {'NORTH SHORE', 'KOOLAUPOKO', 'PRIMARY URBAN CENTER','CENTRAL OAHU', 'KOOLAULOA', 'EWA', 'WAIANAE'};
+    const areaContainer = filterContainer.querySelector('#filter-area');
+    const areas = getTypeMap('area');
+    Object.entries(areas).forEach(([code, area]) => {
+        const upperCode = area.toUpperCase();
+        //const ids = getIdsbyFilter('area', area.toUpperCase());
+        areaContainer.innerHTML += createFilterButton(area, `area-${code}`, 'area', upperCode);
+        //FILTERS['area'][code] = ids;
+    });
+    // const areaArr = Object.fromEntries(Object.entries(tabLookup)
+    //     .filter(([code, val]) => val.type === 'area')
+    //     .map(([code, val]) => [code, val.tooltip])
+    // );
+    // console.log(tabLookup);
+    // console.log(areaArr);
+    // area.innerHTML = createButton('area', areaArr);
+    // areaArr.forEach((a) => {
+    //     const ids = getIdsbyFilter('area', a);
+    //     console.log(ids);
+    //     FILTERS['area'][a] = ids
+    // });
 
-    const source = filterContainer.querySelector('#filter-source');
-    source.innerHTML = createButton('source', ['USGS', 'UHSLC']);
+    const typeContainer = filterContainer.querySelector('#filter-type');
+    const types = getTypeMap('type');
+    console.log(types);
+    Object.entries(types).forEach(([code, desc]) => {
+        // const upperCode = area.toUpperCase();
+        // //const ids = getIdsbyFilter('area', area.toUpperCase());
+        typeContainer.innerHTML += createFilterButton(desc, `type-${code}`, 'type', code);
+        // //FILTERS['area'][code] = ids;
+    });
+    // //const stTypes = { 'ST': 'stream', 'ST-CA': 'canal', 'ST-DCH': 'ditch', 'LK': 'lake/reservoir/dam' };
+    // const stTypes = Object.fromEntries(
+    //     ['ST', 'ST-CA', 'ST-DCH', 'LK'].map(code => [code, tabLookup[code].tooltip])
+    // );
+    // const type = filterContainer.querySelector('#filter-type');
+    // type.innerHTML = createButton('type', stTypes);
+    // Object.entries(stTypes).forEach(([code, label]) => {
+    //     FILTERS['type'][label.replace(/\//g, '-')] = getIdsbyFilter('site_type_code', code);
+    // });
 
-    const change = filterContainer.querySelector('#filter-change');
-    change.innerHTML = createButton('change', ['increase', 'decrease', 'neutral']);
+    const sourceContainer = filterContainer.querySelector('#filter-source');
+    const sources = getTypeMap('source');
+    Object.entries(sources).forEach(([code, desc]) => {
+        // const upperCode = area.toUpperCase();
+        // //const ids = getIdsbyFilter('area', area.toUpperCase());
+        sourceContainer.innerHTML += createFilterButton(desc, `source-${code}`, 'source', code);
+        // //FILTERS['area'][code] = ids;
+    });
+    // const sources = { 'USGS': 'USGS', 'UHSLC' : 'UHSLC' };
+    // const source = filterContainer.querySelector('#filter-source');
+    // source.innerHTML = createButton('source', sources);
+    // sources.forEach((s) => {
+    //     FILTERS['source'][s] = getIdsbyFilter('gauge_type', s);
+    // });
 
-    const thresholds = filterContainer.querySelector('#filter-thresholds');
-    thresholds.innerHTML = createButton('threshold', ['minor', 'moderate', 'major', 'action']);
+    // // dynamic filters
+    // const change = filterContainer.querySelector('#filter-change');
+    // change.innerHTML = createButton('change', ['increase', 'decrease', 'neutral']);
+
+    // const thresholds = filterContainer.querySelector('#filter-thresholds');
+    // thresholds.innerHTML = createButton('threshold', ['minor', 'moderate', 'major', 'action']);
 }
 
 function clickFilter(type, value) {
-    // check click status
-    if (FILTERS[type].has(value)) { 
-        FILTERS[type].delete(value);
-    }
-    else {
-        // add to tracker
-        FILTERS[type].add(value);
-    }
-}
+    // const ids = FILTERS[type][value];
+    // let change;
+    // if (ACTIVE_FILTERS[type].has(value)) { 
+    //     ACTIVE_FILTERS[type].delete(value);
+    //     change = false;
+    // }
+    // else {
+    //     // add to tracker
+    //     ACTIVE_FILTERS[type].add(value);
+    //     change = true;
+    // }
 
-function updateFilter(type, value) {
-    
+    // ids.forEach((id) => {
+    //     GAUGES[id].filters[type] = change;
+    //     GAUGES[id].hide = Object.values(GAUGES[id].filters).some(f => f === true);
+    // });
+    console.log(type);
+    console.log(value);
+    // console.log(ACTIVE_FILTERS)
+    // filtersActive = Object.values(ACTIVE_FILTERS).some(set => set.size > 0);
+    // console.log(filtersActive)
+    // console.log(GAUGES)
+    // search(searchInput.value);
+    if (ACTIVE_FILTERS[type].has(value)) {
+        ACTIVE_FILTERS[type].delete(value);
+    } else {
+        ACTIVE_FILTERS[type].add(value);
+    }
+
+    filtersActive = Object.values(ACTIVE_FILTERS).some(set => set.size > 0);
+    console.log(filtersActive);
+    console.log(ACTIVE_FILTERS);
+    console.log(LOCATIONS)
+    console.log(ACTIVE_FILTERS.area.size)
+    console.log(ACTIVE_FILTERS.type.size)
+    // recalculate hide for every gauge
+    Object.keys(GAUGES).forEach(id => {
+        const info = LOCATIONS[id]; 
+
+        const matchesArea   = ACTIVE_FILTERS.area.size === 0   || ACTIVE_FILTERS.area.has(info.area);
+        const matchesType   = ACTIVE_FILTERS.type.size === 0   || ACTIVE_FILTERS.type.has(info.site_type_code);
+        const matchesSite   = ACTIVE_FILTERS.source.size === 0   || ACTIVE_FILTERS.source.has(info.gauge_type);
+
+
+        GAUGES[id].hide = !(matchesArea && matchesType && matchesSite);
+        //console.log(`${id}: match: ${matchesArea} hide: ${GAUGES[id].hide}`);
+    });
+
+
+    search(searchInput.value);
 }
 
 // ── TABLE ─────────────────────────────────────────────────
@@ -701,15 +554,15 @@ async function buildGaugeTable(locations) {
                     type: info.gauge_type,
                     type_code: info.site_type
                 },
-                filters: {
-                    area: true,
-                    type: true,
-                    source: true,
-                    change: true,
-                    thresholds: true,
-                    gauge: true
-                },
-                visible: true
+                // filters: {
+                //     area: false,
+                //     type: false,
+                //     source: false,
+                //     change: false,
+                //     thresholds: false,
+                //     gauge: false
+                // },
+                hide: false
             };
 
             tableContainer.appendChild(clone);
@@ -768,7 +621,7 @@ function createTab(type, code, static, func = null, params = null) {
 
 function createFilterButton(text, colorClass, type, value) {
     return `
-    <span class="badge rounded-pill table-tag ${colorClass}"
+    <span class="badge rounded-pill table-tag ${colorClass.replace(/\s+/g, '-')}"
         data-bs-toggle="tooltip" onclick="clickFilter('${type}', '${value}')">
         ${text.toUpperCase()}
     </span>`;
