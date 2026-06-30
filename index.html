@@ -38,7 +38,7 @@
   </nav>
 
   <main class="container-fluid">
-    <div id="search-container" class="d-flex gap-2 align-items-center py-3">
+    <div id="search-container" class="d-flex gap-2 align-items-center py-3 flex-wrap">
         <div class="d-flex align-items-center flex-grow-1 border rounded px-2" style="height:38px; background: var(--bs-body-bg);">
         <input id="search-input" type="text" oninput="search(this.value)" class="border-0 bg-transparent flex-grow-1" placeholder="Search gauges..." style="outline:none; color: var(--bs-body-color);" />
         <button id="search-btn" class="btn btn-sm border-0 p-0">
@@ -46,23 +46,40 @@
         </button>
       </div>
 
-      <select id="filter-tag" class="form-select" style="width:auto;">
-        <option value="">Filter by tag</option>
-        <option value="USGS">USGS</option>
-        <option value="UHSLC">UHSLC</option>
-        <option value="ST">Stream</option>
-        <option value="ST-CA">Canal</option>
-        <option value="ST-DCH">Ditch</option>
-        <option value="LK">Lake/Reservoir</option>
-      </select>
+      <button class="form-select filter-btn" style="width: auto;" id="filter-toggle" onclick="console.log('test')">
+        <i class="ti ti-adjustments-horizontal"></i>Filters
+      </button>
+    </div>
 
-      <select id="filter-id" class="form-select" style="width:auto;">
-        <option value="">All gauge IDs</option>
-      </select>
+    <div id="filter-expand">
+      <div class="filter-section">
+        <div class="filter-label">Area</div>
+        <div class="filter-tags d-flex flex-wrap gap-2" id="filter-area"></div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Type</div>
+        <div class="filter-tags d-flex flex-wrap gap-2" id="filter-type"></div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Source</div>
+        <div class="filter-tags d-flex flex-wrap gap-2" id="filter-source"></div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Change</div>
+        <div class="filter-tags d-flex flex-wrap gap-2" id="filter-change"></div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Thresholds</div>
+        <div class="filter-tags d-flex flex-wrap gap-2" id="filter-thresholds"></div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Gauges</div>
+        <div class="filter-tags d-flex flex-wrap gap-2" id="filter-gauges"></div>
+      </div>
     </div>
 
     <template id="table-card-template">
-      <div class="table-card col-12 col-sm-6 col-md-4 col-lg-2 col-xl-1">
+      <div class="table-card">
         <div class="table-click card h-100">
           <div class="card-body">
             <h5 class="card-title"></h5>
@@ -82,7 +99,7 @@
     <div id="table-container" class="row g-3"></div>
 
     <template id="graph-card-template">
-      <div class="graph-card col-12 col-sm-12 col-md-6 col-lg-4">
+      <div class="graph-card">
         <div class="card h-100">
           <div class="card-body">
             <div class="d-flex align-items-center justify-content-between gap-2">

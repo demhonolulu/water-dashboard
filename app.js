@@ -124,6 +124,15 @@ let GAUGE_BITMAP = 0n;
 
 const GAUGES = {};
 const SEARCH_STRINGS = {};
+const FILTERS = {
+    area: new Set(),
+    type: new Set(),
+    source: new Set(),
+    change: new Set(),
+    thresholds: new Set(),
+    gauges: new Set()
+};
+let filterOpened = false;
 
 let OVERVIEW = [];
 
@@ -155,6 +164,7 @@ function hideLoading() { overlay.classList.remove('active'); }
 
 // ── DOM refs ──────────────────────────────────────────────
 const searchInput           = document.getElementById('search-input');
+const filterContainer       = document.getElementById('filter-expand');
 const tableContainer        = document.getElementById('table-container');
 const tableTemplate         = document.getElementById('table-card-template');
 // const tableHeaderContainer  = document.getElementById('table-header-container');
@@ -230,6 +240,8 @@ async function init() {
         // startCountdown(CONFIG_VALUES["reload-time"], true);
 
         hideLoading();
+
+        createFilter();
     } 
     catch (err) {
         console.error(err);
@@ -601,20 +613,54 @@ function updateSearchString(location) {
         .replace(/\s+/g, '');
 
     SEARCH_STRINGS[location] = searchString
-    //console.log(searchString);
 }
 
 function search(text) {
     const input = text.toLowerCase().replace(/\s+/g, '');
     Object.entries(SEARCH_STRINGS).forEach(([id, string]) => {
-        // if (input === '' || string.includes(input)) {
-        //     console.log(`${id}`);
-        // }
-        // // GAUGES[location].data.table
-        const visible = input === '' || string.includes(input);
+        const visible = GAUGES[id].visible && (input === '' || string.includes(input));
         GAUGES[id].data.table?.classList.toggle('d-none', !visible);
         GAUGES[id].data.graph?.classList.toggle('d-none', !visible);
     });
+}
+
+function createFilter() {
+    const createButton = (type, values) => {
+        return values.map(value => {
+            const key = value.replace(/\s+/g, '-').replace(/\//g, '-');
+            return createFilterButton(value, `${type}-${key}`, type, key);
+        }).join('');
+    };
+
+    const area = filterContainer.querySelector('#filter-area');
+    area.innerHTML = createButton('area', ['NORTH SHORE', 'KOOLAUPOKO', 'PRIMARY URBAN CENTER','CENTRAL OAHU', 'KOOLAULOA', 'EWA', 'WAIANAE']);
+
+    const type = filterContainer.querySelector('#filter-type');
+    type.innerHTML = createButton('type', ['stream', 'canal', 'ditch', 'lake/reservoir/dam']);
+
+    const source = filterContainer.querySelector('#filter-source');
+    source.innerHTML = createButton('source', ['USGS', 'UHSLC']);
+
+    const change = filterContainer.querySelector('#filter-change');
+    change.innerHTML = createButton('change', ['increase', 'decrease', 'neutral']);
+
+    const thresholds = filterContainer.querySelector('#filter-thresholds');
+    thresholds.innerHTML = createButton('threshold', ['minor', 'moderate', 'major', 'action']);
+}
+
+function clickFilter(type, value) {
+    // check click status
+    if (FILTERS[type].has(value)) { 
+        FILTERS[type].delete(value);
+    }
+    else {
+        // add to tracker
+        FILTERS[type].add(value);
+    }
+}
+
+function updateFilter(type, value) {
+    
 }
 
 // ── TABLE ─────────────────────────────────────────────────
@@ -630,8 +676,7 @@ async function buildGaugeTable(locations) {
             const card = clone.querySelector('.table-card');
             card.classList.add(`table-${info.gauge_id}`);
 
-            const click = clone.querySelector('.table-click');
-            click.addEventListener('click', () => tableClick(info.gauge_id));
+            clone.querySelector('.table-click')?.addEventListener('click', () => tableClick(info.gauge_id));
             
             const title = clone.querySelector('.card-title');
             title.innerHTML = `<strong>${info.short_name}</strong>`;
@@ -655,30 +700,18 @@ async function buildGaugeTable(locations) {
                     id: location,
                     type: info.gauge_type,
                     type_code: info.site_type
-                }
+                },
+                filters: {
+                    area: true,
+                    type: true,
+                    source: true,
+                    change: true,
+                    thresholds: true,
+                    gauge: true
+                },
+                visible: true
             };
-            // create card
-            // tableContainer.innerHTML += `
-            // <div class="table-card col-12 col-sm-6 col-md-4 col-lg-2 col-xl-1 table-${info.gauge_id}">
-            //     <div class="card h-100" onclick="tableClick('${info.gauge_id}')">
-            //         <div class="card-body">
-            //             <h5 class="card-title" style="color: var(--color-${lookupArea})"><strong>${info.short_name}</strong></h5>
-            //             <p class="card-text mb-0">
-            //                 <strong class="table-value">-??</strong> ft
-            //                 <span class="table-change ms-1">(-??.?? -??.??%)</span>
-            //             </p>
-            //             <p class="card-text d-flex justify-content-between mb-1">
-            //                 <span class="table-date">??:?? am</span> 
-            //                 <span class="table-threshold">?? ft</span>
-            //             </p>
-            //             <div class="mt-auto table-tags d-flex gap-2 flex-wrap">
-            //                 ${createTab('area', lookupArea, true)}
-            //                 ${createTab('type', info.gauge_type, true)}
-            //                 ${createTab('site', info.site_type_code, true)}
-            //             </div>
-            //         </div>
-            // </div>
-            // `;
+
             tableContainer.appendChild(clone);
         });
     });
@@ -717,6 +750,7 @@ async function buildGaugeTable(locations) {
     // // run function async
     // reloadGaugeTable();
 
+    console.log(GAUGES);
     updateGaugeTable(locations);
 }
 
@@ -729,8 +763,15 @@ function createTab(type, code, static, func = null, params = null) {
         data-bs-toggle="tooltip" ${clickEvent}
         title="${tabLookup[code]?.tooltip}">
         ${icon}
-    </span>
-    `;
+    </span>`;
+}
+
+function createFilterButton(text, colorClass, type, value) {
+    return `
+    <span class="badge rounded-pill table-tag ${colorClass}"
+        data-bs-toggle="tooltip" onclick="clickFilter('${type}', '${value}')">
+        ${text.toUpperCase()}
+    </span>`;
 }
 
 function getAreaClassName(area) {
@@ -848,10 +889,11 @@ async function createGraph(location) {
 
         const clone = graphTemplate.content.cloneNode(true);
 
-        clone.querySelector('.graph-card').classList.add(`graph-${info.gauge_id}`);
+        const card = clone.querySelector('.graph-card');
+        card.classList.add(`graph-${info.gauge_id}`);
 
         const title = clone.querySelector('.card-title');
-        title.innerHTML = `<strong>${info.short_name}</strong>`;
+        title.innerHTML = `<strong>${info.full_name}</strong>`;
         title.style.color = `var(--color-${areaName})`;
 
         clone.querySelector('.card-buttons').innerHTML = `
@@ -883,6 +925,7 @@ async function createGraph(location) {
             clone.querySelector('.title-action').textContent = 'Top of Dam:';
         }
 
+        GAUGES[location].data.graph = card;
         graphContainer.appendChild(clone);
         // graphContainer.insertAdjacentHTML('beforeend', `
         //     <div class="graph-card col-12 col-sm-12 col-md-6 col-lg-4 graph-${location}">

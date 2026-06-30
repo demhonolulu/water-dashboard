@@ -14,8 +14,8 @@
   --color-EWA: #d5a6bd;
   --color-WAIANAE: #b4a7d6;
 
-  --color-positive: #57bb8a;
-  --color-negative: #e67c73;
+  --color-increase: #57bb8a;
+  --color-decrease: #e67c73;
 
   --color-minor: #ffea00;
   --color-moderate: #ffae00;
@@ -81,6 +81,71 @@
 .major {color: var(--color-major); }
 .action { color: var(--color-action); }
 
+/* filter */
+#filter-expand {
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius-lg);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.filter-section {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  background: var(--bs-tertiary-bg);
+}
+
+.filter-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--bs-secondary-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* table */
+#table-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+}
+
+/* graph */
+#graph-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 992px) {
+  #graph-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 576px) {
+  #graph-container {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+#graph-container .card {
+  min-width: 0;
+  overflow: hidden;
+}
+
 /* table tags */
 .badge.table-tag {
   background: transparent;
@@ -143,18 +208,18 @@
   color: var(--color-WAIANAE);
 }
 
-.positive { color: var(--color-positive); }
-.negative { color: var(--color-negative); }
+.increase { color: var(--color-increase); }
+.decrease { color: var(--color-decrease); }
 .neutral  { color: var(--color-main-text); }
 
-.badge.change-positive {
-  border-color: var(--color-positive);
-  color: var(--color-positive);
+.badge.change-increase {
+  border-color: var(--color-increase);
+  color: var(--color-increase);
 }
 
-.badge.change-negative {
-  border-color: var(--color-negative);
-  color: var(--color-negative);
+.badge.change-decrease {
+  border-color: var(--color-decrease);
+  color: var(--color-decrease);
 }
 
 .badge.clicked-clicked {
@@ -163,15 +228,35 @@
 }
 
 .badge.close-close {
-  border-color: var(--color-negative);
-  color: var(--color-negative);
+  border-color: var(--color-decrease);
+  color: var(--color-decrease);
 }
 
 .badge.expand-expand {
-  border-color: var(--color-positive);
-  color: var(--color-positive);
+  border-color: var(--color-increase);
+  color: var(--color-increase);
 }
 
+/* thresholds */
+.badge.threshold-minor {
+  border-color: var(--color-minor);
+  color: var(--color-minor);
+}
+
+.badge.threshold-moderate {
+  border-color: var(--color-moderate);
+  color: var(--color-moderate);
+}
+
+.badge.threshold-major {
+  border-color: var(--color-major);
+  color: var(--color-major);
+}
+
+.badge.threshold-action {
+  border-color: var(--color-action);
+  color: var(--color-action);
+}
 
 /* .container, .container-fluid {
   max-width: 100% !important;
