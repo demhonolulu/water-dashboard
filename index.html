@@ -46,12 +46,12 @@
         </button>
       </div>
 
-      <button class="form-select filter-btn" style="width: auto;" id="filter-toggle" onclick="console.log('test')">
+      <button class="form-select filter-btn" style="width: auto;" id="filter-toggle" onclick="filterContainer.classList.toggle('hidden')">
         <i class="ti ti-adjustments-horizontal"></i>Filters
       </button>
     </div>
 
-    <div id="filter-expand">
+    <div id="filter-expand" class="hidden">
       <div class="filter-section">
         <div class="filter-label">Area</div>
         <div class="filter-tags d-flex flex-wrap gap-2" id="filter-area"></div>
@@ -76,10 +76,20 @@
         <div class="filter-label">Gauges</div>
         <div class="filter-tags d-flex flex-wrap gap-2" id="filter-gauges"></div>
       </div>
+      <div class="d-flex justify-content-end gap-2 pt-2">
+        <button class="btn btn-sm btn-outline-secondary" onclick="resetFilters()">
+          <i class="ti ti-refresh me-1"></i>Reset
+        </button>
+        <button class="btn btn-sm filter-save button-hover-effect" onclick="saveFilters()">
+          <i class="ti ti-device-floppy me-1"></i>Save
+        </button>
+      </div>
     </div>
 
+    <br>
+
     <template id="table-card-template">
-      <div class="table-card">
+      <div class="table-card card-hover-effect">
         <div class="table-click card h-100">
           <div class="card-body">
             <h5 class="card-title"></h5>
@@ -98,6 +108,8 @@
     </template>
     <div id="table-container" class="row g-3"></div>
 
+    <br>
+    
     <template id="graph-card-template">
       <div class="graph-card">
         <div class="card h-100">

@@ -25,12 +25,12 @@ const paramPresets = {
 };
 
 const tabLookup = {
-    'USGS':   { icon: 'ti ti-building-bank',     tooltip: 'USGS', type: 'source' },
-    'UHSLC':  { icon: 'ti ti-fish',              tooltip: 'UHSLC', type: 'source' },
-    'ST':     { icon: 'ti ti-ripple',             tooltip: 'Stream', type: 'type' },
-    'ST-CA':  { icon: 'ti ti-arrow-wave-right-up',tooltip: 'Canal', type: 'type' },
-    'ST-DCH': { icon: 'ti ti-line-dashed',        tooltip: 'Ditch', type: 'type' },
-    'LK':     { icon: 'ti ti-droplet-half-2',     tooltip: 'Lake/Reservoir/Dam', type: 'type' },
+    'USGS':   { icon: 'ti ti-building-bank',     tooltip: 'USGS', type: 'source', order: 1 },
+    'UHSLC':  { icon: 'ti ti-fish',              tooltip: 'UHSLC', type: 'source', order: 2 },
+    'ST':     { icon: 'ti ti-ripple',             tooltip: 'Stream', type: 'type', order: 1 },
+    'ST-CA':  { icon: 'ti ti-arrow-wave-right-up',tooltip: 'Canal', type: 'type', order: 2 },
+    'ST-DCH': { icon: 'ti ti-line-dashed',        tooltip: 'Ditch', type: 'type', order: 3 },
+    'LK':     { icon: 'ti ti-droplet-half-2',     tooltip: 'Lake/Reservoir/Dam', type: 'type', order: 4 },
     'NORTH-SHORE':          { icon: 'ti ti-beach',          tooltip: 'North Shore', type: 'area', order: 1 },
     'KOOLAULOA':            { icon: 'ti ti-mountain',        tooltip: 'Koolauloa', type: 'area', order: 5 },
     'KOOLAUPOKO':           { icon: 'ti ti-trees',           tooltip: 'Koolaupoko', type: 'area', order: 2 },
@@ -38,8 +38,8 @@ const tabLookup = {
     'CENTRAL-OAHU':         { icon: 'ti ti-map-pin',         tooltip: 'Central Oahu', type: 'area', order: 4 },
     'EWA':                  { icon: 'ti ti-sun',             tooltip: 'Ewa', type: 'area', order: 7 },
     'WAIANAE':              { icon: 'ti ti-sunset-2',        tooltip: 'Waianae', type: 'area', order: 6 },
-    'increase': { icon: 'ti ti-chevrons-up-right',   tooltip: 'Gauge level increasing' },
-    'decrease': { icon: 'ti ti-chevrons-down-right', tooltip: 'Gauge level decreasing' },
+    'increase': { icon: 'ti ti-chevrons-up-right',   tooltip: 'Gauge level increasing', type: 'change', order: 1 },
+    'decrease': { icon: 'ti ti-chevrons-down-right', tooltip: 'Gauge level decreasing', type: 'change', order: 2 },
     'clicked': { icon: 'ti ti-chart-bar', tooltip: 'Gauge graph expanded' },
     'close': { icon: 'ti ti-trash', tooltip: 'Close gauge graph' },
     'expand': { icon: 'ti ti-arrows-maximize', tooltip: 'Expand gauge graph' },
@@ -103,10 +103,6 @@ const graphOptions = (locationName, chartData, areaColor, min, max) => ({
     //annotations: thresholds
 });
 
-// // stream and dam location data
-
-// let VEOCI_NOTES = {};
-
 let ACTIVE_LOCATIONS = {};
 let ACTIVE_LOCATIONS_STRING;
 let LOCATIONS = {};
@@ -115,37 +111,22 @@ let AREAS;
 let GAUGE_REGISTRY = [];
 let GAUGE_BITMAP = 0n;
 
-// const HISTORIC_CACHE = {};
-
-// const API_KEY = 'bqirQ15zF4kGK34QsRqlSlN0PhSUCEFB9My7cwJ1'; // dont look
-// let AWS_ERROR = false;
-
-// let charts = [];
-
 const GAUGES = {};
 const SEARCH_STRINGS = {};
 
-// const FILTERS = {
-//     area: {},
-//     type: {},
-//     source: {},
-//     change: {},
-//     threshold: {},
-//     gauges: {}
-// };
+const DYNAMIC_FILTERS = {
+    change: { increase: new Set(), decrease: new Set(), neutral: new Set() },
+    threshold: { minor: new Set(), moderate: new Set(), major: new Set(), action: new Set() }
+};
 const ACTIVE_FILTERS = {
-    area: new Set(),
-    type: new Set(),
-    source: new Set(),
-    change: new Set(),
-    threshold: new Set(),
-    gauges: new Set()
+    area: new Set(), type: new Set(), source: new Set(),
+    change: new Set(), threshold: new Set(), gauges: new Set()
 };
 let filterOpened = false;
 let filtersActive = false;
 
-let OVERVIEW = [];
 
+let OVERVIEW = [];
 const GRAPHS = {};
 const BASE_URL = "https://api.oahudem.com/water/";
 
@@ -365,31 +346,14 @@ function updateSearchString(location) {
 function search(text) {
     const input = text.toLowerCase().replace(/\s+/g, '');
     Object.entries(SEARCH_STRINGS).forEach(([id, string]) => {
-        const visible = !(filtersActive && GAUGES[id].hide) && ((input === '' && !filtersActive)|| string.includes(input));
+        const visible = !GAUGES[id].hide && (input === '' || string.includes(input));
+        // const visible = !(filtersActive && GAUGES[id].hide) && ((input === '' && !filtersActive) || string.includes(input));
         GAUGES[id].data.table?.classList.toggle('d-none', !visible);
         GAUGES[id].data.graph?.classList.toggle('d-none', !visible);
     });
 }
 
 function createFilter() {
-    // const createButton = (type, values) => {
-    //     if (values instanceof Object && !Array.isArray(values)) {
-    //         return Object.entries(values).map(([code, label]) => {
-    //         return createFilterButton(label, code, type, code);
-    //         }).join('');
-    //     }
-    //     return values.map(value => {
-    //         const key = value.replace(/\//g, '-');
-    //         return createFilterButton(value, `${type}-${key}`, type, key);
-    //     }).join('');
-    // };
-
-    const getIdsbyFilter = (type, value) => {
-        return Object.values(LOCATIONS)
-            .filter(location => location[type] === value)
-            .map(location => location.gauge_id);
-    };
-
     const getTypeMap = (type) => {
         return Object.fromEntries(Object.entries(tabLookup)
             .filter(([code, val]) => val.type === type)
@@ -398,120 +362,89 @@ function createFilter() {
         );
     };
 
-    // static filters
-    //const areaArr = {'NORTH SHORE', 'KOOLAUPOKO', 'PRIMARY URBAN CENTER','CENTRAL OAHU', 'KOOLAULOA', 'EWA', 'WAIANAE'};
     const areaContainer = filterContainer.querySelector('#filter-area');
-    const areas = getTypeMap('area');
-    Object.entries(areas).forEach(([code, area]) => {
-        const upperCode = area.toUpperCase();
-        //const ids = getIdsbyFilter('area', area.toUpperCase());
-        areaContainer.innerHTML += createFilterButton(area, `area-${code}`, 'area', upperCode);
-        //FILTERS['area'][code] = ids;
-    });
-    // const areaArr = Object.fromEntries(Object.entries(tabLookup)
-    //     .filter(([code, val]) => val.type === 'area')
-    //     .map(([code, val]) => [code, val.tooltip])
-    // );
-    // console.log(tabLookup);
-    // console.log(areaArr);
-    // area.innerHTML = createButton('area', areaArr);
-    // areaArr.forEach((a) => {
-    //     const ids = getIdsbyFilter('area', a);
-    //     console.log(ids);
-    //     FILTERS['area'][a] = ids
-    // });
-
     const typeContainer = filterContainer.querySelector('#filter-type');
-    const types = getTypeMap('type');
-    console.log(types);
-    Object.entries(types).forEach(([code, desc]) => {
-        // const upperCode = area.toUpperCase();
-        // //const ids = getIdsbyFilter('area', area.toUpperCase());
-        typeContainer.innerHTML += createFilterButton(desc, `type-${code}`, 'type', code);
-        // //FILTERS['area'][code] = ids;
-    });
-    // //const stTypes = { 'ST': 'stream', 'ST-CA': 'canal', 'ST-DCH': 'ditch', 'LK': 'lake/reservoir/dam' };
-    // const stTypes = Object.fromEntries(
-    //     ['ST', 'ST-CA', 'ST-DCH', 'LK'].map(code => [code, tabLookup[code].tooltip])
-    // );
-    // const type = filterContainer.querySelector('#filter-type');
-    // type.innerHTML = createButton('type', stTypes);
-    // Object.entries(stTypes).forEach(([code, label]) => {
-    //     FILTERS['type'][label.replace(/\//g, '-')] = getIdsbyFilter('site_type_code', code);
-    // });
-
     const sourceContainer = filterContainer.querySelector('#filter-source');
+    const changeContainer = filterContainer.querySelector('#filter-change');
+    const thresholdContainer = filterContainer.querySelector('#filter-thresholds');
+
+    const areas = getTypeMap('area');
+    const types = getTypeMap('type');
     const sources = getTypeMap('source');
-    Object.entries(sources).forEach(([code, desc]) => {
-        // const upperCode = area.toUpperCase();
-        // //const ids = getIdsbyFilter('area', area.toUpperCase());
-        sourceContainer.innerHTML += createFilterButton(desc, `source-${code}`, 'source', code);
-        // //FILTERS['area'][code] = ids;
+
+    // static filters
+    Object.entries(areas).forEach(([code, area]) => {
+        areaContainer.innerHTML += createFilterButton(area, `area-${code}`, 'area', area.toUpperCase());
     });
-    // const sources = { 'USGS': 'USGS', 'UHSLC' : 'UHSLC' };
-    // const source = filterContainer.querySelector('#filter-source');
-    // source.innerHTML = createButton('source', sources);
-    // sources.forEach((s) => {
-    //     FILTERS['source'][s] = getIdsbyFilter('gauge_type', s);
-    // });
 
-    // // dynamic filters
-    // const change = filterContainer.querySelector('#filter-change');
-    // change.innerHTML = createButton('change', ['increase', 'decrease', 'neutral']);
+    Object.entries(types).forEach(([code, desc]) => {
+        typeContainer.innerHTML += createFilterButton(desc, `type-${code}`, 'type', code);
+    });
 
-    // const thresholds = filterContainer.querySelector('#filter-thresholds');
-    // thresholds.innerHTML = createButton('threshold', ['minor', 'moderate', 'major', 'action']);
+    Object.entries(sources).forEach(([code, desc]) => {
+        sourceContainer.innerHTML += createFilterButton(desc, `source-${code}`, 'source', code);
+    });
+
+    // dynamic filters
+    changeContainer.innerHTML += createFilterButton('change', 'change-increase', 'change', 'increase');
+    changeContainer.innerHTML += createFilterButton('decrease', 'change-decrease', 'change', 'decrease');
+    changeContainer.innerHTML += createFilterButton('neutral', 'change-neutral', 'change', 'neutral');
+    //change.innerHTML = createButton('change', ['increase', 'decrease', 'neutral']);
+
+    thresholdContainer.innerHTML += createFilterButton('minor', 'threshold-minor', 'threshold', 'minor');
+    thresholdContainer.innerHTML += createFilterButton('moderate', 'threshold-moderate', 'threshold', 'moderate');
+    thresholdContainer.innerHTML += createFilterButton('major', 'threshold-major', 'threshold', 'major');
+    thresholdContainer.innerHTML += createFilterButton('action', 'threshold-action', 'threshold', 'action');
 }
 
 function clickFilter(type, value) {
-    // const ids = FILTERS[type][value];
-    // let change;
-    // if (ACTIVE_FILTERS[type].has(value)) { 
-    //     ACTIVE_FILTERS[type].delete(value);
-    //     change = false;
-    // }
-    // else {
-    //     // add to tracker
-    //     ACTIVE_FILTERS[type].add(value);
-    //     change = true;
-    // }
-
-    // ids.forEach((id) => {
-    //     GAUGES[id].filters[type] = change;
-    //     GAUGES[id].hide = Object.values(GAUGES[id].filters).some(f => f === true);
-    // });
-    console.log(type);
-    console.log(value);
-    // console.log(ACTIVE_FILTERS)
-    // filtersActive = Object.values(ACTIVE_FILTERS).some(set => set.size > 0);
-    // console.log(filtersActive)
-    // console.log(GAUGES)
-    // search(searchInput.value);
+    const tag = filterContainer.querySelector(`.table-tag.${type}-${value.replace(/\s+/g, '-')}`);
+    
     if (ACTIVE_FILTERS[type].has(value)) {
         ACTIVE_FILTERS[type].delete(value);
-    } else {
+        tag.classList.add('inactive');
+    } 
+    else {
         ACTIVE_FILTERS[type].add(value);
+        tag.classList.remove('inactive');
     }
+    console.log(ACTIVE_FILTERS)
 
     filtersActive = Object.values(ACTIVE_FILTERS).some(set => set.size > 0);
-    console.log(filtersActive);
-    console.log(ACTIVE_FILTERS);
-    console.log(LOCATIONS)
-    console.log(ACTIVE_FILTERS.area.size)
-    console.log(ACTIVE_FILTERS.type.size)
-    // recalculate hide for every gauge
+    console.log(type)
+    console.log(value)
+    // console.log(filtersActive);
+    // console.log(ACTIVE_FILTERS);
+    // console.log(LOCATIONS)
+
+    updateFilters();
+}
+
+function resetFilters() {
+    Object.values(ACTIVE_FILTERS).forEach(set => set.clear());
+    filterContainer.querySelectorAll('.badge.rounded-pill.table-tag').forEach(el => el.classList.add('inactive'));
+  
+    updateFilters();
+}
+
+function saveFilters() {
+    filterContainer.classList.toggle('hidden', true);
+}
+
+function updateFilters() {
     Object.keys(GAUGES).forEach(id => {
         const info = LOCATIONS[id]; 
 
         const matchesArea   = ACTIVE_FILTERS.area.size === 0   || ACTIVE_FILTERS.area.has(info.area);
         const matchesType   = ACTIVE_FILTERS.type.size === 0   || ACTIVE_FILTERS.type.has(info.site_type_code);
-        const matchesSite   = ACTIVE_FILTERS.source.size === 0   || ACTIVE_FILTERS.source.has(info.gauge_type);
-
-
-        GAUGES[id].hide = !(matchesArea && matchesType && matchesSite);
+        const matchesSource = ACTIVE_FILTERS.source.size === 0   || ACTIVE_FILTERS.source.has(info.gauge_type);
+        
+        const matchesChange = ACTIVE_FILTERS.change.size === 0 || [...ACTIVE_FILTERS.change].some(val => DYNAMIC_FILTERS.change[val]?.has(id));
+        const matchesThreshold = ACTIVE_FILTERS.threshold.size === 0 || [...ACTIVE_FILTERS.threshold].some(val => DYNAMIC_FILTERS.threshold[val]?.has(id));
+        
+        GAUGES[id].hide = !(matchesArea && matchesType && matchesSource && matchesChange && matchesThreshold);
         //console.log(`${id}: match: ${matchesArea} hide: ${GAUGES[id].hide}`);
     });
-
 
     search(searchInput.value);
 }
@@ -554,54 +487,12 @@ async function buildGaugeTable(locations) {
                     type: info.gauge_type,
                     type_code: info.site_type
                 },
-                // filters: {
-                //     area: false,
-                //     type: false,
-                //     source: false,
-                //     change: false,
-                //     thresholds: false,
-                //     gauge: false
-                // },
                 hide: false
             };
 
             tableContainer.appendChild(clone);
         });
     });
-    // group gauges by location
-    // create card
-
-
-    // USGS_OVERVIEW = overviewResultsUSGS;
-    // UHSLC_OVERVIEW = overviewResultsUHSLC;
-
-    // console.log(`GAUGE_TABLE - Inital load fetch results at [${rawConvertDate(new Date().toISOString())}]`);
-    // console.log(USGS_OVERVIEW);
-    // console.log(UHSLC_OVERVIEW);
-    
-    // AREAS.forEach((area) => {
-    //     tableHeaderContainer.appendChild(createAreaCard(area));
-        
-    //     area.Sites.forEach((site) => {
-    //         const data = site.type == "USGS" ?  USGS_OVERVIEW.gauges[site.id] : UHSLC_OVERVIEW.gauges[site.id];
-    //         const card = createSiteCard(site, data, area);
-    //         if (card) {
-    //             tableContainer.appendChild(card);
-    //         }
-    //     })
-    // });
-
-    // const areaObj = AREAS.find(a => a.Order === parseInt(CONFIG_VALUES["gauge-tables"]["area-filter"]));
-    // const name = areaObj?.Area ?? null;
-    // if (name) {
-    //     const article = document.querySelector(`article.gauge-card.gauge-card-header.${getAreaClassName(name)}`);
-    //     if (article) {
-    //         filterByArea(areaObj, article);
-    //     }
-    // }
-    
-    // // run function async
-    // reloadGaugeTable();
 
     console.log(GAUGES);
     updateGaugeTable(locations);
@@ -609,10 +500,11 @@ async function buildGaugeTable(locations) {
 
 function createTab(type, code, static, func = null, params = null) {
     const staticClass = static ? 'static' : '';
+    const hover = func ? 'button-hover-effect' : '';
     const clickEvent = func ? `onclick="${func}('${params}')"` : ''
     const icon = type == 'text' ? code : `<i class="${tabLookup[code]?.icon}"></i>`;
     return `
-    <span class="badge rounded-pill table-tag tag-${type} ${type}-${code} ${staticClass}"
+    <span class="badge rounded-pill table-tag tag-${type} ${type}-${code} ${staticClass} ${hover}"
         data-bs-toggle="tooltip" ${clickEvent}
         title="${tabLookup[code]?.tooltip}">
         ${icon}
@@ -621,7 +513,7 @@ function createTab(type, code, static, func = null, params = null) {
 
 function createFilterButton(text, colorClass, type, value) {
     return `
-    <span class="badge rounded-pill table-tag ${colorClass.replace(/\s+/g, '-')}"
+    <span class="badge rounded-pill table-tag button-hover-effect ${colorClass.replace(/\s+/g, '-')} inactive"
         data-bs-toggle="tooltip" onclick="clickFilter('${type}', '${value}')">
         ${text.toUpperCase()}
     </span>`;
@@ -648,9 +540,17 @@ async function updateGaugeTable(locations) {
             changeEl.setAttribute('title', `${location.past_val} (${sign}${Math.abs(location.current_val - location.past_val).toFixed(2)}) at ${formatDateShort(location.past_date)}`);
 
             const signLookup = { '+': 'increase', '=': 'neutral', '-': 'decrease' }
-            changeEl.classList.remove('increase', 'decrease', 'neutral');
-            changeEl.classList.add(signLookup[sign]);
-            GAUGES[location.gauge_id].search['change'] = signLookup[sign];
+            const signClass = signLookup[sign];
+            const removeClasses = Object.values(signLookup).filter(c => c !== signClass);
+
+            changeEl.classList.remove(...removeClasses);
+            changeEl.classList.add(signClass);
+            GAUGES[location.gauge_id].search['change'] = signClass;
+            //ACTIVE_FILTERS[type].delete(value);
+
+            // DYNAMIC_FILTERS['change']['increase'].delete(location.gauge_id);
+            Object.values(DYNAMIC_FILTERS['change']).forEach(set => set.delete(location.gauge_id));
+            DYNAMIC_FILTERS['change'][signClass].add(location.gauge_id);
 
             // date
             const dateEl = card.querySelector('.table-date');
@@ -675,7 +575,7 @@ async function updateGaugeTable(locations) {
             const tagsEl = card.querySelector('.table-tags');
             const changeTag = tagsEl.querySelector('.tag-change');
             if (changeTag) changeTag.remove();
-            if (sign != '=') tagsEl.innerHTML += createTab('change', signLookup[sign], false);
+            if (sign != '=') tagsEl.innerHTML += createTab('change', signClass, false);
             
             updateSearchString(location.gauge_id);
         }
@@ -780,57 +680,7 @@ async function createGraph(location) {
 
         GAUGES[location].data.graph = card;
         graphContainer.appendChild(clone);
-        // graphContainer.insertAdjacentHTML('beforeend', `
-        //     <div class="graph-card col-12 col-sm-12 col-md-6 col-lg-4 graph-${location}">
-        //         <div class="card h-100">
-        //             <div class="card-body">
-        //                 <div class="d-flex align-items-center justify-content-between gap-2">
-        //                     <h5 class="card-title" style="color: var(--color-${areaName})"><strong>${info.full_name}</strong></h5>
-        //                     <div class="d-flex gap-2">
-        //                         ${createTab('expand', 'expand', false, 'console.log', 'test')}
-        //                         ${createTab('close', 'close', false, 'hideGraph', location)}
-        //                     </div>
-        //                 </div>
-        //                 <div class="chart-${location}"></div>
-        //                 <div class="graph-footer">
-        //                     <div class="graph-current d-flex align-items-center justify-content-between gap-2 mb-0">
-        //                         <span class="d-flex gap-1">
-        //                             <span>Latest:</span>
-        //                             <span class="footer-latest">??ft </span>
-        //                             <span class="footer-change">(+??.00 +??.??%)</span>
-        //                             <span>@</span>
-        //                             <span class="footer-time">??/??/?? ??:??AM</span>
-        //                         </span>
-        //                         <span class="d-flex gap-1">
-        //                             <span>Time Scale:</span>
-        //                             ${createTab('text', 'H', false, 'updateTimeScale', location + ',1')}
-        //                             ${createTab('text', 'D', false, 'updateTimeScale', location + ',24')}
-        //                             ${createTab('text', 'W', false, 'updateTimeScale', location + ',168')}
-        //                             ${createTab('text', 'M', false, 'updateTimeScale', location + ',5040')}
-        //                         </span>
-        //                     </div>
-        //                     <div class="graph-thresholds d-flex gap-2 w-100 justify-content-between"">
-        //                         <span class="d-flex gap-1">
-        //                             <span>${isDamn ? 'High-Flow' : 'Minor'}:</span>
-        //                             <span class="footer-threshold minor">${thresholds.minor}</span>
-        //                         </span>
-        //                         <span class="d-flex gap-1">
-        //                             <span>${isDamn ? 'Emergency' : 'Moderate'}:</span>
-        //                             <span class="footer-threshold moderate">${thresholds.moderate}</span>
-        //                         </span>
-        //                         <span class="d-flex gap-1">
-        //                             <span>${isDamn ? 'Imminent' : 'Major'}:</span>
-        //                             <span class="footer-threshold major">${thresholds.major}</span>
-        //                         </span>
-        //                         <span class="d-flex gap-1">
-        //                             <span>${isDamn ? 'Top of Dam' : 'Action'}:</span>
-        //                             <span class="footer-threshold action">${thresholds.action}</span>
-        //                         </span>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //     </div>
-        // `);
+
         const chartDiv = document.querySelector(`.chart-${location}`);
 
         const newChart = new ApexCharts(chartDiv, graphOptions(info.full_name, formatted, colorToAreaMap[areaName], Math.floor(min - padding), Math.ceil(max + padding)));
