@@ -37,6 +37,50 @@
     </div>
   </nav>
 
+  <div id="details-popup" class="hidden">
+      <div class="popup-modal">
+        <div class="popup-header">
+          <div>
+            <p class="popup-title" id="popup-title"></p>
+            <p class="popup-subtitle">
+              <span id="popup-id"></span>
+              <span>·</span>
+              <span id="popup-area"></span>
+            </p>
+          </div>
+          <button class="popup-close" onclick="closeExpand()"><i class="ti ti-x"></i></button>
+        </div>
+
+        <div id="popup-chart" class="popup-chart"></div>
+
+        <div class="popup-stats">
+          <div class="stat-card"><p class="stat-label">Latest</p><p class="stat-value popup-latest"></p></div>
+          <div class="stat-card"><p class="stat-label">Change</p><p class="stat-value popup-change"></p></div>
+          <div class="stat-card"><p class="stat-label">7-day high</p><p class="stat-value popup-high"></p></div>
+          <div class="stat-card"><p class="stat-label">7-day low</p><p class="stat-value popup-low"></p></div>
+        </div>
+
+        <div class="popup-section">
+          <p class="section-title">Thresholds</p>
+          <div class="threshold-row">
+            <div class="threshold-item"><p class="threshold-label">Minor</p><p class="threshold-val popup-minor"></p></div>
+            <div class="threshold-item"><p class="threshold-label">Moderate</p><p class="threshold-val popup-moderate"></p></div>
+            <div class="threshold-item"><p class="threshold-label">Major</p><p class="threshold-val popup-major"></p></div>
+            <div class="threshold-item"><p class="threshold-label">Action</p><p class="threshold-val popup-action"></p></div>
+          </div>
+        </div>
+
+        <div class="popup-section">
+          <p class="section-title">Details</p>
+          <div class="info-grid" id="popup-details"></div>
+        </div>
+
+        <div class="popup-tags" id="popup-tags"></div>
+
+      </div>
+    </div>
+  </div>
+
   <main class="container-fluid">
     <div id="search-container" class="d-flex gap-2 align-items-center py-3 flex-wrap">
         <div class="d-flex align-items-center flex-grow-1 border rounded px-2" style="height:38px; background: var(--bs-body-bg);">

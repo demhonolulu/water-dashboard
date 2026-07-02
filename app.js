@@ -142,6 +142,7 @@ function showLoading() { overlay.classList.add('active');    }
 function hideLoading() { overlay.classList.remove('active'); }
 
 // ── DOM refs ──────────────────────────────────────────────
+const detailsPopup          = document.getElementById('details-popup');
 const searchInput           = document.getElementById('search-input');
 const filterContainer       = document.getElementById('filter-expand');
 const tableContainer        = document.getElementById('table-container');
@@ -174,21 +175,6 @@ async function init() {
             output[area].push(gauge.gauge_id);
             return output;
         }, {});
-
-        // // fetch json files
-        // const [locationsResult, veociResult, areaResult, configResult, historicResult] = await Promise.all([
-        //     fetchAndWait('json/locations.json'),
-        //     fetchAndWait('json/veoci-export.json'),
-        //     fetchAndWait('json/area.json'),
-        //     fetchAndWait('json/config.json'),
-        //     fetchAndWait('json/historic-data.json')
-        // ]);
-
-        // // set globals from json files
-        // CONFIG_VALUES = configResult;
-        // LOCATIONS = locationsResult;
-        // VEOCI_NOTES = veociResult.Sheet0;
-        // AREAS = areaResult.sort((a, b) => a.Order - b.Order);
 
         GAUGE_REGISTRY = mapGaugeRegistry();
         // GAUGE_BITMAP = CONFIG_VALUES["gauge-graphs"].sites ? decodeBase36ToBigInt(CONFIG_VALUES["gauge-graphs"].sites) : 0n;
@@ -477,9 +463,7 @@ async function buildGaugeTable(locations) {
 
             // add to gauges list
             GAUGES[location] = {
-                data: {
-                    table: card
-                },
+                data: { table: card },
                 search: {
                     name: info.full_name,
                     area: area,
@@ -650,7 +634,7 @@ async function createGraph(location) {
         title.style.color = `var(--color-${areaName})`;
 
         clone.querySelector('.card-buttons').innerHTML = `
-            ${createTab('expand', 'expand', false, 'console.log', 'test')}
+            ${createTab('expand', 'expand', false, 'expandGraph', location)}
             ${createTab('close', 'close', false, 'hideGraph', location)}
         `;
 
@@ -822,184 +806,14 @@ function tableDisplayThreshold(overview) {
 
     return { text: `${thresholds[display]}ft`, hits, display};
 }
-// function filterByArea(area, article) {
-//     const articles = tableContainer.querySelectorAll('article');
-//     const graphs = graphContainer.querySelectorAll('div.chart-container');
-//     const headers = tableHeaderContainer.querySelectorAll('article');
-//     const areaClass = area.Area.replace(/\s+/g, '-');
 
-//     tableHeaderContainer.className = tableHeaderContainer.classList.contains(areaClass) ? '' : areaClass;
-//     const selected = tableHeaderContainer.className !== '';
+function expandGraph(location) {
+    detailsPopup.classList.remove('hidden');
+}
 
-//     // table cells
-//     articles.forEach(art => {
-//         if (selected) {
-//             // area selected and apply filter
-//             if (art.classList.contains(areaClass)) {
-//                 art.classList.remove('hidden');
-//             } 
-//             else {
-//                 art.classList.add('hidden');
-//             }
-//         }
-//         else {
-//             // clear filter
-//             art.classList.remove('hidden');
-//         }
-//     });
-
-//     headers.forEach(art => {
-//         art.classList.remove('filter-active');
-//     });
-
-//     if (selected) {
-//         article.style.setProperty('--area-color', area.Color);
-//         article.classList.add('filter-active');
-//         CONFIG_VALUES["gauge-tables"]["area-filter"] = area.Order;
-//     }
-//     else {
-//         CONFIG_VALUES["gauge-tables"]["area-filter"] = 0;
-//     }
-
-//     // graphs
-//     graphs.forEach(graph => {
-//         if (selected) {
-//             // area selected and apply filter
-//             if (graph.classList.contains(areaClass)) {
-//                 graph.classList.remove('hidden');
-//             } 
-//             else {
-//                 graph.classList.add('hidden');
-//             }
-//         }
-//         else {
-//             // clear filter
-//             graph.classList.remove('hidden');
-//         }
-//     });
-
-//     updateParams();
-// }
-
-// function createSiteCard(site, data, area) {
-//     if (!site.visible) {
-//         return null;
-//     }
-
-//     const locationItem = LOCATIONS[site.id];
-//     const color = area.Color;
-
-//     let article = document.createElement('article');
-//     article.classList.add('gauge-card', site.type, `card-${site.id}`, `${area.Area.replace(/\s+/g, '-')}`);
-//     article.style.borderColor = color;
-//     article._abortController = new AbortController();
-//     const signal = article._abortController.signal;
-
-//     const iconDiv = document.createElement('div');
-//     iconDiv.classList.add('card-icon', `icon-${locationItem.properties.site_type_code}`);
-
-//     const siteIcon = document.createElement('span');
-//     const changeIcon = document.createElement('span');
-//     const selectIcon = document.createElement('span');
-
-//     siteIcon.classList.add('site-icon');
-//     changeIcon.classList.add('change-icon');
-//     selectIcon.classList.add('select-icon');
-
-//     iconDiv.appendChild(siteIcon);
-//     iconDiv.appendChild(changeIcon);
-//     iconDiv.appendChild(selectIcon);
-//     siteIcon.addEventListener('click', () => {
-//         favoriteCardToggle(site.id);
-//     }, { signal });
-//     article.appendChild(iconDiv);
-
-//     const titleText = document.createElement('h6');
-//     titleText.style.margin = "0";
-//     titleText.textContent = locationItem.properties.name_short;
-//     titleText.style.color = color;
-//     article.appendChild(titleText);
-
-//     article = addCardDetails(article, site.id, data);
-//     article.addEventListener('click', () => {
-//         clickTableCell(site, article, color);
-//     }, { signal });
-
-//     return article;
-// }
-
-// function addCardDetails(article, id, data) {
-//     if (!data || !data.val) {
-//         console.log("⚠️ No live data found: " + id)
-//         return article;
-//     }
-    
-//     const change = (data.val - data.val_1h).toFixed(2);
-//     const percent = (((data.val - data.val_1h) / data.val_1h) * 100).toFixed(2);
-//     const symbol = change > 0 ? '▲' : change < 0 ? '▼' : '=';
-//     const dirClass = change > 0 ? 'up' : change < 0 ? 'down' : 'equal';
-//     const isOld = (Date.now() - new Date(data.time).getTime()) > 24 * 60 * 60 * 1000;
-
-//     const thresholds = LOCATIONS[id].properties.thresholds;
-//     const displayThreshold = getDisplayThreshold(data.val, thresholds);
-//     const currentThreshold = getCurrentThreshold(data.val, thresholds);
-//     const thresholdText = thresholds[displayThreshold] 
-//         ? `<small> - <span class="threshold-highlight ${displayThreshold}">${thresholds[displayThreshold]}ft</span></small>` 
-//         : '';
-//     if (currentThreshold) {
-//         article.classList.add(currentThreshold, "alert");
-//     }
-//     const colorOverrideAlert = currentThreshold ? `style="color: #000000"` : '';
-
-//     const siteIcon = article.querySelector('.site-icon');
-//     const changeIcon = article.querySelector('.change-icon');
-//     // siteIcon for fav later
-
-//     changeIcon.textContent = symbol;
-//     changeIcon.classList.add(`${dirClass}-bright`);
-
-//     const dataDiv = document.createElement('div');
-//     dataDiv.classList.add('gauge-data');
-//     dataDiv.innerHTML = `
-//         <span class="main-value" ${colorOverrideAlert}><strong style="margin: 0; padding: 0;">${data.val}</strong>
-//         <small style="padding: 0; margin: 0;">ft</small>
-//         </span>
-//         <small><span ${colorOverrideAlert} class="card-diff ${dirClass}">(${change} ${percent}%)</span></small>
-//     `;
-
-//     const dateDiv = document.createElement('div');
-//     dateDiv.classList.add('gauge-meta');
-//     dateDiv.innerHTML = `
-//         <small class="main-value" ${isOld ? 'style="color: red;"' : ''}">${formatTimeShort(data.time)}</small>${thresholdText}
-//     `;
-
-//     article.appendChild(dataDiv);
-//     article.appendChild(dateDiv);
-//     return article;
-// }
-
-// function isRecentTime(time) {
-//     return time && (Date.now() - new Date(new Date(time).toLocaleString('en-US', { timeZone: 'UTC' })).getTime() + (10 * 60 * 60 * 1000)) < 15 * 60 * 1000;
-// }
-
-// function formatTimeShort(time) {
-//     return new Date(time).toLocaleTimeString('en-US', {
-//         hour: 'numeric',
-//         minute: '2-digit',
-//         hour12: true
-//     }).toLowerCase().replace(' ', '');
-// }
-
-// function formatTimeLong(time) {
-//     return new Date(time).toLocaleString('en-US', {
-//         year: 'numeric',
-//         month: 'numeric',
-//         day: 'numeric',
-//         hour: 'numeric',
-//         minute: '2-digit',
-//         hour12: true
-//     }).toLowerCase()
-// }
+function closeExpand() {
+    detailsPopup.classList.add('hidden');
+}
 
 // function getCurrentThreshold(value, thresholdsObject) {
 //     if(!value) {
@@ -1034,267 +848,12 @@ function tableDisplayThreshold(overview) {
 //     return null;
 // }
 
-// function favoriteCardToggle(id) {
-//     console.log("favorite " + id);
-// }
-
-// async function clickTableCell(site, article, color) {
-//     showLoading();
-//     if (article.classList.contains('selected')) {
-//         article.classList.remove('selected');
-
-//         const chartIndex = charts.findIndex(c => c.id === site.id);
-
-//         if (chartIndex !== -1) {
-//             charts[chartIndex].instance.destroy();
-//             charts.splice(chartIndex, 1);
-//         }
-
-//         const chartContainer = document.getElementById(`chart-container-${site.id}`); // or however you reference it
-//         if (chartContainer) {
-//             chartContainer.remove();
-//         }
-
-//         // update url
-//         updateGaugeBit(site.id, false);
-//     }
-//     else {
-//         article.classList.add('selected');
-//         let graphResults;
-
-//         // fetch data
-//         if (site.type == "USGS") {
-//             const timeSeries = LOCATIONS[site.id].properties.time_series_id;
-//             graphResults = await fetchData("graphUSGSCache", AWS_USGS_GRAPH_CACHE_URL + timeSeries, USGS_GRAPH_URL + timeSeries, site.id);
-//         }
-
-//         if (site.type == "UHSLC") {
-//             graphResults = await fetchData("graphUHSLCCache", AWS_UHSLC_GRAPH_CACHE_URL + site.id, null, site.id);
-//         }
-        
-//         // build graph
-//         if (graphResults) {
-//             const convertedData = convertDates(graphResults);
-//             const chartDiv = await createGraph(site, convertedData, color, graphResults.updateTime);
-//             graphContainer.appendChild(chartDiv);
-
-//             charts[charts.length - 1].instance.render();
-
-//             reloadGaugeGraph(site);
-//         }
-
-//         updateGaugeBit(site.id, true);
-//     }
-
-//     CONFIG_VALUES["gauge-graphs"]["sites"] = GAUGE_BITMAP;
-//     updateParams();
-
-//     hideLoading();
-//     return;
-// }
-
-// function convertDates(data) {
-//     if (!data || !data.data) {
-//         return null;
-//     }
-
-//     return data.data.map(item => ({
-//         ...item,
-//         time: new Date(item.time).toLocaleString('en-US', {
-//             timeZone: 'Pacific/Honolulu'
-//         })
-//     }));
-// }
-
-// async function createGraph(site, data, color, time) {
-//     if (!data || data.length < 1) {
-//         return null;
-//     }
-
-//     const locationItem = LOCATIONS[site.id];
-//     const chartContainer = document.createElement('div');
-//     chartContainer.id = `chart-container-${site.id}`;
-//     chartContainer.style.position = "relative";
-    
-//     chartContainer._abortController = new AbortController();
-//     const signal = chartContainer._abortController.signal;
-
-//     const area = getSiteArea(site);
-//     const areaClass = area.Area.replace(/\s+/g, '-');
-//     chartContainer.classList.add(`${areaClass}`, 'chart-container');
-
-//     // close graph
-//     const closeGraphIcon = document.createElement('span');
-//     closeGraphIcon.innerHTML = "✕";
-//     closeGraphIcon.style.color = "#FF0000"
-//     closeGraphIcon.classList.add('close-graph-icon');
-//     closeGraphIcon.addEventListener('click', (event) => {
-//         event.stopPropagation();
-//         const article = document.querySelector(`.gauge-card.${site.type}.card-${site.id}`);
-//         clickTableCell(site, article, color)
-//     }, { signal });
-//     chartContainer.appendChild(closeGraphIcon);
-
-//     const chartDiv = document.createElement('div');
-//     chartDiv.classList.add('chart', site.type, `chart-${site.id}`);
-//     chartDiv.addEventListener('click', (event) => {
-//         graphClick(site, event)
-//     }, { signal });
-
-//     const filteredRawData = filterDataByRange(data, CONFIG_VALUES["gauge-graphs"]["default-scale"]);
-//     const chartData = filteredRawData.map(item => ({
-//         x: new Date(item.time).getTime(),
-//         y: item.value
-//     }));
-
-//     // y axis padding
-//     const [minPadding, maxPadding] = getAxisPadding(chartData);
-
-//     const thresholds = await getThresholdObject(site.id);
-
-//     const options = {
-//         series: [{
-//             name: locationItem.properties.monitoring_location_name,
-//             data: chartData
-//         }],
-//         title: {
-//             text: locationItem.properties.monitoring_location_name.replace(', Oahu, HI', ''),
-//             align: 'center',
-//             margin: 10,
-//             offsetX: 0,
-//             offsetY: 0,
-//             floating: false,
-//             style: {
-//                 fontSize:  '21px',
-//                 fontWeight: 'bold',
-//                 color:  color
-//             },
-//         },
-//         chart: {
-//             type: 'area', // 'area' looks great for water levels
-//             zoom: { enabled: true },
-//             toolbar: { show: false }
-//         },
-//         dataLabels: { enabled: false },
-//         xaxis: {
-//             type: 'datetime',
-//             labels: {
-//                 datetimeUTC: false,
-//                 style: {
-//                     colors: '#FFFFFF'
-//                 }
-//             }
-//         },
-//         yaxis: {
-//             min: minPadding,
-//             max: maxPadding,
-//             labels: {
-//                 style: {
-//                     colors: '#FFFFFF'
-//                 }
-//             }
-//         },
-//         tooltip: {
-//             x: { format: 'dd MMM HH:mm' },
-//             theme: 'dark'
-//         },
-//         colors: color,
-//         stroke: {
-//             curve: 'smooth',
-//             colors: color
-//         },
-//         fill: {
-//             type: 'gradient',
-//             gradient: {
-//                 shadeIntensity: 1,
-//                 opacityFrom: 0.6,
-//                 opacityTo: 0.1,
-//                 colorStops: [
-//                     { offset: 0, color: color, opacity: 1 },
-//                     { offset: 100, color: color, opacity: 0.8 }
-//                 ]
-//             }
-//         },
-//         annotations: thresholds
-//     };
-
-//     const newChart = new ApexCharts(chartDiv, options);
-//     chartContainer.appendChild(chartDiv);
-//     chartContainer.appendChild(await createChartFooter(locationItem.properties.thresholds, site.id, chartData));
-
-//     charts.push({
-//         id: site.id,
-//         type: site.type,
-//         instance: newChart,
-//         fullData: data,
-//         pullTime: time
-//     });   
-
-//     return chartContainer;
-// }
-
-// function getAxisPadding(chartData) {
-//     const [percent, add] = CONFIG_VALUES["gauge-graphs"]["axis-padding"].split('p').map(Number);
-//     const [below, above] = CONFIG_VALUES["gauge-graphs"]["axis-padding-enabled"].split('p').map(Number);
-//     const yValues = chartData.map(d => d.y);
-//     const min = Math.min(...yValues);
-//     const max = Math.max(...yValues);
-//     const minPadding = below ? (min * (1 - percent * 0.01)) - add : min;
-//     const maxPadding = above ? (max * (percent * 0.01 + 1)) + add : max;
-
-//     return [minPadding, maxPadding];
-// }
-
 // async function getThresholdObject(id) {
 //     const locationItem = LOCATIONS[id];
 //     const historicItem = await getHistoricItem(id);
 //     const monthlyItems = getHistoricMonth(historicItem);
 //     const thresholds = getThresholdGraph(id, locationItem.properties.thresholds, monthlyItems);
 //     return thresholds;
-// }
-
-// async function getHistoricItem(id) {
-//     if (!HISTORIC_CACHE[id]) {
-//         const [historicResult] = await Promise.all([
-//             fetchAndWait('json/historic-data.json')
-//         ]);
-        
-//         HISTORIC_CACHE[id] = historicResult[id];
-//     }
-
-//     return HISTORIC_CACHE[id];
-// }
-// function getHistoricMonth(historicItem) {
-//     if (historicItem == null) {
-//         return null;
-//     }
-
-//     const now = new Date();
-//     const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
-
-//     const filtered = historicItem.monthly
-//         .filter(item => item.month.endsWith(`-${currentMonth}`))
-//         .sort((a, b) => b.month.localeCompare(a.month));
-
-//     return filtered;
-// }
-
-// function getHistoricYear(historicItem, year) {
-//     if (historicItem == null) return null;
-
-//     const previousYear = new Date().getFullYear() - 1;
-//     return historicItem.yearly_summaries?.find(y => y.year === previousYear) ?? null;
-// }
-
-// function filterDataByRange(data, range) {
-//     switch(range) {
-//         case "w":
-//             return data;
-//         case "d":
-//             return data.length > 288 ? data.slice(-288) : data;
-//         case "h":
-//             return data.length > 12 ? data.slice(-12) : data;
-//     }
 // }
 
 // async function createChartFooter(thresholds, id, data) {
@@ -1328,75 +887,6 @@ function tableDisplayThreshold(overview) {
 //         </div> 
 //     `;
 //     return chartFooter;
-// }
-
-// function calcDataChange(data) {
-//     const current = data[data.length - 1].y
-//     const past = data.length >= 13 ? data[data.length - 13].y : data[0].y;
-//     const diff = (((current - past) / past) * 100);
-//     const color = diff > 0 ? 'green' : diff < 0 ? 'red' : 'gray';
-
-//     return {
-//         date: formatTimeLong(data[data.length - 1].x),
-//         value: current.toFixed(2),
-//         color: color,
-//         diff: diff.toFixed(2)
-//     };
-// }
-
-// function getWarningColor(threshold) {
-//     switch (threshold) {
-//         case 'action':
-//             return "#8B0000";
-//         case 'major':
-//             return "#EE4B2B";
-//         case 'minor':
-//             return "#FFEA00";
-//         default:
-//             return "#FFFFFF";
-//     }
-// }
-
-// function getThresholdGraph(id, thresholds, monthly) {
-//     if (!thresholds)
-//         return {};
-
-//     let base = thresholds.base;
-//     let labelDesc = "Baseline Averag Height"
-//     if (typeof monthly?.[0]?.average === 'number') {
-//         LOCATIONS[id].properties.thresholds.base = monthly[0].average;
-//         base = monthly[0].average;
-//         labelDesc = `${monthly[0].month} Average Height`;
-//     }
-
-//     const yaxis = [];
-//     const createThresholdObject = (val, level, dash = 0) => {
-//         yaxis.push({
-//             y: val,
-//             borderColor: getWarningColor(level),
-//             borderWidth: 3,
-//             strokeDashArray: dash,
-//             zIndex: 999
-//         });
-//     }
-    
-//     if (base) {
-//         createThresholdObject(base, "base", 5);
-//     }
-
-//     if (thresholds.minor) {
-//         createThresholdObject(thresholds.minor, "minor");
-//     }
-
-//     if (thresholds.major) {
-//         createThresholdObject(thresholds.major, "major");
-//     }
-
-//     if (thresholds.action) {
-//         createThresholdObject(thresholds.action, "action");
-//     }
-
-//     return { "yaxis" : yaxis };
 // }
 
 // // ── Button click ──────────────────────────────────────────
