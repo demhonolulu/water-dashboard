@@ -1,68 +1,200 @@
 <!DOCTYPE html>
-<html data-theme="dark" lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Oahu Water Dashboard</title>
+  <title>Oahu Dept. of Emergency Management Water Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" defer></script>
 </head>
-<body data-theme="dark">
-  <main class="container-fluid">
 
+<body>
   <div id="loading-overlay">
     <div class="spinner"></div>
   </div>
 
-  <div id="app">
-    <h1>
-        DEM Oahu Water Dashboard
-        <button id="settings-button" onclick="toggleSettings(this)" style="font-weight: bold;">▽</button>
-        <span id="last-update" style="margin-left: 15px; color: #ffffff;"></span>
-    </h1>
-
-    <div id="settings-container" style="display: none;">
-      <hr>
-      <div class="details-table-container settings">
-        <table>
-          <thead>
-            <tr>
-              <th colspan="2"><strong>Water Dashboard Settings</strong></th>
-            </tr>
-          </thead>
-          <tbody id="settings-table-body">
-          </tbody>
-        </table>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#"><strong>Honolulu Department of Emergency Management Water Dashboard</strong></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Table</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Graphs</a></li>
+        </ul>
       </div>
-      <hr>
     </div>
+  </nav>
 
-    <section id="sectionTable">
-      <div id="table-header-container"></div>
-      <hr>
-      <div id="table-container"></div>
-    </section>
-
-    <section id="sectionGraphs">
-      <div id="graph-container"></div>
-    </section>
-
-    <div id="popupOverlay" class="popup-overlay" style="display: none" onclick="if(event.target === this) popupClose()">
-      <div class="popup-content" onclick="event.stopPropagation()">
+  <div id="details-popup" class="hidden">
+      <div class="popup-modal">
         <div class="popup-header">
-            <div class="popup-header-text">Popup Title</div>
-            <button class="popup-close" onclick="popupClose()">✕</button>
+          <div>
+            <h5 class="popup-title" id="popup-title"></h5>
+          </div>
+          <button class="popup-close" onclick="closeExpand()"><i class="ti ti-x"></i></button>
         </div>
-        <div class="popup-body"></div>
+
+        <div id="popup-chart" class="popup-chart"></div>
+
+        <div class="popup-stats">
+          <div class="stat-card"><p class="stat-label">Latest</p><p class="stat-value popup-latest">??.??ft</p></div>
+          <div class="stat-card"><p class="stat-label">Change</p><p class="stat-value popup-change">+??.?? +??.??%</p></div>
+          <div class="stat-card"><p class="stat-label">7-day high</p><p class="stat-value popup-high">??.??ft</p></div>
+          <div class="stat-card"><p class="stat-label">7-day low</p><p class="stat-value popup-low">??.??ft</p></div>
+        </div>
+
+        <div class="popup-section">
+          <p class="section-title">Thresholds</p>
+          <div class="threshold-row">
+            <div class="threshold-item"><p class="threshold-label">Minor</p><p class="threshold-val popup-minor">??.??ft</p></div>
+            <div class="threshold-item"><p class="threshold-label">Moderate</p><p class="threshold-val popup-moderate">??.??ft</p></div>
+            <div class="threshold-item"><p class="threshold-label">Major</p><p class="threshold-val popup-major">??.??ft</p></div>
+            <div class="threshold-item"><p class="threshold-label">Action</p><p class="threshold-val popup-action">??.??ft</p></div>
+          </div>
+        </div>
+
+        <div class="popup-section">
+          <p class="section-title">Details</p>
+          <div class="info-grid" id="popup-details"></div>
+        </div>
+
+        <div class="popup-tags" id="popup-tags"></div>
+
       </div>
     </div>
   </div>
 
+  <main class="container-fluid">
+    <div id="search-container" class="d-flex gap-2 align-items-center py-3 flex-wrap">
+        <div class="d-flex align-items-center flex-grow-1 border rounded px-2" style="height:38px; background: var(--bs-body-bg);">
+        <input id="search-input" type="text" oninput="search(this.value)" class="border-0 bg-transparent flex-grow-1" placeholder="Search gauges..." style="outline:none; color: var(--bs-body-color);" />
+        <button id="search-btn" class="btn btn-sm border-0 p-0">
+          <i class="ti ti-search fs-5"></i>
+        </button>
+      </div>
+
+      <button class="form-select filter-btn" style="width: auto;" id="filter-toggle" onclick="filterContainer.classList.toggle('hidden')">
+        <i class="ti ti-adjustments-horizontal"></i>Filters
+      </button>
+    </div>
+
+    <div id="filter-expand" class="hidden">
+      <div class="filter-section">
+        <div class="filter-label">Area</div>
+        <div class="filter-tags d-flex flex-wrap gap-2" id="filter-area"></div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Type</div>
+        <div class="filter-tags d-flex flex-wrap gap-2" id="filter-type"></div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Source</div>
+        <div class="filter-tags d-flex flex-wrap gap-2" id="filter-source"></div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Change</div>
+        <div class="filter-tags d-flex flex-wrap gap-2" id="filter-change"></div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Thresholds</div>
+        <div class="filter-tags d-flex flex-wrap gap-2" id="filter-thresholds"></div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Gauges</div>
+        <div class="filter-tags d-flex flex-wrap gap-2" id="filter-gauges"></div>
+      </div>
+      <div class="d-flex justify-content-end gap-2 pt-2">
+        <button class="btn btn-sm btn-outline-secondary" onclick="resetFilters()">
+          <i class="ti ti-refresh me-1"></i>Reset
+        </button>
+        <button class="btn btn-sm filter-save button-hover-effect" onclick="saveFilters()">
+          <i class="ti ti-device-floppy me-1"></i>Save
+        </button>
+      </div>
+    </div>
+
+    <br>
+
+    <template id="table-card-template">
+      <div class="table-card card-hover-effect">
+        <div class="table-click card h-100">
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text mb-0">
+              <strong class="table-value">-??</strong> ft
+              <span class="table-change ms-1">(-??.?? -??.??%)</span>
+            </p>
+            <p class="card-text d-flex justify-content-between mb-1">
+              <span class="table-date">??:?? am</span>
+              <span class="table-threshold">?? ft</span>
+            </p>
+            <div class="table-tags mt-auto d-flex gap-2 flex-wrap"></div>
+          </div>
+        </div>
+      </div>
+    </template>
+    <div id="table-container" class="row g-3"></div>
+
+    <br>
+    
+    <template id="graph-card-template">
+      <div class="graph-card">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="d-flex align-items-center justify-content-between gap-2">
+              <h5 class="card-title"></h5>
+              <div class="card-buttons d-flex gap-2"></div>
+            </div>
+            <div class="card-chart"></div>
+            <div class="graph-footer">
+              <div class="graph-current d-flex align-items-center justify-content-between gap-2 mb-0">
+                  <span class="d-flex gap-1">
+                      <span>Latest:</span>
+                      <span class="footer-latest">??ft </span>
+                      <span class="footer-change">(+??.00 +??.??%)</span>
+                      <span>@</span>
+                      <span class="footer-time">??/??/?? ??:??AM</span>
+                  </span>
+                  <span class="footer-scale d-flex gap-1"></span>
+              </div>
+              <div class="graph-thresholds d-flex gap-2 w-100 justify-content-between">
+                <span class="d-flex gap-1">
+                    <span class="title-minor">Minor:</span>
+                    <span class="footer-threshold minor">??ft</span>
+                </span>
+                <span class="d-flex gap-1">
+                    <span class="title-moderate">Moderate:</span>
+                    <span class="footer-threshold moderate">??ft</span>
+                </span>
+                <span class="d-flex gap-1">
+                    <span class="title-major">Major:</span>
+                    <span class="footer-threshold major">??ft</span>
+                </span>
+                <span class="d-flex gap-1">
+                    <span class="title-action">Action:</span>
+                    <span class="footer-threshold action">??ft</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+    <div id="graph-container" class="row g-3"></div>
+
   </main>
   <script src="app.js"></script>
-  
 </body>
 </html>
