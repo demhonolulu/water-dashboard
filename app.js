@@ -40,6 +40,10 @@ const tabLookup = {
     'WAIANAE':              { icon: 'ti ti-sunset-2',        tooltip: 'Waianae', type: 'area', order: 6 },
     'increase': { icon: 'ti ti-chevrons-up-right',   tooltip: 'Gauge level increasing', type: 'change', order: 1 },
     'decrease': { icon: 'ti ti-chevrons-down-right', tooltip: 'Gauge level decreasing', type: 'change', order: 2 },
+    'minor': { icon: 'ti ti-alert-triangle', tooltip: 'Reached threshold minor', type: 'threshold', order: 1 },
+    'moderate': { icon: 'ti ti-alert-triangle', tooltip: 'Reached threshold moderate', type: 'threshold', order: 2 },
+    'major': { icon: 'ti ti-alert-triangle', tooltip: 'Reached threshold major', type: 'threshold', order: 3 },
+    'action': { icon: 'ti ti-alert-triangle', tooltip: 'Reached threshold action', type: 'threshold', order: 4 },
     'clicked': { icon: 'ti ti-chart-bar', tooltip: 'Gauge graph expanded' },
     'close': { icon: 'ti ti-trash', tooltip: 'Close gauge graph' },
     'expand': { icon: 'ti ti-arrows-maximize', tooltip: 'Expand gauge graph' },
@@ -62,7 +66,7 @@ const thresholdColorMap = {
     'action': '#8b0000'
 };
 
-const graphOptions = (locationName, chartData, areaColor, min, max) => ({
+const graphOptions = (locationName, chartData, areaColor, min, max, thresholds) => ({
     series: [{ name: locationName, data: chartData }],
     title: {
         text: "TEST",
@@ -107,7 +111,7 @@ const graphOptions = (locationName, chartData, areaColor, min, max) => ({
             ]
         }
     },
-    //annotations: thresholds
+    annotations: thresholds
 });
 
 let ACTIVE_LOCATIONS = {};
@@ -468,11 +472,12 @@ async function buildGaugeTable(locations) {
             title.style.color = `var(--color-${lookupArea})`;
 
             const tags = clone.querySelector('.table-tags');
-            tags.innerHTML = `
-                ${createTab('area', lookupArea, true)}
-                ${createTab('type', info.gauge_type, true)}
-                ${createTab('site', info.site_type_code, true)}
-            `;
+            // tags.innerHTML = `
+            //     ${createTab('area', lookupArea, true)}
+            //     ${createTab('type', info.gauge_type, true)}
+            //     ${createTab('site', info.site_type_code, true)}
+            //`;
+            tags.innerHTML = `${createTab('site', info.site_type_code, true)}`
 
             // add to gauges list
             GAUGES[location] = {
@@ -577,6 +582,12 @@ async function updateGaugeTable(locations) {
             const changeTag = tagsEl.querySelector('.tag-change');
             if (changeTag) changeTag.remove();
             if (sign != '=') tagsEl.innerHTML += createTab('change', signClass, false);
+
+            const thresholdTags = tagsEl.querySelector('.tag-threshold');
+            if (thresholdTags) thresholdTags.remove();
+            hits.forEach((threshold) => {
+                tagsEl.innerHTML += createTab('threshold', threshold, false);
+            });
             
             updateSearchString(location.gauge_id);
         }
@@ -638,9 +649,8 @@ async function fetchFullGraphData(location) {
 
         if (!detailInitalized) {
             detailInitalized = true;
-            //Math.floor(min - padding), Math.ceil(max + padding)
             const chartDiv = detailsPopup.querySelector(`.popup-chart`);
-            const newChart = new ApexCharts(chartDiv, graphOptions(info.full_name, formatted, colorToAreaMap[info.area]), min + padding, max + padding);
+            const newChart = new ApexCharts(chartDiv, graphOptions(info.full_name, formatted, colorToAreaMap[info.area]), min + padding, max + padding, {});
             newChart.render();
             detailsChart = newChart;
         }
@@ -659,6 +669,7 @@ async function createGraph(location) {
         const areaName = getAreaClassName(info.area);
         const isDamn = info.site_type_code == 'LK';
         const thresholds = getThresholdValues(info.thresholds);
+        console.log(thresholds.annotations);
 
         const clone = graphTemplate.content.cloneNode(true);
 
@@ -703,14 +714,15 @@ async function createGraph(location) {
 
         const chartDiv = document.querySelector(`.chart-${location}`);
 
-        const newChart = new ApexCharts(chartDiv, graphOptions(info.full_name, formatted, colorToAreaMap[areaName], Math.floor(min - padding), Math.ceil(max + padding)));
+        const newChart = new ApexCharts(chartDiv, graphOptions(info.full_name, formatted, colorToAreaMap[areaName], Math.floor(min - padding), Math.ceil(max + padding), thresholds.annotations));
         newChart.render();
         
         GRAPHS[location] = {
             fullData: data[location],
             time: Date.now(),
             timeScale: 24*7,
-            chartInstance: newChart
+            chartInstance: newChart,
+            annotations: thresholds.annotations
         };
 
         updateGraph(location, false)
@@ -809,8 +821,15 @@ function formatGraphData(data, range) {
 
 function getThresholdValues(thresholds) {
     const yaxis = [];
-    const createAnnotation = (value, color, text) => {
-
+    //thresholdColorMap
+    const createAnnotation = (value, level) => {
+        return {
+            y: value,
+            id: `threshold-line-${level}`,
+            borderColor: thresholdColorMap[level],
+            strokeDashArray: 0,
+            label: { text: `${level.charAt(0).toUpperCase() + level.slice(1)}`, position: 'left' }
+        }
     };
 
     let minor, moderate, major, action;
@@ -818,20 +837,24 @@ function getThresholdValues(thresholds) {
 
     if (thresholds?.minor) {
         minor = thresholds.minor;
+        yaxis.push(createAnnotation(minor, 'minor'));
     }
 
     if (thresholds?.moderate) {
         minor = thresholds.moderate;
+        yaxis.push(createAnnotation(moderate, 'moderate'));
     }
 
     if (thresholds?.major) {
         minor = thresholds.major;
+        yaxis.push(createAnnotation(major, 'major'));
     }
 
     if (thresholds?.action) {
         minor = thresholds.action;
+        yaxis.push(createAnnotation(action, 'action'));
     }
-
+    const annotations = { yaxis };
 
     return { minor, moderate, major, action, annotations};
 }
