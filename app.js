@@ -55,6 +55,13 @@ const colorToAreaMap = {
     'WAIANAE': '#b4a7d6',
 }
 
+const thresholdColorMap = {
+    'minor': '#ffea00',
+    'moderate': '#ffae00',
+    'major': '#ee4b2b',
+    'action': '#8b0000'
+};
+
 const graphOptions = (locationName, chartData, areaColor, min, max) => ({
     series: [{ name: locationName, data: chartData }],
     title: {
@@ -128,7 +135,11 @@ let filtersActive = false;
 
 let OVERVIEW = [];
 const GRAPHS = {};
+const FULL_GRAPHS = {};
 const BASE_URL = "https://api.oahudem.com/water/";
+
+let detailInitalized = false;
+let detailsChart;
 
 // let countdownInterval;
 // let remainingSeconds = 0;
@@ -207,6 +218,8 @@ async function init() {
         hideLoading();
 
         createFilter();
+
+        scheduleEvery5Minutes();
     } 
     catch (err) {
         console.error(err);
@@ -372,7 +385,7 @@ function createFilter() {
     });
 
     // dynamic filters
-    changeContainer.innerHTML += createFilterButton('change', 'change-increase', 'change', 'increase');
+    changeContainer.innerHTML += createFilterButton('increase', 'change-increase', 'change', 'increase');
     changeContainer.innerHTML += createFilterButton('decrease', 'change-decrease', 'change', 'decrease');
     changeContainer.innerHTML += createFilterButton('neutral', 'change-neutral', 'change', 'neutral');
     //change.innerHTML = createButton('change', ['increase', 'decrease', 'neutral']);
@@ -548,11 +561,15 @@ async function updateGaugeTable(locations) {
             dateEl.classList.toggle('old', isOld);
 
             // update thresholds
+            const cardBody = card.querySelector('.card-body');
             const thresholdEl = card.querySelector('.table-threshold');
             const { text, hits, display } = tableDisplayThreshold(location);
             thresholdEl.textContent = text;
             thresholdEl.classList.remove('minor', 'major', 'action');
             if (display) thresholdEl.classList.add(display);
+            hits.forEach((threshold) => {
+                cardBody.classList.add(threshold);
+            });
             GAUGES[location.gauge_id].search['thresholds'] = hits.join(',');
 
             // update tags 
@@ -609,7 +626,26 @@ function tableClick(location, visible = null) {
         createGraph(location);
     }
     updateSearchString(location);
-    console.log(location)
+    fetchFullGraphData(location);
+}
+
+async function fetchFullGraphData(location) {
+    const info = LOCATIONS[location];
+    const cached = FULL_GRAPHS[location];
+    if (!cached) {
+        const data = await fetchAndWait(BASE_URL + 'get-graph-data?time=365&gauge_id=' + location);
+        const { data: formatted, min, max, padding } = formatGraphData(data[location], 24 * 365);
+
+        if (!detailInitalized) {
+            detailInitalized = true;
+            //Math.floor(min - padding), Math.ceil(max + padding)
+            const chartDiv = detailsPopup.querySelector(`.popup-chart`);
+            const newChart = new ApexCharts(chartDiv, graphOptions(info.full_name, formatted, colorToAreaMap[info.area]), min + padding, max + padding);
+            newChart.render();
+            detailsChart = newChart;
+        }
+        FULL_GRAPHS[location] = { formatted, min, max, padding };
+    }
 }
 
 async function createGraph(location) {
@@ -618,7 +654,7 @@ async function createGraph(location) {
 
     if (!cached) {
         const info = LOCATIONS[location];
-        const data = await fetchAndWait(BASE_URL + 'get-graph-data?gauge_id=' + location);
+        const data = await fetchAndWait(BASE_URL + 'get-graph-data?time=365&gauge_id=' + location);
         const { data: formatted, min, max, padding } = formatGraphData(data[location], 24 * 7);
         const areaName = getAreaClassName(info.area);
         const isDamn = info.site_type_code == 'LK';
@@ -772,12 +808,32 @@ function formatGraphData(data, range) {
 }
 
 function getThresholdValues(thresholds) {
-    const minor = thresholds?.minor ?? 'N/A';
-    const moderate = thresholds?.moderate ?? 'N/A';
-    const major = thresholds?.major ?? 'N/A';
-    const action = thresholds?.action ?? 'N/A';
+    const yaxis = [];
+    const createAnnotation = (value, color, text) => {
 
-    return { minor, moderate, major, action };
+    };
+
+    let minor, moderate, major, action;
+    minor = moderate = major = action = 'N/A';
+
+    if (thresholds?.minor) {
+        minor = thresholds.minor;
+    }
+
+    if (thresholds?.moderate) {
+        minor = thresholds.moderate;
+    }
+
+    if (thresholds?.major) {
+        minor = thresholds.major;
+    }
+
+    if (thresholds?.action) {
+        minor = thresholds.action;
+    }
+
+
+    return { minor, moderate, major, action, annotations};
 }
 
 function tableDisplayThreshold(overview) {
@@ -808,11 +864,85 @@ function tableDisplayThreshold(overview) {
 }
 
 function expandGraph(location) {
+    const item = LOCATIONS[location];
+    const areaColor = colorToAreaMap[getAreaClassName(item.area)];
+
+    // set details
+    const title = detailsPopup.querySelector(`.popup-title`);
+    title.textContent = item.full_name;
+    title.style.color = `var(--color-${getAreaClassName(item.area)})`;
+    
+    const graphData = FULL_GRAPHS[location];
+    detailsChart.updateOptions({
+        series: [{ data: graphData.formatted }],
+        chart: { 
+            height: 300,
+            zoom: {
+                enabled: true,
+                type: 'x',
+                autoScaleYaxis: true
+            }
+        },
+        yaxis: {
+            min: Math.floor(graphData.min - graphData.padding),
+            max: Math.ceil(graphData.max + graphData.padding),
+            labels: {
+                style: { colors: '#ffffff' }
+            }
+        },
+        title: {
+            text: `${formatDateLong(graphData.formatted[graphData.formatted.length - 1].x)} - ${formatDateLong(graphData.formatted[0].x)}`
+        },
+        colors: areaColor,
+        stroke: { curve: 'smooth', colors: areaColor },
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.6,
+                opacityTo: 0.1,
+                colorStops: [
+                    { offset: 0, color: areaColor, opacity: 1 },
+                    { offset: 100, color: areaColor, opacity: 0.8 }
+                ]
+            }
+        },
+    });
+
+    document.body.style.overflow = 'hidden';
     detailsPopup.classList.remove('hidden');
 }
 
 function closeExpand() {
+    document.body.style.overflow = '';
     detailsPopup.classList.add('hidden');
+}
+
+
+function scheduleEvery5Minutes() {
+    const now = new Date();
+
+    // Milliseconds until the next 5-minute mark
+    const msUntilNext =
+        (5 - (now.getMinutes() % 5)) * 60 * 1000 -
+        now.getSeconds() * 1000 -
+        now.getMilliseconds();
+
+    setTimeout(() => {
+        reloadData();
+        setInterval(reloadData, 5 * 60 * 1000);
+    }, msUntilNext);
+}
+
+async function reloadData() {
+    console.log(`Data reloaded at ${new Intl.DateTimeFormat('en-US', { timeZone: 'Pacific/Honolulu', dateStyle: 'full', timeStyle: 'long' }).format(new Date())}`);
+    updateGaugeTable(ACTIVE_LOCATIONS);
+
+    Object.entries(GRAPHS).forEach(([id, graphData]) => {
+        console.log(id);
+        console.log(graphData);
+        updateGraph(id, true);
+    })
 }
 
 // function getCurrentThreshold(value, thresholdsObject) {
