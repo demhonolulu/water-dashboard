@@ -145,6 +145,8 @@ const BASE_URL = "https://api.oahudem.com/water/";
 let detailInitalized = false;
 let detailsChart;
 
+let focusedElement;
+
 // let countdownInterval;
 // let remainingSeconds = 0;
 
@@ -334,6 +336,21 @@ async function fetchAndWait(url, body = null) {
     }
     const data = await response.json();
     return data;
+}
+
+function focusElement(name) {
+    const elements = document.querySelectorAll('.focus-elements');
+
+    if (focusedElement == name) {
+        elements.forEach(el => el.classList.remove('hidden'));
+        focusedElement = null;
+        return;
+    }
+
+    elements.forEach(el => el.classList.add('hidden'));
+    focusedElement = name;
+
+    document.querySelector(`#${name}`)?.classList?.remove('hidden');
 }
 
 function updateSearchString(location) {
@@ -618,7 +635,7 @@ function formatDateLong(dateString) {
     return 'N/A';
 }
 
-function tableClick(location, visible = null) {
+async function tableClick(location, visible = null) {
     if (visible) {
         return;
     }
@@ -634,7 +651,7 @@ function tableClick(location, visible = null) {
         GAUGES[location].search['expanded'] = 'expanded';
         tagsEl.innerHTML += createTab('clicked', 'clicked', false);
 
-        createGraph(location);
+        await createGraph(location);
     }
     updateSearchString(location);
     fetchFullGraphData(location);
@@ -664,7 +681,7 @@ async function createGraph(location) {
 
     if (!cached) {
         const info = LOCATIONS[location];
-        const data = await fetchAndWait(BASE_URL + 'get-graph-data?time=365&gauge_id=' + location);
+        const data = await fetchAndWait(BASE_URL + 'get-graph-data?time=7&gauge_id=' + location);
         const { data: formatted, min, max, padding } = formatGraphData(data[location], 24 * 7);
         const areaName = getAreaClassName(info.area);
         const isDamn = info.site_type_code == 'LK';
@@ -694,7 +711,7 @@ async function createGraph(location) {
             ${createTab('text', 'H', false, 'updateTimeScale', location + ',1')}
             ${createTab('text', 'D', false, 'updateTimeScale', location + ',24')}
             ${createTab('text', 'W', false, 'updateTimeScale', location + ',168')}
-            ${createTab('text', 'M', false, 'updateTimeScale', location + ',5040')}
+            ${createTab('text', 'M', false, 'updateTimeScale', location + ',672')}
         `;
 
         // thresholds
@@ -762,15 +779,19 @@ function updateTimeScale(params) {
 
 async function updateGraph(location, reload) {
     if (reload) {
-        const data = await fetchAndWait(BASE_URL + 'get-graph-data?gauge_id=' + location);
-        GRAPHS[location] = {
-            fullData: data[location],
-            time: Date.now()
-        };
+        const data = await fetchAndWait(BASE_URL + 'get-graph-data?time=30&gauge_id=' + location);
+        GRAPHS[location].fullData = data[location];
+        GRAPHS[location].time = Date.now();
+        // GRAPHS[location] = {
+        //     fullData: data[location],
+        //     time: Date.now()
+        // };
     }
 
     // update chart
+    console.log(GRAPHS[location])
     const { data: formatted, min, max, padding } = formatGraphData(GRAPHS[location].fullData, GRAPHS[location].timeScale);
+    console.log(formatGraphData(GRAPHS[location].fullData, GRAPHS[location].timeScale));
     GRAPHS[location].chartInstance.updateOptions({
         series: [{ data: formatted }],
         yaxis: {
@@ -809,7 +830,8 @@ function formatGraphData(data, range) {
         .map(reading => ({
             x: reading.reading_datetime,
             y: parseFloat(reading.val)
-        }));
+        }))
+        .filter(reading => !isNaN(reading.y));
 
     const vals = filtered.map(r => r.y);
     const min = Math.min(...vals);
@@ -841,17 +863,17 @@ function getThresholdValues(thresholds) {
     }
 
     if (thresholds?.moderate) {
-        minor = thresholds.moderate;
+        moderate = thresholds.moderate;
         yaxis.push(createAnnotation(moderate, 'moderate'));
     }
 
     if (thresholds?.major) {
-        minor = thresholds.major;
+        major = thresholds.major;
         yaxis.push(createAnnotation(major, 'major'));
     }
 
     if (thresholds?.action) {
-        minor = thresholds.action;
+        action = thresholds.action;
         yaxis.push(createAnnotation(action, 'action'));
     }
     const annotations = { yaxis };
@@ -888,8 +910,9 @@ function tableDisplayThreshold(overview) {
 
 function expandGraph(location) {
     const item = LOCATIONS[location];
+    const overview = OVERVIEW.find(item => item.gauge_id === location);
     const areaColor = colorToAreaMap[getAreaClassName(item.area)];
-
+    
     // set details
     const title = detailsPopup.querySelector(`.popup-title`);
     title.textContent = item.full_name;
@@ -931,6 +954,9 @@ function expandGraph(location) {
             }
         },
     });
+
+    console.log(overview)
+    detailsPopup.querySelector('.popup-latest').textContent = `${overview.current_val.toFixed(2)} ft`;
 
     document.body.style.overflow = 'hidden';
     detailsPopup.classList.remove('hidden');

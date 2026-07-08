@@ -28,10 +28,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navMenu">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Table</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Graphs</a></li>
+          <li class="nav-item"><a class="nav-link" onclick="focusElement('settings');">Settings</a></li>
+          <li class="nav-item"><a class="nav-link" onclick="focusElement('search-container');">Search</a></li>
+          <li class="nav-item"><a class="nav-link" onclick="focusElement('table-container');">Table</a></li>
+          <li class="nav-item"><a class="nav-link" onclick="focusElement('graph-container');">Graphs</a></li>
         </ul>
       </div>
     </div>
@@ -77,7 +77,7 @@
   </div>
 
   <main class="container-fluid">
-    <div id="search-container" class="d-flex gap-2 align-items-center py-3 flex-wrap">
+    <div id="search-container" class="d-flex gap-2 align-items-center py-3 flex-wrap focus-elements">
         <div class="d-flex align-items-center flex-grow-1 border rounded px-2" style="height:38px; background: var(--bs-body-bg);">
         <input id="search-input" type="text" oninput="search(this.value)" class="border-0 bg-transparent flex-grow-1" placeholder="Search gauges..." style="outline:none; color: var(--bs-body-color);" />
         <button id="search-btn" class="btn btn-sm border-0 p-0">
@@ -145,7 +145,7 @@
         </div>
       </div>
     </template>
-    <div id="table-container" class="row g-3"></div>
+    <div id="table-container" class="row g-3 focus-elements"></div>
 
     <br>
     
@@ -192,7 +192,7 @@
         </div>
       </div>
     </template>
-    <div id="graph-container" class="row g-3"></div>
+    <div id="graph-container" class="row g-3 focus-elements"></div>
 
   </main>
   <script src="app.js"></script>

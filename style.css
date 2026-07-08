@@ -5,7 +5,11 @@
 :root {
   --color-main-text: #ffffff;
   --color-type: #32cd32;
-  --color-site: rgb(14, 165, 233);
+
+  --color-ST: #14B8A6;
+  --color-ST-DCH: #8B7355;
+  --color-ST-CA: #3B82F6;
+  --color-LK: #1E40AF;
   --color-NORTH-SHORE: #ea9999;
   --color-KOOLAULOA: #a2c4c9;
   --color-KOOLAUPOKO: #f9cb9c;
@@ -157,9 +161,25 @@
   color: var(--color-type);
 }
 
-.badge.tag-site {
-  border-color: var(--color-site);
-  color: var(--color-site);
+/* site */
+.badge.site-ST {
+  border-color: var(--color-ST);
+  color: var(--color-ST);
+}
+
+.badge.site-ST-CA {
+  border-color: var(--color-ST-CA);
+  color: var(--color-ST-CA);
+}
+
+.badge.site-ST-DCH {
+  border-color: var(--color-ST-DCH);
+  color: var(--color-ST-DCH);
+}
+
+.badge.site-LK {
+  border-color: var(--color-LK);
+  color: var(--color-LK);
 }
 
 .card-title {
