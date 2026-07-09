@@ -673,6 +673,7 @@ async function fetchFullGraphData(location) {
         }
         FULL_GRAPHS[location] = { formatted, min, max, padding };
     }
+    console.log(`Fetched graph data for ${location} with ${FULL_GRAPHS[location].formatted.length} items`)
 }
 
 async function createGraph(location) {
@@ -789,9 +790,9 @@ async function updateGraph(location, reload) {
     }
 
     // update chart
-    console.log(GRAPHS[location])
+    //console.log(GRAPHS[location])
     const { data: formatted, min, max, padding } = formatGraphData(GRAPHS[location].fullData, GRAPHS[location].timeScale);
-    console.log(formatGraphData(GRAPHS[location].fullData, GRAPHS[location].timeScale));
+    //console.log(formatGraphData(GRAPHS[location].fullData, GRAPHS[location].timeScale));
     GRAPHS[location].chartInstance.updateOptions({
         series: [{ data: formatted }],
         yaxis: {
@@ -919,6 +920,7 @@ function expandGraph(location) {
     title.style.color = `var(--color-${getAreaClassName(item.area)})`;
     
     const graphData = FULL_GRAPHS[location];
+    console.log(graphData)
     detailsChart.updateOptions({
         series: [{ data: graphData.formatted }],
         chart: { 
@@ -957,6 +959,15 @@ function expandGraph(location) {
 
     console.log(overview)
     detailsPopup.querySelector('.popup-latest').textContent = `${overview.current_val.toFixed(2)} ft`;
+
+    detailsPopup.querySelector('.popup-high').textContent = `${graphData.max.toFixed(2)} ft`;
+    detailsPopup.querySelector('.popup-low').textContent = `${graphData.min.toFixed(2)} ft`;
+
+    const thresholds = getThresholdValues(item.thresholds);
+    detailsPopup.querySelector('.popup-minor').textContent = `${thresholds.minor}`;
+    detailsPopup.querySelector('.popup-moderate').textContent = `${thresholds.moderate}`;
+    detailsPopup.querySelector('.popup-major').textContent = `${thresholds.major}`;
+    detailsPopup.querySelector('.popup-action').textContent = `${thresholds.action}`;
 
     document.body.style.overflow = 'hidden';
     detailsPopup.classList.remove('hidden');
