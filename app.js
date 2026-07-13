@@ -999,8 +999,8 @@ async function reloadData() {
     updateGaugeTable(ACTIVE_LOCATIONS);
 
     Object.entries(GRAPHS).forEach(([id, graphData]) => {
-        console.log(id);
-        console.log(graphData);
+        // console.log(id);
+        // console.log(graphData);
         updateGraph(id, true);
     })
 }
