@@ -197,29 +197,6 @@ async function init() {
         // GAUGE_BITMAP = CONFIG_VALUES["gauge-graphs"].sites ? decodeBase36ToBigInt(CONFIG_VALUES["gauge-graphs"].sites) : 0n;
         
         await buildGaugeTable(ACTIVE_LOCATIONS_STRING);
-        
-        // // load graphs
-        // const preloadGauges = readBitMap(GAUGE_BITMAP);
-        // await Promise.all(
-        //     preloadGauges.map(async (gauge) => {
-        //         const site    = AREAS.flatMap(a => a.Sites).find(s => s.id == gauge);
-        //         const color   = AREAS.find(a => a.Sites.some(s => s.id == gauge))?.Color;
-        //         const article = document.querySelector(`.gauge-card.${site?.type}.card-${gauge}`);
-        //         await clickTableCell(site, article, color);
-        //     })
-        // );
-
-        // // reorder graphs by area
-        // const graphContainer = document.getElementById('graph-container');
-        // const charts = [...graphContainer.children];
-
-        // charts.sort((a, b) => {
-        //     const areaA = AREAS.find(area => a.classList.contains(area.Area.replace(/\s+/g, '-')));
-        //     const areaB = AREAS.find(area => b.classList.contains(area.Area.replace(/\s+/g, '-')));
-        //     return (areaA?.Order ?? 999) - (areaB?.Order ?? 999);
-        // }).forEach(el => graphContainer.appendChild(el));
-
-        // startCountdown(CONFIG_VALUES["reload-time"], true);
 
         hideLoading();
 
