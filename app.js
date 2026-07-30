@@ -1056,24 +1056,6 @@ async function reloadData() {
 //     return chartFooter;
 // }
 
-// // ── Button click ──────────────────────────────────────────
-// function toggleSettings(button) {
-//     const isExpanded = button.classList.contains('expanded');
-//     if (isExpanded) {
-//         button.textContent = "▽";
-//         button.classList.remove('expanded');
-//         settingsContainer.style.display = 'none';
-//     } else {
-//         button.textContent = "△";
-//         button.classList.add('expanded');
-//         settingsContainer.style.display = '';
-
-//         if (!SETTINGS_CREATED) {
-//             createSettings();
-//         }
-//     }
-// }
-
 // function createSettings() {
 //     SETTINGS_CREATED = true;
 //     //settingsTable
