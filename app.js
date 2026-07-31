@@ -1023,38 +1023,6 @@ async function reloadData() {
 //     return thresholds;
 // }
 
-// async function createChartFooter(thresholds, id, data) {
-//     const checkValue = (input) => input ?? '??';
-
-//     const historicItem = await getHistoricItem(id);
-//     const currentMonth = getHistoricMonth(historicItem)?.[0] ?? null;;
-
-//     const chartFooter = document.createElement('div');
-//     chartFooter.classList.add(`chart-footer-${id}`);
-
-//     let average = checkValue(thresholds.base);    // default to old data
-
-//     const { date, value, color, diff } = calcDataChange(data);
-
-//     if (currentMonth) {
-//         average = currentMonth.average.toFixed(2);
-//     }
-
-//     chartFooter.innerHTML = `
-//         <div style="display: flex; justify-content: space-between;">
-//             <span style="color: ${getWarningColor('base')}">Base: ${average}ft</span>
-//             <span style="color: ${getWarningColor('minor')}">Minor: ${checkValue(thresholds.minor)}ft</span>
-//             <span style="color: ${getWarningColor('major')}">Major: ${checkValue(thresholds.major)}ft</span>
-//             <span style="color: ${getWarningColor('action')}">Failure: ${checkValue(thresholds.action)}ft</span>
-//         </div>
-//         <div style="display: flex; gap: 8px;">
-//             <span style="color: #FFFFFF">Last Update: ${date} - </span>
-//             <span style="color: ${getWarningColor(getCurrentThreshold(value, thresholds))} ">${value}ft</span>
-//             <span style="color: ${color} ">(${diff}%)</span>
-//         </div> 
-//     `;
-//     return chartFooter;
-// }
 
 // function createSettings() {
 //     SETTINGS_CREATED = true;
