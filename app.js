@@ -1015,14 +1015,6 @@ async function reloadData() {
 //     return null;
 // }
 
-// async function getThresholdObject(id) {
-//     const locationItem = LOCATIONS[id];
-//     const historicItem = await getHistoricItem(id);
-//     const monthlyItems = getHistoricMonth(historicItem);
-//     const thresholds = getThresholdGraph(id, locationItem.properties.thresholds, monthlyItems);
-//     return thresholds;
-// }
-
 
 // function createSettings() {
 //     SETTINGS_CREATED = true;
