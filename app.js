@@ -167,11 +167,6 @@ const tableTemplate         = document.getElementById('table-card-template');
 // const tableHeaderContainer  = document.getElementById('table-header-container');
 const graphContainer        = document.getElementById('graph-container');
 const graphTemplate         = document.getElementById('graph-card-template');
-// const settingsContainer     = document.getElementById('settings-container');
-// const settingsTable         = document.getElementById('settings-table-body');
-// const sectionTable          = document.getElementById('sectionTable');
-// const sectionGraphs         = document.getElementById('sectionGraphs');
-// const popupOverlay          = document.getElementById('popupOverlay');
 
 // ── Init ──────────────────────────────────────────────────
 async function init() {
