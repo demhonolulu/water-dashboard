@@ -164,7 +164,6 @@ const searchInput           = document.getElementById('search-input');
 const filterContainer       = document.getElementById('filter-expand');
 const tableContainer        = document.getElementById('table-container');
 const tableTemplate         = document.getElementById('table-card-template');
-// const tableHeaderContainer  = document.getElementById('table-header-container');
 const graphContainer        = document.getElementById('graph-container');
 const graphTemplate         = document.getElementById('graph-card-template');
 
