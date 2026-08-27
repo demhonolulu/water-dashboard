@@ -338,7 +338,6 @@ function search(text) {
     const input = text.toLowerCase().replace(/\s+/g, '');
     Object.entries(SEARCH_STRINGS).forEach(([id, string]) => {
         const visible = !GAUGES[id].hide && (input === '' || string.includes(input));
-        // const visible = !(filtersActive && GAUGES[id].hide) && ((input === '' && !filtersActive) || string.includes(input));
         GAUGES[id].data.table?.classList.toggle('d-none', !visible);
         GAUGES[id].data.graph?.classList.toggle('d-none', !visible);
     });
@@ -380,7 +379,6 @@ function createFilter() {
     changeContainer.innerHTML += createFilterButton('increase', 'change-increase', 'change', 'increase');
     changeContainer.innerHTML += createFilterButton('decrease', 'change-decrease', 'change', 'decrease');
     changeContainer.innerHTML += createFilterButton('neutral', 'change-neutral', 'change', 'neutral');
-    //change.innerHTML = createButton('change', ['increase', 'decrease', 'neutral']);
 
     thresholdContainer.innerHTML += createFilterButton('minor', 'threshold-minor', 'threshold', 'minor');
     thresholdContainer.innerHTML += createFilterButton('moderate', 'threshold-moderate', 'threshold', 'moderate');
