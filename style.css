@@ -303,21 +303,11 @@
   transform: scale(1.05);
 }
 
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 0 0 var(--pulse-color);
-  }
-  50% {
-    box-shadow: 0 0 12px 4px var(--pulse-color);
-  }
-}
-
 .table-click.minor,
 .table-click.moderate,
 .table-click.major,
 .table-click.action {
   border-width: 4px !important;
-  animation: pulse-glow 2.25s ease-in-out infinite;
 }
 
 .table-click.minor {

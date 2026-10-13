@@ -552,14 +552,15 @@ async function updateGaugeTable(locations) {
             dateEl.classList.toggle('old', isOld);
 
             // update thresholds
-            const cardBody = card.querySelector('.card-body');
+            const clickBody = card.querySelector('.table-click');
+            //const cardBody = card.querySelector('.card-body');
             const thresholdEl = card.querySelector('.table-threshold');
             const { text, hits, display } = tableDisplayThreshold(location);
             thresholdEl.textContent = text;
-            thresholdEl.classList.remove('minor', 'major', 'action');
+            thresholdEl.classList.remove('minor', 'moderate', 'major', 'action');
             if (display) thresholdEl.classList.add(display);
             hits.forEach((threshold) => {
-                cardBody.classList.add(threshold);
+                clickBody.classList.add(threshold);
             });
             GAUGES[location.gauge_id].search['thresholds'] = hits.join(',');
 
@@ -569,8 +570,10 @@ async function updateGaugeTable(locations) {
             if (changeTag) changeTag.remove();
             if (sign != '=') tagsEl.innerHTML += createTab('change', signClass, false);
 
-            const thresholdTags = tagsEl.querySelector('.tag-threshold');
-            if (thresholdTags) thresholdTags.remove();
+            // const thresholdTags = tagsEl.querySelector('.tag-threshold');
+            // if (thresholdTags) thresholdTags.remove();
+            tagsEl.querySelectorAll('.tag-threshold').forEach(el => el.remove());
+
             hits.forEach((threshold) => {
                 tagsEl.innerHTML += createTab('threshold', threshold, false);
             });
@@ -853,7 +856,7 @@ function getThresholdValues(thresholds) {
 
 function tableDisplayThreshold(overview) {
     const locationItem = LOCATIONS[overview.gauge_id];
-    if (!locationItem?.thresholds || (!locationItem?.thresholds?.minor && !locationItem?.thresholds?.major && !locationItem?.thresholds?.action)) {
+    if (!locationItem?.thresholds || (!locationItem?.thresholds?.minor && !locationItem?.thresholds?.moderate && !locationItem?.thresholds?.major && !locationItem?.thresholds?.action)) {
         return { text: 'N/A', hits: [], display: '' };
     }
 
@@ -864,15 +867,18 @@ function tableDisplayThreshold(overview) {
 
     // determine which thresholds are hit
     const minorHit = thresholds.minor != null && val >= thresholds.minor;
+    const moderateHit = thresholds.moderate != null && val >= thresholds.moderate;
     const majorHit = thresholds.major != null && val >= thresholds.major;
     const actionHit = thresholds.action != null && val >= thresholds.action;
 
     if (minorHit) hits.push('minor');
+    if (moderateHit) hits.push('moderate');
     if (majorHit) hits.push('major');
     if (actionHit) hits.push('action');
 
     if (thresholds.minor) display = 'minor';
-    if (thresholds.major && val >= thresholds.minor) display = 'major';
+    if (thresholds.moderate && val >= thresholds.minor) display = 'moderate';
+    if (thresholds.major && val >= thresholds.moderate) display = 'major';
     if (thresholds.action && val >= thresholds.major) display = 'action';
 
     return { text: `${thresholds[display]}ft`, hits, display};
