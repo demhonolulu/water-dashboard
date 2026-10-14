@@ -465,6 +465,9 @@ async function buildGaugeTable(locations) {
             //`;
             tags.innerHTML = `${createTab('site', info.site_type_code, true)}`
 
+            // Initialize drag-to-resize behavior
+            initCardResize(card);
+
             // add to gauges list
             GAUGES[location] = {
                 data: { table: card },
@@ -627,6 +630,50 @@ async function tableClick(location, visible = null) {
     }
     updateSearchString(location);
     fetchFullGraphData(location);
+}
+
+function initCardResize(card) {
+    const handle = card.querySelector('.resize-handle');
+    if (!handle) return;
+
+    let isResizing = false;
+    let startX, startY, startWidth, startHeight;
+    const container = document.getElementById('table-container');
+
+    handle.addEventListener('pointerdown', (e) => {
+        isResizing = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        
+        const computed = window.getComputedStyle(card);
+        startWidth = parseInt(computed.width, 10);
+        startHeight = parseInt(computed.height, 10);
+
+        card.classList.add('is-resizing');
+        handle.setPointerCapture(e.pointerId);
+        e.stopPropagation();
+    });
+
+    handle.addEventListener('pointermove', (e) => {
+        if (!isResizing) return;
+        
+        const width = startWidth + (e.clientX - startX);
+        const height = startHeight + (e.clientY - startY);
+        
+        const newWidth = Math.max(180, width);
+        const newHeight = Math.max(150, height);
+        
+        // Update container variables to resize ALL cards simultaneously
+        container.style.setProperty('--card-width', `${newWidth}px`);
+        container.style.setProperty('--card-height', `${newHeight}px`);
+    });
+
+    handle.addEventListener('pointerup', (e) => {
+        if (!isResizing) return;
+        isResizing = false;
+        card.classList.remove('is-resizing');
+        handle.releasePointerCapture(e.pointerId);
+    });
 }
 
 async function fetchFullGraphData(location) {
